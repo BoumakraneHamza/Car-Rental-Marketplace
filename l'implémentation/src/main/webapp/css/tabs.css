@@ -1,0 +1,45 @@
+ #no-data {
+    text-align: center;
+}
+ .tabs {
+	 position: relative;
+}
+ .tabs li {
+	 float: left;
+	 display: block;
+}
+ .tabs input[type="radio"] {
+	 display: none;
+}
+ .tabs label {
+	margin-right:70px;
+    font-size: 17px;
+    font-weight: normal;
+    background: #fff;
+    cursor: pointer;
+}
+ .tabs label:hover {
+	 background: #fff;
+}
+.tabs label:focus {
+    color: #F6AA1C;
+    border-bottom: 2px solid #F6AA1C;
+    padding-bottom: 5px;
+}
+ .tabs .tab-content {
+    display: none;
+    overflow: hidden;
+    width: 100%;
+    position: absolute;
+    top: 53px;
+    left: 0;
+    background: #fff;
+}
+ .tabs [id^="tab"]:checked + label {
+	 top: 0;
+	 padding-top: 17px;
+	 background: #fff;
+}
+ .tabs [id^="tab"]:checked ~ [id^="tab-content"] {
+	 display: block;
+}

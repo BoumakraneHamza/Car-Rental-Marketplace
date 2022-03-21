@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+html{
+	margin:0px;
+	font-family: 'Poppins', sans-serif;
+	overflow-x:hidden;
+	width:100%;
+	height:100%;
+	overflow-y:hidden;
+}
+body{
+	margin:0px;
+	background-color:#F5F5F5;
+	width:100%;
+	height:100%;
+	box-sizing: border-box;
+}
+p{
+	margin:0px;
+}
+h4{
+	margin:0px;
+}
+.header{
+	padding: 10px 10px 10px 20px;
+    width: 100%;
+    display: flex;
+    height: fit-content;
+    background-color: #fff;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    box-sizing: border-box;
+}
+.header #logo img{
+	width:35px;
+}
+.header .user {
+    display: flex;
+    margin-right:15px;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+.header .user img {
+	width:40px;
+}
+.header .user #notification{
+	margin-right: 45px;
+    width: 18px;
+}
+.header .user #user-info #full-name{
+	margin-left: 10px;
+    font-weight: 600;
+    font-size: 14px;
+}
+.header .user #user-info #user-name{
+	color: #c4C4C4;
+    font-size: 14px;
+    font-weight: 500;
+    margin-left: 10px;
+}
+.header .user #dropdownlist {
+    margin-left: 15px;
+}
+.header .user #dropdownlist img {
+    width: 20px;
+}
+.content {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+.content .menu{
+	height: 100%;
+    background-color: #fff;
+    width: 50px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.content .menu button {
+    padding: 5px;
+    border: none;
+    display: flex;
+    background: none;
+    margin: 10px;
+    box-shadow: 0 0 0 2px #f1f1f1;
+    border-radius: 11px;
+    width: 40Px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+}
+.content .menu button img{
+	width:18px;
+}
+.content .menu .exit {
+    position: absolute;
+    bottom: 0;
+}

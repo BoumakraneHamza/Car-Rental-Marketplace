@@ -1,0 +1,293 @@
+.content .main-frame{
+	width:100%;
+	height:100%;
+}
+
+.content .main-frame .dropdownSearch nav{
+  width: 100%;
+  padding:0;
+  height: auto;
+  background: #fff;
+}
+.content .main-frame .dropdownSearch .btn{
+	   -webkit-transition: all 0.1s ease;
+  -moz-transition: all 0.1s ease;
+  -ms-transition: all 0.1s ease;
+  -o-transition: all 0.1s ease;
+  transition: all 0.1s ease;
+}
+.content .main-frame .dropdownSearch #search {
+    float: right;
+    font-size: 1.7em;
+    margin-right: 15px;
+    padding: 5px 12px;
+}
+.content .main-frame .dropdownSearch #search img {
+    width: 20px;
+}
+.content .main-frame .dropdownSearch .search_box {
+  clear: both;
+  width: 98%;
+  background: #fff;
+  padding: 0 1%;
+  margin: 0;
+  height: 0;
+  overflow: hidden;
+      -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    -ms-transition: all 0.1s ease-in-out;
+    -o-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+}
+.content .main-frame .dropdownSearch .search_box.active{
+	height: fit-content;
+    padding: 1%;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    -ms-transition: all 0.1s ease-in-out;
+    -o-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+}
+.content .main-frame .dropdownSearch .search_box input.search_icon {
+  clear: both;
+  width:7%;
+  height: auto;
+  padding: 1%;
+  margin: 0;
+  float: right;
+  border: medium none;
+  color: #FFF;
+  cursor: pointer;
+  background: #42BBA3;
+  opacity: 1;
+    -webkit-transition: all 0.1s ease;
+  -moz-transition: all 0.1s ease;
+  -ms-transition: all 0.1s ease;
+  -o-transition: all 0.1s ease;
+  transition: all 0.1s ease;
+}
+.content .main-frame .dropdownSearch .search_box  #text {
+    max-width: 80%;
+}
+.content .main-frame .dropdownSearch .search_box #search_inputs {
+	display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+.content .main-frame .dropdownSearch .search_box #search_inputs #input_field{
+	display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    margin-bottom: 15px;
+}
+.content .main-frame .dropdownSearch .search_box #search_inputs #input_field #field{
+	display: flex;
+    align-items: center;
+    align-content: center;
+    width: 100%;
+    flex-wrap: nowrap;
+    font-size: 14px;
+    flex-direction: row;
+    font-weight: 500;
+    margin-bottom: 5px;;
+}
+.content .main-frame .dropdownSearch .search_box #search_inputs #input_field #field img {
+    margin-right: 10px;
+    width: 15px;
+}
+.content .main-frame .dropdownSearch .search_box #search_inputs input[type="submit"] {
+    width: 170px;
+    height: 50px;
+    border: none;
+    background: #B8B08D;
+    color: #fff;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 15px;
+    font-family: 'Poppins', sans-serif;
+    margin-top: 18px;
+}
+.content .main-frame .dropdownSearch .search_box #search_inputs #input_field input[type="text"] {
+	width: 170px;
+    box-sizing: border-box;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 6px;
+    color: #99a3ba;
+    border: 2px solid #ededed;
+    background: #F7F8FA;
+}
+.content .main-frame .dropdownSearch .search_box #search_inputs #input_field input[type="text"]::placeholder {
+	font-size:12px;
+	font-weight:400;
+	font-family: 'Poppins', sans-serif;
+}
+.content .main-frame .dropdownSearch .search_box #search_inputs #input_field input[type="text"]:focus{
+	outline:none;
+}
+.content .main-frame .dropdownSearch .search_box #search_inputs #input_field .location img {
+    border: 2px solid #ededed;
+    padding: 11px 0px 11px 11px;
+    border-radius: 6px 0px 0px 6px;
+    border-right: none;
+    background: #F7F8FA;
+    width: 19px;
+}
+.content .main-frame .dropdownSearch .search_box #search_inputs #input_field .date img {
+    border: 2px solid #ededed;
+    padding: 11px 0px 11px 11px;
+    border-radius: 6px 0px 0px 6px;
+    border-right: none;
+    background: #F7F8FA;
+    width: 19px;
+}
+.content .main-frame .dropdownSearch .search_box #search_inputs #input_field .hour img {
+    border: 2px solid #ededed;
+    padding: 11px 0px 11px 11px;
+    border-radius: 6px 0px 0px 6px;
+    border-right: none;
+    background: #F7F8FA;
+    width: 19px;
+}
+.content .main-frame .main-content {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 2fr 10fr;
+}
+.content .main-frame .main-content .sec-menu {
+    background: #fff;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+}
+.content .main-frame .main-content .search-result {
+    display: grid;
+    grid-template-rows: 1fr 10fr;
+    grid-template-columns: 1fr;
+}
+.content .main-frame .main-content .search-result  #search-header {
+    background: #fff;
+    margin: 10px;
+    padding: 10px;
+    display: flex;
+    border-radius: 10px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+}
+.content .main-frame .main-content .search-result  #search-header #count {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+.content .main-frame .main-content .search-result  #search-header #map-switch {
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.content .main-frame .main-content .search-result  #search-header #map-switch input[type=checkbox] {
+	 height: 0;
+	 width: 0;
+	 visibility: hidden;
+}
+.content .main-frame .main-content .search-result  #search-header #map-switch  label {
+	 cursor: pointer;
+	 text-indent: -9999px;
+	 width: 60px;
+	 height: 30px;
+	 background: grey;
+	 display: block;
+	 border-radius: 100px;
+	 position: relative;
+}
+.content .main-frame .main-content .search-result  #search-header #map-switch  label:after {
+	 content: '';
+	 position: absolute;
+	 top: 5px;
+	 left: 5px;
+	 width: 20px;
+	 height: 20px;
+	 background: #fff;
+	 border-radius: 90px;
+	 transition: 1.0s;
+}
+.content .main-frame .main-content .search-result  #search-header #map-switch  input:checked + label {
+	 background: #bada55;
+}
+.content .main-frame .main-content .search-result  #search-header #map-switch  input:checked + label:after {
+	 left: calc(100% - 5px);
+	 transform: translateX(-100%);
+}
+.content .main-frame .main-content .search-result  #search-header #map-switch  label:active:after {
+	 width: 130px;
+}
+.content .main-frame .main-content .search-result #result {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+.content .main-frame .main-content .search-result #result #result-list {
+    background: #fff;
+    border-radius: 10px;
+    margin: 10px;
+    display: flex;
+    padding: 10px;
+    flex-wrap: wrap;
+}
+.content .main-frame .main-content .search-result #result #result-list #car{
+	padding: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: fit-content;
+    height: fit-content;
+    margin: 10px;
+}
+.content .main-frame .main-content .search-result #result #result-list #car #car_info{
+	display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+.content .main-frame .main-content .search-result #result #result-list #car #car_info #names{
+	margin-right: 15px;
+}
+.content .main-frame .main-content .search-result #result #result-list #car #car_info #names #carName{
+	font-weight: 500;
+    font-size: 15px;
+}
+.content .main-frame .main-content .search-result #result #result-list #car #car_info #names  #AgencyName{
+	font-size: 13px;
+}
+.content .main-frame .main-content .search-result #result #result-list #car #car_info #rating{
+	display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+.content .main-frame .main-content .search-result #result #result-list #car #car_image {
+    margin: 15px 0px;
+}
+.content .main-frame .main-content .search-result #result #result-list #car #price {
+    display: flex;
+    place-self: flex-end;
+    font-size: 15px;
+    font-weight: 600;
+}
+.content .main-frame .main-content .search-result #result #result-list #car #price #amount {
+    margin-left: 10px;
+}
+.content .main-frame .main-content .search-result #result #result-map {
+    background: #fff;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+}
