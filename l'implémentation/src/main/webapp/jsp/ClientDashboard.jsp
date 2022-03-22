@@ -29,11 +29,12 @@
 	</div>
 	<div class="content">
 		<div class="menu">
-	<button class="search"><img src="${pageContext.request.contextPath}/assets/search-icon.svg"></button>
-	<button class="dashboard"><img src="${pageContext.request.contextPath}/assets/dashboard-icon.svg"></button>
-	<button class="inbox"><img src="${pageContext.request.contextPath}/assets/inbox.svg"></button>
-	<button class="exit"><img src="${pageContext.request.contextPath}/assets/exit-icon.svg"></button>
-	</div>
+			<button class="search" ><img src="${pageContext.request.contextPath}/assets/search-icon.svg"></button>
+			<button class="dashboard" style="background: #F6AA1C;"><img src="${pageContext.request.contextPath}/assets/dashboard-icon-white.svg"></button>
+			<button class="inbox" "><img src="${pageContext.request.contextPath}/assets/inbox.svg"></button>
+			<button class="payment" ><img src="${pageContext.request.contextPath}/assets/Wallet.svg"></button>
+			<button class="exit"><img src="${pageContext.request.contextPath}/assets/exit-icon.svg"></button>
+		</div>
 		<div class="main-frame">
 			<div class="col">
 				<div class="cols-3">
@@ -152,23 +153,7 @@
 								             </div>
 								          </div>
 								    </li>
-								    <li>
-								        <input type="radio" name="tabs" id="tab3" checked />
-								        <label for="tab3" 
-								               role="tab" 
-								               aria-selected="false" 
-								               aria-controls="panel3" 
-								               tabindex="0">Canceled</label>
-								        <div id="tab-content3" 
-								             class="tab-content" 
-								             role="tabpanel" 
-								             aria-labelledby="Canceled" 
-								             aria-hidden="true">
-								             <div id="reservations">
-								             	<p id="no-data">No reservations canceled</p>
-								             </div>
-								          </div>
-								    </li>
+
 							</ul>
 						</div>
 					</div>
@@ -183,7 +168,10 @@
 						<p>Change default Card </p>
 						<img src="${pageContext.request.contextPath}/assets/angle-right-solid-blue.svg">
 					</div>
-					<div id="default-card">			
+					<div id="default-card">
+						<div id="ClientName">Nathanial Olson</div>
+						<div id="Card-Number">9879 2041 7230 1275</div>
+						<div id="exp">08/22</div>		
 					</div>
 				</div>
 				<div class="history">

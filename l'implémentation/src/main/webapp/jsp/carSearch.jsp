@@ -29,10 +29,11 @@
 	</div>
 <div class="content">
 		<div class="menu">
-			<button class="search"><img src="${pageContext.request.contextPath}/assets/search-icon.svg"></button>
-			<button class="dashboard"><img src="${pageContext.request.contextPath}/assets/dashboard-icon.svg"></button>
-			<button class="inbox"><img src="${pageContext.request.contextPath}/assets/inbox.svg"></button>
-			<button class="exit"><img src="${pageContext.request.contextPath}/assets/exit-icon.svg"></button>
+					<button class="search" style="background: #F6AA1C;"><img src="${pageContext.request.contextPath}/assets/search-icon-white.svg"></button>
+					<button class="dashboard" ><img src="${pageContext.request.contextPath}/assets/dashboard-icon.svg"></button>
+					<button class="inbox" ><img src="${pageContext.request.contextPath}/assets/inbox.svg"></button>
+					<button class="payment"><img src="${pageContext.request.contextPath}/assets/Wallet.svg"></button>
+					<button class="exit" ><img src="${pageContext.request.contextPath}/assets/exit-icon.svg"></button>
 		</div>
 		<div class="main-frame">
 			<div class="dropdownSearch">

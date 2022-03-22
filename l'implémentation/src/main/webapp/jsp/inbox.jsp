@@ -30,8 +30,10 @@
 		<div class="menu">
 			<button class="search"><img src="${pageContext.request.contextPath}/assets/search-icon.svg"></button>
 			<button class="dashboard"><img src="${pageContext.request.contextPath}/assets/dashboard-icon.svg"></button>
-			<button class="inbox"><img src="${pageContext.request.contextPath}/assets/inbox.svg"></button>
-			<button class="exit"><img src="${pageContext.request.contextPath}/assets/exit-icon.svg"></button>
+			<button class="inbox" style="background: #F6AA1C;"><img src="${pageContext.request.contextPath}/assets/inbox-white.svg"></button>
+			<button class="payment" ><img src="${pageContext.request.contextPath}/assets/Wallet.svg"></button>
+			<button class="exit" ><img src="${pageContext.request.contextPath}/assets/exit-icon.svg"></button>
+			
 		</div>
 		<div class="main-frame">
 			<div class="Sec-menu">
@@ -47,6 +49,78 @@
 					</div>
 				</div>
 				<div class="inbox-list">
+					<div id="email">
+						<div id="image">
+							<img src="${pageContext.request.contextPath}/assets/customer-service-email.svg">
+						</div>
+						<div id="email-content">
+							<div id="header">
+								<p id="title">Customer Service</p>
+								<p id="time">10:00 PM</p>
+							</div>
+							<div id="content">
+								<p>Hi , there Nathanial Thank you for you message . 
+								we have recieved  your Problem report ...</p>
+							</div>
+							<div id="tags">
+								<p>Problem report</p>
+							</div>
+						</div>
+					</div>
+					<div id="email">
+						<div id="image">
+							<img src="${pageContext.request.contextPath}/assets/customer-service-email.svg">
+						</div>
+						<div id="email-content">
+							<div id="header">
+								<p id="title">Customer Service</p>
+								<p id="time">10:00 PM</p>
+							</div>
+							<div id="content">
+								<p>Hi , there Nathanial Thank you for you message . 
+								we have recieved  your Problem report ...</p>
+							</div>
+							<div id="tags">
+								<p>Problem report</p>
+							</div>
+						</div>
+					</div>
+					<div id="email">
+						<div id="image">
+							<img src="${pageContext.request.contextPath}/assets/customer-service-email.svg">
+						</div>
+						<div id="email-content">
+							<div id="header">
+								<p id="title">Customer Service</p>
+								<p id="time">10:00 PM</p>
+							</div>
+							<div id="content">
+								<p>Hi , there Nathanial Thank you for you message . 
+								we have recieved  your Problem report ...</p>
+							</div>
+							<div id="tags">
+								<p>Problem report</p>
+							</div>
+						</div>
+					</div>
+					<div id="email">
+						<div id="image">
+							<img src="${pageContext.request.contextPath}/assets/customer-service-email.svg">
+						</div>
+						<div id="email-content">
+							<div id="header">
+								<p id="title">Customer Service</p>
+								<p id="time">10:00 PM</p>
+							</div>
+							<div id="content">
+								<p>Hi , there Nathanial Thank you for you message . 
+								we have recieved  your Problem report ...</p>
+							</div>
+							<div id="tags">
+								<p>Problem report</p>
+							</div>
+						</div>
+					</div>
 					<div id="email">
 						<div id="image">
 							<img src="${pageContext.request.contextPath}/assets/customer-service-email.svg">
