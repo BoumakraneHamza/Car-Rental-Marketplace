@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css">
 <title>login</title>
 </head>
@@ -11,7 +11,7 @@
 	<div class="frame">
 			<div class="content">
 			<div class="logo">
-				<img src="${pageContext.request.contextPath}/assets/logoBlack.svg">
+				<a href="${pageContext.request.contextPath}/PageAcueil"><img src="${pageContext.request.contextPath}/assets/logoBlack.svg"></a>
 			</div>
 			<div id="login">
 				<h3>Welcome Back !</h3>
@@ -31,11 +31,11 @@
 			<form action="">
 				<div class="row" id="email">				
 					<label for="fname">Email Address:</label><br>
-	  				<input type="text" id="email" name="email" placeholder="Enter your Email"><br>
+	  				<input type="email" id="email" name="email" placeholder="Enter your Email"><br>
 	  			</div>
 	  			<div class="row" id="password">
 		  			<label for="lname">Password:</label><br>
-					<input type="text" id="password" name="password" placeholder="Enter your password"><br>
+					<input type="password" id="password" name="password" placeholder="Enter your password"><br>
 	  			</div>
 				<div class="row" id="checkbox">
 				<div id="remember"><input type="checkbox"><label>Remember account</label></div>
@@ -44,7 +44,8 @@
 				</div>
   			    <div id="action">
   			    	<input type="submit" value="login">
-  			    	<button>Create account</button>
+  			    	<a href="${pageContext.request.contextPath}/SignUp"><button type="button">Create account</button></a>
+  			    	
   			    </div>
 			</form>
 			</div>

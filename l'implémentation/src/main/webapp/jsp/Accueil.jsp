@@ -5,7 +5,7 @@
 <head>
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Accueil.css">
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>RentiGo</title>
 </head>
 <body>
@@ -16,8 +16,8 @@
 			<h3>Unique</h3>		
 		</div>
 		<div id="navbar">
-			<a style="color:#B8B08D">join us</a>
-			<a href="${pageContext.request.contextPath}/jsp/login.jsp">login</a>
+			<a style="color:#B8B08D" href="${pageContext.request.contextPath}/SignUp">join us</a>
+			<a href="${pageContext.request.contextPath}/Login">login</a>
 		</div>
 	</div>
 	<div class ="content">
@@ -33,6 +33,7 @@
 		</div>
 	</div>
 	<div class="search">
+	<form action="">
 		<div class="inputs">
 			<div class="search-field" id="location">
 				<p>Location</p>
@@ -50,6 +51,7 @@
 				<input type="submit" value="search">
 			</div>
 		</div>
+	</form>
 	</div>
 </div>
 <div class="cards" id="frame">

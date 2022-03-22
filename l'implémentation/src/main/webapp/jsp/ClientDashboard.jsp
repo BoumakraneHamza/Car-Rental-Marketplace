@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ClientMain.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ClientDashboard.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/tabs.css">
@@ -12,7 +12,7 @@
 <body>
 	<div class="header">
 		<div id="logo">
-			<img src="${pageContext.request.contextPath}/assets/logoBlack.svg">
+			<a href="${pageContext.request.contextPath}/PageAcueil"><img src="${pageContext.request.contextPath}/assets/logoBlack.svg"></a>
 		</div>
 		<div class="user">
 		<img id="notification" src="${pageContext.request.contextPath}/assets/notification.svg">
@@ -29,11 +29,11 @@
 	</div>
 	<div class="content">
 		<div class="menu">
-			<button class="search" ><img src="${pageContext.request.contextPath}/assets/search-icon.svg"></button>
-			<button class="dashboard" style="background: #F6AA1C;"><img src="${pageContext.request.contextPath}/assets/dashboard-icon-white.svg"></button>
-			<button class="inbox" "><img src="${pageContext.request.contextPath}/assets/inbox.svg"></button>
-			<button class="payment" ><img src="${pageContext.request.contextPath}/assets/Wallet.svg"></button>
-			<button class="exit"><img src="${pageContext.request.contextPath}/assets/exit-icon.svg"></button>
+			<button class="search"><a href="${pageContext.request.contextPath}/CarSearch"><img src="${pageContext.request.contextPath}/assets/search-icon.svg"></a></button>
+			<button class="dashboard" style="background: #F6AA1C;"><a href="${pageContext.request.contextPath}/Dashboard"><img src="${pageContext.request.contextPath}/assets/dashboard-icon-white.svg"></a></button>
+			<button class="inbox"><a href="${pageContext.request.contextPath}/Inbox"><img src="${pageContext.request.contextPath}/assets/inbox.svg"></a></button>
+			<button class="payment"><a href="${pageContext.request.contextPath}/ClientPayment"><img src="${pageContext.request.contextPath}/assets/Wallet.svg"></a></button>
+			<button class="exit"><a href="${pageContext.request.contextPath}/Logout"><img src="${pageContext.request.contextPath}/assets/exit-icon.svg"></a></button>
 		</div>
 		<div class="main-frame">
 			<div class="col">
