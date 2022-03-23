@@ -92,33 +92,48 @@
 			</div>
 			<div class="main-content">
 				<div class="sec-menu">
-					<h3>Filters :</h3>
+					<h3 style="color: #C4C4C4;font-weight: 500;font-size: 20px;">Filters :</h3>
 					<div id="car-type"class="checkbox-style">
-						<h4>Car Type:</h4>
+						<h4 style="margin: 15px 0px;font-size: 17px;font-weight: 600;">Car Type</h4>
+						<div id="option">
 						<input type="checkbox">
-						<label>Compact</label><br>
+						<label>Compact</label>
+						</div>
+						<div id="option">
 						<input type="checkbox">
-						<label>Coupe</label><br>
+						<label>Coupe</label>
+						</div>
+						<div id="option">
 						<input type="checkbox">
-						<label>Sedan</label><br>
+						<label>Sedan</label>
+						</div>
+						<div id="option">
 						<input type="checkbox">
-						<label>Suv</label><br>
+						<label>Suv</label>
+						</div>
+						<div id="option">
 						<input type="checkbox">
-						<label>Premium</label><br>
+						<label>Premium</label>
+						</div>
 					</div>
 					<div id="price">
-						<h4>Car Price</h4>
-						
+						<h4 style="margin: 15px 0px;font-size: 17px;font-weight: 600;">Car Price</h4>
 						<input id="slider" type="range" min="40" max="1000" value="1000">
 					</div>
-					<div id="rating">
-						<h4>Car Rating</h4>
-						<input type="checkbox">
-						<label>Above 4</label><br>
-						<input type="checkbox">
-						<label>Above 3</label><br>
-						<input type="checkbox">
-						<label>Above 2</label><br>
+					<div id="rating" class="checkbox-style">
+						<h4 style="margin: 15px 0px;font-size: 17px;font-weight: 600;">Car Rating</h4>
+						<div id="option">
+							<input type="checkbox">
+							<label>Above 4</label>
+						</div>
+						<div id="option">
+							<input type="checkbox">
+							<label>Above 3</label>
+						</div>
+						<div id="option">
+							<input type="checkbox">
+							<label>Above 2</label>
+						</div>
 					</div>
 				</div>
 				<div class="search-result">
@@ -131,6 +146,7 @@
 					<div id="result">
 						<div id="result-list">
 							<div id="car">
+								<div id="car_image"><img style="width: 240px;border-radius: 10px 10px 0px 0px ;" src="${pageContext.request.contextPath}/assets/compact mini cooper S.jpg"></div>
 								<div id="car_info">
 									<div id="names">
 										<p id="carName">Mini Cooper S</p>
@@ -141,92 +157,21 @@
 										<p id="score">4.2</p>
 									</div>
 								</div>
-								<div id="car_image"><img style="width: 213px;border-radius: 15px;" src="${pageContext.request.contextPath}/assets/compact mini cooper S.jpg"></div>
-								<div id="price"><p>Price :</p><p id="amount">$130</p><p>/ Day</p></div>
-							</div>
-							<div id="car">
-								<div id="car_info">
-									<div id="names">
-										<p id="carName">Mini Cooper S</p>
-										<p id="AgencyName">Agence De Constantine</p>
+								<h4 style="font-size: 15px;font-weight: 600;color: #C4C4C4;margin-top: 5px;">Features :</h4>
+								<div id="car_features">
+									<div id="features">
+										<span><img src="${pageContext.request.contextPath}/assets/mileage-icon.svg">Unlimited mileage</span>
+										<span><img src="${pageContext.request.contextPath}/assets/passenger-icon.svg">2</span>
 									</div>
-									<div id="rating">
-										<img src="${pageContext.request.contextPath}/assets/star.svg">
-										<p id="score">4.2</p>
+									<div id="promotion">
+										<p id="promotion-value">-30%</p>
 									</div>
 								</div>
-								<div id="car_image"><img style="width: 213px;border-radius: 15px;" src="${pageContext.request.contextPath}/assets/compact mini cooper S.jpg"></div>
-								<div id="price"><p>Price :</p><p id="amount">$130</p><p>/ Day</p></div>
-							</div>
-							<div id="car">
-								<div id="car_info">
-									<div id="names">
-										<p id="carName">Mini Cooper S</p>
-										<p id="AgencyName">Agence De Constantine</p>
-									</div>
-									<div id="rating">
-										<img src="${pageContext.request.contextPath}/assets/star.svg">
-										<p id="score">4.2</p>
-									</div>
+								<div id="deal">
+									<div id="price"><p id="amount">$100</p><p>per day</p></div>
+									<div id="cta"><button>View Deal</button></div>
 								</div>
-								<div id="car_image"><img style="width: 213px;border-radius: 15px;" src="${pageContext.request.contextPath}/assets/compact mini cooper S.jpg"></div>
-								<div id="price"><p>Price :</p><p id="amount">$130</p><p>/ Day</p></div>
-							</div>
-							<div id="car">
-								<div id="car_info">
-									<div id="names">
-										<p id="carName">Mini Cooper S</p>
-										<p id="AgencyName">Agence De Constantine</p>
-									</div>
-									<div id="rating">
-										<img src="${pageContext.request.contextPath}/assets/star.svg">
-										<p id="score">4.2</p>
-									</div>
-								</div>
-								<div id="car_image"><img style="width: 213px;border-radius: 15px;" src="${pageContext.request.contextPath}/assets/compact mini cooper S.jpg"></div>
-								<div id="price"><p>Price :</p><p id="amount">$130</p><p>/ Day</p></div>
-							</div>
-							<div id="car">
-								<div id="car_info">
-									<div id="names">
-										<p id="carName">Mini Cooper S</p>
-										<p id="AgencyName">Agence De Constantine</p>
-									</div>
-									<div id="rating">
-										<img src="${pageContext.request.contextPath}/assets/star.svg">
-										<p id="score">4.2</p>
-									</div>
-								</div>
-								<div id="car_image"><img style="width: 213px;border-radius: 15px;" src="${pageContext.request.contextPath}/assets/compact mini cooper S.jpg"></div>
-								<div id="price"><p>Price :</p><p id="amount">$130</p><p>/ Day</p></div>
-							</div>
-							<div id="car">
-								<div id="car_info">
-									<div id="names">
-										<p id="carName">Mini Cooper S</p>
-										<p id="AgencyName">Agence De Constantine</p>
-									</div>
-									<div id="rating">
-										<img src="${pageContext.request.contextPath}/assets/star.svg">
-										<p id="score">4.2</p>
-									</div>
-								</div>
-								<div id="car_image"><img style="width: 213px;border-radius: 15px;" src="${pageContext.request.contextPath}/assets/compact mini cooper S.jpg"></div>
-								<div id="price"><p>Price :</p><p id="amount">$130</p><p>/ Day</p></div>
-							</div>
-							<div id="car">
-								<div id="car_info">
-									<div id="names">
-										<p id="carName">Mini Cooper S</p>
-										<p id="AgencyName">Agence De Constantine</p>
-									</div>
-									<div id="rating">
-										<img src="${pageContext.request.contextPath}/assets/star.svg">
-										<p id="score">4.2</p>
-									</div>
-								</div>
-								<div id="car_image"><img style="width: 213px;border-radius: 15px;" src="${pageContext.request.contextPath}/assets/compact mini cooper S.jpg"></div>
-								<div id="price"><p>Price :</p><p id="amount">$130</p><p>/ Day</p></div>
+								
 							</div>
 						</div>
 						<div id="result-map"></div>

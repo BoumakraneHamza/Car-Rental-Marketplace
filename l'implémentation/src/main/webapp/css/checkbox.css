@@ -1,9 +1,9 @@
 input[type='checkbox'] {
-	 --active: #275efe;
+	 --active: #B8B08D;
 	 --active-inner: #fff;
-	 --focus: 2px rgba(39, 94, 254, .3);
+	 --focus: 2px #B8B08D;
 	 --border: #bbc1e1;
-	 --border-hover: #275efe;
+	 --border-hover: #B8B08D;
 	 --background: #fff;
 	 --disabled: #f6f8ff;
 	 --disabled-inner: #e1e6f9;

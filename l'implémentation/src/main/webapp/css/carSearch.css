@@ -165,6 +165,14 @@
     padding: 10px;
     border-radius: 10px;
 }
+.content .main-frame .main-content .sec-menu .checkbox-style #option {
+    display: flex;
+    margin: 15px;
+}
+.content .main-frame .main-content .sec-menu .checkbox-style #option label {
+    font-weight: 500;
+    margin-left: 15px;
+}
 .content .main-frame .main-content .search-result {
     display: grid;
     grid-template-rows: 1fr 10fr;
@@ -243,7 +251,9 @@
     flex-wrap: wrap;
 }
 .content .main-frame .main-content .search-result #result #result-list #car{
-	padding: 10px;
+	border: 2px solid #EFEFEF;
+    border-radius: 10px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -256,6 +266,7 @@
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-between;
+    align-items: center;
 }
 .content .main-frame .main-content .search-result #result #result-list #car #car_info #names{
 	margin-right: 15px;
@@ -271,19 +282,111 @@
 	display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+    font-size: 14px;
     align-items: center;
+    font-weight: 600;
+    height: fit-content;
 }
-.content .main-frame .main-content .search-result #result #result-list #car #car_image {
-    margin: 15px 0px;
+.content .main-frame .main-content .search-result #result #result-list #car #car_info #rating img {
+    width: 17px;
+    margin-right: 5px;
+}
+.content .main-frame .main-content .search-result #result #result-list #car #car_features {
+	display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 5px;
+    justify-content: space-between;
+}
+.content .main-frame .main-content .search-result #result #result-list #car #car_features #features {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.content .main-frame .main-content .search-result #result #result-list #car #car_features #features span {
+	display: flex;
+    font-size: 13px;
+    align-items: center;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+.content .main-frame .main-content .search-result #result #result-list #car #car_features #features span img{
+	margin-right:10px;
+}
+.content .main-frame .main-content .search-result #result #result-list #car #car_features #promotion {
+    background: #E6E890;
+    padding: 3px 5px;
+    border-radius: 8px;
+    width: 40px;
+    font-size: 14px;
+    font-weight: 600;
+    height: 21px;
+    text-align: center;
+}
+#price #slider {
+	 -webkit-appearance: auto;
+    height: 5px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.314);
+    outline: none;
+    padding: 0;
+    width: 90%;
+    margin: auto;
+    cursor: pointer;
+}
+ #price #slider::-webkit-slider-thumb {
+	 -webkit-appearance: none;
+	 width: 20px;
+	 height: 20px;
+	 border-radius: 50%;
+	 background: #fff;
+	 cursor: pointer;
+	 transition: all 0.15s ease-in-out;
+}
+#price #slider::-webkit-slider-thumb:hover {
+	 background: #d4d4d4;
+	 transform: scale(1.2);
+}
+#price #slider::-moz-range-thumb {
+	 width: 20px;
+	 height: 20px;
+	 border: 0;
+	 border-radius: 50%;
+	 background: #fff;
+	 cursor: pointer;
+	 transition: background 0.15s ease-in-out;
+}
+#price #slider::-moz-range-thumb:hover {
+	 background: #d4d4d4;
+}
+.content .main-frame .main-content .search-result #result #result-list #car #deal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 5px;
 }
 .content .main-frame .main-content .search-result #result #result-list #car #price {
     display: flex;
     place-self: flex-end;
-    font-size: 15px;
-    font-weight: 600;
+    flex-direction: column;
+    color: #BDBDBD;
+    font-size: 13px;
+    line-height: 1;
+}
+.content .main-frame .main-content .search-result #result #result-list #car #deal #cta button {
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    background: #B8B08D;
+    color: #fff;
+    width: 105px;
+    height: 38px;
+    border-radius: 5px;
+    font-weight: 500;
 }
 .content .main-frame .main-content .search-result #result #result-list #car #price #amount {
-    margin-left: 10px;
+   	font-size: 21px;
+    color: #000;
+    font-weight: 600;
 }
 .content .main-frame .main-content .search-result #result #result-map {
     background: #fff;
