@@ -45,8 +45,10 @@
 #table_header {
     display: grid;
     grid-template-rows: 1fr;
-    background: #c4C4C4C4;
-    padding: 10px;
+    background: #EFEFEF;
+    padding: 10px 20px;
+    align-items:center;
+    height:35px;
     border-radius: 10px;
     grid-template-columns: 1fr 2fr 2fr 2fr 2fr;
 }
@@ -60,7 +62,7 @@
     margin-top: 10px;
     background: #fff;
     border: 2px solid #EFEFEF;
-    padding: 10px;
+    padding: 10px 20px;
     border-radius: 10px;
     grid-template-columns: 1fr 2fr 2fr 2fr 2fr;
     align-items: center;
