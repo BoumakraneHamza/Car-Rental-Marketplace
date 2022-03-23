@@ -33,7 +33,7 @@ public class Dashboard extends HttpServlet {
 
 		User user = (User) request.getSession().getAttribute("user");
 		
-		if (request.getSession().getAttribute("user") != null) {
+		if (user != null) {
 
 			String url = "/";
 

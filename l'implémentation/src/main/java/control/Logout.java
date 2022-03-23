@@ -31,9 +31,10 @@ public class Logout extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession(false);
-		
-		session.removeAttribute("user");
-		session.invalidate();
+		if (session != null) {
+			session.removeAttribute("user");
+			session.invalidate();
+		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/PageAcueil");
 		dispatcher.forward(request, response);
