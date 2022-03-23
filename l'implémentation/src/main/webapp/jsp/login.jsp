@@ -28,7 +28,7 @@
 				<div id="line"></div>
 				<p>login with email</p>
 				</div>
-			<form action="">
+			<form action="${pageContext.request.contextPath}/Login"  method="post">
 				<div class="row" id="email">				
 					<label for="fname">Email Address:</label><br>
 	  				<input type="email" id="email" name="email" placeholder="Enter your Email"><br>

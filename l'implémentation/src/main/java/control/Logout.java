@@ -8,20 +8,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import model.User;
+import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class Dashboard
+ * Servlet implementation class Logout
  */
-@WebServlet("/Dashboard")
-public class Dashboard extends HttpServlet {
+@WebServlet("/Logout")
+public class Logout extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Dashboard() {
+    public Logout() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,26 +29,14 @@ public class Dashboard extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		User user = (User) request.getSession().getAttribute("user");
 		
-		if (request.getSession().getAttribute("user") != null) {
-
-			String url = "/";
-
-			if (user.getType().equals("locataire")) {
-				url = url + "jsp/ClientDashboard.jsp";
-			} else {
-				url = url + "jsp/ClientDashboard.jsp"; //TODO later
-			}
-
-			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
-			dispatcher.forward(request, response);
-		} else {
-			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/login.jsp");
-			dispatcher.forward(request, response);
-		}
+		HttpSession session = request.getSession(false);
+		
+		session.removeAttribute("user");
+		session.invalidate();
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/PageAcueil");
+		dispatcher.forward(request, response);
 	}
 
 	/**
