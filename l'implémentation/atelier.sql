@@ -130,7 +130,7 @@ CREATE TABLE `depot` (
 
 LOCK TABLES `depot` WRITE;
 /*!40000 ALTER TABLE `depot` DISABLE KEYS */;
-INSERT INTO `depot` VALUES ('d01','constantine','12','11','agence01',NULL);
+INSERT INTO `depot` VALUES ('d01','constantine','12','11','agence01',NULL),('d02','batna','15','15','agence01',NULL);
 /*!40000 ALTER TABLE `depot` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -187,8 +187,8 @@ CREATE TABLE `reservation` (
   `date_reservation` date NOT NULL,
   `date_retoure` date NOT NULL,
   `etat` enum('en cours','payée') NOT NULL DEFAULT 'en cours',
-  `contrat` blob NOT NULL,
-  `facture` blob NOT NULL,
+  `contrat` blob,
+  `facture` blob,
   PRIMARY KEY (`id`),
   KEY `fk_Locataire_has_Vehicule_Vehicule1_idx` (`vehicule_matricule`),
   KEY `fk_Locataire_has_Vehicule_Locataire1_idx` (`locataire_email`),
@@ -203,6 +203,7 @@ CREATE TABLE `reservation` (
 
 LOCK TABLES `reservation` WRITE;
 /*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
+INSERT INTO `reservation` VALUES (1,'1@email.com','202212522','2022-04-05','2022-04-15','payée',NULL,NULL);
 /*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -305,6 +306,30 @@ UNLOCK TABLES;
 --
 -- Dumping routines for database 'atelier'
 --
+/*!50003 DROP PROCEDURE IF EXISTS `car_search` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `car_search`(in pickUp_date date, in return_date date)
+BEGIN
+
+select v.*
+from vehicule v join depot d 
+on v.`depot_code` = d.`code`
+where v.`matricule` not in (select vehicule_matricule from reservation where(datediff(return_date, date_reservation) >= 0 and datediff(date_retoure, pickUp_date) >= 0));
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -315,4 +340,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-24 18:24:22
+-- Dump completed on 2022-03-24 20:51:38
