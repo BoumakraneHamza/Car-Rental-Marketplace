@@ -72,9 +72,8 @@
 						<p>$120</p>
 					</div>
 					<div class="details">
-						<div id="bill">
-									<h4>Contract</h4>
-									<img src="${pageContext.request.contextPath}/assets/pdfFile.png">
+						<div id="car-image">
+							<img style="width:200px;height:134px;border-radius:10px;"src="${pageContext.request.contextPath}/assets/compact mini cooper S.jpg">
 						</div>
 						<div id="info">
 							<div id="field">
@@ -93,6 +92,10 @@
 										<h4>Pick-up address</h4>
 										<p>constantine</p>
 							</div>
+						</div>
+						<div id="bill">
+									<h4>Contract</h4>
+									<img src="${pageContext.request.contextPath}/assets/pdfFile.png">
 						</div>
 						<div id="amount">
 							<h4>Amount Due</h4>

@@ -471,7 +471,9 @@
 				</div>
 			</div>
 		</div>
-	</div>
+			<div class=date_selection>
+			</div>
+		</div>
 	</div>
 <script src="${pageContext.request.contextPath}/js/ClientPayment.js"></script>
 </body>
