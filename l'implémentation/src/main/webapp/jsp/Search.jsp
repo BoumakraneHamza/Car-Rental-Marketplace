@@ -159,12 +159,20 @@
 								
 							</div>
 						</div>
-						<div id="result-map"></div>
+						<div id="map">
+						<div class="mapouter">
+						<div class="gmap_canvas">
+						<iframe id="gmap_canvas" src="https://maps.google.com/maps?q=constantine&t=&z=14&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+						</iframe>
+						</div>
+						</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 </div>
+<script src="${pageContext.request.contextPath}/js/carSearch.js"></script>
 <script src="${pageContext.request.contextPath}/js/dropdownSearch.js"></script>
 </body>
 </html>

@@ -143,7 +143,8 @@
 					<div id="search-header">
 						<div id="count"><h4 id="number" style="margin-right:3px;">24</h4><h4> Results in </h4><h4 id="location" style="color:#B8B08D;margin-left:3px">Constantine</h4></div>
 						<div id="map-switch">
-							<input type="checkbox" id="switch" /><label for="switch">Toggle</label>
+							<input type="checkbox" id="switch" />
+							<label for="switch">Toggle</label>
 						</div>
 					</div>
 					<div id="result">
@@ -176,13 +177,105 @@
 								</div>
 								
 							</div>
+							<div id="car">
+								<div id="car_image"><img style="width: 240px;border-radius: 10px 10px 0px 0px ;" src="${pageContext.request.contextPath}/assets/compact mini cooper S.jpg"></div>
+								<div id="car_info">
+									<div id="names">
+										<p id="carName">Mini Cooper S</p>
+										<p id="AgencyName">Agence De Constantine</p>
+									</div>
+									<div id="rating">
+										<img src="${pageContext.request.contextPath}/assets/star.svg">
+										<p id="score">4.2</p>
+									</div>
+								</div>
+								<h4 style="font-size: 15px;font-weight: 600;color: #C4C4C4;margin-top: 5px;">Features :</h4>
+								<div id="car_features">
+									<div id="features">
+										<span><img src="${pageContext.request.contextPath}/assets/mileage-icon.svg">Unlimited mileage</span>
+										<span><img src="${pageContext.request.contextPath}/assets/passenger-icon.svg">2</span>
+									</div>
+									<div id="promotion">
+										<p id="promotion-value">-30%</p>
+									</div>
+								</div>
+								<div id="deal">
+									<div id="price"><p id="amount">$100</p><p>per day</p></div>
+									<div id="cta"><button>View Deal</button></div>
+								</div>
+								
+							</div>
+							<div id="car">
+								<div id="car_image"><img style="width: 240px;border-radius: 10px 10px 0px 0px ;" src="${pageContext.request.contextPath}/assets/compact mini cooper S.jpg"></div>
+								<div id="car_info">
+									<div id="names">
+										<p id="carName">Mini Cooper S</p>
+										<p id="AgencyName">Agence De Constantine</p>
+									</div>
+									<div id="rating">
+										<img src="${pageContext.request.contextPath}/assets/star.svg">
+										<p id="score">4.2</p>
+									</div>
+								</div>
+								<h4 style="font-size: 15px;font-weight: 600;color: #C4C4C4;margin-top: 5px;">Features :</h4>
+								<div id="car_features">
+									<div id="features">
+										<span><img src="${pageContext.request.contextPath}/assets/mileage-icon.svg">Unlimited mileage</span>
+										<span><img src="${pageContext.request.contextPath}/assets/passenger-icon.svg">2</span>
+									</div>
+									<div id="promotion">
+										<p id="promotion-value">-30%</p>
+									</div>
+								</div>
+								<div id="deal">
+									<div id="price"><p id="amount">$100</p><p>per day</p></div>
+									<div id="cta"><button>View Deal</button></div>
+								</div>
+								
+							</div>
+							<div id="car">
+								<div id="car_image"><img style="width: 240px;border-radius: 10px 10px 0px 0px ;" src="${pageContext.request.contextPath}/assets/compact mini cooper S.jpg"></div>
+								<div id="car_info">
+									<div id="names">
+										<p id="carName">Mini Cooper S</p>
+										<p id="AgencyName">Agence De Constantine</p>
+									</div>
+									<div id="rating">
+										<img src="${pageContext.request.contextPath}/assets/star.svg">
+										<p id="score">4.2</p>
+									</div>
+								</div>
+								<h4 style="font-size: 15px;font-weight: 600;color: #C4C4C4;margin-top: 5px;">Features :</h4>
+								<div id="car_features">
+									<div id="features">
+										<span><img src="${pageContext.request.contextPath}/assets/mileage-icon.svg">Unlimited mileage</span>
+										<span><img src="${pageContext.request.contextPath}/assets/passenger-icon.svg">2</span>
+									</div>
+									<div id="promotion">
+										<p id="promotion-value">-30%</p>
+									</div>
+								</div>
+								<div id="deal">
+									<div id="price"><p id="amount">$100</p><p>per day</p></div>
+									<div id="cta"><button>View Deal</button></div>
+								</div>
+								
+							</div>
 						</div>
-						<div id="result-map"></div>
+						<div id="map">
+						<div class="mapouter">
+						<div class="gmap_canvas">
+						<iframe id="gmap_canvas" src="https://maps.google.com/maps?q=constantine&t=&z=14&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+						</iframe>
+						</div>
+						</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 </div>
+<script src="${pageContext.request.contextPath}/js/carSearch.js"></script>
 <script src="${pageContext.request.contextPath}/js/dropdownSearch.js"></script>
 </body>
 </html>
