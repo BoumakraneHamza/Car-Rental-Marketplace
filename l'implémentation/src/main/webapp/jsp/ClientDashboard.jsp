@@ -16,10 +16,10 @@
 		</div>
 		<div class="user">
 		<img id="notification" src="${pageContext.request.contextPath}/assets/notification.svg">
-		<img src="${pageContext.request.contextPath}/assets/user01.png">
+		<img src="${pageContext.request.contextPath}/${user.getImage()}">
 			<div id="user-info">
-				<p id="full-name">Nathanial Olson</p>
-				<p id="user-name">@Olson2022</p>
+				<p id="full-name">${user.getNom()} ${user.getPrenom()}</p>
+				<p id="user-name">${user.getUser_name()}</p>
 			</div>
 			<div id="dropdownlist">
 				<img src="${pageContext.request.contextPath}/assets/angle-down-solid.svg">
@@ -77,7 +77,7 @@
 					</div>
 					<div class="cols-1">
 							<div id="header">
-								<h4>Reservations</h4>
+								<h4>Bookings</h4>
 								<div id="details"><a>Details</a><img src="${pageContext.request.contextPath}/assets/angle-right-solid-blue.svg"></div>
 							</div>
 							<ul class="tabs" role="tablist">
@@ -169,9 +169,9 @@
 						<img src="${pageContext.request.contextPath}/assets/angle-right-solid-blue.svg">
 					</div>
 					<div id="default-card">
-						<div id="ClientName">Nathanial Olson</div>
-						<div id="Card-Number">9879 2041 7230 1275</div>
-						<div id="exp">08/22</div>		
+						<div id="ClientName">${user.getNom()} ${user.getPrenom()}</div>
+						<div id="Card-Number">${card.getCardNumber()}</div>
+						<div id="exp">${card.getExp()}</div>		
 					</div>
 				</div>
 				<div class="history">

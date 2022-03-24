@@ -103,7 +103,11 @@ form{
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
+    width: fit-content;
     align-self: center;
+    position: relative;
+    top: 50%;
+    transform: translate(0px, -58%);
 }
 .frame .content #login .line{
 	color: #B8B08D;
@@ -167,4 +171,35 @@ input::placeholder {
 }
 .row {
     margin-bottom: 15px;
+}
+.notification {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: #fff;
+    height: 100px;
+    width: 300px;
+    border: 1px solid #c4C4C4C4;
+    border-radius: 5px;
+    padding: 10px;
+}
+.notification #t1{
+	display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.notification #t1 p {
+    color: #000;
+}
+.notification #t1 input[type="button"] {
+    border: none;
+    background: none;
+    font-size: 18px;
+}
+.notification #body {
+    margin-top: 18px;
+}
+.notification #body p{
+	color:#000;
 }

@@ -43,7 +43,9 @@ h4{
     flex-direction: row;
 }
 .header .user img {
-	width:40px;
+	width: 40px;
+    border-radius: 50%;
+    height: 40px;
 }
 .header .user #notification{
 	margin-right: 45px;

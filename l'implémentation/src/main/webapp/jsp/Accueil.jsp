@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Accueil.css">
 <meta charset="UTF-8">
-<title>RentiGo</title>
+<title>Unique</title>
 </head>
 <body>
 <div class="main-frame" id="frame">

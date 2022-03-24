@@ -1,13 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Search</title>
+<meta charset="ISO-8859-1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ClientMain.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/carSearch.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/checkbox.css">
+<title>Result</title>
 </head>
 <body>
 <div class="header">
@@ -15,33 +15,15 @@
 			<a href="${pageContext.request.contextPath}/PageAcueil"><img src="${pageContext.request.contextPath}/assets/logoBlack.svg"></a>
 		</div>
 		<div class="user">
-		<img id="notification" src="${pageContext.request.contextPath}/assets/notification.svg">
-		<img src="${pageContext.request.contextPath}/${user.getImage()}">
-			<div id="user-info">
-				<p id="full-name">${user.getNom()} ${user.getPrenom()}</p>
-				<p id="user-name">${user.getUser_name()}</p>
-			</div>
-			<div id="dropdownlist">
-				<img src="${pageContext.request.contextPath}/assets/angle-down-solid.svg">
-			</div>
-			
+			<a style="color:#B8B08D;font-size: 17px;font-weight: 500;margin-left: 30px;" href="/Atelier/SignUp">join us</a>
+			<a href="/Atelier/Login" style="color: #000;font-size: 17px;font-weight: 500;margin-left: 30px;">login</a>
 		</div>
 	</div>
 <div class="content">
-		<div class="menu">
-					<button class="search" style="background: #F6AA1C;"><a href="${pageContext.request.contextPath}/CarSearch"><img src="${pageContext.request.contextPath}/assets/search-icon-white.svg"></a></button>
-					<button class="dashboard" ><a href="${pageContext.request.contextPath}/Dashboard"><img src="${pageContext.request.contextPath}/assets/dashboard-icon.svg"></a></button>
-					<button class="inbox" ><a href="${pageContext.request.contextPath}/Inbox"><img src="${pageContext.request.contextPath}/assets/inbox.svg"></a></button>
-					<button class="payment"><a href="${pageContext.request.contextPath}/ClientPayment"><img src="${pageContext.request.contextPath}/assets/Wallet.svg"></a></button>
-					<button class="exit" ><a href="${pageContext.request.contextPath}/Logout"><img src="${pageContext.request.contextPath}/assets/exit-icon.svg"></a></button>
-		</div>
 		<div class="main-frame">
 			<div class="dropdownSearch">
 				<nav>
-					<div id="wrapper">
-					<p>Choose a location and a date and Book Your Car</p>
 					<a href="" class="btn" id="search"><img src="${pageContext.request.contextPath}/assets/angle-down-solid.svg"></a>
-					</div>
 					<div class="search_box" id="search_box">
 		  				<div id="text">
 		  					<h3>Book in 3 Easy Steps</h3>

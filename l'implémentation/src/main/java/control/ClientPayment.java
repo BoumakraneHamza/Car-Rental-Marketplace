@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.CreditCards;
+import model.DAO;
+import model.User;
+
 /**
  * Servlet implementation class ClientPayment
  */
@@ -30,7 +34,17 @@ public class ClientPayment extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		if (request.getSession().getAttribute("user") != null) {
-			//later
+			User user = (User) request.getSession().getAttribute("user");
+			request.setAttribute("user", user);
+			CreditCards card = null;
+			DAO dao = new DAO();
+			try {
+				card = dao.getDefaultCard(user.getEmail());
+			} catch (InstantiationException | IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			request.setAttribute("card", card);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/ClientPayment.jsp");
 			dispatcher.forward(request, response);
 		} else {

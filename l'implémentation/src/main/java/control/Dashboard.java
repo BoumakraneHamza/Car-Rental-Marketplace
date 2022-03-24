@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.CreditCards;
+import model.DAO;
 import model.User;
 
 /**
@@ -32,7 +34,7 @@ public class Dashboard extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		User user = (User) request.getSession().getAttribute("user");
-		
+		DAO dao = new DAO();
 		if (user != null) {
 
 			String url = "/";
@@ -42,7 +44,15 @@ public class Dashboard extends HttpServlet {
 			} else {
 				url = url + "jsp/ClientDashboard.jsp"; //TODO later
 			}
-
+			request.setAttribute("user", user);
+			CreditCards card = null;
+			try {
+				card = dao.getDefaultCard(user.getEmail());
+			} catch (InstantiationException | IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			request.setAttribute("card", card);
 			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 			dispatcher.forward(request, response);
 		} else {

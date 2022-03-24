@@ -63,9 +63,9 @@ public class Login extends HttpServlet {
 
 				HttpSession session = request.getSession();
 				session.setAttribute("user", user);
-				
 				dispatcher = request.getRequestDispatcher("/Dashboard");
 				dispatcher.forward(request, response);
+				
 
 			} else {
 
@@ -75,10 +75,11 @@ public class Login extends HttpServlet {
 				dispatcher.include(request, response);
 
 				out.print("<div class=\"notification\">\r\n"
-						+ "    <div id=\"t1\"><p>Error</p>\r\n"
+						+ "    <div id=\"t1\"><p>Notification</p>\r\n"
 						+ "    <input type=\"button\" value=\"X\" onclick=\"hideNotification()\"></div>\r\n"
 						+ "    <div id=\"body\">\r\n"
 						+ "    <p>Incorrect Password or Email </p>\r\n"
+						+ "    <p>Please try again</p>\r\n"
 						+ "</div>\r\n"
 						+ "</div>");
 			}

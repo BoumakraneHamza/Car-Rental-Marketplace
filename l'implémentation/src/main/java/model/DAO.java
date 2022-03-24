@@ -59,9 +59,9 @@ public class DAO {
 	            user.setSexe(result.getString("sexe"));
 	            user.setEtat(result.getString("etat"));
 	            user.setAlert(result.getInt("alert"));
-	            //user.setImage();
+	            user.setImage(result.getString("image"));
 	            user.setType(result.getString("type"));
-
+	            user.setUser_name(result.getString("user_name"));
 	        }
 	        
 			statement.close();
@@ -72,5 +72,50 @@ public class DAO {
 		}
 		
 		return user;
+	}
+
+	public CreditCards getDefaultCard(String user_email) throws InstantiationException, IllegalAccessException {
+		
+		String requete;
+		PreparedStatement statement;
+		CreditCards card = new CreditCards();	
+		String email = user_email ;
+		
+		try {	
+			connectDB();
+			
+			requete = "SELECT defaultPaymentMethod FROM locataire WHERE email = ?";
+			statement = connection.prepareStatement(requete);
+			statement.setString(1, email);
+			ResultSet result = statement.executeQuery();
+			
+			
+			if (result.next()) {
+				card.setCardNumber(result.getString("defaultPaymentMethod"));
+			}
+			
+			
+			System.out.println(card.getCardNumber());
+			if (card.getCardNumber()==null) {
+				return null;
+			}else {
+				
+				requete = "SELECT CardNumber , exp FROM creditcards WHERE CardNumber = ?";
+				statement = connection.prepareStatement(requete);
+				statement.setString(1, card.getCardNumber());
+				
+				
+				ResultSet result2 = statement.executeQuery();
+				if (result2.next()) {
+					card.setExp(result2.getString("exp"));
+				}
+			}
+			statement.close();
+			
+			System.out.println("Success !");
+	}catch (SQLException e) {
+		System.out.println("Failure on getting default payment card because :" + e);
+	}
+		return card;
 	}
 }

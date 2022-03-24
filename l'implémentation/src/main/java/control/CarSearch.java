@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.User;
+
 /**
  * Servlet implementation class CarSearch
  */
@@ -28,15 +30,13 @@ public class CarSearch extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		User user = (User) request.getSession().getAttribute("user");
 		if (request.getSession().getAttribute("user") != null) {
-			//later
+			request.setAttribute("user", user);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/carSearch.jsp");
 			dispatcher.forward(request, response);
 		} else {
-			//later
-			//RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/login.jsp");
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/carSearch.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/Search.jsp");
 			dispatcher.forward(request, response);
 		}
 	}

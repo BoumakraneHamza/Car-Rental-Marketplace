@@ -75,6 +75,33 @@ LOCK TABLES `bureau` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `creditcards`
+--
+
+DROP TABLE IF EXISTS `creditcards`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `creditcards` (
+  `CardNumber` varchar(45) NOT NULL,
+  `CardOwner` varchar(45) NOT NULL,
+  `exp` varchar(45) NOT NULL,
+  PRIMARY KEY (`CardNumber`,`CardOwner`),
+  KEY `owner_idx` (`CardOwner`),
+  CONSTRAINT `owner` FOREIGN KEY (`CardOwner`) REFERENCES `locataire` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `creditcards`
+--
+
+LOCK TABLES `creditcards` WRITE;
+/*!40000 ALTER TABLE `creditcards` DISABLE KEYS */;
+INSERT INTO `creditcards` VALUES ('9879 2041 7230 1275','Hamza@gmail.com','08/22');
+/*!40000 ALTER TABLE `creditcards` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `depot`
 --
 
@@ -126,8 +153,11 @@ CREATE TABLE `locataire` (
   `image` varchar(50) NOT NULL,
   `type` varchar(9) NOT NULL DEFAULT 'locataire',
   `user_name` varchar(45) NOT NULL,
+  `defaultPaymentMethod` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`email`),
-  UNIQUE KEY `num_carte_UNIQUE` (`num_carte`)
+  UNIQUE KEY `num_carte_UNIQUE` (`num_carte`),
+  KEY `CreditCard_idx` (`defaultPaymentMethod`),
+  CONSTRAINT `CreditCard` FOREIGN KEY (`defaultPaymentMethod`) REFERENCES `creditcards` (`CardNumber`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -137,7 +167,7 @@ CREATE TABLE `locataire` (
 
 LOCK TABLES `locataire` WRITE;
 /*!40000 ALTER TABLE `locataire` DISABLE KEYS */;
-INSERT INTO `locataire` VALUES ('Nathanial ','Olson',549837,'1@email.com',666666666,'1990-01-01','male','12345678','regulier',0,'1@','locataire','@olson'),('Hamza','Boumakrane',123131,'Hamza@gmail.com',12312310,'2001-04-02','male','test','regulier',0,'/assets/profile_pics/hamzagmail.jpg','locataire','@Hamza');
+INSERT INTO `locataire` VALUES ('Nathanial ','Olson',549837,'1@email.com',666666666,'1990-01-01','male','12345678','regulier',0,'1@','locataire','@olson',NULL),('Hamza','Boumakrane',123131,'Hamza@gmail.com',12312310,'2001-04-02','male','test','regulier',0,'/assets/profile_pics/hamzagmail.jpg','locataire','@Hamza','9879 2041 7230 1275');
 /*!40000 ALTER TABLE `locataire` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -172,6 +202,36 @@ CREATE TABLE `reservation` (
 LOCK TABLES `reservation` WRITE;
 /*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
 /*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `transaction`
+--
+
+DROP TABLE IF EXISTS `transaction`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `transaction` (
+  `reservationID` int NOT NULL,
+  `montant` int NOT NULL,
+  `agence` varchar(45) NOT NULL,
+  `method` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`reservationID`),
+  KEY `agence_idx` (`agence`),
+  KEY `creditCards_idx` (`method`),
+  CONSTRAINT `agence` FOREIGN KEY (`agence`) REFERENCES `agence` (`nom`),
+  CONSTRAINT `creditCards` FOREIGN KEY (`method`) REFERENCES `creditcards` (`CardNumber`),
+  CONSTRAINT `reservation` FOREIGN KEY (`reservationID`) REFERENCES `reservation` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `transaction`
+--
+
+LOCK TABLES `transaction` WRITE;
+/*!40000 ALTER TABLE `transaction` DISABLE KEYS */;
+/*!40000 ALTER TABLE `transaction` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -243,4 +303,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-23 21:49:17
+-- Dump completed on 2022-03-24 11:20:34

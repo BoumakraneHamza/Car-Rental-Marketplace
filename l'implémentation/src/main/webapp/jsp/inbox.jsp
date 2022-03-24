@@ -15,10 +15,10 @@
 		</div>
 		<div class="user">
 		<img id="notification" src="${pageContext.request.contextPath}/assets/notification.svg">
-		<img src="${pageContext.request.contextPath}/assets/user01.png">
+		<img src="${pageContext.request.contextPath}/${user.getImage()}">
 			<div id="user-info">
-				<p id="full-name">Nathanial Olson</p>
-				<p id="user-name">@Olson2022</p>
+				<p id="full-name">${user.getNom()} ${user.getPrenom()}</p>
+				<p id="user-name">${user.getUser_name()}</p>
 			</div>
 			<div id="dropdownlist">
 				<img src="${pageContext.request.contextPath}/assets/angle-down-solid.svg">
