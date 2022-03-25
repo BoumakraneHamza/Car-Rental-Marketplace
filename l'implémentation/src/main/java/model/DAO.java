@@ -164,4 +164,46 @@ public class DAO {
 		
 		return vehicules;
 	}
+	public ArrayList<Reservation> getReservation(String email) throws InstantiationException, IllegalAccessException{
+		String Query;
+		System.out.println(email);
+		ArrayList<Reservation> reservationList = new ArrayList<Reservation>();
+		PreparedStatement statement;
+		Reservation reservation = null;
+		ResultSet result;
+		try {
+			connectDB();
+			Query = "SELECT * from reservation , vehicule , transactionhistory where vehicule_matricule = matricule and id = reservationID and locataire_email = ?";
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, email);
+			result =statement.executeQuery();
+			
+			while(result.next()) {
+				reservation = new Reservation();
+				
+				reservation.setId(result.getInt("id"));
+				reservation.setPick_up_date(result.getString("date_1"));
+				reservation.setReturn_date(result.getString("date_2"));
+				reservation.setReservation_date(result.getString("date_reservation"));
+				reservation.setStatus(result.getString("reservation.etat"));
+				reservation.setPick_up_hour(result.getString("hour_1"));
+				reservation.setReturn_hour(result.getString("hour_2"));
+				reservation.setLocation(result.getString("location"));
+				reservation.setVehicule(result.getString("modele"));
+				reservation.setPLH(result.getInt("PLH"));
+				reservation.setPLJ(result.getInt("PLJ"));
+				reservation.setCarImage(result.getString("image"));
+				reservation.setPaymentId(result.getInt("payment_id"));
+				reservation.setTotalAmount(result.getInt("montant"));
+				reservation.setAgence(result.getString("agence"));
+				
+				
+				reservationList.add(reservation);
+			}
+		}catch (SQLException e) {
+			System.out.println(e);
+			
+		}
+		return reservationList;
+	}
 }

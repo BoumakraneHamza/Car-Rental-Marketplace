@@ -83,7 +83,9 @@
     background: #F7F8FA;
     width: 19px;
 }
-
+.content .main-frame .bookings {
+    margin-top: 20px;
+}
 .content .main-frame .bookings .table-header {
     display: grid;
     height:40px;

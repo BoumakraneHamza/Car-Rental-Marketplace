@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@ taglib   uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ClientMain.css">
@@ -61,28 +62,29 @@
 					<p>Total</p>
 				</div>
 				<div class="table-content">
+				<c:forEach var="i" begin="0" end="${reservationList.size()-1 < 0 ? 0 : reservationList.size()-1}" step="1">
 				<div class="full">
 					<div class="Booking" onclick="show_details(this)">
-						<p>523321</p>
-						<p>Completed</p>
-						<p>Agence De constantine</p>
-						<p>Mini Cooper S</p>
-						<p>07 June 2022-Same Date</p>
-						<p>07:00 - 17:30</p>
-						<p>$120</p>
+						<p>${reservationList[i].getId()}</p>
+						<p>${reservationList[i].getStatus()}</p>
+						<p>${reservationList[i].getAgence()}</p>
+						<p>${reservationList[i].getVehicule()}</p>
+						<p>${reservationList[i].getPick_up_date()} - ${reservationList[i].getReturn_date()}</p>
+						<p>${reservationList[i].getPick_up_hour()} - ${reservationList[i].getReturn_hour()}</p>
+						<p>$ ${reservationList[i].getTotalAmount()}</p>
 					</div>
 					<div class="details">
 						<div id="car-image">
-							<img style="width:200px;height:134px;border-radius:10px;"src="${pageContext.request.contextPath}/assets/compact mini cooper S.jpg">
+							<img style="width:200px;height:134px;border-radius:10px;"src="${pageContext.request.contextPath}${reservationList[i].getCarImage()}">
 						</div>
 						<div id="info">
 							<div id="field">
 										<h4>Payment ID</h4>
-										<p>012301</p>
+										<p>${reservationList[i].getPaymentId()}</p>
 							</div>
 							<div id="field">
 										<h4>Reservation Date</h4>
-										<p>10 June 2022</p>
+										<p>${reservationList[i].getReservation_date()}</p>
 							</div>
 							<div id="field">
 										<h4>Pick-up depot</h4>
@@ -90,7 +92,7 @@
 							</div>
 							<div id="field">
 										<h4>Pick-up address</h4>
-										<p>constantine</p>
+										<p>${reservationList[i].getLocation()}</p>
 							</div>
 						</div>
 						<div id="bill">
@@ -98,11 +100,12 @@
 									<img src="${pageContext.request.contextPath}/assets/pdfFile.png">
 						</div>
 						<div id="amount">
-							<h4>Amount Due</h4>
-							<p>$130</p>
+							<h4>Daily Price</h4>
+							<p>${reservationList[i].getPLJ()}</p>
 						</div>
 					</div>
 					</div>
+					</c:forEach>
 				</div>
 			</div>
 		</div>
