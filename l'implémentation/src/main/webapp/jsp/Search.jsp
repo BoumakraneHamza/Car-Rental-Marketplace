@@ -1,9 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib   uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ClientMain.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/carSearch.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/checkbox.css">
@@ -15,7 +16,7 @@
 			<a href="${pageContext.request.contextPath}/PageAcueil"><img src="${pageContext.request.contextPath}/assets/logoBlack.svg"></a>
 		</div>
 		<div class="user">
-			<a style="color:#B8B08D;font-size: 17px;font-weight: 500;margin-left: 30px;" href="/Atelier/SignUp">join us</a>
+			<a style="color:#B8B08D;font-size: 17px;font-weight: 500;margin-left: 30px;" href="${pageContext.request.contextPath}/SignUp">join us</a>
 			<a href="/Atelier/Login" style="color: #000;font-size: 17px;font-weight: 500;margin-left: 30px;">login</a>
 		</div>
 	</div>
@@ -30,13 +31,14 @@
 		  					<p>Unique helps you find the freedom
 								to take advantage of any opportunity</p>
 		  				</div>
+		  				<form action="CarSearch" method="post">
 		  				<div id="search_inputs">
 		  					<div id="input_field">
 		  						<div id="field">
 		  							<img src="${pageContext.request.contextPath}/assets/location.svg">
 		  							<label>Location</label>
 		  						</div>
-		  						<input type="text">			
+		  						<input type="text" name="location">		
 		  					</div>
 		  					
 		  					<div id="input_field">
@@ -44,7 +46,7 @@
 		  							<img src="${pageContext.request.contextPath}/assets/date.svg">
 		  							<label>Pick-up date</label>
 		  						</div>
-								<input type="text">
+								<input type="text" name="pickUp_date">
 		  						</div>
 		  					
 		  					<div id="input_field">
@@ -52,7 +54,7 @@
 		  							<img src="${pageContext.request.contextPath}/assets/date.svg">
 		  							<label>Return date</label>
 		  						</div>
-		  						<input type="text">
+		  						<input type="text" name="return_date">
 		  					</div>
 		  					
 		  					<div id="input_field">
@@ -60,7 +62,7 @@
 		  							<img src="${pageContext.request.contextPath}/assets/hour.svg">
 		  							<label>Pick-up Hour</label>
 		  						</div>
-		  							<input type="text">
+		  							<input type="text" name="pickUp_hour">
 		  					</div>
 		  					
 		  					<div id="input_field">
@@ -68,10 +70,11 @@
 		  							<img src="${pageContext.request.contextPath}/assets/hour.svg">
 		  							<label>Return Hour</label>
 		  						</div>
-		  							<input type="text">
+		  							<input type="text" name="return_hour">
 		  					</div>
 		  					<input type="submit" value="Search">
 		  				</div>
+		  				</form>
 					</div>
 				</nav>
 			</div>
@@ -130,7 +133,7 @@
 					</div>
 					<div id="result">
 						<div id="result-list">
-							<div id="car">
+							<div id="car" style="background-color : blue;">
 								<div id="car_image"><img style="width: 240px;border-radius: 10px 10px 0px 0px ;" src="${pageContext.request.contextPath}/assets/compact mini cooper S.jpg"></div>
 								<div id="car_info">
 									<div id="names">
@@ -156,8 +159,37 @@
 									<div id="price"><p id="amount">$100</p><p>per day</p></div>
 									<div id="cta"><button>View Deal</button></div>
 								</div>
-								
 							</div>
+							
+							<c:forEach var="i" begin="0" end="${vehicules.size()-1 < 0 ? 0 : vehicules.size()-1}" step="1">
+							<div id="car">
+								<div id="car_image"><img style="width: 240px;border-radius: 10px 10px 0px 0px ;" src="${pageContext.request.contextPath}${vehicules[i].image}"></div>
+								<div id="car_info">
+									<div id="names">
+										<p id="carName">${vehicules[i].marque} ${vehicules[i].modele}</p>
+										<p id="AgencyName">Agence De Constantine</p>
+									</div>
+									<div id="rating">
+										<img src="${pageContext.request.contextPath}/assets/star.svg">
+										<p id="score">4.2</p>
+									</div>
+								</div>
+								<h4 style="font-size: 15px;font-weight: 600;color: #C4C4C4;margin-top: 5px;">Features :</h4>
+								<div id="car_features">
+									<div id="features">
+										<span><img src="${pageContext.request.contextPath}/assets/mileage-icon.svg">Unlimited mileage</span>
+										<span><img src="${pageContext.request.contextPath}/assets/passenger-icon.svg">2</span>
+									</div>
+									<div id="promotion">
+										<p id="promotion-value">-30%</p>
+									</div>
+								</div>
+								<div id="deal">
+									<div id="price"><p id="amount">$${vehicules[i].PLJ}</p><p>per day</p></div>
+									<div id="cta"><button>View Deal</button></div>
+								</div>
+							</div>
+							</c:forEach>
 						</div>
 						<div id="map">
 						<div class="mapouter">

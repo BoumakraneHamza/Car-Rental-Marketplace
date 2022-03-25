@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -31,7 +32,7 @@ public class DAO {
 	public User checkLogin(String email, String password)
 			throws InstantiationException, IllegalAccessException {
 		
-		String requete;
+		String query;
 		PreparedStatement statement;
 		
 		User user = null;
@@ -40,8 +41,8 @@ public class DAO {
 			
 			connectDB();
 			
-			requete = "SELECT * FROM locataire WHERE email = ? and mot_pass = ?";
-			statement = connection.prepareStatement(requete);
+			query = "SELECT * FROM locataire WHERE email = ? and mot_pass = ?";
+			statement = connection.prepareStatement(query);
 			statement.setString(1, email);
 			statement.setString(2, password);
 			
@@ -76,7 +77,7 @@ public class DAO {
 
 	public CreditCards getDefaultCard(String user_email) throws InstantiationException, IllegalAccessException {
 		
-		String requete;
+		String query;
 		PreparedStatement statement;
 		CreditCards card = new CreditCards();	
 		String email = user_email ;
@@ -84,8 +85,8 @@ public class DAO {
 		try {	
 			connectDB();
 			
-			requete = "SELECT defaultPaymentMethod FROM locataire WHERE email = ?";
-			statement = connection.prepareStatement(requete);
+			query = "SELECT defaultPaymentMethod FROM locataire WHERE email = ?";
+			statement = connection.prepareStatement(query);
 			statement.setString(1, email);
 			ResultSet result = statement.executeQuery();
 			
@@ -100,8 +101,8 @@ public class DAO {
 				return null;
 			}else {
 				
-				requete = "SELECT CardNumber , exp FROM creditcards WHERE CardNumber = ?";
-				statement = connection.prepareStatement(requete);
+				query = "SELECT CardNumber , exp FROM creditcards WHERE CardNumber = ?";
+				statement = connection.prepareStatement(query);
 				statement.setString(1, card.getCardNumber());
 				
 				
@@ -117,5 +118,50 @@ public class DAO {
 		System.out.println("Failure on getting default payment card because :" + e);
 	}
 		return card;
+	}
+	
+	public ArrayList<Vehicule> carSearch(CarFilter filter) throws InstantiationException, IllegalAccessException {
+		
+		String query;
+		CallableStatement statement;
+		
+		ArrayList<Vehicule> vehicules = new ArrayList<Vehicule>();
+		Vehicule vehicule;
+
+		try {
+			
+			connectDB();
+			
+			query = "call car_search(?, ?);";
+			statement = connection.prepareCall(query);
+			statement.setString(1, filter.getPickUp_date());
+			statement.setString(2, filter.getReturn_date());
+			
+			ResultSet result = statement.executeQuery();			
+			
+	        while (result.next()) {
+	        	vehicule = new Vehicule();
+	            
+	        	vehicule.setMatricule(result.getString("matricule"));
+	        	vehicule.setMarque(result.getString("marque"));
+	        	vehicule.setModele(result.getString("modele"));
+	        	vehicule.setPLJ(result.getDouble("PLJ"));
+	        	vehicule.setPLH(result.getDouble("PLH"));
+	        	vehicule.setType(result.getString("type"));
+	        	vehicule.setEtat(result.getString("etat"));
+	        	vehicule.setImage(result.getString("image"));
+	        	vehicule.setDepot_code(result.getString("depot_code"));
+	        	
+	        	vehicules.add(vehicule);
+	        }
+	        
+			statement.close();
+
+			System.out.println("Success !");
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		
+		return vehicules;
 	}
 }
