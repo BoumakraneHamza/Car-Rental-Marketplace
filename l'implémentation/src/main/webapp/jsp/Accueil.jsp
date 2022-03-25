@@ -33,19 +33,19 @@
 		</div>
 	</div>
 	<div class="search">
-	<form action="">
+	<form action="CarSearch" method="post">
 		<div class="inputs">
 			<div class="search-field" id="location">
 				<p>Location</p>
-				<input type="text" placeholder="location">
+				<input type="text" name="location" placeholder="location">
 			</div>
 			<div class="search-field" id="pick-date">
 				<p>pick-up date</p>
-				<input type="text" placeholder="pick-up date">
+				<input type="text" name="pickUp_date" placeholder="pick-up date">
 			</div>
 			<div class="search-field" id="return-date">
 				<p>return date</p>
-				<input type="text" placeholder="return date">
+				<input type="text" name="return_date" placeholder="return date">
 			</div>
 			<div id="search_btn">
 				<input type="submit" value="search">

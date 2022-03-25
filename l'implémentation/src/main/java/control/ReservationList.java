@@ -9,21 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.CreditCards;
-import model.DAO;
 import model.User;
 
 /**
- * Servlet implementation class ClientPayment
+ * Servlet implementation class ReservationList
  */
-@WebServlet("/ClientPayment")
-public class ClientPayment extends HttpServlet {
+@WebServlet("/ReservationList")
+public class ReservationList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ClientPayment() {
+    public ReservationList() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,26 +30,16 @@ public class ClientPayment extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		User user = (User) request.getSession().getAttribute("user");
 		if (user != null) {
 			request.setAttribute("user", user);
 			
-			CreditCards card = null;
-			DAO dao = new DAO();
-			try {
-				card = dao.getDefaultCard(user.getEmail());
-			} catch (InstantiationException | IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			request.setAttribute("card", card);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/ClientPayment.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/reservationList.jsp");
 			dispatcher.forward(request, response);
 		} else {
 			//later
 			//RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/login.jsp");
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/ClientPayment.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/reservationList.jsp");
 			dispatcher.forward(request, response);
 		}
 	}

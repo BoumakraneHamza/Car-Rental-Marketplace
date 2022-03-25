@@ -74,13 +74,9 @@ public class Login extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("/jsp/login.jsp");
 				dispatcher.include(request, response);
 
-				out.print("<div class=\"notification\">\r\n"
-						+ "    <div id=\"t1\"><p>Notification</p>\r\n"
-						+ "    <input type=\"button\" value=\"X\" onclick=\"hideNotification()\"></div>\r\n"
-						+ "    <div id=\"body\">\r\n"
-						+ "    <p>Incorrect Password or Email </p>\r\n"
-						+ "    <p>Please try again</p>\r\n"
-						+ "</div>\r\n"
+				out.print("<div>\r\n"
+						+ "    <div><p>email or password incorrect</p>\r\n"
+						+ "    </div>\r\n"
 						+ "</div>");
 			}
 			

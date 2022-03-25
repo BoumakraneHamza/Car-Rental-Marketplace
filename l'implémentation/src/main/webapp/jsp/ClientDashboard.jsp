@@ -78,7 +78,7 @@
 					<div class="cols-1">
 							<div id="header">
 								<h4>Bookings</h4>
-								<div id="details"><a href="${pageContext.request.contextPath}/jsp/reservationList.jsp">Details</a><img src="${pageContext.request.contextPath}/assets/angle-right-solid-blue.svg"></div>
+								<div id="details"><a href="${pageContext.request.contextPath}/ReservationList">Details</a><img src="${pageContext.request.contextPath}/assets/angle-right-solid-blue.svg"></div>
 							</div>
 							<ul class="timeline">
 								<!-- Item 1 -->

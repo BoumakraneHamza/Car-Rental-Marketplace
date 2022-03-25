@@ -35,8 +35,9 @@ public class CarSearch extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) request.getSession().getAttribute("user");
-		if (request.getSession().getAttribute("user") != null) {
+		if (user != null) {
 			request.setAttribute("user", user);
+			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/carSearch.jsp");
 			dispatcher.forward(request, response);
 		} else {
