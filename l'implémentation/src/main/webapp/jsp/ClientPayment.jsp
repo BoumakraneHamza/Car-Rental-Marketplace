@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,10 +15,10 @@
 		</div>
 		<div class="user">
 		<img id="notification" src="${pageContext.request.contextPath}/assets/notification.svg">
-		<img src="${pageContext.request.contextPath}${user.image}">
+		<img src="${pageContext.request.contextPath}/${user.getImage()}">
 			<div id="user-info">
-				<p id="full-name">${user.nom} ${user.prenom}</p>
-				<p id="user-name">${user.user_name}</p>
+				<p id="full-name">${user.getNom()} ${user.getPrenom()}</p>
+				<p id="user-name">${user.getUser_name()}</p>
 			</div>
 			<div id="dropdownlist">
 				<img src="${pageContext.request.contextPath}/assets/angle-down-solid.svg">
@@ -472,7 +471,9 @@
 				</div>
 			</div>
 		</div>
-	</div>
+			<div class=date_selection>
+			</div>
+		</div>
 	</div>
 <script src="${pageContext.request.contextPath}/js/ClientPayment.js"></script>
 </body>

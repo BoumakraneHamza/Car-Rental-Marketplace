@@ -1,12 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ClientMain.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reservationList.css">
-<meta charset="UTF-8">
+<meta charset="ISO-8859-1">
 <title>Bookings</title>
 </head>
 <body>
@@ -16,10 +15,10 @@
 		</div>
 		<div class="user">
 		<img id="notification" src="${pageContext.request.contextPath}/assets/notification.svg">
-		<img src="${pageContext.request.contextPath}${user.image}">
+		<img src="${pageContext.request.contextPath}/${image}">
 			<div id="user-info">
-				<p id="full-name">${user.nom} ${user.prenom}</p>
-				<p id="user-name">${user.user_name}</p>
+				<p id="full-name">${nom} ${prenom}</p>
+				<p id="user-name">${UserName}</p>
 			</div>
 			<div id="dropdownlist">
 				<img src="${pageContext.request.contextPath}/assets/angle-down-solid.svg">
@@ -73,9 +72,8 @@
 						<p>$120</p>
 					</div>
 					<div class="details">
-						<div id="bill">
-									<h4>Contract</h4>
-									<img src="${pageContext.request.contextPath}/assets/pdfFile.png">
+						<div id="car-image">
+							<img style="width:200px;height:134px;border-radius:10px;"src="${pageContext.request.contextPath}/assets/compact mini cooper S.jpg">
 						</div>
 						<div id="info">
 							<div id="field">
@@ -94,6 +92,10 @@
 										<h4>Pick-up address</h4>
 										<p>constantine</p>
 							</div>
+						</div>
+						<div id="bill">
+									<h4>Contract</h4>
+									<img src="${pageContext.request.contextPath}/assets/pdfFile.png">
 						</div>
 						<div id="amount">
 							<h4>Amount Due</h4>

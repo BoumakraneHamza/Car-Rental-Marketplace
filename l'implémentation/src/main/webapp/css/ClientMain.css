@@ -20,11 +20,14 @@ p{
 h4{
 	margin:0px;
 }
+a, a:visited{
+	text-decoration: none;
+}
 .header{
-	padding: 10px 10px 10px 20px;
+	    padding: 10px 10px 10px 20px;
     width: 100%;
     display: flex;
-    height: fit-content;
+    height: 55px;
     background-color: #fff;
     align-items: center;
     justify-content: space-between;
@@ -70,14 +73,14 @@ h4{
 }
 .content {
     width: 100%;
-    height: 100%;
+    height: calc(100vh - 55px);
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
 }
 .content .menu{
-	height: 100%;
+	height: calc(100vh - 75px);
     background-color: #fff;
     width: 50px;
     padding: 10px;
