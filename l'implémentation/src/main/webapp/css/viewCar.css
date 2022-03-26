@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+html{
+	margin:0px;
+	font-family: 'Poppins', sans-serif;
+	overflow-x:hidden;
+	width:100%;
+	height:100%;
+	overflow-y:hidden;
+}
+.view {
+    width: 90vw;
+    display:none;
+    height: 90vh;
+    position: absolute;
+    top: 50%;
+    background:#fff;
+    border: 2px solid;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.discription {
+    display: flex;
+    width: 70%;
+    border: 2px solid;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+#cancel button {
+    border: none;
+    background: none;
+    font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+    margin-right: 15px;
+    font-weight: 700;
+}
+.view_content {
+    display: flex;
+    height: -webkit-fill-available;
+    grid-template-columns: 3fr 1fr;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+.discription {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+#secondary_image {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+.view_header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+}
+.images{
+	display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr;
+}
+#title {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+#title img {
+    padding: 10px;
+    background: #dadada;
+    border-radius: 5px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+#modele {
+    font-size: 17px;
+    font-weight: 600;
+}
+#detail_field {
+    display: flex;
+    padding: 0px 35px;
+    margin-top: 20px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+#details p {
+    text-align: center;
+}
+#line{
+	border:1px solid;
+}
+.bill {
+    border: 2px solid;
+    width: 27vw;
+    display: flex;
+    flex-direction: column;
+}
+#cta_book {
+	align-self:center;
+	margin-top:10px;
+}
+#cta_book button {
+    border: none;
+    background: #B8B08D;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 10px 30px;
+    border-radius: 5px;
+}

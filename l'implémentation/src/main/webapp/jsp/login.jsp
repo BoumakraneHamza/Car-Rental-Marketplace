@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css">
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 <title>login</title>
 </head>
 <body>

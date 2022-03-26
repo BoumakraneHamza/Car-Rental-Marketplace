@@ -148,6 +148,44 @@ a, a:visited{
 .content .main-frame .dropdownSearch .search_box #search_inputs #input_field input[type="text"]:focus{
 	outline:none;
 }
+.content .main-frame .dropdownSearch .search_box #search_inputs #input_field input[type="date"] {
+	width: 170px;
+    box-sizing: border-box;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 6px;
+    color: #99a3ba;
+    border: 2px solid #ededed;
+    background: #F7F8FA;
+}
+.content .main-frame .dropdownSearch .search_box #search_inputs #input_field input[type="date"]:focus{
+	outline:none;
+}
+.content .main-frame .dropdownSearch .search_box #search_inputs #input_field input[type="date"]::placeholder {
+	font-size:12px;
+	font-weight:400;
+	font-family: 'Poppins', sans-serif;
+}
+.content .main-frame .dropdownSearch .search_box #search_inputs #input_field input[type="time"] {
+	width: 170px;
+    box-sizing: border-box;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 6px;
+    color: #99a3ba;
+    border: 2px solid #ededed;
+    background: #F7F8FA;
+}
+.content .main-frame .dropdownSearch .search_box #search_inputs #input_field input[type="time"]:focus{
+	outline:none;
+}
+.content .main-frame .dropdownSearch .search_box #search_inputs #input_field input[type="time"]::placeholder {
+	font-size:12px;
+	font-weight:400;
+	font-family: 'Poppins', sans-serif;
+}
 .content .main-frame .dropdownSearch .search_box #search_inputs #input_field .location img {
     border: 2px solid #ededed;
     padding: 11px 0px 11px 11px;
