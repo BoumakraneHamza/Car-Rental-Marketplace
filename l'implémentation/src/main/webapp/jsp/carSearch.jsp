@@ -185,7 +185,7 @@
 						<div id="map">
 						<div class="mapouter">
 						<div class="gmap_canvas">
-						<iframe id="gmap_canvas" src="https://maps.google.com/maps?q=constantine&t=&z=14&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+						<iframe id="gmap_canvas" src="https://maps.google.com/maps?q=${searchInput.location}&t=&z=14&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
 						</iframe>
 						</div>
 						</div>

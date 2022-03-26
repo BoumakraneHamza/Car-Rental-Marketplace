@@ -19,7 +19,6 @@ import model.CarFilter;
 import model.DAO;
 import model.User;
 import model.Vehicule;
-import model.search;
 
 /**
  * Servlet implementation class CarSearch
@@ -59,29 +58,22 @@ public class CarSearch extends HttpServlet {
 		DAO dao = new DAO();
 		CarFilter filter = new CarFilter();
 		ArrayList<Vehicule> vehicules;
-		search searchInput = new search();
 		try {
 			filter.setLocation(request.getParameter("location"));
-			searchInput.setLocation(request.getParameter("location"));
 			filter.setPickUp_date(request.getParameter("pickUp_date"));
-			searchInput.setDate_1(request.getParameter("pickUp_date"));
 			filter.setReturn_date(request.getParameter("return_date"));
-			searchInput.setDate_2(request.getParameter("return_date"));
 			filter.setPickUp_hour(request.getParameter("pickUp_hour"));
-			searchInput.setHour_1(request.getParameter("pickUp_hour"));
-			System.out.println(searchInput.getHour_1());
 			filter.setReturn_hour(request.getParameter("return_hour"));
-			searchInput.setHour_2(request.getParameter("return_hour"));
 			
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-			LocalDate date1 = LocalDate.parse(searchInput.getDate_2(), dtf);
-		    LocalDate date2 = LocalDate.parse(searchInput.getDate_1(), dtf);
+			LocalDate date1 = LocalDate.parse(filter.getReturn_date(), dtf);
+		    LocalDate date2 = LocalDate.parse(filter.getPickUp_date(), dtf);
 		    
 		    long daysBetween =ChronoUnit.DAYS.between(date2, date1);
 			
 		    vehicules = dao.carSearch(filter);
 		    request.setAttribute("duration", daysBetween);
-			request.setAttribute("searchInput", searchInput);
+			request.setAttribute("searchInput", filter);
 			request.setAttribute("vehicules", vehicules);
 			
 		} catch (InstantiationException | IllegalAccessException e) {

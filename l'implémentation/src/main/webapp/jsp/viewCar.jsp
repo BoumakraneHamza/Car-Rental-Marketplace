@@ -44,15 +44,15 @@
 					</div>
 					<div id="detail_field">
 						<p>Pick up</p>
-						<p>${searchInput.date_1}- ${searchInput.hour_1}</p>
-						<input type="hidden" value="${searchInput.date_1}" name="pickUp_date">
-						<input type="hidden" value="${searchInput.hour_1}" name="pickUp_hour">
+						<p>${searchInput.pickUp_date}- ${searchInput.pickUp_hour}</p>
+						<input type="hidden" value="${searchInput.pickUp_date}" name="pickUp_date">
+						<input type="hidden" value="${searchInput.pickUp_hour}" name="pickUp_hour">
 					</div>
 					<div id="detail_field">
 						<p>drop off</p>
-						<p>${searchInput.date_2} - ${searchInput.hour_2}</p>
-						<input type="hidden" value="${searchInput.date_2}" name="return_date">
-						<input type="hidden" value="${searchInput.hour_2}" name="return_hour">
+						<p>${searchInput.return_date} - ${searchInput.return_hour}</p>
+						<input type="hidden" value="${searchInput.return_date}" name="return_date">
+						<input type="hidden" value="${searchInput.return_hour}" name="return_hour">
 					</div>
 					<div id="detail_field">
 						<p>daily rate</p>
