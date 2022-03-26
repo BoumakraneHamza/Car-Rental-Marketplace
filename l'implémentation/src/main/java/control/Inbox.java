@@ -30,10 +30,9 @@ public class Inbox extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		User user = (User) request.getSession().getAttribute("user");
-		if (user != null) {
+		if (request.getSession().getAttribute("user") != null) {
+			User user = (User) request.getSession().getAttribute("user");
 			request.setAttribute("user", user);
-			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/inbox.jsp");
 			dispatcher.forward(request, response);
 		} else {

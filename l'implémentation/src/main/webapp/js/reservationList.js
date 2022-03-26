@@ -2,6 +2,9 @@ const filters = document.querySelector("#filters")
 const all = filters.querySelector("#All")
 const progress= filters.querySelector("#progress")
 const completed = filters.querySelector("#Completed")
+const allBookings= document.getElementsByClassName("full")
+const bookings = all
+console.log(bookings)
 
 
 function deactivate(element){

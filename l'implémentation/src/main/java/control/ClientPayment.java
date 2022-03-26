@@ -33,10 +33,9 @@ public class ClientPayment extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		User user = (User) request.getSession().getAttribute("user");
-		if (user != null) {
+		if (request.getSession().getAttribute("user") != null) {
+			User user = (User) request.getSession().getAttribute("user");
 			request.setAttribute("user", user);
-			
 			CreditCards card = null;
 			DAO dao = new DAO();
 			try {

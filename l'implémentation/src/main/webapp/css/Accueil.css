@@ -22,7 +22,7 @@ ul {
     padding:20px 50px 0px 50px;
 }
 .main-frame{
-background-image:  linear-gradient(to right, #F6AA1C 0%, #F6AA1C 50% ,#fff 50%,#fff 100%);	
+background-image:  url("../assets/wave.svg")
 }
 .main-frame .header #logo{
     display: flex;

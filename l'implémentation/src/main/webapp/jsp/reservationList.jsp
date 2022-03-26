@@ -63,8 +63,8 @@
 				</div>
 				<div class="table-content">
 				<c:forEach var="i" begin="0" end="${reservationList.size()-1 < 0 ? 0 : reservationList.size()-1}" step="1">
-				<div class="full">
-					<div class="Booking" onclick="show_details(this)">
+				<div class="full" >
+					<div class="Booking" id="${reservationList[i].getStatus()}" onclick="show_details(this)">
 						<p>${reservationList[i].getId()}</p>
 						<p>${reservationList[i].getStatus()}</p>
 						<p>${reservationList[i].getAgence()}</p>

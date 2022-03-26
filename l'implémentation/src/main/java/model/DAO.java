@@ -173,7 +173,7 @@ public class DAO {
 		ResultSet result;
 		try {
 			connectDB();
-			Query = "SELECT * from reservation , vehicule , transactionhistory where vehicule_matricule = matricule and id = reservationID and locataire_email = ?";
+			Query = "SELECT * from reservation where locataire_email = ?";
 			statement = connection.prepareStatement(Query);
 			statement.setString(1, email);
 			result =statement.executeQuery();
@@ -189,17 +189,31 @@ public class DAO {
 				reservation.setPick_up_hour(result.getString("hour_1"));
 				reservation.setReturn_hour(result.getString("hour_2"));
 				reservation.setLocation(result.getString("location"));
-				reservation.setVehicule(result.getString("modele"));
-				reservation.setPLH(result.getInt("PLH"));
-				reservation.setPLJ(result.getInt("PLJ"));
-				reservation.setCarImage(result.getString("image"));
-				reservation.setPaymentId(result.getInt("payment_id"));
-				reservation.setTotalAmount(result.getInt("montant"));
-				reservation.setAgence(result.getString("agence"));
+				reservation.setVehicule(result.getString("vehicule_matricule"));
+				System.out.println(reservation.getVehicule());
+				Query = "SELECT * from vehicule where matricule = ?";
+				PreparedStatement statement2 = connection.prepareStatement(Query);
+				statement2.setString(1, reservation.getVehicule());
+				ResultSet result2 =statement2.executeQuery();
+				while(result2.next()) {
+					reservation.setVehicule(result2.getString("modele"));
+					System.out.println(reservation.getVehicule());
+					reservation.setPLH(result2.getInt("PLH"));
+					reservation.setPLJ(result2.getInt("PLJ"));
+					reservation.setCarImage(result2.getString("image"));
+				}
 				
-				
+				Query = "SELECT * from transactionhistory where reservationID = "+reservation.getId() ;
+				PreparedStatement statement3 = connection.prepareStatement(Query);
+				ResultSet result3 = statement3.executeQuery();
+				while(result3.next()) {
+					reservation.setPaymentId(result3.getInt("payment_id"));
+					reservation.setTotalAmount(result3.getInt("montant"));
+					reservation.setAgence(result3.getString("agence"));
+				}	
 				reservationList.add(reservation);
 			}
+			statement.close();
 		}catch (SQLException e) {
 			System.out.println(e);
 			

@@ -16,8 +16,8 @@
 			<h3>Unique</h3>		
 		</div>
 		<div id="navbar">
-			<a style="color:#B8B08D" href="${pageContext.request.contextPath}/SignUp">join us</a>
-			<a href="${pageContext.request.contextPath}/Login">login</a>
+			<a style="color:#fff" href="${pageContext.request.contextPath}/SignUp">join us</a>
+			<a style="color:#fff" href="${pageContext.request.contextPath}/Login">login</a>
 		</div>
 	</div>
 	<div class ="content">
@@ -33,19 +33,19 @@
 		</div>
 	</div>
 	<div class="search">
-	<form action="CarSearch" method="post">
+	<form action="">
 		<div class="inputs">
 			<div class="search-field" id="location">
 				<p>Location</p>
-				<input type="text" name="location" placeholder="location">
+				<input type="text" placeholder="location">
 			</div>
 			<div class="search-field" id="pick-date">
 				<p>pick-up date</p>
-				<input type="text" name="pickUp_date" placeholder="pick-up date">
+				<input type="text" placeholder="pick-up date">
 			</div>
 			<div class="search-field" id="return-date">
 				<p>return date</p>
-				<input type="text" name="return_date" placeholder="return date">
+				<input type="text" placeholder="return date">
 			</div>
 			<div id="search_btn">
 				<input type="submit" value="search">
