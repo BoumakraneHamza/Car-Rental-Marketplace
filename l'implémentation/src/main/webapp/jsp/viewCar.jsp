@@ -35,12 +35,16 @@
 			<div class="features"></div>
 		</div>
 			<div class="bill">
+			<form action="">
 				<div id="details">
 					<p>Booking Details</p>
 					<div id="line"></div>
 					<div id="detail_field">
 						<p>Location</p>
 						<p>${searchInput.location}</p>
+						<input type="hidden" value="${searchInput.location}" name="location">
+						<input id="agence" type="hidden" value="" name="agence">
+						<input id="matricule_vehicule" type="hidden" name="matricule" value="">
 					</div>
 					<div id="detail_field">
 						<p>Pick up</p>
@@ -70,8 +74,9 @@
 					</div>
 					</div>
 					<div id="cta_book">
-						<button>Book Now</button>
+						<input type="submit" value="book now">
 					</div>
+					</form>
 			</div>
 		</div>
 	</div>

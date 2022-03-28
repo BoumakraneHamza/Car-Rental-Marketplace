@@ -11,7 +11,15 @@ public class Vehicule {
 	private String etat;
 	private String image;
 	private String depot_code;
+	private String Agence;
 	
+	
+	public String getAgence() {
+		return Agence;
+	}
+	public void setAgence(String agence) {
+		Agence = agence;
+	}
 	
 	public String getMatricule() {
 		return matricule;

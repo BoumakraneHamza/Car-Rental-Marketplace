@@ -53,7 +53,7 @@
   			    	
   			    </div>
 			</form>
-			<div id="alt"><label>you have an account ?</label><a> login </a></div>
+			<div id="alt"><label>you have an account ?</label><a href="${pageContext.request.contextPath}/Login"> login </a></div>
 			</div>
 		</div>
 		<div class="image">

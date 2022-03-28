@@ -46,7 +46,7 @@
 		  							<img src="${pageContext.request.contextPath}/assets/date.svg">
 		  							<label>Pick-up date</label>
 		  						</div>
-								<input type="text" name="pickUp_date">
+								<input type="date" name="pickUp_date">
 		  						</div>
 		  					
 		  					<div id="input_field">
@@ -54,7 +54,7 @@
 		  							<img src="${pageContext.request.contextPath}/assets/date.svg">
 		  							<label>Return date</label>
 		  						</div>
-		  						<input type="text" name="return_date">
+		  						<input type="date" name="return_date">
 		  					</div>
 		  					
 		  					<div id="input_field">
@@ -62,7 +62,7 @@
 		  							<img src="${pageContext.request.contextPath}/assets/hour.svg">
 		  							<label>Pick-up Hour</label>
 		  						</div>
-		  							<input type="text" name="pickUp_hour">
+		  							<input type="time" name="pickUp_hour">
 		  					</div>
 		  					
 		  					<div id="input_field">
@@ -70,7 +70,7 @@
 		  							<img src="${pageContext.request.contextPath}/assets/hour.svg">
 		  							<label>Return Hour</label>
 		  						</div>
-		  							<input type="text" name="return_hour">
+		  							<input type="time" name="return_hour">
 		  					</div>
 		  					<input type="submit" value="Search">
 		  				</div>
@@ -133,12 +133,12 @@
 					</div>
 					<div id="result">
 						<div id="result-list">
-							<c:forEach var="i" begin="0" end="${vehicules.size()-1 < 0 ? 0 : vehicules.size()-1}" step="1">
+							<c:forEach var="vehicule" items="${vehicules}">
 							<div id="car">
-								<div id="car_image"><img style="width: 240px;border-radius: 10px 10px 0px 0px ;" src="${pageContext.request.contextPath}${vehicules[i].image}"></div>
+								<div id="car_image"><img style="width: 240px;border-radius: 10px 10px 0px 0px ;" src="${pageContext.request.contextPath}${vehicule.image}"></div>
 								<div id="car_info">
 									<div id="names">
-										<p id="carName">${vehicules[i].marque} ${vehicules[i].modele}</p>
+										<p id="carName">${vehicule.marque} ${vehicule.modele}</p>
 										<p id="AgencyName">Agence De Constantine</p>
 									</div>
 									<div id="rating">
@@ -157,7 +157,7 @@
 									</div>
 								</div>
 								<div id="deal">
-									<div id="price"><p id="amount">$${vehicules[i].PLJ}</p><p>per day</p></div>
+									<div id="price"><p id="amount">$${vehicule.PLJ}</p><p>per day</p></div>
 									<div id="cta"><button>View Deal</button></div>
 								</div>
 							</div>

@@ -23,8 +23,8 @@
 	<div class ="content">
 		<div id="text">
 			<h1>Never Miss An Apportunity<br> 
-			with RENTiGo</h1>
-			<p>RENTiGo Provides you with
+			with unique</h1>
+			<p>unique Provides you with
 			The Right Vehicule<br> for every 
 			Advanture </p>
 		</div>
@@ -33,19 +33,19 @@
 		</div>
 	</div>
 	<div class="search">
-	<form action="">
+	<form action="CarSearch" method="post">
 		<div class="inputs">
 			<div class="search-field" id="location">
 				<p>Location</p>
-				<input type="text" placeholder="location">
+				<input type="text" name="location" placeholder="location">
 			</div>
 			<div class="search-field" id="pick-date">
 				<p>pick-up date</p>
-				<input type="text" placeholder="pick-up date">
+				<input type="date" name="pickUp_date" placeholder="pick-up date">
 			</div>
 			<div class="search-field" id="return-date">
 				<p>return date</p>
-				<input type="text" placeholder="return date">
+				<input type="date" name="return_date" placeholder="return date">
 			</div>
 			<div id="search_btn">
 				<input type="submit" value="search">
@@ -58,7 +58,7 @@
 	<div class="title">
 		<h3>How it works</h3>
 		<div id="subtitle">
-		<p>RENTiGo works in 3 simple steps</p>
+		<p>unique works in 3 simple steps</p>
 		</div>
 	</div>
 	<div class="content">
@@ -71,7 +71,7 @@
 			<div id="subtitle">
 				<p>
 					Booking Your Vehicule 
-					with RentiGo Is a 
+					with unique Is a 
 					FrictionLess Experience
 					that takes minutes  
 				</p>
@@ -87,7 +87,7 @@
 			</div>
 			<div id="subtitle">
 			<p>
-				RentiGo Provides you 
+				unique Provides you 
 				a Vehicule Whenever
 				you want any time
 				any date
@@ -104,7 +104,7 @@
 			</div>
 			<div id="subtitle">
 			<p>
-				With RentiGo Rent 
+				With unique Rent 
 				a vehicule From
 				more than 3.000 
 				locations around 
@@ -128,7 +128,7 @@
 		<h3>Best tool for every opportunity</h3>
 		</div>
 		<div id="subtitle">
-			<h5>in RentiGo we provide you the mean to take
+			<h5>in unique we provide you the mean to take
 				advantage <br>of every opportunity 
 			</h5>
 		</div>
@@ -139,7 +139,7 @@
 		<h3>Best Price guaranteed</h3>
 		</div>
 		<div id="subtitle">
-			<h5>RentiGo provides you the best price as a guarantee <br>
+			<h5>unique provides you the best price as a guarantee <br>
 				find a better price and we will pay you the diffrence
 			</h5>
 		</div>
@@ -150,7 +150,7 @@
 		<h3>Support 24 / 7</h3>
 		</div>
 		<div id="subtitle">
-		<h5>with RentiGo your satisfaction is our priority <br> we provide 
+		<h5>with unique your satisfaction is our priority <br> we provide 
 		you 24 / 7 support with Premium Experience </h5>
 		</div>
 		</div>
@@ -254,7 +254,7 @@
 		<ul><a>Pricelines</a></ul>
 	</div>
 	<div class="col-2">
-	<h3>About RentiGo</h3>
+	<h3>About unique</h3>
 		<ul><a>Our story</a></ul>
 		<ul><a>About Us</a></ul>
 		<ul><a>Press Center</a></ul>
@@ -274,7 +274,7 @@
 </div>
 <div class="footer">
 	<img  src="${pageContext.request.contextPath}/assets/logoBlack.svg"/>
-	<p>Copyright © 2022-2023 RentiGo.com. All rights reserved. | Privacy Policy | Terms and Conditions</p>
+	<p>Copyright © 2022-2023 unique.com. All rights reserved. | Privacy Policy | Terms and Conditions</p>
 </div>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/Accueil.js"></script>

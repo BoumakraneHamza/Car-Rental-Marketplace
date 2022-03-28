@@ -31,7 +31,11 @@ function show_details(element){
 	
 	let duration = parseInt(view.querySelector("#V_duration").innerHTML);
 	let total_rate = duration * parseInt(price.innerHTML);
-	console.log(total_rate);
 	const total = view.querySelector("#total_rate").innerHTML = total_rate;
+	const totalinput = view.querySelector("#total_rate").parentNode.querySelector("input");
+	console.log(totalinput);
+	totalinput.value=total_rate;
+	const agence = view.querySelector("#agence").value=element.parentNode.parentNode.querySelector("#AgencyName").innerHTML;
+	const matricule = view.querySelector("#matricule_vehicule").value=element.parentNode.parentNode.querySelector("#matricule").value;
 	view.style.display="flex";
 }

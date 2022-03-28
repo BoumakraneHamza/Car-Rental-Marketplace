@@ -151,6 +151,7 @@ public class DAO {
 	        	vehicule.setEtat(result.getString("etat"));
 	        	vehicule.setImage(result.getString("image"));
 	        	vehicule.setDepot_code(result.getString("depot_code"));
+	        	vehicule.setAgence(result.getString("agence_nom"));
 	        	
 	        	vehicules.add(vehicule);
 	        }

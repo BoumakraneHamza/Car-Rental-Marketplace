@@ -152,13 +152,14 @@
 					</div>
 					<div id="result">
 						<div id="result-list">		
-							<c:forEach var="i" begin="0" end="${vehicules.size()-1 < 0 ? 0 : vehicules.size()-1}" step="1">
+							<c:forEach items="${vehicules}" var="vehicule">
 							<div id="car">
-								<div id="car_image"><img style="width:240px;height:151px;border-radius: 10px 10px 0px 0px ;" src="${pageContext.request.contextPath}${vehicules[i].image}"></div>
+								<div id="car_image"><img style="width:240px;height:151px;border-radius: 10px 10px 0px 0px ;" src="${pageContext.request.contextPath}${vehicule.image}"></div>
 								<div id="car_info">
 									<div id="names">
-										<p id="carName">${vehicules[i].marque} ${vehicules[i].modele}</p>
-										<p id="AgencyName">Agence De Constantine</p>
+										<p id="carName">${vehicule.marque} ${vehicule.modele}</p>
+										<p id="AgencyName">${vehicule.agence}</p>
+										<input type="hidden" id="matricule" value="${vehicule.matricule}"></input>
 									</div>
 									<div id="rating">
 										<img src="${pageContext.request.contextPath}/assets/star.svg">
@@ -176,7 +177,7 @@
 									</div>
 								</div>
 								<div id="deal">
-									<div id="price"><p>$</p><p id="amount">${vehicules[i].PLJ}</p><p>per day</p></div>
+									<div id="price"><p>$</p><p id="amount">${vehicule.PLJ}</p><p>per day</p></div>
 									<div id="cta" onclick="show_details(this)"><button>View Deal</button></div>
 								</div>
 							</div>

@@ -30,7 +30,8 @@ public class SignUp extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		if (request.getSession().getAttribute("user") != null) {
-			//later
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/Dashboard");
+			dispatcher.forward(request, response);
 		} else {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/signUp.jsp");
 			dispatcher.forward(request, response);

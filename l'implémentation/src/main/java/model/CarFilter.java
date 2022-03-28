@@ -6,8 +6,6 @@ public class CarFilter {
 	private String return_date = null;
 	private String pickUp_hour = null; //HH:MM
 	private String return_hour = null;
-	
-	
 	public String getLocation() {
 		return location;
 	}

@@ -106,7 +106,7 @@ html{
 	align-self:center;
 	margin-top:10px;
 }
-#cta_book button {
+#cta_book input[type="submit"] {
     border: none;
     background: #B8B08D;
     color: #fff;
