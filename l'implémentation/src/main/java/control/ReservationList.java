@@ -33,9 +33,10 @@ public class ReservationList extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (request.getSession().getAttribute("user") != null) {
-			User user = (User) request.getSession().getAttribute("user");
+		User user = (User) request.getSession().getAttribute("user");
+		if (user != null) {
 			request.setAttribute("user", user);
+
 			DAO dao = new DAO();
 			ArrayList<Reservation> reservationList = new ArrayList<Reservation>();
 			try {

@@ -34,8 +34,8 @@ public class Dashboard extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		User user = (User) request.getSession().getAttribute("user");
-		DAO dao = new DAO();
 		if (user != null) {
+			request.setAttribute("user", user);
 
 			String url = "/";
 
@@ -44,7 +44,7 @@ public class Dashboard extends HttpServlet {
 			} else {
 				url = url + "jsp/ClientDashboard.jsp"; //TODO later
 			}
-			request.setAttribute("user", user);
+			DAO dao = new DAO();
 			CreditCards card = null;
 			try {
 				card = dao.getDefaultCard(user.getEmail());

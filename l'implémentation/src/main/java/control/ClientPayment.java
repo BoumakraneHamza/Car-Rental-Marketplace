@@ -1,6 +1,7 @@
 package control;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.CreditCards;
 import model.DAO;
+import model.Payment;
 import model.User;
 
 /**
@@ -32,19 +34,23 @@ public class ClientPayment extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		if (request.getSession().getAttribute("user") != null) {
-			User user = (User) request.getSession().getAttribute("user");
+		User user = (User) request.getSession().getAttribute("user");
+		if (user != null) {
 			request.setAttribute("user", user);
-			CreditCards card = null;
+			
 			DAO dao = new DAO();
+			CreditCards card = null;
+			ArrayList<Payment> payments = null;
+			
 			try {
 				card = dao.getDefaultCard(user.getEmail());
+				payments = dao.getPayments(user.getEmail());
 			} catch (InstantiationException | IllegalAccessException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			request.setAttribute("card", card);
+			request.setAttribute("payments", payments);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/ClientPayment.jsp");
 			dispatcher.forward(request, response);
 		} else {

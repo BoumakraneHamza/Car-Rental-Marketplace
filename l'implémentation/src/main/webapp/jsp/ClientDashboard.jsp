@@ -51,7 +51,7 @@
 						<div id="inbox">
 							<div id="header">
 								<h4>Inbox</h4>
-								<div id="details"><a>Details</a><img src="${pageContext.request.contextPath}/assets/angle-right-solid-blue.svg"></div>
+								<div id="details"><a href="${pageContext.request.contextPath}/Inbox">Details</a><img src="${pageContext.request.contextPath}/assets/angle-right-solid-blue.svg"></div>
 							</div>
 							<div id="messages">
 								<div id="emails">
@@ -119,7 +119,7 @@
 			<div class="Payment">
 				<div id="header">
 					<h4>Payment</h4>
-					<div id="details"><a>Details</a><img src="${pageContext.request.contextPath}/assets/angle-right-solid-blue.svg"></div>
+					<div id="details"><a href="${pageContext.request.contextPath}/ClientPayment">Details</a><img src="${pageContext.request.contextPath}/assets/angle-right-solid-blue.svg"></div>
 				</div>
 				<div class="Card">
 					<div id="change">

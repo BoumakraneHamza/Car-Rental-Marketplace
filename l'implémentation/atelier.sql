@@ -184,11 +184,15 @@ CREATE TABLE `reservation` (
   `id` int NOT NULL,
   `locataire_email` varchar(45) NOT NULL,
   `vehicule_matricule` varchar(45) NOT NULL,
-  `date_reservation` date NOT NULL,
-  `date_retoure` date NOT NULL,
+  `date_1` date NOT NULL,
+  `date_2` date NOT NULL,
   `etat` enum('en cours','payée') NOT NULL DEFAULT 'en cours',
   `contrat` blob,
   `facture` blob,
+  `hour_1` time NOT NULL,
+  `hour_2` time NOT NULL,
+  `date_reservation` date NOT NULL,
+  `location` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_Locataire_has_Vehicule_Vehicule1_idx` (`vehicule_matricule`),
   KEY `fk_Locataire_has_Vehicule_Locataire1_idx` (`locataire_email`),
@@ -203,38 +207,42 @@ CREATE TABLE `reservation` (
 
 LOCK TABLES `reservation` WRITE;
 /*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
-INSERT INTO `reservation` VALUES (1,'1@email.com','202212522','2022-04-05','2022-04-15','payée',NULL,NULL);
+INSERT INTO `reservation` VALUES (1,'1@email.com','202212522','2022-04-05','2022-04-15','payée',NULL,NULL,'00:00:00','00:00:00','2022-04-02','constantine'),(2,'1@email.com','202212401','2022-04-10','2022-04-12','en cours',NULL,NULL,'11:30:00','11:00:00','2022-04-08','Batna');
 /*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `transaction`
+-- Table structure for table `transactionhistory`
 --
 
-DROP TABLE IF EXISTS `transaction`;
+DROP TABLE IF EXISTS `transactionhistory`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `transaction` (
+CREATE TABLE `transactionhistory` (
+  `payment_id` int NOT NULL,
   `reservationID` int NOT NULL,
   `montant` int NOT NULL,
-  `agence` varchar(45) NOT NULL,
+  `agence_name` varchar(45) NOT NULL,
   `method` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`reservationID`),
-  KEY `agence_idx` (`agence`),
+  `date` date DEFAULT NULL,
+  PRIMARY KEY (`payment_id`),
+  KEY `agence_idx` (`agence_name`),
   KEY `creditCards_idx` (`method`),
-  CONSTRAINT `agence` FOREIGN KEY (`agence`) REFERENCES `agence` (`nom`),
-  CONSTRAINT `creditCards` FOREIGN KEY (`method`) REFERENCES `creditcards` (`CardNumber`),
-  CONSTRAINT `reservation` FOREIGN KEY (`reservationID`) REFERENCES `reservation` (`id`)
+  KEY `reservation_idx` (`reservationID`),
+  CONSTRAINT `fk_agence` FOREIGN KEY (`agence_name`) REFERENCES `agence` (`nom`),
+  CONSTRAINT `fk_creditCards` FOREIGN KEY (`method`) REFERENCES `creditcards` (`CardNumber`),
+  CONSTRAINT `fk_reservation` FOREIGN KEY (`reservationID`) REFERENCES `reservation` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `transaction`
+-- Dumping data for table `transactionhistory`
 --
 
-LOCK TABLES `transaction` WRITE;
-/*!40000 ALTER TABLE `transaction` DISABLE KEYS */;
-/*!40000 ALTER TABLE `transaction` ENABLE KEYS */;
+LOCK TABLES `transactionhistory` WRITE;
+/*!40000 ALTER TABLE `transactionhistory` DISABLE KEYS */;
+INSERT INTO `transactionhistory` VALUES (1,1,1000,'agence01','1122 3344 5566 7788','2022-03-27'),(2,2,240,'agence01','1122 3344 5566 7788','2022-02-15');
+/*!40000 ALTER TABLE `transactionhistory` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -295,7 +303,7 @@ CREATE TABLE `vehicule` (
 
 LOCK TABLES `vehicule` WRITE;
 /*!40000 ALTER TABLE `vehicule` DISABLE KEYS */;
-INSERT INTO `vehicule` VALUES ('202212522','default','defaul',100,15,'something','disponible','assets/car_pics/default.jpg','d01');
+INSERT INTO `vehicule` VALUES ('202212401','Peugot','e-208GT',120,20,'something','disponible','/assets/car_pics/car02.jpg','d02'),('202212522','Mini','cooper Sl',100,15,'something','disponible','/assets/car_pics/default01.jpg','d01');
 /*!40000 ALTER TABLE `vehicule` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -319,10 +327,8 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `car_search`(in pickUp_date date, in return_date date)
 BEGIN
 
-select v.*
-from vehicule v join depot d 
-on v.`depot_code` = d.`code`
-where v.`matricule` not in (select vehicule_matricule from reservation where(datediff(return_date, date_reservation) >= 0 and datediff(date_retoure, pickUp_date) >= 0));
+SELECT * FROM vehicule as v join depot as d on v.depot_code = d.code 
+where v.matricule not in (select vehicule_matricule from reservation where (datediff(return_date, date_1) >= 0 and datediff(date_2, pickUp_date) >= 0));
 
 END ;;
 DELIMITER ;
@@ -340,4 +346,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-24 20:51:38
+-- Dump completed on 2022-03-28 23:39:38

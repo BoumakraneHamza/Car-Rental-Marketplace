@@ -7,7 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class DAO {
 
@@ -165,6 +164,7 @@ public class DAO {
 		
 		return vehicules;
 	}
+	
 	public ArrayList<Reservation> getReservation(String email) throws InstantiationException, IllegalAccessException{
 		String Query;
 		System.out.println(email);
@@ -210,7 +210,7 @@ public class DAO {
 				while(result3.next()) {
 					reservation.setPaymentId(result3.getInt("payment_id"));
 					reservation.setTotalAmount(result3.getInt("montant"));
-					reservation.setAgence(result3.getString("agence"));
+					reservation.setAgence(result3.getString("agence_name"));
 				}	
 				reservationList.add(reservation);
 			}
@@ -220,5 +220,44 @@ public class DAO {
 			
 		}
 		return reservationList;
+	}
+	
+	public ArrayList<Payment> getPayments(String email) throws InstantiationException, IllegalAccessException{
+		String Query;
+		PreparedStatement statement;
+		
+		ArrayList<Payment> payments = new ArrayList<Payment>();
+		Payment payment;
+		
+		ResultSet result;
+		try {
+			connectDB();
+			Query = "select * \r\n"
+					+ "from transactionhistory as t join reservation as r on t.reservationID = r.id join vehicule as v on r.vehicule_matricule = v.matricule\r\n"
+					+ "where locataire_email = ?";
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, email);
+			result = statement.executeQuery();
+			
+			while(result.next()) {
+				payment = new Payment();
+				
+				payment.setPayment_id(result.getInt("payment_id"));
+				payment.setReservationID(result.getInt("reservationID"));
+				payment.setMontant(result.getInt("montant"));
+				payment.setAgence(result.getString("agence_name"));
+				payment.setMethod(result.getString("Method"));
+				payment.setDate(result.getString("date"));
+				payment.setCar_name(result.getString("marque") + " " + result.getString("modele"));
+				payment.setReservation_date(result.getString("date_reservation"));
+				
+				payments.add(payment);
+			}
+			statement.close();
+		}catch (SQLException e) {
+			System.out.println(e);
+			
+		}
+		return payments;
 	}
 }
