@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.PdfManipulator;
+
 /**
  * Servlet implementation class initReservation
  */
@@ -28,20 +30,18 @@ public class initReservation extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String path = request.getServletContext().getRealPath("/assets/documents/factures/facture.pdf");
-		System.out.println(path); // factures path = C:\Users\Dev\Desktop\eclipse-workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Atelier\assets\documents\factures\facture.pdf
-		//RequestDispatcher dispatcher = request.getRequestDispatcher("/assets/documents/factures/facture.pdf");
-		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/CarSearch");
-		dispatcher.forward(request, response);
+		String path = request.getServletContext().getRealPath("/assets/documents/factures/");
+		PdfManipulator.createPdf(1, path);
+//		RequestDispatcher dispatcher = request.getRequestDispatcher("/assets/documents/factures/facture_1.pdf");
+//		dispatcher.forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }
