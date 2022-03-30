@@ -62,50 +62,57 @@
 					<p>Total</p>
 				</div>
 				<div class="table-content">
-				<c:forEach var="i" begin="0" end="${reservationList.size()-1 < 0 ? 0 : reservationList.size()-1}" step="1">
-				<div class="full" >
-					<div class="Booking" id="${reservationList[i].getStatus()}" onclick="show_details(this)">
-						<p>${reservationList[i].getId()}</p>
-						<p>${reservationList[i].getStatus()}</p>
-						<p>${reservationList[i].getAgence()}</p>
-						<p>${reservationList[i].getVehicule()}</p>
-						<p>${reservationList[i].getPick_up_date()} - ${reservationList[i].getReturn_date()}</p>
-						<p>${reservationList[i].getPick_up_hour()} - ${reservationList[i].getReturn_hour()}</p>
-						<p>$ ${reservationList[i].getTotalAmount()}</p>
-					</div>
-					<div class="details">
-						<div id="car-image">
-							<img style="width:200px;height:134px;border-radius:10px;"src="${pageContext.request.contextPath}${reservationList[i].getCarImage()}">
-						</div>
-						<div id="info">
-							<div id="field">
-										<h4>Payment ID</h4>
-										<p>${reservationList[i].getPaymentId()}</p>
-							</div>
-							<div id="field">
-										<h4>Reservation Date</h4>
-										<p>${reservationList[i].getReservation_date()}</p>
-							</div>
-							<div id="field">
-										<h4>Pick-up depot</h4>
-										<p>depot #13</p>
-							</div>
-							<div id="field">
-										<h4>Pick-up address</h4>
-										<p>${reservationList[i].getLocation()}</p>
-							</div>
-						</div>
-						<div id="bill">
-									<h4>Contract</h4>
-									<img src="${pageContext.request.contextPath}/assets/pdfFile.png">
-						</div>
-						<div id="amount">
-							<h4>Daily Price</h4>
-							<p>${reservationList[i].getPLJ()}</p>
-						</div>
-					</div>
-					</div>
-					</c:forEach>
+					<c:choose>
+						<c:when test="${reservationList.size() >0}">
+							<c:forEach var="i" begin="0" end="${reservationList.size()-1 < 0 ? 0 : reservationList.size()-1}" step="1">
+								<div class="full" >
+									<div class="Booking" id="${reservationList[i].getStatus()}" onclick="show_details(this)">
+										<p>${reservationList[i].getId()}</p>
+										<p>${reservationList[i].getStatus()}</p>
+										<p>${reservationList[i].getAgence()}</p>
+										<p>${reservationList[i].getVehicule()}</p>
+										<p>${reservationList[i].getPick_up_date()} - ${reservationList[i].getReturn_date()}</p>
+										<p>${reservationList[i].getPick_up_hour()} - ${reservationList[i].getReturn_hour()}</p>
+										<p>$ ${reservationList[i].getTotalAmount()}</p>
+									</div>
+									<div class="details">
+										<div id="car-image">
+											<img style="width:200px;height:134px;border-radius:10px;"src="${pageContext.request.contextPath}${reservationList[i].getCarImage()}">
+										</div>
+										<div id="info">
+											<div id="field">
+														<h4>Payment ID</h4>
+														<p>${reservationList[i].getPaymentId()}</p>
+											</div>
+											<div id="field">
+														<h4>Reservation Date</h4>
+														<p>${reservationList[i].getReservation_date()}</p>
+											</div>
+											<div id="field">
+														<h4>Pick-up depot</h4>
+														<p>depot #13</p>
+											</div>
+											<div id="field">
+														<h4>Pick-up address</h4>
+														<p>${reservationList[i].getLocation()}</p>
+											</div>
+										</div>
+										<div id="bill">
+													<h4>Contract</h4>
+													<img src="${pageContext.request.contextPath}/assets/pdfFile.png">
+										</div>
+										<div id="amount">
+											<h4>Daily Price</h4>
+											<p>${reservationList[i].getPLJ()}</p>
+										</div>
+									</div>
+									</div>
+						</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<p id="message">you have no Bookings history</p>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 		</div>

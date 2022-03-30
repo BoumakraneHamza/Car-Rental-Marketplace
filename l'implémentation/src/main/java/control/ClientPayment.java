@@ -54,9 +54,8 @@ public class ClientPayment extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/ClientPayment.jsp");
 			dispatcher.forward(request, response);
 		} else {
-			//later
-			//RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/login.jsp");
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/ClientPayment.jsp");
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/login.jsp");
 			dispatcher.forward(request, response);
 		}
 	}

@@ -221,6 +221,12 @@ a, a:visited{
     height: inherit;
     flex-wrap: nowrap;
 }
+#message {
+    text-align: center;
+    margin-top: 60px;
+    font-size: 17px;
+    font-weight: 500;
+}
 .content .main-frame .main-content .search-result  #search-header {
     background: #fff;
     margin: 10px;

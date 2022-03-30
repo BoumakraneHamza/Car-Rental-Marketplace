@@ -37,15 +37,15 @@
 		<div class="inputs">
 			<div class="search-field" id="location">
 				<p>Location</p>
-				<input type="text" name="location" placeholder="location">
+				<input required="required" type="text" name="location" placeholder="location">
 			</div>
 			<div class="search-field" id="pick-date">
 				<p>pick-up date</p>
-				<input type="date" name="pickUp_date" placeholder="pick-up date">
+				<input required="required" type="date" name="pickUp_date" placeholder="pick-up date">
 			</div>
 			<div class="search-field" id="return-date">
 				<p>return date</p>
-				<input type="date" name="return_date" placeholder="return date">
+				<input required="required" type="date" name="return_date" placeholder="return date">
 			</div>
 			<div id="search_btn">
 				<input type="submit" value="search">

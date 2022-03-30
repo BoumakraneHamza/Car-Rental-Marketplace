@@ -46,7 +46,7 @@
 		  			</div>
 	  			</div>
 				<div class="row" id="checkbox">
-				<div id="remember"><input type="checkbox"><label>I’ve read the terms of service and our Privacy Policy </label></div>
+				<div id="remember"><input required="required" type="checkbox"><label>I’ve read the terms of service and our Privacy Policy </label></div>
 				</div>
   			    <div id="action">
   			    	<input type="submit" value="Continue">

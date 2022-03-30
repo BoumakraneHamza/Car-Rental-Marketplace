@@ -61,84 +61,52 @@
 					</div>
 					<div class="scroll">
 					<div id=table_content>
-						<div id="full">
-							<div class="transaction" style="background-color:blue">
-								<p>just a template</p>
-								<p>Mini Cooper S</p>
-								<p>Agence De constantine</p>
-								<p>07 June 2022</p>
-								<div class="more" onclick="show_details(this)"><p>Card 7938</p><img src="${pageContext.request.contextPath}/assets/angle-down-solid.svg"></div>
-							</div>
-							<div class="details">
-								<div id="bill">
-									<h4>Bill</h4>
-									<img src="${pageContext.request.contextPath}/assets/pdfFile.png">
-								</div>
-								<div id="info">
-									<div id="field">
-										<h4>Status</h4>
-										<p>Completed</p>
+						<c:choose>
+							<c:when test="${payments.size()>0}">
+								<c:forEach items="${payments}" var="payment">
+									<div id="full">
+										<div class="transaction">
+											<p>${payment.montant}</p>
+											<p>${payment.car_name}</p>
+											<p>${payment.agence}</p>
+											<p>${payment.date}</p>
+											<div class="more" onclick="show_details(this)"><p>Card ${payment.method}</p><img src="${pageContext.request.contextPath}/assets/angle-down-solid.svg"></div>
+										</div>
+										<div class="details">
+											<div id="bill">
+												<h4>Bill</h4>
+												<img src="${pageContext.request.contextPath}/assets/pdfFile.png">
+											</div>
+											<div id="info">
+												<div id="field">
+													<h4>Status</h4>
+													<p>Completed</p>
+												</div>
+												<div id="field">
+													<h4>Reservation Date</h4>
+													<p>${payment.reservation_date}</p>
+												</div>
+												<div id="field">
+													<h4>Payment ID</h4>
+													<p>${payment.payment_id}</p>
+												</div>
+												<div id="field">
+													<h4>Date Paid</h4>
+													<p>${payment.date}</p>
+												</div>
+											</div>
+											<div id="amount">
+												<h4>Amount Due</h4>
+												<p>${payment.montant}</p>
+											</div>
+										</div>
 									</div>
-									<div id="field">
-										<h4>Reservation Date</h4>
-										<p>10 June 2022</p>
-									</div>
-									<div id="field">
-										<h4>Payment ID</h4>
-										<p>01231231</p>
-									</div>
-									<div id="field">
-										<h4>Date Paid</h4>
-										<p>07 June 2022</p>
-									</div>
-								</div>
-								<div id="amount">
-									<h4>Amount Due</h4>
-									<p>$130</p>
-								</div>
-							</div>
-						</div>
-						<c:forEach items="${payments}" var="payment">
-						<div id="full">
-							<div class="transaction">
-								<p>${payment.montant}</p>
-								<p>${payment.car_name}</p>
-								<p>${payment.agence}</p>
-								<p>${payment.date}</p>
-								<div class="more" onclick="show_details(this)"><p>Card ${payment.method}</p><img src="${pageContext.request.contextPath}/assets/angle-down-solid.svg"></div>
-							</div>
-							<div class="details">
-								<div id="bill">
-									<h4>Bill</h4>
-									<img src="${pageContext.request.contextPath}/assets/pdfFile.png">
-								</div>
-								<div id="info">
-									<div id="field">
-										<h4>Status</h4>
-										<p>Completed</p>
-									</div>
-									<div id="field">
-										<h4>Reservation Date</h4>
-										<p>${payment.reservation_date}</p>
-									</div>
-									<div id="field">
-										<h4>Payment ID</h4>
-										<p>${payment.payment_id}</p>
-									</div>
-									<div id="field">
-										<h4>Date Paid</h4>
-										<p>${payment.date}</p>
-									</div>
-								</div>
-								<div id="amount">
-									<h4>Amount Due</h4>
-									<p>${payment.montant}</p>
-								</div>
-							</div>
-						</div>
-						</c:forEach>
-
-
+								</c:forEach>
+							</c:when>
+							<c:otherwise>
+								<p id="message">you have no transaction history</p>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 			</div>

@@ -56,7 +56,7 @@
 		  							<img src="${pageContext.request.contextPath}/assets/location.svg">
 		  							<label>Location</label>
 		  						</div>
-		  						<input type="text" name="location">			
+		  						<input required="required" type="text" name="location">			
 		  					</div>
 		  					
 		  					<div id="input_field">
@@ -64,7 +64,7 @@
 		  							<img src="${pageContext.request.contextPath}/assets/date.svg">
 		  							<label>Pick-up date</label>
 		  						</div>
-								<input type="date" name="pickUp_date">
+								<input required="required" type="date" name="pickUp_date">
 		  						</div>
 		  					
 		  					<div id="input_field">
@@ -72,7 +72,7 @@
 		  							<img src="${pageContext.request.contextPath}/assets/date.svg">
 		  							<label>Return date</label>
 		  						</div>
-		  						<input type="date" name="return_date">
+		  						<input required="required" type="date" name="return_date">
 		  					</div>
 		  					
 		  					<div id="input_field">
@@ -80,7 +80,7 @@
 		  							<img src="${pageContext.request.contextPath}/assets/hour.svg">
 		  							<label>Pick-up Hour</label>
 		  						</div>
-		  							<input type="time" name="pickUp_hour">
+		  							<input required="required" type="time" name="pickUp_hour">
 		  					</div>
 		  					
 		  					<div id="input_field">
@@ -88,7 +88,7 @@
 		  							<img src="${pageContext.request.contextPath}/assets/hour.svg">
 		  							<label>Return Hour</label>
 		  						</div>
-		  							<input type="time" name="return_hour">
+		  							<input required="required" type="time" name="return_hour">
 		  					</div>
 		  					<input type="submit" value="Search">
 		  				</div>
@@ -152,36 +152,43 @@
 					</div>
 					<div id="result">
 						<div id="result-list">		
-							<c:forEach items="${vehicules}" var="vehicule">
-							<div id="car">
-								<div id="car_image"><img style="width:240px;height:151px;border-radius: 10px 10px 0px 0px ;" src="${pageContext.request.contextPath}${vehicule.image}"></div>
-								<div id="car_info">
-									<div id="names">
-										<p id="carName">${vehicule.marque} ${vehicule.modele}</p>
-										<p id="AgencyName">${vehicule.agence}</p>
-										<input type="hidden" id="matricule" value="${vehicule.matricule}"></input>
-									</div>
-									<div id="rating">
-										<img src="${pageContext.request.contextPath}/assets/star.svg">
-										<p id="score">4.2</p>
-									</div>
-								</div>
-								<h4 style="font-size: 15px;font-weight: 600;color: #C4C4C4;margin-top: 5px;">Features :</h4>
-								<div id="car_features">
-									<div id="features">
-										<span><img src="${pageContext.request.contextPath}/assets/mileage-icon.svg">Unlimited mileage</span>
-										<span><img src="${pageContext.request.contextPath}/assets/passenger-icon.svg">2</span>
-									</div>
-									<div id="promotion">
-										<p id="promotion-value">-30%</p>
-									</div>
-								</div>
-								<div id="deal">
-									<div id="price"><p>$</p><p id="amount">${vehicule.PLJ}</p><p>per day</p></div>
-									<div id="cta" onclick="show_details(this)"><button>View Deal</button></div>
-								</div>
-							</div>
-							</c:forEach>
+							<c:choose>
+								<c:when test="${vehicules.size()>0}">
+									<c:forEach items="${vehicules}" var="vehicule">
+										<div id="car">
+											<div id="car_image"><img style="width:240px;height:151px;border-radius: 10px 10px 0px 0px ;" src="${pageContext.request.contextPath}${vehicule.image}"></div>
+											<div id="car_info">
+												<div id="names">
+													<p id="carName">${vehicule.marque} ${vehicule.modele}</p>
+													<p id="AgencyName">${vehicule.agence}</p>
+													<input type="hidden" id="matricule" value="${vehicule.matricule}"></input>
+												</div>
+												<div id="rating">
+													<img src="${pageContext.request.contextPath}/assets/star.svg">
+													<p id="score">4.2</p>
+												</div>
+											</div>
+											<h4 style="font-size: 15px;font-weight: 600;color: #C4C4C4;margin-top: 5px;">Features :</h4>
+											<div id="car_features">
+												<div id="features">
+													<span><img src="${pageContext.request.contextPath}/assets/mileage-icon.svg">Unlimited mileage</span>
+													<span><img src="${pageContext.request.contextPath}/assets/passenger-icon.svg">2</span>
+												</div>
+												<div id="promotion">
+													<p id="promotion-value">-30%</p>
+												</div>
+											</div>
+											<div id="deal">
+												<div id="price"><p>$</p><p id="amount">${vehicule.PLJ}</p><p>per day</p></div>
+												<div id="cta" onclick="show_details(this)"><button>View Deal</button></div>
+											</div>
+										</div>
+										</c:forEach>
+								</c:when>
+								<c:otherwise>
+									<p id="message">Choose Location and a Date and Book a Car </p>
+								</c:otherwise>
+							</c:choose>
 						</div>
 						<div id="map">
 						<div class="mapouter">

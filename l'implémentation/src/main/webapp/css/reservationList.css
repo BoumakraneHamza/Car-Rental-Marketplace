@@ -96,6 +96,12 @@
     border-radius: 10px;
     grid-template-columns:1fr 1fr 2fr 2fr 2fr 2fr 1fr;
 }
+.content .main-frame .bookings .table-content #message {
+    text-align: center;
+    margin-top: 60px;
+    font-size: 17px;
+    font-weight: 500;
+}
 .content .main-frame .bookings .table-content .full .Booking {
     display: grid;
     grid-template-rows: 1fr;

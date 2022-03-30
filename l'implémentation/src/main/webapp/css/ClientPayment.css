@@ -98,6 +98,12 @@
 	height: calc(100vh - 50%);
     overflow: auto;
 }
+#message {
+    text-align: center;
+    margin-top: 60px;
+    font-size: 17px;
+    font-weight: 500;
+}
 .transaction.active{
 	background: #B8B08D;
     border-radius: 10px 10px 0px 0Px;
