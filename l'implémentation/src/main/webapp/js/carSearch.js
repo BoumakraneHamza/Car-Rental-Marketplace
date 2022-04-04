@@ -35,6 +35,7 @@ function show_details(element){
 	const totalinput = view.querySelector("#total_rate").parentNode.querySelector("input");
 	console.log(totalinput);
 	totalinput.value=total_rate;
+	
 	const agence = view.querySelector("#agence").value=element.parentNode.parentNode.querySelector("#AgencyName").innerHTML;
 	const matricule = view.querySelector("#matricule_vehicule").value=element.parentNode.parentNode.querySelector("#matricule").value;
 	view.style.display="flex";

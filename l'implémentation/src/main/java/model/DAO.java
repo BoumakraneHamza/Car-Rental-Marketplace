@@ -52,9 +52,9 @@ public class DAO {
 	            
 	            user.setNom(result.getString("nom"));
 	            user.setPrenom(result.getString("prenom"));
-	            user.setNum_carte(result.getDouble("num_carte"));
+	            user.setNum_carte(result.getString("num_carte"));
 	            user.setEmail(result.getString("email"));
-	            user.setTelephone(result.getInt("telephone"));
+	            user.setTelephone(result.getString("telephone"));
 	            user.setDate_naissance(result.getString("date_naissance"));
 	            user.setSexe(result.getString("sexe"));
 	            user.setEtat(result.getString("etat"));
@@ -259,5 +259,95 @@ public class DAO {
 			
 		}
 		return payments;
+	}
+
+	public int SetTempReservation(Reservation data) {
+		String query ; 
+		PreparedStatement statement ;
+		ResultSet result ;
+		try {
+			connectDB();
+			query = "Insert into reservation(locataire_email , vehicule_matricule,date_1,date_2,etat,hour_1,hour_2,date_reservation,location)"
+					+ " values(?,?,?,?,?,?,?,?,?);";
+			statement = connection.prepareStatement(query);
+			statement.setString(1, data.getEmail());
+			statement.setString(2, data.getVehicule());
+			statement.setString(3, data.getPick_up_date());
+			statement.setString(4, data.getReturn_date());
+			statement.setString(5, "en cours");
+			statement.setString(6, data.getPick_up_hour());
+			statement.setString(7, data.getReturn_hour());
+			statement.setString(8, data.getReservation_date());
+			statement.setString(9, data.getLocation());
+			statement.executeUpdate();
+			
+			query = "Select id from reservation where locataire_email = ? and vehicule_matricule=? and date_1 = ?";
+			statement = connection.prepareStatement(query);
+			statement.setString(1, data.getEmail());
+			statement.setString(2, data.getVehicule());
+			statement.setString(3, data.getPick_up_date());
+			
+			result = statement.executeQuery();
+			
+			if(result.next()) {
+				return result.getInt("id");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return 0; 
+	}
+	
+	public Agence getAgence(String Name) {
+		String query ; 
+		PreparedStatement statement ;
+		ResultSet result ;
+		Agence agence = new Agence();
+		try {
+			connectDB();
+			query = "Select * from agence where nom = ?";
+			statement = connection.prepareStatement(query);
+			statement.setString(1, Name);
+			result = statement.executeQuery();
+			if(result.next()) {
+				agence.setName(result.getString("nom"));
+				agence.setAddress(result.getString("address"));
+				agence.setPhone(result.getString("phone"));
+			}
+			statement.close();
+			
+			return agence;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
+	
+	public Vehicule getVehicule(String matricule) {
+		String query ; 
+		PreparedStatement statement ;
+		ResultSet result ;
+		Vehicule vehicule = new Vehicule();
+		try {
+			connectDB();
+			query = "Select * from vehicule where matricule="+matricule;
+			statement = connection.prepareStatement(query);
+			result = statement.executeQuery();
+			
+			if(result.next()) {
+				vehicule.setMarque(result.getString("marque"));
+				vehicule.setModele(result.getString("modele"));
+				vehicule.setMatricule(result.getString("matricule"));
+				vehicule.setColor(result.getString("color"));
+				vehicule.setYear(result.getInt("year"));
+			}
+			statement.close();
+			
+			return vehicule;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

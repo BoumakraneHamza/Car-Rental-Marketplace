@@ -13,7 +13,7 @@
 		<div class="view_header">
 		<div id="title">
 			<img src="${pageContext.request.contextPath}/assets/angle-left-solid.svg">
-			<p id="modele">Mini cooper S</p>
+			<p id="modele">title</p>
 		</div>
 		<div id="cancel">
 			<button>X</button>
@@ -23,19 +23,19 @@
 			<div class="discription">
 			<div class="images">
 				<div id="main_image">
-					<img style="width:100%" src="${pageContext.request.contextPath}/assets/compact mini cooper S.jpg">
+					<img style="width:100%" src="">
 				</div>
 				<div id="secondary_image">
-					<img style="width:100%" src="${pageContext.request.contextPath}/assets/compact mini cooper S.jpg">
-					<img style="width:100%" src="${pageContext.request.contextPath}/assets/compact mini cooper S.jpg">
-					<img style="width:100%" src="${pageContext.request.contextPath}/assets/compact mini cooper S.jpg">
-					<img style="width:100%" src="${pageContext.request.contextPath}/assets/compact mini cooper S.jpg">
+					<img style="width:100%" src="">
+					<img style="width:100%" src="">
+					<img style="width:100%" src="">
+					<img style="width:100%" src="">
 				</div>
 			</div>
 			<div class="features"></div>
 		</div>
 			<div class="bill">
-			<form action="">
+			<form action="initReservation">
 				<div id="details">
 					<p>Booking Details</p>
 					<div id="line"></div>
@@ -74,7 +74,7 @@
 					</div>
 					</div>
 					<div id="cta_book">
-						<input type="submit" value="book now">
+						<input id="cta_input" type="submit" value="book now" onclick="">
 					</div>
 					</form>
 			</div>

@@ -12,7 +12,21 @@ public class Vehicule {
 	private String image;
 	private String depot_code;
 	private String Agence;
+	private String color;
+	private int Year;
 	
+	public int getYear() {
+		return Year;
+	}
+	public void setYear(int year) {
+		Year = year;
+	}
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
+	}
 	
 	public String getAgence() {
 		return Agence;

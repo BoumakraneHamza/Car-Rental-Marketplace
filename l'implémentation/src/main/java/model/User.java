@@ -3,9 +3,9 @@ package model;
 public class User {
 	private String nom;
 	private String prenom;
-	private double num_carte;
+	private String num_carte;
 	private String email;
-	private int telephone;
+	private String telephone;
 	private String date_naissance;
 	private String sexe;
 	private String etat;
@@ -32,10 +32,10 @@ public class User {
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
-	public double getNum_carte() {
+	public String getNum_carte() {
 		return num_carte;
 	}
-	public void setNum_carte(double num_carte) {
+	public void setNum_carte(String num_carte) {
 		this.num_carte = num_carte;
 	}
 	public String getEmail() {
@@ -44,10 +44,10 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public int getTelephone() {
+	public String getTelephone() {
 		return telephone;
 	}
-	public void setTelephone(int telephone) {
+	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
 	public String getDate_naissance() {

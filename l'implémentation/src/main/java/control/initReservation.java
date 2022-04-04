@@ -1,6 +1,10 @@
 package control;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,7 +13,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.PdfManipulator;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+
+import fileManipulation.CreatePaperWork;
+import model.DAO;
+import model.Reservation;
+import model.User;
+
 
 /**
  * Servlet implementation class initReservation
@@ -30,18 +40,45 @@ public class initReservation extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String path = request.getServletContext().getRealPath("/assets/documents/factures/");
-		PdfManipulator.createPdf(1, path);
-//		RequestDispatcher dispatcher = request.getRequestDispatcher("/assets/documents/factures/facture_1.pdf");
-//		dispatcher.forward(request, response);
+		doPost(request,response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		User user = (User) request.getSession().getAttribute("user");
+		if (user != null) {
+			String path = request.getServletContext().getRealPath("/assets/documents/contracts");
+			System.out.println(path);
+			Reservation reservation = new Reservation();
+			reservation.setEmail(user.getEmail());
+			reservation.setAgence(request.getParameter("agence"));
+			reservation.setVehicule(request.getParameter("matricule"));
+			reservation.setPick_up_date(request.getParameter("pickUp_date"));
+			reservation.setReturn_date(request.getParameter("return_date"));
+			reservation.setPick_up_hour(request.getParameter("pickUp_hour"));
+			reservation.setReturn_hour(request.getParameter("return_hour"));
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu/MM/dd");
+		    LocalDate localDate = LocalDate.now();
+			reservation.setReservation_date(dtf.format(localDate));
+			reservation.setLocation(request.getParameter("location"));
+			DAO dao = new DAO();
+			int reservationId = dao.SetTempReservation(reservation);
+			
+			try {
+				CreatePaperWork.CreateContract(reservation, user, path, String.valueOf(reservationId));
+			} catch (InvalidFormatException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/ContractConfirmation.jsp");
+			dispatcher.forward(request, response);
+		}else {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/login.jsp");
+			dispatcher.forward(request, response);
+		}
+		
 	}
 
 }

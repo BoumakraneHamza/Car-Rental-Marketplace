@@ -2,6 +2,7 @@ package model;
 
 public class Reservation {
 	private int Id;
+	private String email;
 	private String status ;
 	private String Agence ; 
 	private String Vehicule;
@@ -17,6 +18,12 @@ public class Reservation {
 	private int paymentId;
 	private String location;
 	
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	public int getPLH() {
 		return PLH;
 	}

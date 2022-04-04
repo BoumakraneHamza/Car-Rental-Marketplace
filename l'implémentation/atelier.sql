@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `atelier` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `atelier`;
--- MySQL dump 10.13  Distrib 8.0.28, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
 -- Host: localhost    Database: atelier
 -- ------------------------------------------------------
--- Server version	8.0.28
+-- Server version	8.0.27
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -27,8 +27,9 @@ DROP TABLE IF EXISTS `agence`;
 CREATE TABLE `agence` (
   `nom` varchar(45) NOT NULL,
   `num_register` int NOT NULL,
-  `adress` varchar(45) NOT NULL,
+  `address` varchar(45) NOT NULL,
   `directeur_email` varchar(45) NOT NULL,
+  `phone` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`nom`),
   UNIQUE KEY `num_register_UNIQUE` (`num_register`),
   KEY `fk_Agence_Utilisateur1_idx` (`directeur_email`),
@@ -42,7 +43,7 @@ CREATE TABLE `agence` (
 
 LOCK TABLES `agence` WRITE;
 /*!40000 ALTER TABLE `agence` DISABLE KEYS */;
-INSERT INTO `agence` VALUES ('agence01',251922,'constantine','d01@email.com');
+INSERT INTO `agence` VALUES ('agence01',251922,'constantine','d01@email.com','030102301013');
 /*!40000 ALTER TABLE `agence` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -146,7 +147,7 @@ CREATE TABLE `locataire` (
   `prenom` varchar(45) NOT NULL,
   `num_carte` double NOT NULL,
   `email` varchar(45) NOT NULL,
-  `telephone` int NOT NULL,
+  `telephone` varchar(45) NOT NULL,
   `date_naissance` date DEFAULT NULL,
   `sexe` enum('male','female') DEFAULT NULL,
   `mot_pass` varchar(45) NOT NULL,
@@ -169,7 +170,7 @@ CREATE TABLE `locataire` (
 
 LOCK TABLES `locataire` WRITE;
 /*!40000 ALTER TABLE `locataire` DISABLE KEYS */;
-INSERT INTO `locataire` VALUES ('Nathanial ','Olson',549837,'1@email.com',666666666,'1990-01-01','male','12345678','regulier',0,'/assets/profile_pics/1email.png','locataire','@olson','1122 3344 5566 7788'),('Hamza','Boumakrane',123131,'Hamza@gmail.com',12312310,'2001-04-02','male','test','regulier',0,'/assets/profile_pics/hamzagmail.jpg','locataire','@Hamza','9879 2041 7230 1275');
+INSERT INTO `locataire` VALUES ('Nathanial ','Olson',549837,'1@email.com','666666666','1990-01-01','male','12345678','regulier',0,'/assets/profile_pics/1email.png','locataire','@olson','1122 3344 5566 7788'),('Hamza','Boumakrane',123131,'Hamza@gmail.com','12312310','2001-04-02','male','test','regulier',0,'/assets/profile_pics/hamzagmail.jpg','locataire','@Hamza','9879 2041 7230 1275');
 /*!40000 ALTER TABLE `locataire` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -181,7 +182,7 @@ DROP TABLE IF EXISTS `reservation`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `reservation` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `locataire_email` varchar(45) NOT NULL,
   `vehicule_matricule` varchar(45) NOT NULL,
   `date_1` date NOT NULL,
@@ -198,7 +199,7 @@ CREATE TABLE `reservation` (
   KEY `fk_Locataire_has_Vehicule_Locataire1_idx` (`locataire_email`),
   CONSTRAINT `fk_Locataire_has_Vehicule_Locataire1` FOREIGN KEY (`locataire_email`) REFERENCES `locataire` (`email`),
   CONSTRAINT `fk_Locataire_has_Vehicule_Vehicule1` FOREIGN KEY (`vehicule_matricule`) REFERENCES `vehicule` (`matricule`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -207,7 +208,7 @@ CREATE TABLE `reservation` (
 
 LOCK TABLES `reservation` WRITE;
 /*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
-INSERT INTO `reservation` VALUES (1,'1@email.com','202212522','2022-04-05','2022-04-15','payée',NULL,NULL,'00:00:00','00:00:00','2022-04-02','constantine'),(2,'1@email.com','202212401','2022-04-10','2022-04-12','en cours',NULL,NULL,'11:30:00','11:00:00','2022-04-08','Batna');
+INSERT INTO `reservation` VALUES (1,'1@email.com','202212522','2022-04-05','2022-04-15','payée',NULL,NULL,'00:00:00','00:00:00','2022-04-02','constantine'),(2,'1@email.com','202212401','2022-04-10','2022-04-12','en cours',NULL,NULL,'11:30:00','11:00:00','2022-04-08','Batna'),(14,'Hamza@gmail.com','202212522','2022-04-30','2022-05-07','en cours',NULL,NULL,'23:32:00','23:30:00','2022-04-03','Batna - Algeria'),(15,'Hamza@gmail.com','202212522','2022-04-30','2022-05-07','en cours',NULL,NULL,'23:32:00','23:30:00','2022-04-03','Batna - Algeria'),(16,'Hamza@gmail.com','202212401','2022-05-07','2022-04-30','en cours',NULL,NULL,'23:33:00','23:33:00','2022-04-03','Batna - Algeria'),(17,'Hamza@gmail.com','202212401','2022-05-07','2022-04-30','en cours',NULL,NULL,'23:33:00','23:33:00','2022-04-03','Batna - Algeria'),(18,'Hamza@gmail.com','202212401','2022-11-04','2023-04-16','en cours',NULL,NULL,'23:43:00','23:43:00','2022-04-03','Batna - Algeria'),(19,'Hamza@gmail.com','202212522','2022-04-19','2022-04-20','en cours',NULL,NULL,'00:22:00','00:23:00','2022-04-04','Batna - Algeria'),(20,'Hamza@gmail.com','202212522','2023-07-07','2023-11-04','en cours',NULL,NULL,'00:37:00','00:38:00','2022-04-04','batna'),(21,'Hamza@gmail.com','202212401','2023-07-07','2023-11-04','en cours',NULL,NULL,'00:37:00','00:38:00','2022-04-04','batna'),(22,'Hamza@gmail.com','202212522','2022-12-07','2022-12-30','en cours',NULL,NULL,'03:45:00','00:50:00','2022-04-04','batna');
 /*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -228,10 +229,10 @@ CREATE TABLE `transactionhistory` (
   PRIMARY KEY (`payment_id`),
   KEY `agence_idx` (`agence_name`),
   KEY `creditCards_idx` (`method`),
-  KEY `reservation_idx` (`reservationID`),
+  KEY `fk_reservationID_idx` (`reservationID`),
   CONSTRAINT `fk_agence` FOREIGN KEY (`agence_name`) REFERENCES `agence` (`nom`),
   CONSTRAINT `fk_creditCards` FOREIGN KEY (`method`) REFERENCES `creditcards` (`CardNumber`),
-  CONSTRAINT `fk_reservation` FOREIGN KEY (`reservationID`) REFERENCES `reservation` (`id`)
+  CONSTRAINT `fk_reservationID` FOREIGN KEY (`reservationID`) REFERENCES `reservation` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -291,6 +292,8 @@ CREATE TABLE `vehicule` (
   `etat` enum('disponible','indisponible') NOT NULL,
   `image` varchar(50) DEFAULT NULL,
   `depot_code` varchar(45) NOT NULL,
+  `year` int NOT NULL,
+  `color` varchar(45) NOT NULL,
   PRIMARY KEY (`matricule`),
   KEY `fk_Vehicule_Depot1_idx` (`depot_code`),
   CONSTRAINT `fk_Vehicule_Depot1` FOREIGN KEY (`depot_code`) REFERENCES `depot` (`code`)
@@ -303,7 +306,7 @@ CREATE TABLE `vehicule` (
 
 LOCK TABLES `vehicule` WRITE;
 /*!40000 ALTER TABLE `vehicule` DISABLE KEYS */;
-INSERT INTO `vehicule` VALUES ('202212401','Peugot','e-208GT',120,20,'something','disponible','/assets/car_pics/car02.jpg','d02'),('202212522','Mini','cooper Sl',100,15,'something','disponible','/assets/car_pics/default01.jpg','d01');
+INSERT INTO `vehicule` VALUES ('202212401','Peugot','e-208GT',120,20,'something','disponible','/assets/car_pics/car02.jpg','d02',2022,'Yellow'),('202212522','Mini','cooper Sl',100,15,'something','disponible','/assets/car_pics/default01.jpg','d01',2021,'Red');
 /*!40000 ALTER TABLE `vehicule` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -346,4 +349,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-28 23:39:38
+-- Dump completed on 2022-04-04  1:21:32
