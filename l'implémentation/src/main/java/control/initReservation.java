@@ -72,7 +72,7 @@ public class initReservation extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/ContractConfirmation.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/SelectPayment.jsp");
 			dispatcher.forward(request, response);
 		}else {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/login.jsp");
