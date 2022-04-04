@@ -191,6 +191,7 @@ public class DAO {
 				reservation.setReturn_hour(result.getString("hour_2"));
 				reservation.setLocation(result.getString("location"));
 				reservation.setVehicule(result.getString("vehicule_matricule"));
+				reservation.setContrat(result.getString("contrat"));
 				System.out.println(reservation.getVehicule());
 				Query = "SELECT * from vehicule where matricule = ?";
 				PreparedStatement statement2 = connection.prepareStatement(Query);

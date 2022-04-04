@@ -17,7 +17,21 @@ public class Reservation {
 	private String CarImage;
 	private int paymentId;
 	private String location;
+	private String contrat;
+	private String facture;
 	
+	public String getContrat() {
+		return contrat;
+	}
+	public void setContrat(String contrat) {
+		this.contrat = contrat;
+	}
+	public String getFacture() {
+		return facture;
+	}
+	public void setFacture(String facture) {
+		this.facture = facture;
+	}
 	public String getEmail() {
 		return email;
 	}

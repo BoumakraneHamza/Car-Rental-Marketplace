@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `atelier` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `atelier`;
--- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.28, for Win64 (x86_64)
 --
 -- Host: localhost    Database: atelier
 -- ------------------------------------------------------
--- Server version	8.0.27
+-- Server version	8.0.28
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -188,8 +188,8 @@ CREATE TABLE `reservation` (
   `date_1` date NOT NULL,
   `date_2` date NOT NULL,
   `etat` enum('en cours','payée') NOT NULL DEFAULT 'en cours',
-  `contrat` blob,
-  `facture` blob,
+  `contrat` varchar(45) DEFAULT NULL,
+  `facture` varchar(45) DEFAULT NULL,
   `hour_1` time NOT NULL,
   `hour_2` time NOT NULL,
   `date_reservation` date NOT NULL,
@@ -211,6 +211,47 @@ LOCK TABLES `reservation` WRITE;
 INSERT INTO `reservation` VALUES (1,'1@email.com','202212522','2022-04-05','2022-04-15','payée',NULL,NULL,'00:00:00','00:00:00','2022-04-02','constantine'),(2,'1@email.com','202212401','2022-04-10','2022-04-12','en cours',NULL,NULL,'11:30:00','11:00:00','2022-04-08','Batna'),(14,'Hamza@gmail.com','202212522','2022-04-30','2022-05-07','en cours',NULL,NULL,'23:32:00','23:30:00','2022-04-03','Batna - Algeria'),(15,'Hamza@gmail.com','202212522','2022-04-30','2022-05-07','en cours',NULL,NULL,'23:32:00','23:30:00','2022-04-03','Batna - Algeria'),(16,'Hamza@gmail.com','202212401','2022-05-07','2022-04-30','en cours',NULL,NULL,'23:33:00','23:33:00','2022-04-03','Batna - Algeria'),(17,'Hamza@gmail.com','202212401','2022-05-07','2022-04-30','en cours',NULL,NULL,'23:33:00','23:33:00','2022-04-03','Batna - Algeria'),(18,'Hamza@gmail.com','202212401','2022-11-04','2023-04-16','en cours',NULL,NULL,'23:43:00','23:43:00','2022-04-03','Batna - Algeria'),(19,'Hamza@gmail.com','202212522','2022-04-19','2022-04-20','en cours',NULL,NULL,'00:22:00','00:23:00','2022-04-04','Batna - Algeria'),(20,'Hamza@gmail.com','202212522','2023-07-07','2023-11-04','en cours',NULL,NULL,'00:37:00','00:38:00','2022-04-04','batna'),(21,'Hamza@gmail.com','202212401','2023-07-07','2023-11-04','en cours',NULL,NULL,'00:37:00','00:38:00','2022-04-04','batna'),(22,'Hamza@gmail.com','202212522','2022-12-07','2022-12-30','en cours',NULL,NULL,'03:45:00','00:50:00','2022-04-04','batna');
 /*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `reservation_BEFORE_INSERT` BEFORE INSERT ON `reservation` FOR EACH ROW BEGIN
+declare theId int;
+
+SELECT `AUTO_INCREMENT` INTO theId
+FROM  INFORMATION_SCHEMA.TABLES
+WHERE TABLE_SCHEMA = 'atelier'
+AND   TABLE_NAME   = 'reservation';
+
+SET `new`.`contrat` = concat("/assets/documents/contracts/", theId, ".pdf");
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `reservation_BEFORE_UPDATE` BEFORE UPDATE ON `reservation` FOR EACH ROW BEGIN
+SET `new`.`contrat` = concat("/assets/documents/contracts/", new.Id, ".pdf");
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `transactionhistory`
@@ -329,10 +370,28 @@ UNLOCK TABLES;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `car_search`(in pickUp_date date, in return_date date)
 BEGIN
-
 SELECT * FROM vehicule as v join depot as d on v.depot_code = d.code 
 where v.matricule not in (select vehicule_matricule from reservation where (datediff(return_date, date_1) >= 0 and datediff(date_2, pickUp_date) >= 0));
-
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `new_procedure` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `new_procedure`(in pickUp_date date, in return_date date)
+BEGIN
+SELECT * FROM vehicule as v join depot as d on v.depot_code = d.code 
+where v.matricule not in (select vehicule_matricule from reservation where (datediff(return_date, date_1) >= 0 and datediff(date_2, pickUp_date) >= 0));
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -349,4 +408,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-04  1:21:32
+-- Dump completed on 2022-04-04 17:56:11

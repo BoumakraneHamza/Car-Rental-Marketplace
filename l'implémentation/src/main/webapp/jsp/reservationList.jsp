@@ -99,7 +99,9 @@
 										</div>
 										<div id="bill">
 													<h4>Contract</h4>
-													<img src="${pageContext.request.contextPath}/assets/pdfFile.png">
+													<a target="_blank" href="${pageContext.request.contextPath}${reservationList[i].contrat}">
+														<img src="${pageContext.request.contextPath}/assets/pdfFile.png">
+													</a>
 										</div>
 										<div id="amount">
 											<h4>Daily Price</h4>
