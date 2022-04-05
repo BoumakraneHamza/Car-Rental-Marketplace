@@ -1,0 +1,84 @@
+.main-frame {
+    height: calc(100vh - 55px);
+    width: 100%;
+}
+.main-frame .sec-header {
+    border-bottom: 2px solid #E4E4E4;
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+.main-frame .sec-header #step {
+    margin-left: 60px;
+}
+.main-frame .contract {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+.main-frame .contract .view {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: fit-content;
+    margin: 20px;
+}
+.main-frame .contract .view #view_option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0px 20px 15px;
+    flex-direction: row;
+    font-size: 16px;
+    flex-wrap: nowrap;
+    font-weight: 600;
+}
+.main-frame .contract .cta {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.main-frame .contract .cta .action {
+    background: #fff;
+    cursor:pointer;
+    padding: 25px;
+    border-radius: 10px;
+    width: fit-content;
+    max-height: 100px;
+    margin: 20px;
+     -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    -ms-transition: all 0.1s ease-in-out;
+    -o-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+}
+.main-frame .contract .cta #confirm:hover{
+	background: #FAD286;
+	color:#fff;
+	 -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    -ms-transition: all 0.1s ease-in-out;
+    -o-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+}
+.main-frame .contract .cta #report:hover{
+	background: #FE5F55;
+	color:#fff;
+	 -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    -ms-transition: all 0.1s ease-in-out;
+    -o-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+}
+.main-frame .contract .cta .action #main_text {
+    font-size: 16px;
+    font-weight: 600;
+    width: fit-content;
+}
+.main-frame .contract .cta .action #sec_text {
+    font-size: 13px;
+    max-width: 265px;
+    margin-top: 8px;
+}
