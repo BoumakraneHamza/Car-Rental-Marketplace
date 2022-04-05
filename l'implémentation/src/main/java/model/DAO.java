@@ -223,6 +223,44 @@ public class DAO {
 		return reservationList;
 	}
 	
+	public Reservation getReservation(int id) throws InstantiationException, IllegalAccessException{
+		String Query;
+		PreparedStatement statement;
+		Reservation reservation = new Reservation();;
+		ResultSet result;
+		try {
+			connectDB();
+			Query = "SELECT * from reservation as r join vehicule as v on r.vehicule_matricule = v.matricule where id = ?";
+			statement = connection.prepareStatement(Query);
+			statement.setInt(1, id);
+			result = statement.executeQuery();
+			
+			if(result.next()) {
+				
+				reservation.setId(result.getInt("id"));
+				reservation.setPick_up_date(result.getString("date_1"));
+				reservation.setReturn_date(result.getString("date_2"));
+				reservation.setReservation_date(result.getString("date_reservation"));
+				reservation.setStatus(result.getString("etat"));
+				reservation.setPick_up_hour(result.getString("hour_1"));
+				reservation.setReturn_hour(result.getString("hour_2"));
+				reservation.setLocation(result.getString("location"));
+				reservation.setVehicule(result.getString("vehicule_matricule"));
+				reservation.setContrat(result.getString("contrat"));
+				reservation.setCarName(result.getString("marque") + " " + result.getString("modele"));
+				reservation.setPLH(result.getInt("PLH"));
+				reservation.setPLJ(result.getInt("PLJ"));
+				reservation.setCarImage(result.getString("image"));
+				
+			}
+			statement.close();
+		}catch (SQLException e) {
+			System.out.println(e);
+			
+		}
+		return reservation;
+	}
+	
 	public ArrayList<Payment> getPayments(String email) throws InstantiationException, IllegalAccessException{
 		String Query;
 		PreparedStatement statement;
@@ -282,16 +320,13 @@ public class DAO {
 			statement.setString(9, data.getLocation());
 			statement.executeUpdate();
 			
-			query = "Select id from reservation where locataire_email = ? and vehicule_matricule=? and date_1 = ?";
+			query = "SELECT LAST_INSERT_ID()";
 			statement = connection.prepareStatement(query);
-			statement.setString(1, data.getEmail());
-			statement.setString(2, data.getVehicule());
-			statement.setString(3, data.getPick_up_date());
 			
 			result = statement.executeQuery();
 			
 			if(result.next()) {
-				return result.getInt("id");
+				return result.getInt("LAST_INSERT_ID()");
 			}
 		}catch(Exception e) {
 			e.printStackTrace();

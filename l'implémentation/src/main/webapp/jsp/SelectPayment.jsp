@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Payment Method</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ClientMain.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Finish_Booking.css">
@@ -133,11 +133,11 @@
 		 		<div id="line"></div>
 		 		<div id="row">
 		 			<p id="title">car model</p>
-		 			<p class="amount" id="model">Mini Cooper S</p>
+		 			<p class="amount" id="model">${reservation.carName }</p>
 		 		</div>
 		 		<div id="row">
 		 			<p id="title">daily rate</p>
-		 			<p class="amount" id="rate">$ 100</p>
+		 			<p class="amount" id="rate">${reservation.PLJ }</p>
 		 		</div>
 		 		<div id="row">
 		 			<p id="title">company fees</p>
@@ -162,14 +162,14 @@
 		 		<div id="line"></div>
 		 		<div id="row">
 		 			<p id="title">Booking duration</p>
-		 			<p class="amount" id="duration">8 days</p>
+		 			<p class="amount" id="duration">${duration } days</p>
 		 		</div>
 		 		<div id="savings">
-		 			<p>total savings $</p><p id="saving">240</p>
+		 			<p>total savings $</p><p id="saving">${(reservation.PLJ*duration+10) * 30 / 100 }</p>
 		 		</div>
 		 		<div id="row">
 		 			<p id="title">Booking Total</p>
-		 			<p class="amount" id="total">$ 570</p>
+		 			<p class="amount" id="total">${(reservation.PLJ*duration+10) * ( 1 - 30/100) }</p>
 		 		</div>
 		 	</div>
 		 </div>

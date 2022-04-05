@@ -40,7 +40,8 @@ public class initReservation extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request,response);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/Dashboard");
+		dispatcher.forward(request, response);
 	}
 
 	/**
@@ -72,7 +73,8 @@ public class initReservation extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/SelectPayment.jsp");
+			request.setAttribute("reservationId", reservationId);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/SelectPayment");
 			dispatcher.forward(request, response);
 		}else {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/login.jsp");

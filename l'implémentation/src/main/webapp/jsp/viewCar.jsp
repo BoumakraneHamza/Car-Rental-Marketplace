@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/viewCar.css"/>
 <title>Insert title here</title>
 </head>
@@ -35,7 +35,7 @@
 			<div class="features"></div>
 		</div>
 			<div class="bill">
-			<form action="initReservation">
+			<form action="initReservation" method="post">
 				<div id="details">
 					<p>Booking Details</p>
 					<div id="line"></div>

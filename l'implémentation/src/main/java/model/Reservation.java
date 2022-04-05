@@ -19,7 +19,14 @@ public class Reservation {
 	private String location;
 	private String contrat;
 	private String facture;
+	private String carName;
 	
+	public String getCarName() {
+		return carName;
+	}
+	public void setCarName(String carName) {
+		this.carName = carName;
+	}
 	public String getContrat() {
 		return contrat;
 	}
