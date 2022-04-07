@@ -5,12 +5,13 @@
    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
    crossorigin=""></script>*/
    
-const theMap = L.map('map_canvas').setView([36.24600, 6.57083], 16);
+const theMap = L.map('map_canvas').setView([36.24600, 6.57083], 13);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(theMap);
 
 const ntic = L.marker([36.24476,6.56997]).addTo(theMap)
-    .bindPopup('<h1>NTIC</h1><br> <p>information tech</p>');
+    .bindPopup('this is a test <h1>NTIC</h1><br> <p>information tech</p>');
 //ntic.openPopup();
+

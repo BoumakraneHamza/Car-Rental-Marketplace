@@ -8,6 +8,9 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ClientMain.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/carSearch.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/checkbox.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+   crossorigin=""/>
 <title>Result</title>
 </head>
 <body>
@@ -173,9 +176,10 @@
 						</div>
 						<div id="map">
 						<div class="mapouter">
-						<div class="gmap_canvas">
-						<iframe id="gmap_canvas" src="https://maps.google.com/maps?q=${searchInput.location}&t=&z=14&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
-						</iframe>
+						<div id="map_canvas" class="gmap_canvas">
+						<!--<iframe id="gmap_canvas" src="https://maps.google.com/maps?q=${searchInput.location}&t=&z=14&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+						</iframe>  -->
+						
 						</div>
 						</div>
 						</div>
@@ -185,6 +189,19 @@
 		</div>
 </div>
 <%@include file="/jsp/viewCar.jsp"%>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin=""></script>
+<script src="${pageContext.request.contextPath}/js/mapScript.js"></script>
+<script type="text/javascript">
+
+	<c:forEach items="${depots}" var="depot">
+		L.marker([${depot.lat}, ${depot.lon}]).addTo(theMap).bindPopup('<h1>depot code : ${depot.code}</h1>' + 
+																	   '<p>adress : ${depot.adress}</p>' + 
+																	   '<p>agence : ${depot.agence_nom}</p>');
+	</c:forEach>
+
+</script>
 <script src="${pageContext.request.contextPath}/js/carSearch.js"></script>
 <script src="${pageContext.request.contextPath}/js/dropdownSearch.js"></script>
 </body>

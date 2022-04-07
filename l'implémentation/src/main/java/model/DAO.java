@@ -386,4 +386,44 @@ public class DAO {
 		}
 		return null;
 	}
+
+	public ArrayList<Depot> getDepots(String location) {
+		String Query;
+		PreparedStatement statement;
+		
+		ArrayList<Depot> depots = new ArrayList<Depot>();
+		Depot depot;
+		
+		ResultSet result;
+		try {
+			connectDB();
+			Query = "select * \r\n"
+					+ "from depot \r\n"
+					+ "where adress = ?";
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, location);
+			result = statement.executeQuery();
+			
+			while(result.next()) {
+				depot = new Depot();
+				
+				
+				depot.setCode(result.getString("code"));
+				depot.setAdress(result.getString("adress"));
+				depot.setCapacite(result.getInt("capacite"));
+				depot.setCapacite_libre(result.getInt("capacite_libre"));
+				depot.setAgence_nom(result.getString("agence_nom"));
+				depot.setGaragiste_email(result.getString("garagiste_email"));
+				depot.setLat(result.getString("lat"));
+				depot.setLon(result.getString("lon"));
+				
+				depots.add(depot);
+			}
+			statement.close();
+		}catch (Exception e) {
+			System.out.println(e);
+			
+		}
+		return depots;
+	}
 }

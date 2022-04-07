@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.CarFilter;
 import model.DAO;
+import model.Depot;
 import model.User;
 import model.Vehicule;
 
@@ -56,6 +57,7 @@ public class CarSearch extends HttpServlet {
 		DAO dao = new DAO();
 		CarFilter filter = new CarFilter();
 		ArrayList<Vehicule> vehicules;
+		ArrayList<Depot> depots;
 		try {
 			filter.setLocation(request.getParameter("location"));
 			filter.setPickUp_date(request.getParameter("pickUp_date"));
@@ -70,9 +72,12 @@ public class CarSearch extends HttpServlet {
 		    long daysBetween =ChronoUnit.DAYS.between(date2, date1);
 			
 		    vehicules = dao.carSearch(filter);
+		    depots = dao.getDepots(filter.getLocation());
+		    
 		    request.setAttribute("duration", daysBetween);
 			request.setAttribute("searchInput", filter);
 			request.setAttribute("vehicules", vehicules);
+			request.setAttribute("depots", depots);
 			
 		} catch (InstantiationException | IllegalAccessException e) {
 			// TODO Auto-generated catch block

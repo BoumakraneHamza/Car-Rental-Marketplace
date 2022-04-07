@@ -43,7 +43,7 @@ CREATE TABLE `agence` (
 
 LOCK TABLES `agence` WRITE;
 /*!40000 ALTER TABLE `agence` DISABLE KEYS */;
-INSERT INTO `agence` VALUES ('agence01',251922,'constantine','d01@email.com','030102301013');
+INSERT INTO `agence` VALUES ('agence01',251922,'constantine','d01@email.com','030102301013'),('agence02',52165,'batna','d02@gmail.com','030102301087');
 /*!40000 ALTER TABLE `agence` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -117,6 +117,8 @@ CREATE TABLE `depot` (
   `capacite_libre` varchar(45) NOT NULL,
   `agence_nom` varchar(45) NOT NULL,
   `garagiste_email` varchar(45) DEFAULT NULL,
+  `lat` varchar(45) DEFAULT NULL,
+  `lon` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`code`),
   KEY `fk_Depot_Agence1_idx` (`agence_nom`),
   KEY `fk_Depot_Utilisateur1_idx` (`garagiste_email`),
@@ -131,7 +133,7 @@ CREATE TABLE `depot` (
 
 LOCK TABLES `depot` WRITE;
 /*!40000 ALTER TABLE `depot` DISABLE KEYS */;
-INSERT INTO `depot` VALUES ('d01','constantine','12','11','agence01',NULL),('d02','batna','15','15','agence01',NULL);
+INSERT INTO `depot` VALUES ('d01','constantine','12','11','agence01',NULL,'36.25023','6.57394'),('d02','batna','15','15','agence01',NULL,NULL,NULL),('d03','constantine','15','15','agence02',NULL,'36.2650','6.5833'),('d04','constantine','20','3','agence01',NULL,'36.2536','6.5546'),('d05','constantine','10','5','agence02',NULL,'36.2493','6.5921'),('d06','constantine','12','6','agence02',NULL,'36.2333','6.5604');
 /*!40000 ALTER TABLE `depot` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -199,7 +201,7 @@ CREATE TABLE `reservation` (
   KEY `fk_Locataire_has_Vehicule_Locataire1_idx` (`locataire_email`),
   CONSTRAINT `fk_Locataire_has_Vehicule_Locataire1` FOREIGN KEY (`locataire_email`) REFERENCES `locataire` (`email`),
   CONSTRAINT `fk_Locataire_has_Vehicule_Vehicule1` FOREIGN KEY (`vehicule_matricule`) REFERENCES `vehicule` (`matricule`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -208,7 +210,7 @@ CREATE TABLE `reservation` (
 
 LOCK TABLES `reservation` WRITE;
 /*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
-INSERT INTO `reservation` VALUES (1,'1@email.com','202212522','2022-04-05','2022-04-15','payée',NULL,NULL,'00:00:00','00:00:00','2022-04-02','constantine'),(2,'1@email.com','202212401','2022-04-10','2022-04-12','en cours',NULL,NULL,'11:30:00','11:00:00','2022-04-08','Batna'),(14,'Hamza@gmail.com','202212522','2022-04-30','2022-05-07','en cours',NULL,NULL,'23:32:00','23:30:00','2022-04-03','Batna - Algeria'),(15,'Hamza@gmail.com','202212522','2022-04-30','2022-05-07','en cours',NULL,NULL,'23:32:00','23:30:00','2022-04-03','Batna - Algeria'),(16,'Hamza@gmail.com','202212401','2022-05-07','2022-04-30','en cours',NULL,NULL,'23:33:00','23:33:00','2022-04-03','Batna - Algeria'),(17,'Hamza@gmail.com','202212401','2022-05-07','2022-04-30','en cours',NULL,NULL,'23:33:00','23:33:00','2022-04-03','Batna - Algeria'),(18,'Hamza@gmail.com','202212401','2022-11-04','2023-04-16','en cours',NULL,NULL,'23:43:00','23:43:00','2022-04-03','Batna - Algeria'),(19,'Hamza@gmail.com','202212522','2022-04-19','2022-04-20','en cours',NULL,NULL,'00:22:00','00:23:00','2022-04-04','Batna - Algeria'),(20,'Hamza@gmail.com','202212522','2023-07-07','2023-11-04','en cours',NULL,NULL,'00:37:00','00:38:00','2022-04-04','batna'),(21,'Hamza@gmail.com','202212401','2023-07-07','2023-11-04','en cours',NULL,NULL,'00:37:00','00:38:00','2022-04-04','batna'),(22,'Hamza@gmail.com','202212522','2022-12-07','2022-12-30','en cours',NULL,NULL,'03:45:00','00:50:00','2022-04-04','batna');
+INSERT INTO `reservation` VALUES (1,'1@email.com','202212522','2022-04-05','2022-04-15','payée',NULL,NULL,'00:00:00','00:00:00','2022-04-02','constantine'),(2,'1@email.com','202212401','2022-04-10','2022-04-12','en cours',NULL,NULL,'11:30:00','11:00:00','2022-04-08','Batna'),(14,'Hamza@gmail.com','202212522','2022-04-30','2022-05-07','en cours',NULL,NULL,'23:32:00','23:30:00','2022-04-03','Batna - Algeria'),(15,'Hamza@gmail.com','202212522','2022-04-30','2022-05-07','en cours',NULL,NULL,'23:32:00','23:30:00','2022-04-03','Batna - Algeria'),(16,'Hamza@gmail.com','202212401','2022-05-07','2022-04-30','en cours',NULL,NULL,'23:33:00','23:33:00','2022-04-03','Batna - Algeria'),(17,'Hamza@gmail.com','202212401','2022-05-07','2022-04-30','en cours',NULL,NULL,'23:33:00','23:33:00','2022-04-03','Batna - Algeria'),(18,'Hamza@gmail.com','202212401','2022-11-04','2023-04-16','en cours',NULL,NULL,'23:43:00','23:43:00','2022-04-03','Batna - Algeria'),(19,'Hamza@gmail.com','202212522','2022-04-19','2022-04-20','en cours',NULL,NULL,'00:22:00','00:23:00','2022-04-04','Batna - Algeria'),(20,'Hamza@gmail.com','202212522','2023-07-07','2023-11-04','en cours',NULL,NULL,'00:37:00','00:38:00','2022-04-04','batna'),(21,'Hamza@gmail.com','202212401','2023-07-07','2023-11-04','en cours',NULL,NULL,'00:37:00','00:38:00','2022-04-04','batna'),(22,'Hamza@gmail.com','202212522','2022-12-07','2022-12-30','en cours',NULL,NULL,'03:45:00','00:50:00','2022-04-04','batna'),(23,'1@email.com','202212401','2022-03-01','2022-03-02','en cours','/assets/documents/contracts/23.pdf',NULL,'12:20:00','12:21:00','2022-04-06','constantine'),(24,'1@email.com','202212522','2022-03-03','2022-03-04','en cours','/assets/documents/contracts/24.pdf',NULL,'12:21:00','12:23:00','2022-04-06','constantine'),(25,'1@email.com','202212401','2022-03-05','2022-03-06','en cours','/assets/documents/contracts/25.pdf',NULL,'12:24:00','13:25:00','2022-04-06','constantine');
 /*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -312,7 +314,7 @@ CREATE TABLE `utilisateur` (
 
 LOCK TABLES `utilisateur` WRITE;
 /*!40000 ALTER TABLE `utilisateur` DISABLE KEYS */;
-INSERT INTO `utilisateur` VALUES ('d01@email.com','directeur','dir','12345678',666666666,'male','directeur');
+INSERT INTO `utilisateur` VALUES ('d01@email.com','directeur','dir','12345678',666666666,'male','directeur'),('d02@gmail.com','direc2','dir2','12345678',666666666,'male','directeur');
 /*!40000 ALTER TABLE `utilisateur` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -388,4 +390,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-05 15:00:14
+-- Dump completed on 2022-04-07 15:44:28

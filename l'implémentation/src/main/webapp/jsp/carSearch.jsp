@@ -213,6 +213,15 @@
    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
    crossorigin=""></script>
 <script src="${pageContext.request.contextPath}/js/mapScript.js"></script>
+<script type="text/javascript">
+
+	<c:forEach items="${depots}" var="depot">
+		L.marker([${depot.lat}, ${depot.lon}]).addTo(theMap).bindPopup('<h1>depot code : ${depot.code}</h1>' + 
+																	   '<p>adress : ${depot.adress}</p>' + 
+																	   '<p>agence : ${depot.agence_nom}</p>');
+	</c:forEach>
+
+</script>
 <script src="${pageContext.request.contextPath}/js/carSearch.js"></script>
 <script src="${pageContext.request.contextPath}/js/dropdownSearch.js"></script>
 </body>
