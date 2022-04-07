@@ -39,7 +39,9 @@ public class contractView extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String path = request.getServletContext().getRealPath("/assets/documents/contracts/25.pdf");
+		String reservationId = request.getParameter("reservationId");
+		System.out.println(reservationId);
+		String path = request.getServletContext().getRealPath("/assets/documents/contracts/"+reservationId+".pdf");
 		File file = new File(path);
 		response.setContentType("application/pdf;charset=UTF-8");
 		response.setHeader("Content-Length", String.valueOf(file.length()));
@@ -51,8 +53,10 @@ public class contractView extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String reservationId = request.getParameter("reservationId");
+		request.setAttribute("reservationId", reservationId);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/ContractConfirmation.jsp");
+		dispatcher.forward(request, response);
 	}
 
 }

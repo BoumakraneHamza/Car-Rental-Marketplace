@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+html{
+	font-family: 'Poppins', sans-serif;
+}
+.signature #cta input[type="submit"],input[type="button"] {
+ 	border: none;
+    width: 150px;
+    margin-left: 15px;
+    height: 50px;
+    border-radius: 7px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+}
+.signature{
+	background: #fff;
+    padding: 15px 20px;
+    border-radius: 10px;
+    width: fit-content;
+    position: absolute;
+    top: 50%;
+    visibility:hidden;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid #f5f3f3;
+}
+.signature #cta {
+	margin-top: 18px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.signature #cta #submitBTN {
+    background: #B8B08D;
+}
+.signature #cta #clear{
+	background:#000;
+}
+.signature #signature_tab_header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+}
+.signature #signature_tab_header button {
+    border-radius: 50%;
+    padding: 10px;
+    width: 40px;
+    height: 40px;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    background: #FAD286;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    font-size: 18px;
+    font-weight: 600;
+}
+.signature #signature_tab_header #title {
+    font-size: 20px;
+    margin: 0px;
+    font-weight: 600;
+    text-decoration: underline;
+}
+.signature #sec_text {
+    font-size: 16px;
+    margin: 10px 0px 0px 0px;
+    font-weight: 500;
+}
+.signature #terms {
+    margin: 0px;
+    font-size: 13px;
+    font-weight: 300;
+}

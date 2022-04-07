@@ -46,10 +46,10 @@
 					<p>Booking Contract</p>
 					<img src="${pageContext.request.contextPath}/assets/download.svg">
 				</div>
-				<iframe src="${pageContext.request.contextPath}/contractView#toolbar=0&view=fith" style="width:670px; height:570px;" frameborder="0"></iframe>
+				<iframe src="${pageContext.request.contextPath}/contractView?reservationId=${reservationId}#toolbar=0&view=fith" style="width:670px; height:570px;" frameborder="0"></iframe>
 			</div>
 			<div class="cta">
-				<div class="action" id="confirm">
+				<div class="action" id="confirm" onclick="show()">
 					<p id="main_text">Confirm Contract</p>
 					<p id="sec_text">By confirming this contract you and the company are obligated by the terms specified on this document</p>
 				</div>
@@ -61,6 +61,6 @@
 		</div>
 		</div>
 </div>
-
+<%@include file="/jsp/Signature.jsp"%>
 </body>
 </html>

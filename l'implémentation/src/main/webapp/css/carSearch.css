@@ -456,6 +456,9 @@ a, a:visited{
 	width: 100%;
     height: 100%;
 }
+.content .main-frame .main-content .search-result #result #map .mapouter #map_canvas{
+	z-index: 0;
+}
 .content .main-frame .main-content .search-result #result #map .mapouter .gmap_canvas{
 	width: 100%;
     height: 100%;

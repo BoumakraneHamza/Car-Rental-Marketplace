@@ -122,10 +122,11 @@
 		 					<img src="${pageContext.request.contextPath}/assets/paymentCard3.svg"/>
 		 				</div>
 		 			</div>
-		 			<div id="cta">
+		 			<form id="cta" action="contractView" method="post">
+		 				<input name="reservationId" type="hidden" value="${reservationId}">
 		 				<input id="cancel" type="submit" value="Cancel">
 		 				<input id="next" type="submit" value="Next">
-		 			</div>
+		 			</form>
 		 		</div>
 		 	</div>
 		 	<div class="Bill">

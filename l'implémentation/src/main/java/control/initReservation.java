@@ -1,11 +1,19 @@
 package control;
 
+import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,9 +47,30 @@ public class initReservation extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/Dashboard");
-		dispatcher.forward(request, response);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {     
+	    StringBuffer jb = new StringBuffer();
+	    String line = null;
+	    BufferedReader reader = request.getReader();
+	    while ((line = reader.readLine()) != null)
+	        jb.append(line);
+
+	    String img64 = jb.toString();   
+	    //check if the image is really a base64 png, maybe a bit hard-coded
+	    if(img64 != null && img64.startsWith("data:image/png;base64,")){
+	        //Remove Content-type declaration
+	        img64 = img64.substring(img64.indexOf(',') + 1);            
+	    }else{
+	    }   
+	    try{
+	        InputStream stream = new ByteArrayInputStream(Base64.getDecoder().decode(img64.getBytes()));  
+	        BufferedImage bfi = ImageIO.read(stream);
+	        String path = getServletConfig().getServletContext().getRealPath("assets/documents/temp/saved.png");
+	        File outputfile = new File(path);
+	        outputfile.createNewFile();
+	        ImageIO.write(bfi , "png", outputfile);
+	        bfi.flush();       
+	    }catch(IOException e){    
+	    }
 	}
 
 	/**
