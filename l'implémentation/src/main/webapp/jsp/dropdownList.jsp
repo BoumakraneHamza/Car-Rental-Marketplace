@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="dropdownList">
-	<div class="tile">
+	<div class="tile" onclick="location.href='/Atelier/ViewProfile'">
 		<div class="viewProfile">
 			<div id="profile_image">
 				<img style="width:60px;" src="${pageContext.request.contextPath}${user.image}">
