@@ -1,0 +1,121 @@
+#title {
+    font-size: 17px;
+    font-weight: 600;
+    width: fit-content;
+}
+.content .main-frame {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    width: calc(100vw - 50px);
+    height: calc(100vh - 55px);
+}
+.content .main-frame .main {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    flex-wrap: nowrap;
+    height: calc(100vh - 55px);
+}
+.content .main-frame .main .team_Performance {
+    background: #fff;
+    width: auto;
+    height: 50%;
+    margin: 20px 10px 10px 20px;
+    border: 2px solid #E4E4E4;
+    padding: 15px;
+}
+.content .main-frame .main .team_Performance #chart {
+    height: calc(100% - 25px);
+    width: 100%;
+}
+.content .main-frame .main .secondary_charts {
+    display: flex;
+    height: 50%;
+    width: auto;
+    margin: 10px 10px 20px 20px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+}
+.content .main-frame .main .secondary_charts .Week_bookings {
+    background: #fff;
+    height: 100%;
+    border: 2px solid #E4E4E4;
+    width: 48%;
+	padding: 15px 0px 0px 15px;
+}
+.content .main-frame .main .secondary_charts .Week_bookings #chart {
+    height: calc(100% - 44px);
+    width: 100%;
+}
+.content .main-frame .main .secondary_charts .Clients_reviews {
+    background: #fff;
+    height: 100%;
+    border: 2px solid #E4E4E4;
+    width: 47%;
+	padding: 15px 0px 0px 15px;
+}
+.content .main-frame .main .secondary_charts .Clients_reviews #tab_header {
+    display: flex;
+    flex-direction: row;
+	padding-right: 20px;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+}
+.content .main-frame .side_bar {
+	height: calc(100vh - 55px);
+	width: auto;
+}
+.content .main-frame .side_bar .tab{
+    background: #fff;
+    margin: 20px 20px 10px 10px;
+    border: 2px solid #E4E4E4;
+    padding: 15px;
+    height: -webkit-fill-available;
+}
+.content .main-frame .side_bar #tab_header{
+	display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+.content .main-frame .side_bar #list #employee {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    border: 2px solid #E4E4E4;
+    padding: 10px;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: space-between;
+}
+.content .main-frame .side_bar #list #employee #info {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+.content .main-frame .side_bar #list #employee #info #employee_info {
+    margin-left: 10px;
+}
+.content .main-frame .side_bar #list #employee #info #employee_info #full_name {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    font-size: 15px;
+    font-weight: 600;
+}
+.content .main-frame .side_bar #list #employee #info #employee_info #employement {
+    font-size: 15px;
+    color: #C4C4C4;
+}
+.content .main-frame .side_bar #list #employee #status {
+    border: 2px solid #FAD286;
+    background: #FAD286;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}

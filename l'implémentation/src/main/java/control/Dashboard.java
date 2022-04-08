@@ -39,20 +39,20 @@ public class Dashboard extends HttpServlet {
 
 			String url = "/";
 
-			if (user.getType().equals("locataire")) {
+			if (user.getType().equals("client")) {
 				url = url + "jsp/ClientDashboard.jsp";
-			} else {
-				url = url + "jsp/ClientDashboard.jsp"; //TODO later
+				DAO dao = new DAO();
+				CreditCards card = null;
+				try {
+					card = dao.getDefaultCard(user.getEmail());
+				} catch (InstantiationException | IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				request.setAttribute("card", card);
+			} else if (user.getType().equals("directeur")) {
+				url = url + "jsp/AgencyDashboard.jsp"; 
 			}
-			DAO dao = new DAO();
-			CreditCards card = null;
-			try {
-				card = dao.getDefaultCard(user.getEmail());
-			} catch (InstantiationException | IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			request.setAttribute("card", card);
 			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 			dispatcher.forward(request, response);
 		} else {

@@ -32,48 +32,75 @@ public class DAO {
 			throws InstantiationException, IllegalAccessException {
 		
 		String query;
-		PreparedStatement statement;
-		
+		PreparedStatement statement;		
 		User user = null;
-
 		try {
 			
 			connectDB();
 			
-			query = "SELECT * FROM locataire WHERE email = ? and mot_pass = ?";
+			query = "SELECT * FROM users WHERE email = ? and mot_pass = ?";
 			statement = connection.prepareStatement(query);
-			statement.setString(1, email);
+			statement.setString (1, email);
 			statement.setString(2, password);
 			
 			ResultSet result = statement.executeQuery();			
 			
 	        if (result.next()) {
 	            user = new User();
-	            
-	            user.setNom(result.getString("nom"));
-	            user.setPrenom(result.getString("prenom"));
-	            user.setNum_carte(result.getString("num_carte"));
-	            user.setEmail(result.getString("email"));
-	            user.setTelephone(result.getString("telephone"));
-	            user.setDate_naissance(result.getString("date_naissance"));
-	            user.setSexe(result.getString("sexe"));
-	            user.setEtat(result.getString("etat"));
-	            user.setAlert(result.getInt("alert"));
-	            user.setImage(result.getString("image"));
-	            user.setType(result.getString("type"));
-	            user.setUser_name(result.getString("user_name"));
+	            if (result.getString("type").equals("client")) {
+	            	user = getClientInfo(result.getString("email"));
+	            }
+	            else if (result.getString("type").equals("directeur")) {
+	            	user = getAgencyDirecteurInfo(result.getString("email"));
+	            }
 	        }
-	        
-			statement.close();
-
-			System.out.println("Success !");
+	        statement.close();
+	        System.out.println("Success !");
 		} catch (SQLException e) {
 			System.out.println(e);
 		}
 		
 		return user;
 	}
-
+	private User getAgencyDirecteurInfo(String email) throws SQLException {
+		User user = null ;
+		String query = "SELECT * FROM agence WHERE email_compte = ?";
+    	PreparedStatement statement = connection.prepareStatement(query);
+    	statement.setString(1, email);
+    	ResultSet result = statement.executeQuery();
+    	 if (result.next()) {
+     		 user = new User();
+    		 user.setNom(result.getString("nom"));
+    		 user.setImage(result.getString("photo"));
+    		 user.setType("directeur");
+    	 }
+    	statement.close();
+		return user;
+	}
+	private User getClientInfo(String email) throws SQLException {
+		User user = null ;
+		String query = "SELECT * FROM client WHERE email = ?";
+    	PreparedStatement statement = connection.prepareStatement(query);
+    	statement.setString(1, email);
+    	ResultSet result = statement.executeQuery();
+    	if(result.next()) {
+    		user = new User();
+    		user.setNom(result.getString("nom"));
+            user.setPrenom(result.getString("prenom"));
+            user.setNum_carte(result.getString("num_carte"));
+            user.setEmail(result.getString("email"));
+            user.setTelephone(result.getString("telephone"));
+            user.setDate_naissance(result.getString("date_naissance"));
+            user.setSexe(result.getString("sexe"));
+            user.setEtat(result.getString("etat"));
+            user.setAlert(result.getInt("alert"));
+            user.setImage(result.getString("image"));
+            user.setType("client");
+            user.setUser_name(result.getString("user_name"));
+    	}
+    	statement.close();
+		return user;
+	}
 	public CreditCards getDefaultCard(String user_email) throws InstantiationException, IllegalAccessException {
 		
 		String query;
@@ -84,7 +111,7 @@ public class DAO {
 		try {	
 			connectDB();
 			
-			query = "SELECT defaultPaymentMethod FROM locataire WHERE email = ?";
+			query = "SELECT defaultPaymentMethod FROM client WHERE email = ?";
 			statement = connection.prepareStatement(query);
 			statement.setString(1, email);
 			ResultSet result = statement.executeQuery();
