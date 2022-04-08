@@ -162,6 +162,7 @@
 			</div>
 		</div>
 	</div>
+	<%@include file="/jsp/dropdownList.jsp"%>
 	<script src="${pageContext.request.contextPath}/js/ClientDashboard.js"></script>
 </body>
 </html>

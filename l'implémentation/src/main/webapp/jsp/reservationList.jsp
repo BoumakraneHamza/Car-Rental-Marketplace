@@ -120,5 +120,6 @@
 		</div>
 </div>
 <script src="${pageContext.request.contextPath}/js/reservationList.js"></script>
+	<%@include file="/jsp/dropdownList.jsp"%>
 </body>
 </html>

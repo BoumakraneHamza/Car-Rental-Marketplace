@@ -239,6 +239,6 @@
 			</div>
 	</div>
 </div>
-
+	<%@include file="/jsp/dropdownList.jsp"%>
 </body>
 </html>

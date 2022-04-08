@@ -194,7 +194,6 @@
    crossorigin=""></script>
 <script src="${pageContext.request.contextPath}/js/mapScript.js"></script>
 <script type="text/javascript">
-	setCoordinates('${searchInput.location}');
 
 	<c:forEach items="${depots}" var="depot">
 		L.marker([${depot.lat}, ${depot.lon}]).addTo(theMap).bindPopup('<h1>depot code : ${depot.code}</h1>' + 

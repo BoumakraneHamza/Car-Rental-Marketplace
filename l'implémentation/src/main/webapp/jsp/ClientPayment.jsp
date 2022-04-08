@@ -116,5 +116,6 @@
 		</div>
 	</div>
 <script src="${pageContext.request.contextPath}/js/ClientPayment.js"></script>
+	<%@include file="/jsp/dropdownList.jsp"%>
 </body>
 </html>

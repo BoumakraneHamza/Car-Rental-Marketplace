@@ -209,12 +209,11 @@
 		</div>
 </div>
 <%@include file="/jsp/viewCar.jsp"%>
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
    crossorigin=""></script>
 <script src="${pageContext.request.contextPath}/js/mapScript.js"></script>
 <script type="text/javascript">
-	setCoordinates('${searchInput.location}');
 
 	<c:forEach items="${depots}" var="depot">
 		L.marker([${depot.lat}, ${depot.lon}]).addTo(theMap).bindPopup('<h1>depot code : ${depot.code}</h1>' + 
@@ -225,5 +224,6 @@
 </script>
 <script src="${pageContext.request.contextPath}/js/carSearch.js"></script>
 <script src="${pageContext.request.contextPath}/js/dropdownSearch.js"></script>
+	<%@include file="/jsp/dropdownList.jsp"%>
 </body>
 </html>

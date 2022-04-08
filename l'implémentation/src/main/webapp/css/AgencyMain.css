@@ -70,6 +70,7 @@ a, a:visited{
 }
 .header .user #dropdownlist img {
     width: 20px;
+    cursor:pointer;
 }
 .content {
     width: 100%;
