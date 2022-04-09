@@ -1,5 +1,4 @@
-const map_switch = document.querySelector("#map-switch").querySelector("label");
-const check = map_switch.querySelector("input");
+const map_switch = document.querySelector(".toggle-check");
 const map = document.querySelector("#map");
 const cancel = document.querySelector("#cancel");
 const view = document.querySelector(".view");

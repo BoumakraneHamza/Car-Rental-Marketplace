@@ -233,6 +233,7 @@ a, a:visited{
     padding: 10px;
     display: flex;
     border-radius: 10px;
+    position: relative;
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: center;
@@ -243,49 +244,6 @@ a, a:visited{
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: center;
-}
-.content .main-frame .main-content .search-result  #search-header #map-switch {
-    width: fit-content;
-    height: fit-content;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-.content .main-frame .main-content .search-result  #search-header #map-switch input[type=checkbox] {
-	 height: 0;
-	 width: 0;
-	 visibility: hidden;
-}
-.content .main-frame .main-content .search-result  #search-header #map-switch  label {
-	 cursor: pointer;
-	 text-indent: -9999px;
-	 width: 60px;
-	 height: 30px;
-	 background: grey;
-	 display: block;
-	 border-radius: 100px;
-	 position: relative;
-}
-.content .main-frame .main-content .search-result  #search-header #map-switch  label:after {
-	 content: '';
-	 position: absolute;
-	 top: 5px;
-	 left: 5px;
-	 width: 20px;
-	 height: 20px;
-	 background: #fff;
-	 border-radius: 90px;
-	 transition: 1.0s;
-}
-.content .main-frame .main-content .search-result  #search-header #map-switch  input:checked + label {
-	 background: #bada55;
-}
-.content .main-frame .main-content .search-result  #search-header #map-switch  input:checked + label:after {
-	 left: calc(100% - 5px);
-	 transform: translateX(-100%);
-}
-.content .main-frame .main-content .search-result  #search-header #map-switch  label:active:after {
-	 width: 130px;
 }
 .content .main-frame .main-content .search-result #result {
     display: flex;

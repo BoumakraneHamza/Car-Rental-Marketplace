@@ -11,7 +11,7 @@
 <body>
 <div class="header">
 		<div id="logo">
-			<a href="${pageContext.request.contextPath}/PageAcueil"><img src="${pageContext.request.contextPath}/assets/logoBlack.svg"></a>
+			<a href="${pageContext.request.contextPath}/Dashboard"><img src="${pageContext.request.contextPath}/assets/logoBlack.svg"></a>
 		</div>
 		<div class="user">
 		<img id="notification" src="${pageContext.request.contextPath}/assets/notification.svg">
@@ -33,7 +33,7 @@
 			</div>
 			<div class="option">
 				<p id="user_name">${user.user_name}</p>
-				<button nclick="location.href='/Atelier/ViewProfile'">Edit profile</button>
+				<button onclick="location.href='/Atelier/EditProfile'">Edit profile</button>
 		 	</div>
 		</div>
 		<div class="main">

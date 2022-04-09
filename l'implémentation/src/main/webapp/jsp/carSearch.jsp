@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ClientMain.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/carSearch.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/checkbox.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/toggle.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
    crossorigin=""/>
@@ -17,7 +18,7 @@
 <body>
 <div class="header">
 		<div id="logo">
-			<a href="${pageContext.request.contextPath}/PageAcueil"><img src="${pageContext.request.contextPath}/assets/logoBlack.svg"></a>
+			<a href="${pageContext.request.contextPath}/Dashboard"><img src="${pageContext.request.contextPath}/assets/logoBlack.svg"></a>
 		</div>
 		<div class="user">
 		<img id="notification" src="${pageContext.request.contextPath}/assets/notification.svg">
@@ -38,7 +39,6 @@
 					<button class="dashboard" ><a href="${pageContext.request.contextPath}/Dashboard"><img src="${pageContext.request.contextPath}/assets/dashboard-icon.svg"></a></button>
 					<button class="inbox" ><a href="${pageContext.request.contextPath}/Inbox"><img src="${pageContext.request.contextPath}/assets/inbox.svg"></a></button>
 					<button class="payment"><a href="${pageContext.request.contextPath}/ClientPayment"><img src="${pageContext.request.contextPath}/assets/Wallet.svg"></a></button>
-					<button class="exit" ><a href="${pageContext.request.contextPath}/Logout"><img src="${pageContext.request.contextPath}/assets/exit-icon.svg"></a></button>
 		</div>
 		<div class="main-frame">
 			<div class="dropdownSearch">
@@ -149,9 +149,10 @@
 				<div class="search-result">
 					<div id="search-header">
 						<div id="count"><h4 id="number" style="margin-right:3px;">${vehicules.size()}</h4><h4> Results in </h4><h4 id="location" style="color:#B8B08D;margin-left:3px">${searchInput.location}</h4></div>
-						<div id="map-switch">
-							<input type="checkbox" id="switch" />
-							<label for="switch">Toggle</label>
+						<div class='toggle-check'>
+						  <input type='checkbox'/>
+						  <span class='toggle-b'></span>
+						  <span class='toggle-bg'></span>
 						</div>
 					</div>
 					<div id="result">

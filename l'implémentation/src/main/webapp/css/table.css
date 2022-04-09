@@ -1,0 +1,56 @@
+@charset "UTF-8";
+
+#DataBase table {
+  width: 100%;
+  table-layout: fixed;
+}
+#DataBase #table_header {
+    padding: 20px;
+    border-bottom: 2px solid #E4E4E4;
+}
+#DataBase table tbody,table thead {
+  display: contents;
+}
+#DataBase .table-content {
+  	overflow: auto;
+    max-height: calc(100vh - 226px);
+    overflow-x: hidden;
+}
+#DataBase .table-content table tbody tr{
+	text-align: initial;
+    padding: 20px;
+    height: 30px;
+    display: flex;
+    cursor:pointer;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    align-content: center;
+}
+#DataBase .table-content table tbody tr:nth-child(even) {
+  background: #edfdf5;
+}
+#DataBase .table-content table tbody tr:hover {
+  background: #53d991;
+  color: #fff;
+}
+#DataBase th {
+    text-align: initial;
+    font-size: 17px;
+    font-weight: 600;
+}
+#DataBase .table-content table tbody tr td #wrapper #status{
+	border: 2px solid #FAD286;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #FAD286;
+}
+#DataBase .table-content table tbody tr td #wrapper {
+    width: 53%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}

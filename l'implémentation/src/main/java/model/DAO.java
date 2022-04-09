@@ -48,6 +48,7 @@ public class DAO {
 	        if (result.next()) {
 	            user = new User();
 	            if (result.getString("type").equals("client")) {
+	            	user.setPassword(password);
 	            	user = getClientInfo(result.getString("email"));
 	            }
 	            else if (result.getString("type").equals("directeur")) {
@@ -62,6 +63,7 @@ public class DAO {
 		
 		return user;
 	}
+	
 	private User getAgencyDirecteurInfo(String email) throws SQLException {
 		User user = null ;
 		String query = "SELECT * FROM agence WHERE email_compte = ?";
@@ -77,6 +79,7 @@ public class DAO {
     	statement.close();
 		return user;
 	}
+	
 	private User getClientInfo(String email) throws SQLException {
 		User user = null ;
 		String query = "SELECT * FROM client WHERE email = ?";
@@ -101,6 +104,7 @@ public class DAO {
     	statement.close();
 		return user;
 	}
+	
 	public CreditCards getDefaultCard(String user_email) throws InstantiationException, IllegalAccessException {
 		
 		String query;
@@ -452,5 +456,26 @@ public class DAO {
 			
 		}
 		return depots;
+	}
+
+	public void ModifyUser(User user) {
+		String query ; 
+		PreparedStatement statement ;
+		try {
+			connectDB();
+			query = "update client set nom= ? , prenom=? , num_carte=?,telephone=? , date_naissance=?,sexe=? where email=?";
+			statement = connection.prepareStatement(query);
+			statement.setString(1, user.getNom());
+			statement.setString(2, user.getPrenom());
+			statement.setString(3, user.getNum_carte());
+			statement.setString(4, user.getTelephone());
+			statement.setString(5, user.getDate_naissance());
+			statement.setString(6, user.getSexe());
+			statement.setString(7, user.getEmail());
+			statement.executeUpdate();
+			statement.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -62,6 +62,7 @@ public class Login extends HttpServlet {
 			if (user != null) {
 
 				HttpSession session = request.getSession();
+				user.setPassword(password);
 				session.setAttribute("user", user);
 				dispatcher = request.getRequestDispatcher("/Dashboard");
 				dispatcher.forward(request, response);

@@ -11,7 +11,7 @@
 <body>
 <div class="header">
 		<div id="logo">
-			<a href="${pageContext.request.contextPath}/PageAcueil"><img src="${pageContext.request.contextPath}/assets/logoBlack.svg"></a>
+			<a href="${pageContext.request.contextPath}/Dashboard"><img src="${pageContext.request.contextPath}/assets/logoBlack.svg"></a>
 		</div>
 		<div class="user">
 		<img id="notification" src="${pageContext.request.contextPath}/assets/notification.svg">
@@ -34,8 +34,8 @@
 			<div class="option">
 				<p id="user_name">${user.user_name}</p>
 				<div id="cta">
-					<button style="width:48%;">Cancel</button>
-					<button style="width:48%;">Save</button>
+					<button onclick="location.href='/Atelier/jsp/ViewProfile.jsp'" style="width:48%;">Cancel</button>
+					<button id="save" style="width:48%;">Save</button>
 				</div>
 		 	</div>
 		</div>
@@ -43,7 +43,8 @@
 			<div id="main_header">
 				<p id="header_title">Profile Information</p>
 			</div>
-			<div class="info">
+			<form class="info" action="EditProfile" method="post">
+				<input type="hidden" value="${user.email}" name="email">
 				<div id="tile">
 					<div id="title">First Name</div>
 					<input type="text" value="${user.prenom}" name="prenom" placeholder="first name">
@@ -68,7 +69,7 @@
 					<div id="title">carte number</div>
 					<input type="text" value="${user.num_carte}" name="num_carte" placeholder="cart number">
 				</div>
-			</div>
+			</form>
 			<div id="sec_header"><p id="sec_header_title">Recent Activities</div>
 			<div id="list">
 				
@@ -76,5 +77,6 @@
 		</div>
 	</div>
 </div>
+<script src="${pageContext.request.contextPath}/js/EditProfile.js"></script>
 </body>
 </html>

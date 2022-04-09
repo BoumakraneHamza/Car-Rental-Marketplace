@@ -12,7 +12,7 @@
 <body>
 <div class="header">
 		<div id="logo">
-			<a href="${pageContext.request.contextPath}/PageAcueil"><img src="${pageContext.request.contextPath}/assets/logoBlack.svg"></a>
+			<a href="${pageContext.request.contextPath}/Dashboard"><img src="${pageContext.request.contextPath}/assets/logoBlack.svg"></a>
 		</div>
 		<div class="user">
 		<img id="notification" src="${pageContext.request.contextPath}/assets/notification.svg">
@@ -30,7 +30,7 @@
 <div class="content">
 		<div class="menu">
 			<button class="dashboard" style="background: #F6AA1C;"><a href="${pageContext.request.contextPath}/Dashboard"><img src="${pageContext.request.contextPath}/assets/dashboard-icon-white.svg"></a></button>
-			<button class="exit"><a href="${pageContext.request.contextPath}/Logout"><img src="${pageContext.request.contextPath}/assets/exit-icon.svg"></a></button>
+			<button class="dashboard"><a href="${pageContext.request.contextPath}/jsp/AgencyPersonal.jsp"><img src="${pageContext.request.contextPath}/assets/personal-icon.svg"></a></button>
 		</div>
 		<div class="main-frame">
 			<div class="main">
@@ -67,7 +67,7 @@
 			<div class="side_bar">
 				<div class="tab">
 					<div id="tab_header">
-							<div id="title">Employees</div>
+							<div id="title">Personal</div>
 							<div class="select">
 								<select name="Filter" id="filter">
 									<option value="hide">--filter--</option>

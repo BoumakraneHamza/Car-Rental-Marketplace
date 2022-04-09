@@ -34,11 +34,10 @@
 	</div>
 	<div class="tile">
 		<div class="AccessList">
-			<div class="setting">
-				<img style="width: 27px;" src="${pageContext.request.contextPath}/assets/gear.svg">
+			<div class="setting" onclick="location.href='/Atelier/Logout'">
+				<img style="width: 21px;" src="${pageContext.request.contextPath}/assets/exit-icon.svg">
 				<div class="text">
-					<p id="main_text">Settings</p>
-					<p id="sec_text">change your account settings</p>
+					<p id="main_text">Log Out</p>
 				</div>
 			</div>
 		</div>

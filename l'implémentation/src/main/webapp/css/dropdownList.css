@@ -9,8 +9,8 @@ p{
     border: 2px solid #E4E4E4;
     width: 330px;
     border-radius: 10px;
-    display:none;
     background: #fff;
+    display:none;
     position: absolute;
     margin: 10px;
     top: 55px;
@@ -79,7 +79,7 @@ p{
 }
 .dropdownList .tile .AccessList .setting {
     display: flex;
-    padding:10px;
+    padding:16px;
     cursor:pointer;
     flex-direction: row;
     flex-wrap: nowrap;
