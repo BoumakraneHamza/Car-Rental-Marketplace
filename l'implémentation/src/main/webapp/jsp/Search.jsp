@@ -8,10 +8,25 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ClientMain.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/carSearch.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/checkbox.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/toggle.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
    crossorigin=""/>
 <title>Result</title>
+<style type="text/css">
+.content .main-frame .main-content {
+    width: calc(100vw - 0px);
+    height: calc(100vh - 115px);
+    display: inline-flex;
+
+}
+.content .main-frame .dropdownSearch nav {
+    width: 100vw;
+    padding: 0;
+    height: auto;
+    background: #fff;
+}
+</style>
 </head>
 <body>
 <div class="header">
@@ -83,7 +98,7 @@
 			</div>
 			<div class="main-content">
 				<div class="sec-menu">
-					<h3 style="color: #C4C4C4;font-weight: 500;font-size: 20px;">Filters :</h3>
+					<h3 style="color: #C4C4C4;font-weight: 500;font-size: 20px;margin: 0px;">Filters :</h3>
 					<div id="car-type"class="checkbox-style">
 						<h4 style="margin: 15px 0px;font-size: 17px;font-weight: 600;">Car Type</h4>
 						<div id="option">
@@ -130,8 +145,10 @@
 				<div class="search-result">
 					<div id="search-header">
 						<div id="count"><h4 id="number" style="margin-right:3px;">24</h4><h4> Results in </h4><h4 id="location" style="color:#B8B08D;margin-left:3px">Constantine</h4></div>
-						<div id="map-switch">
-							<input type="checkbox" id="switch" /><label for="switch">Toggle</label>
+						<div class='toggle-check'>
+						  <input type='checkbox'/>
+						  <span class='toggle-b'></span>
+						  <span class='toggle-bg'></span>
 						</div>
 					</div>
 					<div id="result">

@@ -110,7 +110,7 @@ CREATE TABLE `client` (
 
 LOCK TABLES `client` WRITE;
 /*!40000 ALTER TABLE `client` DISABLE KEYS */;
-INSERT INTO `client` VALUES ('Nathanial ','Olson',549837,'1@email.com','666666666','1990-01-01','male','regulier',0,'/assets/profile_pics/1email.png','@olson','1122 3344 5566 7788'),('Hamza','Boumakrane',123131,'Hamza@gmail.com','12312310','2001-04-02','male','regulier',0,'/assets/profile_pics/hamzagmail.jpg','@Hamza','9879 2041 7230 1275');
+INSERT INTO `client` VALUES ('Nathanial ','Olson',549837,'1@email.com','111111111111','2001-01-01','male','regulier',0,'/assets/profile_pics/1email.png','@olson','1122 3344 5566 7788'),('Hamza','Boumakrane',123131,'Hamza@gmail.com','12312310','2001-04-02','male','regulier',0,'/assets/profile_pics/hamzagmail.jpg','@Hamza','9879 2041 7230 1275');
 /*!40000 ALTER TABLE `client` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -171,6 +171,35 @@ LOCK TABLES `depot` WRITE;
 /*!40000 ALTER TABLE `depot` DISABLE KEYS */;
 INSERT INTO `depot` VALUES ('d01','constantine','12','11','Hertz',NULL,'36.25023','6.57394'),('d02','batna','15','15','Hertz',NULL,NULL,NULL),('d03','constantine','15','15','agence02',NULL,'36.2650','6.5833'),('d04','constantine','20','3','Hertz',NULL,'36.2536','6.5546'),('d05','constantine','10','5','agence02',NULL,'36.2493','6.5921'),('d06','constantine','12','6','agence02',NULL,'36.2333','6.5604');
 /*!40000 ALTER TABLE `depot` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `messages`
+--
+
+DROP TABLE IF EXISTS `messages`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `messages` (
+  `id` int NOT NULL,
+  `source` varchar(45) NOT NULL,
+  `destination` varchar(45) NOT NULL,
+  `content` longtext NOT NULL,
+  `time` date NOT NULL,
+  `status` varchar(45) NOT NULL,
+  `tags` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `messages`
+--
+
+LOCK TABLES `messages` WRITE;
+/*!40000 ALTER TABLE `messages` DISABLE KEYS */;
+INSERT INTO `messages` VALUES (1,'Hamza@gmail.com','1@email.com','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dapibus sem nec tellus porta, eget venenatis dui gravida. Mauris ornare aliquet ipsum, ut suscipit ipsum interdum nec. Sed tincidunt euismod diam, non volutpat lorem blandit id. Quisque rutrum nisl et nisi euismod, eu scelerisque sem suscipit. Donec et tortor vel magna euismod ullamcorper. Donec id aliquam nisi. ','2022-04-20','not read','Problem report');
+/*!40000 ALTER TABLE `messages` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -382,4 +411,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-08 17:26:30
+-- Dump completed on 2022-04-10  0:58:30

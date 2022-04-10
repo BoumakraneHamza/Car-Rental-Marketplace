@@ -199,9 +199,10 @@ a, a:visited{
 }
 .content .main-frame .col .cols-3 .cols-2 #greeting {
 	background: #fff;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 15px;
     margin: 10px;
+    border: 2px solid #E4E4E4;
 }
 .content .main-frame .col .cols-3 .cols-2 #greeting #title {
 	display: flex;
@@ -226,7 +227,8 @@ a, a:visited{
 	background-color: #fff;
     padding: 15px;
     margin: 10px;
-    border-radius: 10px;
+    border-radius: 5px;
+    border: 2px solid #E4E4E4;
 }
 .content .main-frame .col .cols-3 .cols-2 #inbox #header {
 	display: flex;
@@ -287,7 +289,8 @@ a, a:visited{
 	background-color: #fff;
     padding: 15px;
     margin: 10px;
-    border-radius: 10px;
+    border-radius: 5px;
+    border: 2px solid #E4E4E4;
 }
 .content .main-frame .col .cols-3 .cols-1  #header {
 	display: flex;
@@ -344,7 +347,8 @@ a, a:visited{
     margin: 10px;
     background-color: #fff;
     padding: 15px;
-    border-radius: 10px;
+    border-radius: 5px;
+    border: 2px solid #E4E4E4;
 }
 .content .main-frame .Payment #header {
 	display: flex;

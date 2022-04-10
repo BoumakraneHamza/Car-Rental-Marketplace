@@ -102,7 +102,7 @@
 			</div>
 			<div class="main-content">
 				<div class="sec-menu">
-					<h3 style="color: #C4C4C4;font-weight: 500;font-size: 20px;">Filters :</h3>
+					<h3 style="color: #C4C4C4;font-weight: 500;font-size: 20px;margin: 0px;">Filters :</h3>
 					<div id="car-type"class="checkbox-style">
 						<h4 style="margin: 15px 0px;font-size: 17px;font-weight: 600;">Car Type</h4>
 						<div id="option">

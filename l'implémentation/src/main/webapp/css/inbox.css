@@ -9,20 +9,137 @@
 	background: #fff;
     display: flex;
     margin: 10px;
-    padding: 10px;
-    border-radius: 10px;
+    border: 2px solid #E4E4E4;
+    border-radius: 5px;
     flex-direction: column;
     flex-wrap: nowrap;
     align-items: flex-start;
 }
+.content .main-frame .Sec-menu #menu_header {
+    padding: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 500;
+    width: -webkit-fill-available;
+    border-bottom: 2px solid #E4E4E4;
+}
+.content .main-frame .Sec-menu #menu_list {
+    width: -webkit-fill-available;
+    display: flex;
+    height: -webkit-fill-available;
+    flex-direction: column;
+    padding: 15px;
+    flex-wrap: nowrap;
+}
 .content .main-frame .email-content {
 	background: #fff;
     margin: 10px;
-    padding: 10px;
-    border-radius: 10px;
+    border-radius: 5px;
     display: flex;
-    justify-content: center;
+    border: 2px solid #E4E4E4;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.content .main-frame .email-content .email_header {
+    display: flex;
+    border-bottom: 2px solid #E4E4E4;
+    justify-content: space-between;
+    padding: 15px 25px;
+}
+.content .main-frame .email-content .email_header #tags {
+    font-size: 14px;
+    background: #c3e1c2;
+    padding: 5px 18px;
+    border-radius: 5px;
+    font-weight: 500;
+}
+.content .main-frame .email-content .email_meta {
+    padding: 10px 25px;
+    border-bottom: 2px solid #E4E4E4;
+}
+.content .main-frame .email-content .email_meta #timer {
+    color: #C4C4C4;
+    font-size: 15px;
+    margin-bottom: 11px;
+}
+.content .main-frame .email-content .email_meta #title {
+    font-size: 24px;
+    font-weight: 500;
+}
+.content .main-frame .email-content .email_replies_list {
+    height: -webkit-fill-available;
+}
+.content .main-frame .email-content .email_replies_list button {
+    display: flex;
+    width: 110px;
+    height: 40px;
+    border: none;
+    justify-content: space-evenly;
+    background: #B8B08D;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 500;
     align-items: center;
+    border-radius: 4px;
+    position: relative;
+    float: right;
+    right: 3%;
+    top: 33%;
+}
+.content .main-frame .email-content .email_replies_list .reply {
+	height: 60px;
+    display: flex;
+    padding: 10px 15px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    border-bottom: 2px solid #E4E4E4;
+    justify-content: space-between;
+}
+.content .main-frame .email-content .email_replies_list .reply.active{
+	height: fit-content;
+    display: flex;
+    padding: 10px 15px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    border-bottom: 2px solid #E4E4E4;
+    justify-content: space-between;
+}
+.content .main-frame .email-content .email_replies_list .reply #reply_source {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+.content .main-frame .email-content .email_replies_list .reply #reply_source #sender {
+    font-weight: 600;
+    margin-left: 10px;
+    font-size: 18px;
+}
+.content .main-frame .email-content .email_replies_list .reply #text_demo {
+    font-size: 14px;
+    margin: 5px 0px;
+    display: block;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow: hidden;
+    max-height: 1.6em;
+    line-height: 1.8em;
+    max-width: 360px;
+}
+.content .main-frame .email-content .email_replies_list .reply.active #text_demo {
+    overflow: visible;
+    max-height: fit-content;
+}
+.content .main-frame .email-content .email_replies_list .reply #time {
+    color: #C4C4C4;
+    font-size: 14px;
+    font-weight: 500;
+}
+.content .main-frame .Sec-menu #add {
+    width: -webkit-fill-available;
+    padding: 10px;
 }
 .content .main-frame .Sec-menu #add button{
 	border: none;
@@ -30,51 +147,64 @@
     display: flex;
     color: #fff;
     padding: 10px 20px;
+    cursor:pointer;
     border-radius: 5px;
-    justify-content: space-evenly;
+    justify-content: center;
     flex-direction: row;
     flex-wrap: nowrap;
+    font-size:15px;
+    font-weight:500;
     align-items: center;
-    width: 198px;
+    width: -webkit-fill-available;
     font-family: 'Poppins', sans-serif;
 }
-.content .main-frame .Sec-menu #inbox {
-    margin-left: 29px;
-}
-.content .main-frame .Sec-menu #inbox button {
+.content .main-frame .Sec-menu  #menu_list button {
     border: none;
     background: none;
     display: flex;
     flex-direction: row;
     color: #B8B08D;
     flex-wrap: nowrap;
+    cursor:pointer;
     font-weight: 500;
     align-items: center;
-    margin: 20px 0px;
     font-size: 16px;
     font-family: 'Poppins', sans-serif;
 }
-.content .main-frame .Sec-menu #inbox button p {
-	margin-left:10px;
+.content .main-frame .Sec-menu #menu_list button p {
+	margin-left: 22px;
+    color: #000;
+    font-size: 15px;
+    font-weight: 500;
 }
-.content .main-frame .Sec-menu #sent {
-    margin-left: 29px;
-}
-.content .main-frame .Sec-menu #sent button {
-    border: none;
-    background: none;
+.content .main-frame .Sec-menu #menu_list #inbox {
     display: flex;
-    flex-direction: row;
-    color: #B8B08D;
-    flex-wrap: nowrap;
-    font-weight: 500;
+    justify-content: space-between;
     align-items: center;
-    margin: 20px 0px;
-    font-size: 16px;
-    font-family: 'Poppins', sans-serif;
+    flex-direction: row;
+    flex-wrap: nowrap;
 }
-.content .main-frame .Sec-menu #sent button p {
-	margin-left:10px;
+.content .main-frame .Sec-menu #menu_list #inbox #update {
+    width: 20px;
+    height: 20px;
+    background: #B8B08D;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+    color: #fff;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 16px;
+}
+.content .main-frame .Sec-menu #menu_list .tile {
+    padding: 15px 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    cursor:pointer;
+}
+.content .main-frame .Sec-menu #menu_list .tile:hover{
+	background:#f9F9F9;
 }
 .content .main-frame .inbox {
 	display: grid;
@@ -82,11 +212,12 @@
     overflow-y: hidden;
 }
 .content .main-frame .inbox .search{
-    background: #fff;
+	background: #fff;
+    border: 2px solid #E4E4E4;
     display: flex;
     margin: 10px;
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 5px;
     align-items: center;
     justify-content: center;
 }
@@ -127,21 +258,27 @@
     width: 19px;
 }
 .content .main-frame .inbox .inbox-list{
-    background: #fff;
+	background: #fff;
     margin: 10px;
+    border: 2px solid #E4E4E4;
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 5px;
     overflow-y: overlay;
 }
 .content .main-frame .inbox .inbox-list #email {
-    display: flex;
+   	display: flex;
     flex-direction: row;
+    cursor:pointer;
+    border: 2px solid #E4E4E4;
     flex-wrap: nowrap;
-    background: #FAFAFA;
-    margin-top:10px;
+    background: #f0f0f0;
+    margin-top: 10px;
     padding: 10px;
     border-radius: 10px;
-    align-items: flex-start;
+    align-items: center;
+}
+.content .main-frame .inbox .inbox-list #email #email-content {
+    width: 79%;
 }
 .content .main-frame .inbox .inbox-list #email #email-content #header {
 	display: flex;
@@ -151,11 +288,23 @@
     flex-wrap: nowrap;
 }
 .content .main-frame .inbox .inbox-list #email #image {
-    margin: 0px 14px;
+	margin-right: 14px;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    display: flex;
+    border-radius: 50%;
+    align-items: center;
 }
 .content .main-frame .inbox .inbox-list #email #email-content #content {
-    font-size: 13px;
+	font-size: 13px;
     margin: 5px 0px;
+    display: block;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow: hidden;
+    max-height: 1.6em;
+    line-height: 1.8em;
 }
 .content .main-frame .inbox .inbox-list #email #email-content #header p {
     font-weight: 600;
@@ -165,15 +314,31 @@
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
 }
 .content .main-frame .inbox .inbox-list #email #email-content #tags {
     font-size: 14px;
+    display: flex;
+    justify-content: space-between;
 }
-.content .main-frame .inbox .inbox-list #email #email-content #tags p {
-    background: #DAF2FF;
+.content .main-frame .inbox .inbox-list #email #email-content #tags #status {
+    width: 20px;
+    height: 20px;
+    background: #B8B08D;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+    color: #fff;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 16px;
+}
+.content .main-frame .inbox .inbox-list #email #email-content #tags #tag {
+    background: #76e9b2;
     width: fit-content;
     padding: 3px 10px;
     border-radius: 10px;
+    font-weight: 500;
 }

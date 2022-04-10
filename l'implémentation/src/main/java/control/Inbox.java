@@ -1,6 +1,7 @@
 package control;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.DAO;
+import model.Message;
 import model.User;
 
 /**
@@ -33,13 +36,14 @@ public class Inbox extends HttpServlet {
 		User user = (User) request.getSession().getAttribute("user");
 		if (user != null) {
 			request.setAttribute("user", user);
-
+			DAO dao = new DAO();
+			ArrayList<Message> messages = new ArrayList<>();
+			messages = dao.getMessages(user.getEmail());
+			request.setAttribute("messages", messages);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/inbox.jsp");
 			dispatcher.forward(request, response);
 		} else {
-			//later
-			//RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/login.jsp");
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/inbox.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/login.jsp");
 			dispatcher.forward(request, response);
 		}
 	}

@@ -478,4 +478,57 @@ public class DAO {
 			e.printStackTrace();
 		}
 	}
+	public ArrayList<Message> getMessages(String email){
+		String Query;
+		PreparedStatement statement;
+		ArrayList<Message> Messages = new ArrayList<Message>();
+		Message message;
+		ResultSet result;
+		try {
+			connectDB();
+			Query = "select * from messages where source=? or destination=?";
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, email);
+			statement.setString(2, email);
+			result = statement.executeQuery();
+			while(result.next()) {
+				message = new Message();
+				
+				message.setId(result.getInt("id"));
+				message.setSource(result.getString("source"));
+				message.setDestination(result.getString("destination"));
+				message.setContent(result.getString("content"));
+				message.setStatus(result.getString("status"));
+				message.setTime(result.getString("time"));
+				message.setTags(result.getString("tags"));
+				Query = "select type from users where email=? limit 1";
+				statement = connection.prepareStatement(Query);
+				statement.setString(1, message.getSource());
+				ResultSet result1 = statement.executeQuery();
+				if(result1.next()) {
+					if(result1.getString("type").equals("client")) {
+						Query = "select user_name , image from client where email=? limit 1";
+						statement = connection.prepareStatement(Query);
+						
+						statement.setString(1, message.getSource());
+						ResultSet result2 = statement.executeQuery();
+						if(result2.next()) {
+							message.setSourceName(result2.getString("user_name"));
+							
+							message.setSourceImage(result2.getString("image"));
+						}
+						//TODO other user types
+					}
+					
+				}
+				Messages.add(message);
+			}
+			statement.close();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return Messages;
+	}
 }

@@ -1,9 +1,9 @@
 a, a:visited{
 	text-decoration: none;
 }
-.content .main-frame{
-	width:100%;
-	height:100%;
+.content .main-frame {
+    width: calc(100vw - 50px);
+    height: calc(100vh - 55px);
 }
 
 .content .main-frame .dropdownSearch nav{
@@ -25,9 +25,8 @@ a, a:visited{
     width: 100%;
     flex-direction: row;
     flex-wrap: nowrap;
-    border-top: 3px solid #f2f2f2;
     justify-content: space-between;
-    border-bottom: 3px solid #f2f2f2;
+    border-bottom: 2px solid #E4E4E4;
 }
 .content .main-frame .dropdownSearch #wrapper p {
     position: relative;
@@ -195,16 +194,17 @@ a, a:visited{
     width: 19px;
 }
 .content .main-frame .main-content {
-    width: 100%;
-    height: calc(100% - 57px);
+    width: calc(100vw - 80px);
+    height: calc(100vh - 115px);
     display: inline-flex;
 }
 .content .main-frame .main-content .sec-menu {
-   background: #fff;
+   	background: #fff;
     margin: 10px;
     padding: 10px;
     width: 200px;
-    border-radius: 10px;
+    border-radius: 5px;
+    border: 2px solid #E4E4E4;
 }
 .content .main-frame .main-content .sec-menu .checkbox-style #option {
     display: flex;
@@ -228,11 +228,13 @@ a, a:visited{
     font-weight: 500;
 }
 .content .main-frame .main-content .search-result  #search-header {
+    height: 40px;
     background: #fff;
     margin: 10px;
     padding: 10px;
     display: flex;
-    border-radius: 10px;
+    border-radius: 5px;
+    border: 2px solid #E4E4E4;
     position: relative;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -245,6 +247,11 @@ a, a:visited{
     flex-wrap: nowrap;
     align-items: center;
 }
+.content .main-frame .main-content .search-result  #search-header #count h4 {
+    margin: 0px;
+    font-size: 17px;
+    font-weight: 600;
+}
 .content .main-frame .main-content .search-result #result {
     display: flex;
     width: inherit;
@@ -254,7 +261,7 @@ a, a:visited{
 }
 .content .main-frame .main-content .search-result #result #result-list {
     background: #fff;
-    border-radius: 10px;
+    border-radius: 5px;
     margin: 10px;
     display: flex;
     padding: 10px;
@@ -262,6 +269,7 @@ a, a:visited{
     overflow: auto;
     height: inherit;
     width: 100%;
+    border: 2px solid #E4E4E4;
 }
 .content .main-frame .main-content .search-result #result #result-list #car{
 	border: 2px solid #EFEFEF;
@@ -402,13 +410,14 @@ a, a:visited{
     font-weight: 600;
 }
 .content .main-frame .main-content .search-result #result #map {
-   background: #fff;
+   	background: #fff;
     margin: 10px;
     padding: 10px;
-    height: 100%;
+    height: auto;
     width: 100%;
+    border: 2px solid #E4E4E4;
     max-width: 700px;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 .content .main-frame .main-content .search-result #result #map .mapouter{
 	width: 100%;
