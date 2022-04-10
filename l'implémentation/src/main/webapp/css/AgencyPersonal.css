@@ -23,18 +23,90 @@
     display: flex;
     height: 60Px;
     border-bottom: 2px solid #E4E4E4;
-    justify-content: space-around;
     flex-direction: row;
     flex-wrap: nowrap;
+	justify-content: space-between;
     align-items: center;
 }
-.main-frame .main-content #DataBase #options .option{
+
+.main-frame .main-content #DataBase #options .toggles {
+    display: flex;
+    width: 50%;
+    margin-left: 5Px;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+.main-frame .main-content #DataBase #options .toggles .option{
 	display:flex;
 }
-.main-frame .main-content #DataBase #options .option p {
+.main-frame .main-content #DataBase #options .toggles .option p {
     margin-left: 15px;
     font-size: 16px;
     font-weight: 500;
+}
+.main-frame .main-content #DataBase #options .cta {
+  	margin-right: 15px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.main-frame .main-content #DataBase #options .cta #searchBar {
+	    display: flex;
+    align-items: center;
+    align-content: center;
+    width: 100%;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    margin-right: 15px;
+}
+.main-frame .main-content #DataBase #options .cta #searchBar input {
+	width: 100%;
+    box-sizing: border-box;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 0px 6px 6px 0px;
+    color: #99a3ba;
+    border: 2px solid #ededed;
+    background: #F7F8FA;
+    border-left: none;
+}
+.main-frame .main-content #DataBase #options .cta #searchBar input::placeholder {
+	font-size:12px;
+	font-weight:400;
+	font-family: 'Poppins', sans-serif;
+}
+.main-frame .main-content #DataBase #options .cta #searchBar input:focus{
+	outline:none;
+}
+ .main-frame .main-content #DataBase #options .cta #searchBar img {
+    border: 2px solid #ededed;
+    padding: 11px 0px 11px 11px;
+    border-radius: 6px 0px 0px 6px;
+    border-right: none;
+    background: #F7F8FA;
+    width: 19px;
+}
+.main-frame .main-content #DataBase #options .cta #add button{
+	border: none;
+    background: #B8B08D;
+    display: flex;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    font-size: 15px;
+    font-weight: 500;
+    align-items: center;
+    width: 150px;
+    height: 43px;
+    font-family: 'Poppins', sans-serif;
 }
 .main-frame .main-content .viewDetails {
    	width: 25%;

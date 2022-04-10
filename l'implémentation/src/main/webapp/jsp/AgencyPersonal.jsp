@@ -31,38 +31,46 @@
 	<div class="content">
 			<div class="menu">
 				<button class="dashboard"><a href="${pageContext.request.contextPath}/Dashboard"><img src="${pageContext.request.contextPath}/assets/dashboard-icon.svg"></a></button>
-				<button class="dashboard" style="background: #F6AA1C;"><a href="${pageContext.request.contextPath}/Dashboard"><img src="${pageContext.request.contextPath}/assets/personal-icon-white.svg"></a></button>
+				<button class="Personal" style="background: #F6AA1C;"><a href="${pageContext.request.contextPath}/jsp/AgencyPersonal.jsp"><img src="${pageContext.request.contextPath}/assets/personal-icon-white.svg"></a></button>
+				<button class="Personal"><a href="${pageContext.request.contextPath}/jsp/AgencyBuildings.jsp"><img src="${pageContext.request.contextPath}/assets/building-icon-grey.svg"></a></button>
 			</div>
 			<div class="main-frame">
 				<div class="main-content">
 					<div id="DataBase" class="employee">
 					<div id="options">
-						<div class="option" id="show_active">
-							<div class='toggle-check'>
-							  <input type='checkbox'/>
-							  <span class='toggle-b'></span>
-							  <span class='toggle-bg'></span>
+						<div class="toggles">
+							<div class="option" id="show_active">
+								<div class='toggle-check'>
+								  <input type='checkbox'/>
+								  <span class='toggle-b'></span>
+								  <span class='toggle-bg'></span>
+								</div>
+								<p>Show non active</p>
 							</div>
-							<p>Show non active</p>
-						</div>
-						<div class="option" id="show_depots">
-							<div class='toggle-check'>
-							  <input type='checkbox'/>
-							  <span class='toggle-b'></span>
-							  <span class='toggle-bg'></span>
+							<div class="option" id="show_depots">
+								<div class='toggle-check'>
+								  <input type='checkbox'/>
+								  <span class='toggle-b'></span>
+								  <span class='toggle-bg'></span>
+								</div>
+								<p>Show depots</p>
 							</div>
-							<p>Show depots</p>
-						</div>
-						<div class="option" id="show_offices">
-							<div class='toggle-check'>
-							  <input type='checkbox'/>
-							  <span class='toggle-b'></span>
-							  <span class='toggle-bg'></span>
+							<div class="option" id="show_offices">
+								<div class='toggle-check'>
+								  <input type='checkbox'/>
+								  <span class='toggle-b'></span>
+								  <span class='toggle-bg'></span>
+								</div>
+								<p>Show offices</p>
 							</div>
-							<p>Show offices</p>
 						</div>
-												
-						
+						<div class="cta">
+							<div id="searchBar">
+								<img src="${pageContext.request.contextPath}/assets/search-icon.svg">
+								<input type="text" placeholder="Search">
+							</div>
+							<div id="add"><button><img style="margin-right: 11px;" src="${pageContext.request.contextPath}/assets/add.svg"><p>Add Personal</p></button></div>
+						</div>
 					</div>
 				      <div id="table_header">
 				        <table cellpadding="0" cellspacing="0" style="width: 100%">

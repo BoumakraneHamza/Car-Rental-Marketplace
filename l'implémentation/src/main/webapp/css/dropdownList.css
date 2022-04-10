@@ -15,6 +15,7 @@ p{
     margin: 10px;
     top: 55px;
     right: 0;
+    z-index: 4;
 }
 .dropdownList .tile {
     padding: 5px;

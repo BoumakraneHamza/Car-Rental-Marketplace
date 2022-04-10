@@ -44,7 +44,14 @@
 			<div class="dropdownSearch">
 				<nav>
 					<div id="wrapper">
-					<p>Choose a location and a date and Book Your Car</p>
+					<c:choose>
+						<c:when test="${vehicules.size() > 0}">
+								<p>${searchInput.location} - ${searchInput.pickUp_date} - ${searchInput.return_date}</p>
+						</c:when>
+						<c:otherwise>
+							<p>Choose a location and a date and Book Your Car</p>
+						</c:otherwise>
+					</c:choose>
 					<a href="" class="btn" id="search"><img src="${pageContext.request.contextPath}/assets/angle-down-solid.svg"></a>
 					</div>
 					<div class="search_box" id="search_box">
@@ -148,7 +155,14 @@
 				</div>
 				<div class="search-result">
 					<div id="search-header">
-						<div id="count"><h4 id="number" style="margin-right:3px;">${vehicules.size()}</h4><h4> Results in </h4><h4 id="location" style="color:#B8B08D;margin-left:3px">${searchInput.location}</h4></div>
+						<c:choose>
+							<c:when test="${vehicules.size()>0}">
+								<div id="count"><h4 id="number" style="margin-right:3px;">${vehicules.size()}</h4><h4> Results in </h4><h4 id="location" style="color:#B8B08D;margin-left:3px">${searchInput.location}</h4></div>
+							</c:when>
+							<c:otherwise>
+								<div id="count">Where are you Going ?</div>
+							</c:otherwise>
+						</c:choose>
 						<div class='toggle-check'>
 						  <input type='checkbox'/>
 						  <span class='toggle-b'></span>
