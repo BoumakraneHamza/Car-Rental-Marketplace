@@ -1,11 +1,14 @@
 package model;
 
 public class CarFilter {
-	private String location = null;
-	private String pickUp_date = null; //YYYY-MM-DD
-	private String return_date = null;
-	private String pickUp_hour = null; //HH:MM
-	private String return_hour = null;
+	private String location;
+	private String pickUp_date; //YYYY-MM-DD
+	private String return_date;
+	private String pickUp_hour; //HH:MM
+	private String return_hour;
+	private String typeFilter;
+	private double price;
+	private int carRate;
 	
 	public String getLocation() {
 		return location;
@@ -36,5 +39,23 @@ public class CarFilter {
 	}
 	public void setReturn_hour(String return_hour) {
 		this.return_hour = return_hour;
+	}
+	public String getTypeFilter() {
+		return typeFilter;
+	}
+	public void setTypeFilter(String typeFilter) {
+		this.typeFilter = typeFilter;
+	}
+	public double getPrice() {
+		return price;
+	}
+	public void setPrice(double price) {
+		this.price = price;
+	}
+	public int getCarRate() {
+		return carRate;
+	}
+	public void setCarRate(int carRate) {
+		this.carRate = carRate;
 	}
 }

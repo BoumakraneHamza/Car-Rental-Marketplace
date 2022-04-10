@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `atelier` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `atelier`;
--- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.28, for Win64 (x86_64)
 --
 -- Host: localhost    Database: atelier
 -- ------------------------------------------------------
--- Server version	8.0.27
+-- Server version	8.0.28
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -100,7 +100,7 @@ CREATE TABLE `client` (
   PRIMARY KEY (`email`),
   UNIQUE KEY `num_carte_UNIQUE` (`num_carte`),
   KEY `CreditCard_idx` (`defaultPaymentMethod`),
-  CONSTRAINT `CreditCard` FOREIGN KEY (`defaultPaymentMethod`) REFERENCES `creditcards` (`CardNumber`)
+  CONSTRAINT `fk_CreditCard` FOREIGN KEY (`defaultPaymentMethod`) REFERENCES `creditcards` (`CardNumber`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -169,7 +169,7 @@ CREATE TABLE `depot` (
 
 LOCK TABLES `depot` WRITE;
 /*!40000 ALTER TABLE `depot` DISABLE KEYS */;
-INSERT INTO `depot` VALUES ('d01','constantine','12','11','Hertz',NULL,'36.25023','6.57394'),('d02','batna','15','15','Hertz',NULL,NULL,NULL),('d03','constantine','15','15','agence02',NULL,'36.2650','6.5833'),('d04','constantine','20','3','Hertz',NULL,'36.2536','6.5546'),('d05','constantine','10','5','agence02',NULL,'36.2493','6.5921'),('d06','constantine','12','6','agence02',NULL,'36.2333','6.5604');
+INSERT INTO `depot` VALUES ('d01','constantine','12','11','Hertz',NULL,'36.25023','6.57394'),('d02','batna','15','15','Hertz',NULL,'35.55216','6.17968'),('d03','constantine','15','15','agence02',NULL,'36.2650','6.5833'),('d04','constantine','20','3','Hertz',NULL,'36.2536','6.5546'),('d05','constantine','10','5','agence02',NULL,'36.2493','6.5921'),('d06','constantine','12','6','agence02',NULL,'36.2333','6.5604');
 /*!40000 ALTER TABLE `depot` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -370,7 +370,7 @@ CREATE TABLE `vehicule` (
 
 LOCK TABLES `vehicule` WRITE;
 /*!40000 ALTER TABLE `vehicule` DISABLE KEYS */;
-INSERT INTO `vehicule` VALUES ('202212401','Peugot','e-208GT',120,20,'something','disponible','/assets/car_pics/car02.jpg','d02',2022,'Yellow'),('202212522','Mini','cooper Sl',100,15,'something','disponible','/assets/car_pics/default01.jpg','d01',2021,'Red');
+INSERT INTO `vehicule` VALUES ('202212401','Peugot','e-208GT',120,20,'Premium','disponible','/assets/car_pics/car02.jpg','d02',2022,'Yellow'),('202212522','Mini','cooper Sl',100,15,'Compact','disponible','/assets/car_pics/default01.jpg','d01',2021,'Red');
 /*!40000 ALTER TABLE `vehicule` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -391,10 +391,26 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `car_search`(in pickUp_date date, in return_date date)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `car_search`(in pickUp_date date, 
+														 in return_date date,
+                                                         in typeFilter varchar(40),
+                                                         in price double,
+                                                         in carRate int)
 BEGIN
-SELECT * FROM vehicule as v join depot as d on v.depot_code = d.code 
-where v.matricule not in (select vehicule_matricule from reservation where (datediff(return_date, date_1) >= 0 and datediff(date_2, pickUp_date) >= 0));
+set @query = concat("SELECT * FROM vehicule as v join depot as d on v.depot_code = d.code
+				   WHERE v.matricule not in (SELECT vehicule_matricule FROM reservation 
+											 WHERE (datediff(", return_date, ", date_1) >= 0 
+                                             AND datediff(date_2, ", pickUp_date, ") >= 0))");
+if typeFilter is not null then
+set @query = concat(@query, " AND find_in_set(v.type,'", typeFilter, "')");
+end if;
+
+if price != 0 then
+set @query = concat(@query, " AND v.PLJ <=", price);
+end if;
+
+PREPARE stmt FROM @query;
+execute stmt;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -411,4 +427,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-10  0:58:30
+-- Dump completed on 2022-04-10 23:14:09

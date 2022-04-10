@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class DAO {
 
@@ -162,10 +163,20 @@ public class DAO {
 			
 			connectDB();
 			
-			query = "call car_search(?, ?);";
+			String typeFilter = filter.getTypeFilter();
+			if(typeFilter != null) {
+				if(typeFilter.isEmpty()) {
+					typeFilter = null;
+				}
+			}
+			
+			query = "call car_search(?, ?, ?, ?, ?)";
 			statement = connection.prepareCall(query);
 			statement.setString(1, filter.getPickUp_date());
 			statement.setString(2, filter.getReturn_date());
+			statement.setString(3, typeFilter);
+			statement.setDouble(4, filter.getPrice());
+			statement.setInt(5, filter.getCarRate());
 			
 			ResultSet result = statement.executeQuery();			
 			

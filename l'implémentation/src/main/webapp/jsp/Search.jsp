@@ -56,7 +56,7 @@
 		  							<img src="${pageContext.request.contextPath}/assets/location.svg">
 		  							<label>Location</label>
 		  						</div>
-		  						<input required="required" type="text" name="location">		
+		  						<input required="required" type="text" name="location" value="${searchInput.location}">		
 		  					</div>
 		  					
 		  					<div id="input_field">
@@ -64,7 +64,7 @@
 		  							<img src="${pageContext.request.contextPath}/assets/date.svg">
 		  							<label>Pick-up date</label>
 		  						</div>
-								<input required="required" type="date" name="pickUp_date">
+								<input required="required" type="date" name="pickUp_date" value="${searchInput.pickUp_date}">
 		  						</div>
 		  					
 		  					<div id="input_field">
@@ -72,7 +72,7 @@
 		  							<img src="${pageContext.request.contextPath}/assets/date.svg">
 		  							<label>Return date</label>
 		  						</div>
-		  						<input required="required" type="date" name="return_date">
+		  						<input required="required" type="date" name="return_date" value="${searchInput.return_date}">
 		  					</div>
 		  					
 		  					<div id="input_field">
@@ -80,7 +80,7 @@
 		  							<img src="${pageContext.request.contextPath}/assets/hour.svg">
 		  							<label>Pick-up Hour</label>
 		  						</div>
-		  							<input required="required" type="time" name="pickUp_hour">
+		  							<input required="required" type="time" name="pickUp_hour" value="${searchInput.pickUp_hour}">
 		  					</div>
 		  					
 		  					<div id="input_field">
@@ -88,7 +88,7 @@
 		  							<img src="${pageContext.request.contextPath}/assets/hour.svg">
 		  							<label>Return Hour</label>
 		  						</div>
-		  							<input required="required" type="time" name="return_hour">
+		  							<input required="required" type="time" name="return_hour" value="${searchInput.return_hour}">
 		  					</div>
 		  					<input type="submit" value="Search">
 		  				</div>
@@ -98,27 +98,28 @@
 			</div>
 			<div class="main-content">
 				<div class="sec-menu">
+					<form>
 					<h3 style="color: #C4C4C4;font-weight: 500;font-size: 20px;margin: 0px;">Filters :</h3>
 					<div id="car-type"class="checkbox-style">
 						<h4 style="margin: 15px 0px;font-size: 17px;font-weight: 600;">Car Type</h4>
 						<div id="option">
-						<input type="checkbox">
+						<input type="checkbox" name="typeFilter" value="Compact" onclick="filterCars(this)">
 						<label>Compact</label>
 						</div>
 						<div id="option">
-						<input type="checkbox">
+						<input type="checkbox" name="typeFilter" value="Coupe" onclick="filterCars(this)">
 						<label>Coupe</label>
 						</div>
 						<div id="option">
-						<input type="checkbox">
+						<input type="checkbox" name="typeFilter" value="Sedan" onclick="filterCars(this)">
 						<label>Sedan</label>
 						</div>
 						<div id="option">
-						<input type="checkbox">
+						<input type="checkbox" name="typeFilter" value="Suv" onclick="filterCars(this)">
 						<label>Suv</label>
 						</div>
 						<div id="option">
-						<input type="checkbox">
+						<input type="checkbox" name="typeFilter" value="Premium" onclick="filterCars(this)">
 						<label>Premium</label>
 						</div>
 					</div>
@@ -129,18 +130,19 @@
 					<div id="rating" class="checkbox-style">
 						<h4 style="margin: 15px 0px;font-size: 17px;font-weight: 600;">Car Rating</h4>
 						<div id="option">
-							<input type="checkbox">
+							<input type="checkbox" name="carRate" value="4" onclick="filterCars(this)">
 							<label>Above 4</label>
 						</div>
 						<div id="option">
-							<input type="checkbox">
+							<input type="checkbox" name="carRate" value="3" onclick="filterCars(this)">
 							<label>Above 3</label>
 						</div>
 						<div id="option">
-							<input type="checkbox">
+							<input type="checkbox" name="carRate" value="2" onclick="filterCars(this)">
 							<label>Above 2</label>
 						</div>
 					</div>
+					</form>
 				</div>
 				<div class="search-result">
 					<div id="search-header">
@@ -211,7 +213,8 @@
    crossorigin=""></script>
 <script src="${pageContext.request.contextPath}/js/mapScript.js"></script>
 <script type="text/javascript">
-
+	var contextPath = "${pageContext.request.contextPath}";
+	setCoordinates('${searchInput.location}');
 	<c:forEach items="${depots}" var="depot">
 		L.marker([${depot.lat}, ${depot.lon}]).addTo(theMap).bindPopup('<h1>depot code : ${depot.code}</h1>' + 
 																	   '<p>adress : ${depot.adress}</p>' + 
