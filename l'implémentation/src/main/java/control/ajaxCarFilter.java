@@ -43,7 +43,7 @@ public class ajaxCarFilter extends HttpServlet {
 		filter.setReturn_hour(request.getParameter("return_hour"));
 		filter.setTypeFilter(request.getParameter("typeFilter"));
 		//filter.setPrice(request.getParameter("price"));
-		//filter.setCarRate(Integer.parseInt(request.getParameter("carRate")));
+		filter.setCarRate(Integer.parseInt(request.getParameter("carRate")));
 		
 		DAO dao = new DAO();
 		ArrayList<Vehicule> vehicules = null;
@@ -67,7 +67,8 @@ public class ajaxCarFilter extends HttpServlet {
 			out.print("<depot_code>" + car.getDepot_code() + "</depot_code>\n");
 			out.print("<agence>" + car.getAgence() + "</agence>\n");
 			out.print("<color>" + car.getColor() + "</color>\n");
-			out.print("<Year>" + car.getYear() + "</Year>\n");
+			out.print("<year>" + car.getYear() + "</year>\n");
+			out.print("<rating>" + car.getRating() + "</rating>\n");
 			out.print("</car>\n");
 		}
 		out.print("</cars>");

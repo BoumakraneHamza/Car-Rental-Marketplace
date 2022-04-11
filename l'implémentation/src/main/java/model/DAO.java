@@ -193,7 +193,7 @@ public class DAO {
 	        	vehicule.setImage(result.getString("image"));
 	        	vehicule.setDepot_code(result.getString("depot_code"));
 	        	vehicule.setAgence(result.getString("agence_nom"));
-	        	
+	        	vehicule.setRating(result.getDouble("rating"));        	
 	        	vehicules.add(vehicule);
 	        }
 	        
@@ -489,6 +489,7 @@ public class DAO {
 			e.printStackTrace();
 		}
 	}
+	
 	public ArrayList<Message> getMessages(String email){
 		String Query;
 		PreparedStatement statement;

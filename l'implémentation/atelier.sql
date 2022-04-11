@@ -358,6 +358,7 @@ CREATE TABLE `vehicule` (
   `depot_code` varchar(45) NOT NULL,
   `year` int NOT NULL,
   `color` varchar(45) NOT NULL,
+  `rating` double DEFAULT NULL,
   PRIMARY KEY (`matricule`),
   KEY `fk_Vehicule_Depot1_idx` (`depot_code`),
   CONSTRAINT `fk_Vehicule_Depot1` FOREIGN KEY (`depot_code`) REFERENCES `depot` (`code`)
@@ -370,7 +371,7 @@ CREATE TABLE `vehicule` (
 
 LOCK TABLES `vehicule` WRITE;
 /*!40000 ALTER TABLE `vehicule` DISABLE KEYS */;
-INSERT INTO `vehicule` VALUES ('202212401','Peugot','e-208GT',120,20,'Premium','disponible','/assets/car_pics/car02.jpg','d02',2022,'Yellow'),('202212522','Mini','cooper Sl',100,15,'Compact','disponible','/assets/car_pics/default01.jpg','d01',2021,'Red');
+INSERT INTO `vehicule` VALUES ('202212401','Peugot','e-208GT',120,20,'Premium','disponible','/assets/car_pics/car02.jpg','d02',2022,'Yellow',2.8),('202212522','Mini','cooper Sl',100,15,'Compact','disponible','/assets/car_pics/default01.jpg','d01',2021,'Red',3.2);
 /*!40000 ALTER TABLE `vehicule` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -409,6 +410,10 @@ if price != 0 then
 set @query = concat(@query, " AND v.PLJ <=", price);
 end if;
 
+if carRate != 0 then
+set @query = concat(@query, " AND v.rating >=", carRate);
+end if;
+
 PREPARE stmt FROM @query;
 execute stmt;
 END ;;
@@ -427,4 +432,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-10 23:14:09
+-- Dump completed on 2022-04-11 18:54:40

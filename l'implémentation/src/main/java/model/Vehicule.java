@@ -14,26 +14,7 @@ public class Vehicule {
 	private String Agence;
 	private String color;
 	private int Year;
-	
-	public int getYear() {
-		return Year;
-	}
-	public void setYear(int year) {
-		Year = year;
-	}
-	public String getColor() {
-		return color;
-	}
-	public void setColor(String color) {
-		this.color = color;
-	}
-	
-	public String getAgence() {
-		return Agence;
-	}
-	public void setAgence(String agence) {
-		Agence = agence;
-	}
+	private double rating;
 	
 	public String getMatricule() {
 		return matricule;
@@ -88,5 +69,29 @@ public class Vehicule {
 	}
 	public void setDepot_code(String depot_code) {
 		this.depot_code = depot_code;
+	}
+	public String getAgence() {
+		return Agence;
+	}
+	public void setAgence(String agence) {
+		Agence = agence;
+	}
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
+	}
+	public int getYear() {
+		return Year;
+	}
+	public void setYear(int year) {
+		Year = year;
+	}
+	public double getRating() {
+		return rating;
+	}
+	public void setRating(double rating) {
+		this.rating = rating;
 	}
 }

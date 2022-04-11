@@ -34,7 +34,7 @@
 			<div class="option">
 				<p id="user_name">${user.user_name}</p>
 				<div id="cta">
-					<button onclick="location.href='/Atelier/jsp/ViewProfile.jsp'" style="width:48%;">Cancel</button>
+					<button onclick="location.href='/Atelier/ViewProfile'" style="width:48%;">Cancel</button>
 					<button id="save" style="width:48%;">Save</button>
 				</div>
 		 	</div>

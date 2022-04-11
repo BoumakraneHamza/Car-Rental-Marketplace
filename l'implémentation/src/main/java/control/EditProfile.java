@@ -42,28 +42,36 @@ public class EditProfile extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		DAO dao = new DAO();
-		User user = new User();
-		User sessionUser = (User) request.getSession().getAttribute("user");
-		user.setEmail(request.getParameter("email"));
-		user.setDate_naissance(request.getParameter("date_naissance"));
-		user.setNom(request.getParameter("nom"));
-		user.setPrenom(request.getParameter("prenom"));
-		user.setTelephone(request.getParameter("telephone"));
-		user.setSexe(request.getParameter("sexe"));
-		user.setNum_carte(request.getParameter("num_carte"));
 		
-		dao.ModifyUser(user);
-		try {
-			user = dao.checkLogin(user.getEmail(), sessionUser.getPassword());
+		User sessionUser = (User) request.getSession().getAttribute("user");
+		if (sessionUser != null) {
+			DAO dao = new DAO();
+			User user = new User();
+			user.setEmail(request.getParameter("email"));
+			user.setDate_naissance(request.getParameter("date_naissance"));
+			user.setNom(request.getParameter("nom"));
+			user.setPrenom(request.getParameter("prenom"));
+			user.setTelephone(request.getParameter("telephone"));
+			user.setSexe(request.getParameter("sexe"));
+			user.setNum_carte(request.getParameter("num_carte"));
 			
-		} catch (InstantiationException | IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			dao.ModifyUser(user);
+			try {
+				user = dao.checkLogin(user.getEmail(), sessionUser.getPassword());
+				user.setPassword(sessionUser.getPassword());
+				
+			} catch (InstantiationException | IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			request.getSession().setAttribute("user", user);
+			request.setAttribute("user", user);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/ViewProfile.jsp");
+			dispatcher.forward(request, response);
+		} else {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/login.jsp");
+			dispatcher.forward(request, response);
 		}
-		request.setAttribute("user", user);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/ViewProfile.jsp");
-		dispatcher.forward(request, response);
 	}
 
 }

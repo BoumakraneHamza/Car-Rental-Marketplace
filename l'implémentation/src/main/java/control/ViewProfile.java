@@ -30,10 +30,15 @@ public class ViewProfile extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/ViewProfile.jsp");
 		User user = (User) request.getSession().getAttribute("user");
-		request.setAttribute("user", user);
-		dispatcher.forward(request, response);
+		if (user != null) {
+			request.setAttribute("user", user);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/ViewProfile.jsp");
+			dispatcher.forward(request, response);
+		} else {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/login.jsp");
+			dispatcher.forward(request, response);
+		}
 	}
 
 	/**
