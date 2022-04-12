@@ -1,0 +1,190 @@
+.CarDetail {
+  	background: #fff;
+    width: 60%;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    visibility:hidden;
+    transform: translate(-50%, -50%);
+    border: 2px solid #E4E4E4;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+.CarDetail .sideBar {
+    width: 30%;
+    height: auto;
+    border-right: 2px solid #E4E4E4;
+}
+.CarDetail .sideBar #car-main-image {
+	width: 100%;
+    height: fit-content;
+    padding: 10px;
+}
+.CarDetail .sideBar #car-main-image #edit-image {
+    width: 9%;
+    height: 13%;
+    display: flex;
+    z-index: 3;
+    margin-left: 70%;
+    position: relative;
+    margin-top: -23%;
+    background: #B8B08D;
+    padding: 10Px;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+}
+.CarDetail .sideBar .car-info {
+    border-bottom: 2px solid #E4E4E4;
+    margin-top: 12px;
+}
+.CarDetail .sideBar .car-info #tile {
+    display: flex;
+    flex-direction: row;
+    padding: 5px 10px;
+    flex-wrap: nowrap;
+    width: auto;
+    height: fit-content;
+    justify-content: space-between;
+}
+.CarDetail .sideBar .car-info #tile #text {
+    display: flex;
+    flex-wrap: nowrap;
+    font-size: 14px;
+    align-items: flex-start;
+    flex-direction: column;
+}
+.CarDetail .sideBar .car-info #tile #text #title {
+    font-weight: 600;
+}
+.CarDetail .sideBar .review-stat {
+    padding: 10px;
+}
+.CarDetail .sideBar .review-stat #header-title {
+    font-size: 15px;
+    font-weight: 600;
+}
+.CarDetail .sideBar .review-stat #stats #stat {
+    margin-top: 15px;
+}
+.CarDetail .sideBar .review-stat #stats #stat #values {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+.CarDetail .sideBar .review-stat #stats #stat #values #title {
+    font-size: 14px;
+    font-weight: 600;
+}
+.CarDetail .sideBar .review-stat #stats #stat #values #number-value {
+    margin-right: 10px;
+    font-size: 15px;
+    font-weight: 600;
+}
+.CarDetail .sideBar .review-stat #stats #stat #bar {
+    width: auto;
+    height: 12px;
+    background: #EEEE;
+    display: flex;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+.CarDetail .sideBar .review-stat #stats #stat #bar #value {
+    height: 10px;
+    background: #f6aa1c;
+    border-radius: 10px;
+}
+.main{
+	width:70%;
+	height:100%;
+}
+.main .sec-images {
+    width: auto;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #E4E4E4;
+    height: auto;
+}
+.main .sec-images #header-title {
+    display: flex;
+    padding: 10px;
+    width: auto;
+    justify-content: space-between;
+    font-size: 16px;
+    font-weight: 600;
+}
+.main .sec-images #images {
+   	display: flex;
+    width: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 5px 10px 0px;
+    justify-content: space-around;
+}
+.main .sec-images #images img {
+    width: 49%;
+    margin-top: 5px;
+}
+.main .features {
+	padding: 10px;
+    border-bottom: 2px solid #E4E4E4;
+}
+.main .features #title {
+    font-size: 15px;
+    font-weight: 600;
+}
+.main .features .features_list #tile {
+    display: flex;
+    flex-direction: row;
+    font-size: 14px;
+    flex-wrap: nowrap;
+    font-weight: 500;
+    padding: 10px 0px;
+}
+.main .features .features_list #tile #values {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.main .features .features_list #tile #values #value {
+    margin: 0px 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.main .cta {
+    width: auto;
+    height: -webkit-fill-available;
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+}
+.main .cta input {
+    border: none;
+    background: #B8B08D;
+    display: flex;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    font-size: 13px;
+    font-weight: 500;
+    margin-right: 10px;
+    align-items: center;
+    width: 100px;
+    height: 35px;
+    font-family: 'Poppins', sans-serif;
+}
+.main .cta  #cancel {
+    color: #000;
+    background: #fff;
+    border: 2px solid;
+}

@@ -34,6 +34,7 @@ a, a:visited{
     flex-direction: row;
     flex-wrap: nowrap;
     box-sizing: border-box;
+    border-bottom: 2px solid #E4E4E4;
 }
 .header #logo img{
 	width:35px;
@@ -89,6 +90,7 @@ a, a:visited{
     display: flex;
     flex-direction: column;
     align-items: center;
+    border-right: 2px solid #E4E4E4;
 }
 .content .menu button {
     padding: 5px;

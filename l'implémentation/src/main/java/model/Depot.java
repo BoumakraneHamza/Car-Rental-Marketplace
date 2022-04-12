@@ -9,7 +9,28 @@ public class Depot {
 	private String garagiste_email;
 	private String lat;
 	private String lon;
+	private User garagiste;
+	private int CapacityPercentile;
+	private int bookings;
 	
+	public void setGaragiste(User garagiste) {
+		this.garagiste = garagiste;
+	}
+	public User getGaragiste() {
+		return garagiste;
+	}
+	public void setBookings(int bookings) {
+		this.bookings = bookings;
+	}
+	public int getBookings() {
+		return bookings;
+	}
+	public void setCapacityPercentile(int capacityPercentile) {
+		CapacityPercentile = capacityPercentile;
+	}
+	public int getCapacityPercentile() {
+		return CapacityPercentile;
+	}
 	
 	public String getCode() {
 		return code;

@@ -189,11 +189,10 @@ public class DAO {
 	        	vehicule.setPLJ(result.getDouble("PLJ"));
 	        	vehicule.setPLH(result.getDouble("PLH"));
 	        	vehicule.setType(result.getString("type"));
-	        	vehicule.setEtat(result.getString("etat"));
 	        	vehicule.setImage(result.getString("image"));
 	        	vehicule.setDepot_code(result.getString("depot_code"));
 	        	vehicule.setAgence(result.getString("agence_nom"));
-	        	vehicule.setRating(result.getDouble("rating"));        	
+	        	
 	        	vehicules.add(vehicule);
 	        }
 	        
@@ -206,10 +205,48 @@ public class DAO {
 		
 		return vehicules;
 	}
-	
+	public ArrayList<Vehicule> getAgencyCars(String depotCode){
+		String Query ; 
+		PreparedStatement statement; 
+		ResultSet result ; 
+		ArrayList<Vehicule> cars = new ArrayList<>();
+		Vehicule vehicule = null ;
+		try {
+			connectDB();
+			Query = "Select * from vehicule where depot_code= ?";
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, depotCode);
+			result = statement.executeQuery();
+			while(result.next()) {
+				vehicule = new Vehicule();
+				vehicule.setMatricule(result.getString("matricule"));
+	        	vehicule.setMarque(result.getString("marque"));
+	        	vehicule.setModele(result.getString("modele"));
+	        	vehicule.setPLJ(result.getDouble("PLJ"));
+	        	vehicule.setPLH(result.getDouble("PLH"));
+	        	vehicule.setType(result.getString("type"));
+	        	vehicule.setYear(result.getInt("year"));
+	        	vehicule.setImage(result.getString("image"));
+	        	vehicule.setDepot_code(result.getString("depot_code"));
+	        	vehicule.setColor(result.getString("color"));
+	        	vehicule.setNumberSeats(result.getInt("seats"));
+	        	vehicule.setNumberDoors(result.getInt("doors"));
+	        	vehicule.setNumberSuitCase(result.getInt("suit_case"));
+	        	vehicule.setMileage(result.getString("mileage"));
+	        	vehicule.setAverageRating(result.getDouble("rating"));
+	        	vehicule.setComfortRating(result.getDouble("comfort_rating"));
+	        	vehicule.setCleanlinessRating(result.getDouble("cleanliness_rating"));
+	        	vehicule.setPickReturnRating(result.getDouble("PickReturn_rating"));
+	        	vehicule.setValueMoneyRating(result.getDouble("ValueMoney_rating"));
+	        	cars.add(vehicule);
+			}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		return cars;
+	}
 	public ArrayList<Reservation> getReservation(String email) throws InstantiationException, IllegalAccessException{
 		String Query;
-		System.out.println(email);
 		ArrayList<Reservation> reservationList = new ArrayList<Reservation>();
 		PreparedStatement statement;
 		Reservation reservation = null;
@@ -428,7 +465,56 @@ public class DAO {
 		}
 		return null;
 	}
-
+	public ArrayList<Depot> getAgencyDepots(String AgencyName) {
+		String Query;
+		PreparedStatement statement;
+		
+		ArrayList<Depot> depots = new ArrayList<Depot>();
+		Depot depot;
+		
+		ResultSet result;
+		try {
+			connectDB();
+			Query = "select * \r\n"
+					+ "from depot \r\n"
+					+ "where agence_nom  = ?";
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, AgencyName);
+			result = statement.executeQuery();
+			
+			while(result.next()) {
+				depot = new Depot();
+				depot.setCode(result.getString("code"));
+				depot.setAdress(result.getString("adress"));
+				depot.setCapacite(result.getInt("capacite"));
+				depot.setCapacite_libre(result.getInt("capacite_libre"));
+				depot.setAgence_nom(result.getString("agence_nom"));
+				depot.setGaragiste_email(result.getString("garagiste_email"));
+				depot.setLat(result.getString("lat"));
+				depot.setLon(result.getString("lon"));
+				depot.setBookings(result.getInt("Bookings"));
+				Query = "Select * from garagiste where email = ?";
+				statement = connection.prepareStatement(Query);
+				statement.setString(1, depot.getGaragiste_email());
+				User garagiste = new User();
+				ResultSet result1 = statement.executeQuery();
+				if(result1.next()) {
+					garagiste.setNom(result1.getString("nom"));
+					garagiste.setPrenom(result1.getString("prenom"));
+					garagiste.setImage(result1.getString("photo"));
+					garagiste.setEmail(depot.getGaragiste_email());
+				}
+				depot.setGaragiste(garagiste);
+				depot.setCapacityPercentile((depot.getCapacite_libre()*100)/depot.getCapacite());
+				depots.add(depot);
+			}
+			statement.close();
+		}catch (Exception e) {
+			System.out.println(e);
+			
+		}
+		return depots;
+	}
 	public ArrayList<Depot> getDepots(String location) {
 		String Query;
 		PreparedStatement statement;
@@ -489,7 +575,6 @@ public class DAO {
 			e.printStackTrace();
 		}
 	}
-	
 	public ArrayList<Message> getMessages(String email){
 		String Query;
 		PreparedStatement statement;

@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `atelier` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `atelier`;
--- MySQL dump 10.13  Distrib 8.0.28, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
 -- Host: localhost    Database: atelier
 -- ------------------------------------------------------
--- Server version	8.0.28
+-- Server version	8.0.27
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -149,7 +149,7 @@ DROP TABLE IF EXISTS `depot`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `depot` (
-  `code` varchar(45) NOT NULL,
+  `code` int NOT NULL,
   `adress` varchar(45) NOT NULL,
   `capacite` varchar(45) NOT NULL,
   `capacite_libre` varchar(45) NOT NULL,
@@ -157,9 +157,11 @@ CREATE TABLE `depot` (
   `garagiste_email` varchar(45) DEFAULT NULL,
   `lat` varchar(45) DEFAULT NULL,
   `lon` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`code`),
+  `Bookings` int DEFAULT NULL,
+  PRIMARY KEY (`code`,`agence_nom`),
   KEY `fk_Depot_Utilisateur1_idx` (`garagiste_email`),
-  CONSTRAINT `fk_Depot_Utilisateur1` FOREIGN KEY (`garagiste_email`) REFERENCES `users` (`email`)
+  KEY `agency_name_idx` (`agence_nom`),
+  CONSTRAINT `agency_name` FOREIGN KEY (`agence_nom`) REFERENCES `agence` (`nom`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -169,8 +171,62 @@ CREATE TABLE `depot` (
 
 LOCK TABLES `depot` WRITE;
 /*!40000 ALTER TABLE `depot` DISABLE KEYS */;
-INSERT INTO `depot` VALUES ('d01','constantine','12','11','Hertz',NULL,'36.25023','6.57394'),('d02','batna','15','15','Hertz',NULL,'35.55216','6.17968'),('d03','constantine','15','15','agence02',NULL,'36.2650','6.5833'),('d04','constantine','20','3','Hertz',NULL,'36.2536','6.5546'),('d05','constantine','10','5','agence02',NULL,'36.2493','6.5921'),('d06','constantine','12','6','agence02',NULL,'36.2333','6.5604');
+INSERT INTO `depot` VALUES (1,'constantine','12','11','Hertz','g01@email.com','36.25023','6.57394',2),(2,'batna','15','15','Hertz',NULL,'35.55216','6.17968',NULL),(3,'constantine','15','15','agence02',NULL,'36.2650','6.5833',NULL),(4,'constantine','20','3','Hertz',NULL,'36.2536','6.5546',NULL),(5,'constantine','10','5','agence02',NULL,'36.2493','6.5921',NULL),(6,'constantine','12','6','agence02',NULL,'36.2333','6.5604',NULL);
 /*!40000 ALTER TABLE `depot` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `employees`
+--
+
+DROP TABLE IF EXISTS `employees`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `employees` (
+  `Agency_Name` varchar(45) NOT NULL,
+  `Employee_email` varchar(45) NOT NULL,
+  `Type` enum('garagiste','secretaire') NOT NULL,
+  PRIMARY KEY (`Agency_Name`),
+  KEY `employee_idx` (`Employee_email`),
+  CONSTRAINT `agence` FOREIGN KEY (`Agency_Name`) REFERENCES `agence` (`nom`),
+  CONSTRAINT `employee` FOREIGN KEY (`Employee_email`) REFERENCES `users` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `employees`
+--
+
+LOCK TABLES `employees` WRITE;
+/*!40000 ALTER TABLE `employees` DISABLE KEYS */;
+INSERT INTO `employees` VALUES ('Hertz','g01@email.com','garagiste');
+/*!40000 ALTER TABLE `employees` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `garagiste`
+--
+
+DROP TABLE IF EXISTS `garagiste`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `garagiste` (
+  `email` varchar(45) NOT NULL,
+  `nom` varchar(45) NOT NULL,
+  `prenom` varchar(45) NOT NULL,
+  `photo` varchar(45) NOT NULL,
+  PRIMARY KEY (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `garagiste`
+--
+
+LOCK TABLES `garagiste` WRITE;
+/*!40000 ALTER TABLE `garagiste` DISABLE KEYS */;
+INSERT INTO `garagiste` VALUES ('g01@email.com','Boumakrane','Hamza','/assets/profile_pics/1email.png');
+/*!40000 ALTER TABLE `garagiste` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -200,6 +256,32 @@ LOCK TABLES `messages` WRITE;
 /*!40000 ALTER TABLE `messages` DISABLE KEYS */;
 INSERT INTO `messages` VALUES (1,'Hamza@gmail.com','1@email.com','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dapibus sem nec tellus porta, eget venenatis dui gravida. Mauris ornare aliquet ipsum, ut suscipit ipsum interdum nec. Sed tincidunt euismod diam, non volutpat lorem blandit id. Quisque rutrum nisl et nisi euismod, eu scelerisque sem suscipit. Donec et tortor vel magna euismod ullamcorper. Donec id aliquam nisi. ','2022-04-20','not read','Problem report');
 /*!40000 ALTER TABLE `messages` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `offices`
+--
+
+DROP TABLE IF EXISTS `offices`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `offices` (
+  `code` int NOT NULL,
+  `agency_name` varchar(45) NOT NULL,
+  `address` varchar(45) DEFAULT NULL,
+  `Bookings` int DEFAULT NULL,
+  `email_secretaire` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`code`,`agency_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `offices`
+--
+
+LOCK TABLES `offices` WRITE;
+/*!40000 ALTER TABLE `offices` DISABLE KEYS */;
+/*!40000 ALTER TABLE `offices` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -335,7 +417,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('1@email.com','12345678','client'),('d01@email.com','12345678','directeur'),('d02@gmail.com','12345678','directeur'),('Hamza@gmail.com','test','client');
+INSERT INTO `users` VALUES ('1@email.com','12345678','client'),('d01@email.com','12345678','directeur'),('d02@gmail.com','12345678','directeur'),('g01@email.com','test','garagiste'),('Hamza@gmail.com','test','client');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -353,15 +435,23 @@ CREATE TABLE `vehicule` (
   `PLJ` double NOT NULL,
   `PLH` double NOT NULL,
   `type` varchar(45) NOT NULL,
-  `etat` enum('disponible','indisponible') NOT NULL,
   `image` varchar(50) DEFAULT NULL,
-  `depot_code` varchar(45) NOT NULL,
+  `depot_code` int NOT NULL,
   `year` int NOT NULL,
   `color` varchar(45) NOT NULL,
-  `rating` double DEFAULT NULL,
+  `rating` double NOT NULL,
+  `Sec-images` json NOT NULL,
+  `seats` int NOT NULL,
+  `doors` int NOT NULL,
+  `suit_case` int NOT NULL,
+  `mileage` tinyint NOT NULL,
+  `comfort_rating` double NOT NULL,
+  `cleanliness_rating` double NOT NULL,
+  `PickReturn_rating` double NOT NULL,
+  `ValueMoney_rating` double NOT NULL,
   PRIMARY KEY (`matricule`),
-  KEY `fk_Vehicule_Depot1_idx` (`depot_code`),
-  CONSTRAINT `fk_Vehicule_Depot1` FOREIGN KEY (`depot_code`) REFERENCES `depot` (`code`)
+  KEY `code_depot_idx` (`depot_code`),
+  CONSTRAINT `depot` FOREIGN KEY (`depot_code`) REFERENCES `depot` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -371,7 +461,7 @@ CREATE TABLE `vehicule` (
 
 LOCK TABLES `vehicule` WRITE;
 /*!40000 ALTER TABLE `vehicule` DISABLE KEYS */;
-INSERT INTO `vehicule` VALUES ('202212401','Peugot','e-208GT',120,20,'Premium','disponible','/assets/car_pics/car02.jpg','d02',2022,'Yellow',2.8),('202212522','Mini','cooper Sl',100,15,'Compact','disponible','/assets/car_pics/default01.jpg','d01',2021,'Red',3.2);
+INSERT INTO `vehicule` VALUES ('202212401','Peugot','e-208GT',120,20,'Premium','/assets/car_pics/car02.jpg',2,2022,'Yellow',2.8,'null',0,0,0,0,0,0,0,0),('202212522','Mini','cooper Sl',100,15,'Compact','/assets/car_pics/default01.jpg',1,2021,'Red',3.2,'null',0,0,0,0,0,0,0,0);
 /*!40000 ALTER TABLE `vehicule` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -432,4 +522,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-11 18:54:40
+-- Dump completed on 2022-04-12 18:40:14

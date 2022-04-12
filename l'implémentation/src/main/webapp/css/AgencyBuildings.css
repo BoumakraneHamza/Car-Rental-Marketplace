@@ -230,7 +230,7 @@
     font-size: 14px;
     font-weight: 400;
 }
-.viewDetails button {
+.viewDetails .cta input[type="submit"] {
     margin-bottom: 10%;
     border: 2px solid #000;
     width: 200Px;
@@ -273,7 +273,6 @@
     border-radius: 50%;
 }
  .battery .level {
-	width: 50%;
     height: 100%;
     background: #B8B08D;
     border-radius: 4px;
