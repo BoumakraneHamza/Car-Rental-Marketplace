@@ -1,6 +1,7 @@
 package control;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -52,8 +53,16 @@ public class Inbox extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String messageId = request.getParameter("id");
+		DAO dao = new DAO();
+		try {
+			dao.ReadMessage(Integer.parseInt(messageId));
+		} catch (NumberFormatException | InstantiationException | IllegalAccessException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("Message Read");
+		
 	}
 
 }

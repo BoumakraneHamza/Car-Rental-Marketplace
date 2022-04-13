@@ -62,13 +62,12 @@ public class ajaxCarFilter extends HttpServlet {
 			out.print("<PLJ>" + car.getPLJ() + "</PLJ>\n");
 			out.print("<PLH>" + car.getPLH() + "</PLH>\n");
 			out.print("<type>" + car.getType() + "</type>\n");
-			out.print("<etat>" + car.getEtat() + "</etat>\n");
 			out.print("<image>" + car.getImage() + "</image>\n");
 			out.print("<depot_code>" + car.getDepot_code() + "</depot_code>\n");
 			out.print("<agence>" + car.getAgence() + "</agence>\n");
 			out.print("<color>" + car.getColor() + "</color>\n");
 			out.print("<year>" + car.getYear() + "</year>\n");
-			out.print("<rating>" + car.getRating() + "</rating>\n");
+			out.print("<rating>" + car.getAverageRating() + "</rating>\n");
 			out.print("</car>\n");
 		}
 		out.print("</cars>");

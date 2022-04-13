@@ -8,6 +8,7 @@
 <title>Inbox</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/inbox.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ClientMain.css">
+<script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <div class="header">
@@ -58,17 +59,19 @@
 					<c:forEach var="i" begin="0" end="${messages.size()-1 < 0 ? 0 : messages.size()-1}" step="1">
 						<c:choose>
 							<c:when test="${messages[i].status == 'not read'}">
-								<div id="email"  style="background:#fff;">
+								<div id="email"  style="background:#fff;" onclick="read(this)">
 									<div id="image">
-										<img style="width:50px;"src="${pageContext.request.contextPath}${messages[i].sourceImage}">
+										<img id="imageSrc" style="width:50px;"src="${pageContext.request.contextPath}${messages[i].sourceImage}">
 									</div>
 									<div id="email-content">
 										<div id="header">
-											<p id="title">${messages[i].sourceName}</p>
+											<input id="id" type="hidden" value="${messages[i].id}">
+											<input id="title" type="hidden" value="${messages[i].title}">
+											<p id="sender">${messages[i].sourceName}</p>
 											<p id="time">${messages[i].time}</p>
 										</div>
 										<div id="content">
-											<p>${messages[i].content}</p>
+											<p id="text">${messages[i].content}</p>
 										</div>
 										<div id="tags">
 											<p id="tag">${messages[i].tags}</p>
@@ -78,17 +81,19 @@
 								</div>
 							</c:when>
 							<c:otherwise>
-								<div id="email">
+								<div id="email" onclick="read(this)">
 									<div id="image">
-										<img style="width:50px;"src="${pageContext.request.contextPath}${messages[i].sourceImage}">
+										<img id="imageSrc" style="width:50px;"src="${pageContext.request.contextPath}${messages[i].sourceImage}">
 									</div>
 									<div id="email-content">
 										<div id="header">
-											<p id="title">${messages[i].sourceName}</p>
+											<input id="id" type="hidden" value="${messages[i].id}">
+											<input id="title" type="hidden" value="${messages[i].title}">
+											<p id="sender">${messages[i].sourceName}</p>
 											<p id="time">${messages[i].time}</p>
 										</div>
 										<div id="content">
-											<p>${messages[i].content}</p>
+											<p id="text">${messages[i].content}</p>
 										</div>
 										<div id="tags">
 											<p id="tag">${messages[i].tags}</p>
@@ -107,18 +112,18 @@
 				</div>
 				<div class="email_header">
 					<div id="tags">
-						<div id="tag"><p>Problem Report</p></div>
+						<p id="tag">Problem Report</p>
 					</div>
 					<div id="cta">
 						<img src="${pageContext.request.contextPath}/assets/delete-icon.svg">
 					</div>
 				</div>
 				<div class="email_meta">
-					<div id="timer"><p>Today , 07 June 2022 , 10:00</p></div>
-					<div id="title">Problem avec la vehicule</div>
+					<p id="timer">Today , 07 June 2022 , 10:00</p>
+					<p id="title">Problem avec la vehicule</p>
 				</div>
 				<div class="email_replies_list">
-					<div class="reply">
+					<div class="reply" onclick="expand(this)">
 						<div id="reply_source">
 							<img style="width:50px;" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
 							<p id="sender">You</p>
@@ -126,19 +131,22 @@
 						<div id="text_demo"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dapibus sem nec tellus porta, eget venenatis dui gravida. Mauris ornare aliquet ipsum, ut suscipit ipsum interdum nec. Sed tincidunt euismod diam, non volutpat lorem blandit id. Quisque rutrum nisl et nisi euismod, eu scelerisque sem suscipit. Donec et tortor vel magna euismod ullamcorper. Donec id aliquam nisi. </p></div>
 						<p id="time">07 June 2022 , 08:00</p>
 					</div>
-					<div class="reply active">
-						<div id="reply_source">
-							<img style="width:50px;" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
-							<p id="sender">You</p>
-						</div>
-						<div id="text_demo"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dapibus sem nec tellus porta, eget venenatis dui gravida. Mauris ornare aliquet ipsum, ut suscipit ipsum interdum nec. Sed tincidunt euismod diam, non volutpat lorem blandit id. Quisque rutrum nisl et nisi euismod, eu scelerisque sem suscipit. Donec et tortor vel magna euismod ullamcorper. Donec id aliquam nisi. </p></div>
-						<p id="time">07 June 2022 , 08:00</p>
-					</div>
-					<button><img src="${pageContext.request.contextPath}/assets/sent-icon-white.svg"><p>reply</p></button>
 				</div>
+				<div class="main-email-content">
+					<div id="main-email-content-header">
+						<div id="sender-info">
+							<div id="sender-image"><img id="imageSrc" style="width:50px;" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png"></div>
+							<p id="sender-user-name">@Nathanial</p>
+						</div>
+						<p id="email-time">20-04-2022</p>
+					</div>
+					<div id="main-email-content-text">
+						<p id="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dapibus sem nec tellus porta, eget venenatis dui gravida. Mauris ornare aliquet ipsum, ut suscipit ipsum interdum nec. Sed tincidunt euismod diam, non volutpat lorem blandit id. Quisque rutrum nisl et nisi euismod, eu scelerisque sem suscipit. Donec et tortor vel magna euismod ullamcorper. Donec id aliquam nisi. </p>
+					</div>
+				</div>
+				<button><img src="${pageContext.request.contextPath}/assets/sent-icon-white.svg"><p>reply</p></button>
 			</div>
-	</div>
-</div>
 	<%@include file="/jsp/dropdownList.jsp"%>
+	<script src="${pageContext.request.contextPath}/js/inbox.js"></script>
 </body>
 </html>

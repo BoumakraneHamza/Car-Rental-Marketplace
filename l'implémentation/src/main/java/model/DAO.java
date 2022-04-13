@@ -575,6 +575,13 @@ public class DAO {
 			e.printStackTrace();
 		}
 	}
+	public void ReadMessage(int messageId) throws InstantiationException, IllegalAccessException, SQLException {
+		connectDB();
+		String Query = "update messages set status='read' where id="+messageId;
+		PreparedStatement statement = connection.prepareStatement(Query);
+		statement.executeUpdate();
+		statement.close();
+	}
 	public ArrayList<Message> getMessages(String email){
 		String Query;
 		PreparedStatement statement;
@@ -583,7 +590,7 @@ public class DAO {
 		ResultSet result;
 		try {
 			connectDB();
-			Query = "select * from messages where source=? or destination=?";
+			Query = "select * from messages where source=? or destination=? Order by creationTime DESC";
 			statement = connection.prepareStatement(Query);
 			statement.setString(1, email);
 			statement.setString(2, email);
@@ -594,9 +601,10 @@ public class DAO {
 				message.setId(result.getInt("id"));
 				message.setSource(result.getString("source"));
 				message.setDestination(result.getString("destination"));
+				message.setTitle(result.getString("title"));
 				message.setContent(result.getString("content"));
 				message.setStatus(result.getString("status"));
-				message.setTime(result.getString("time"));
+				message.setTime(result.getString("creationTime"));
 				message.setTags(result.getString("tags"));
 				Query = "select type from users where email=? limit 1";
 				statement = connection.prepareStatement(Query);
