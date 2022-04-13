@@ -20,7 +20,6 @@ public class DAO {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			connection = DriverManager.getConnection(URL, USER, PASSWORD);
-			System.out.println("Connection avec succes a la base de donnees !");
 		} catch (ClassNotFoundException cnf) {
 			System.out.println("Driver not charged...");
 		} catch (SQLException sqlex) {
@@ -582,10 +581,10 @@ public class DAO {
 		statement.executeUpdate();
 		statement.close();
 	}
-	public ArrayList<Message> getMessages(String email){
+	public InboxReturn getMessages(String email){
 		String Query;
 		PreparedStatement statement;
-		ArrayList<Message> Messages = new ArrayList<Message>();
+		InboxReturn inboxreturn = new InboxReturn();
 		Message message;
 		ResultSet result;
 		try {
@@ -604,6 +603,9 @@ public class DAO {
 				message.setTitle(result.getString("title"));
 				message.setContent(result.getString("content"));
 				message.setStatus(result.getString("status"));
+				if(message.getStatus().equals("not read") && !message.getSource().equals(email)) {
+					inboxreturn.NotReadMessages++;
+				}
 				message.setTime(result.getString("creationTime"));
 				message.setTags(result.getString("tags"));
 				Query = "select type from users where email=? limit 1";
@@ -626,7 +628,7 @@ public class DAO {
 					}
 					
 				}
-				Messages.add(message);
+				inboxreturn.Messages.add(message);
 			}
 			statement.close();
 			
@@ -634,6 +636,6 @@ public class DAO {
 			e.printStackTrace();
 		}
 		
-		return Messages;
+		return inboxreturn;
 	}
 }

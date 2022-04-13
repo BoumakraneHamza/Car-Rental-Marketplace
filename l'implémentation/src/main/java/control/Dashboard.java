@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.CreditCards;
 import model.DAO;
+import model.InboxReturn;
 import model.User;
 
 /**
@@ -36,12 +37,15 @@ public class Dashboard extends HttpServlet {
 		User user = (User) request.getSession().getAttribute("user");
 		if (user != null) {
 			request.setAttribute("user", user);
-
+			DAO dao = new DAO();
+			InboxReturn inbox = new InboxReturn();
+			inbox = dao.getMessages(user.getEmail());
+			request.setAttribute("messages", inbox.Messages);
+			request.setAttribute("counter", inbox.NotReadMessages);
 			String url = "/";
 
 			if (user.getType().equals("client")) {
 				url = url + "jsp/ClientDashboard.jsp";
-				DAO dao = new DAO();
 				CreditCards card = null;
 				try {
 					card = dao.getDefaultCard(user.getEmail());

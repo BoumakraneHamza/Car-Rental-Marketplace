@@ -43,7 +43,15 @@
 				</div>
 				<div id="add"><button><img style="margin-right: 11px;" src="${pageContext.request.contextPath}/assets/add.svg"><p>New email</p></button></div>
 				<div id="menu_list">
-					<div class="tile" id="inbox"><button><img src="${pageContext.request.contextPath}/assets/inbox-min.svg"><p>inbox</p></button><div id="update"><p>1</p></div></div>
+					<div class="tile" id="inbox"><button><img src="${pageContext.request.contextPath}/assets/inbox-min.svg"><p>inbox</p></button>
+						<c:choose>
+							<c:when test="${counter>0}">
+								<div id="update">
+									<p>${counter}</p>
+								</div>
+							</c:when>
+						</c:choose>
+					</div>
 					<div class="tile" id="sent"><button><img src="${pageContext.request.contextPath}/assets/sent.svg"><p>Sent Emails</p></button></div>
 					<div class="tile" id="draft"><button><img src="${pageContext.request.contextPath}/assets/draft-icon.svg"><p>Draft</p></button></div>
 				</div>
@@ -58,7 +66,7 @@
 				<div class="inbox-list">
 					<c:forEach var="i" begin="0" end="${messages.size()-1 < 0 ? 0 : messages.size()-1}" step="1">
 						<c:choose>
-							<c:when test="${messages[i].status == 'not read'}">
+							<c:when test="${messages[i].status == 'not read' && messages[i].source != user.email}">
 								<div id="email"  style="background:#fff;" onclick="read(this)">
 									<div id="image">
 										<img id="imageSrc" style="width:50px;"src="${pageContext.request.contextPath}${messages[i].sourceImage}">

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.DAO;
+import model.InboxReturn;
 import model.Message;
 import model.User;
 
@@ -38,9 +39,10 @@ public class Inbox extends HttpServlet {
 		if (user != null) {
 			request.setAttribute("user", user);
 			DAO dao = new DAO();
-			ArrayList<Message> messages = new ArrayList<>();
-			messages = dao.getMessages(user.getEmail());
-			request.setAttribute("messages", messages);
+			InboxReturn inbox = new InboxReturn();
+			inbox = dao.getMessages(user.getEmail());
+			request.setAttribute("messages", inbox.Messages);
+			request.setAttribute("counter", inbox.NotReadMessages);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/inbox.jsp");
 			dispatcher.forward(request, response);
 		} else {

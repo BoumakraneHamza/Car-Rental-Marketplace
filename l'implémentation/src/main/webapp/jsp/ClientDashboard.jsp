@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@ taglib   uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -49,28 +50,35 @@
 						</div>
 						<div id="inbox">
 							<div id="header">
-								<h4>Inbox</h4>
-								<div id="details"><a href="${pageContext.request.contextPath}/Inbox">Details</a><img src="${pageContext.request.contextPath}/assets/angle-right-solid-blue.svg"></div>
+								<h4>MailBox</h4>
 							</div>
 							<div id="messages">
-								<div id="emails">
-									<div id="image">
-										<img src="${pageContext.request.contextPath}/assets/customer-service-email.svg">
-									</div>
-									<div id="email-content">
-										<div id="header">
-											<p id="title">Customer Service</p>
-											<p id="time">10:00 PM</p>
-										</div>
-										<div id="content">
-											<p>Hi , there Nathanial Thank you for you message . 
-												we have recieved  your Problem report ...</p>
-										</div>
-										<div id="tags">
-											<p>Problem report</p>
-										</div>
-									</div>
-								</div>
+								<c:forEach var="i" begin="0" end="3" step="1">
+									<c:choose>
+										<c:when test="${messages[i].status == 'not read' && messages[i].source != user.email}">
+											<div id="email"  style="background:#fff;">
+												<div id="image">
+													<img id="imageSrc" style="width:50px;"src="${pageContext.request.contextPath}${messages[i].sourceImage}">
+												</div>
+												<div id="email-content">
+													<div id="email_header">
+														<input id="id" type="hidden" value="${messages[i].id}">
+														<input id="title" type="hidden" value="${messages[i].title}">
+														<p id="sender">${messages[i].sourceName}</p>
+														<p id="time">${messages[i].time}</p>
+													</div>
+													<div id="content">
+														<p id="text">${messages[i].content}</p>
+													</div>
+													<div id="tags">
+														<p id="tag">${messages[i].tags}</p>
+														<div id="status"><p>1</p></div>
+													</div>
+												</div>
+											</div>
+										</c:when>
+									</c:choose>
+								</c:forEach>
 							</div>
 						</div>					
 					</div>

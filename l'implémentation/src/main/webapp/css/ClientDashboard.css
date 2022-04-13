@@ -225,7 +225,6 @@ a, a:visited{
 }
 .content .main-frame .col .cols-3 .cols-2 #inbox {
 	background-color: #fff;
-    padding: 15px;
     margin: 10px;
     border-radius: 5px;
     border: 2px solid #E4E4E4;
@@ -236,18 +235,88 @@ a, a:visited{
     align-items: center;
     flex-direction: row;
     flex-wrap: nowrap;
+    padding:10px;
+    border-bottom :2px solid #E4E4E4;
 }
-.content .main-frame .col .cols-3 .cols-2 #inbox #header #details {
-	display:flex;
-	color:#40B8FB;
-	align-items: center;
+.content .main-frame .col .cols-3 .cols-2 #inbox #messages #email {
+   	display: flex;
+    flex-direction: row;
+    cursor:pointer;
+    border: 2px solid #E4E4E4;
+    flex-wrap: nowrap;
+    background: #f0f0f0;
+    margin-top: 5px;
+    padding: 3px;
+    border-radius: 5px;
+    align-items: center;
 }
-.content .main-frame .col .cols-3 .cols-2 #inbox #header #details img{
-	margin-left:5px;
-	width:7px;
+.content .main-frame .col .cols-3 .cols-2 #inbox #messages #email #email-content {
+    width: 79%;
+}
+.content .main-frame .col .cols-3 .cols-2 #inbox #messages #email #email-content #email_header {
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+.content .main-frame .col .cols-3 .cols-2 #inbox #messages #email #image {
+	margin-right: 14px;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    display: flex;
+    border-radius: 50%;
+    align-items: center;
+}
+.content .main-frame .col .cols-3 .cols-2 #inbox #messages #email #email-content #content {
+	font-size: 13px;
+    margin: 5px 0px;
+    display: block;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow: hidden;
+    max-height: 1.6em;
+    line-height: 1.8em;
+}
+.content .main-frame .col .cols-3 .cols-2 #inbox #messages #email #email-content #email_header p {
+    font-weight: 600;
+}
+.content .main-frame .col .cols-3 .cols-2 #inbox #messages #email #email-content #content p {
+    margin: 0px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+.content .main-frame .col .cols-3 .cols-2 #inbox #messages #email #email-content #tags {
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+}
+.content .main-frame .col .cols-3 .cols-2 #inbox #messages #email #email-content #tags #status {
+    width: 20px;
+    height: 20px;
+    background: #B8B08D;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+    color: #fff;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 16px;
+}
+.content .main-frame .col .cols-3 .cols-2 #inbox #messages #email #email-content #tags #tag {
+    background: #76e9b2;
+    width: fit-content;
+    padding: 3px 10px;
+    border-radius: 10px;
+    font-weight: 500;
 }
 .content .main-frame .col .cols-3 .cols-2 #inbox #messages {
-    margin-top: 20px;
+    padding: 0px 10px;
 }
 .content .main-frame .col .cols-3 .cols-2 #inbox #messages #emails {
     display: flex;
