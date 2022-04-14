@@ -1,6 +1,10 @@
 function expand(element){
 	element.classList.toggle("active");
 }
+function SendMessage(){
+	const sendMessage = document.querySelector(".send-message-form");
+	sendMessage.style.display="flex"
+}
 setInterval(function () {
         let xhr = new XMLHttpRequest();
 		xhr.onload = function() {

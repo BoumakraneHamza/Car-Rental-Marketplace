@@ -41,7 +41,7 @@
 				<div id="menu_header">
 					<p>MailBox</p>
 				</div>
-				<div id="add"><button><img style="margin-right: 11px;" src="${pageContext.request.contextPath}/assets/add.svg"><p>New email</p></button></div>
+				<div id="add" onclick="SendMessage()"><button><img style="margin-right: 11px;" src="${pageContext.request.contextPath}/assets/add.svg"><p>New email</p></button></div>
 				<div id="menu_list">
 					<div class="tile" id="inbox"><button><img src="${pageContext.request.contextPath}/assets/inbox-min.svg"><p>inbox</p></button>
 						<c:choose>
@@ -155,6 +155,7 @@
 				<button><img src="${pageContext.request.contextPath}/assets/sent-icon-white.svg"><p>reply</p></button>
 			</div>
 	<%@include file="/jsp/dropdownList.jsp"%>
+	<%@include file="/jsp/sendMessage.jsp"%>
 	<script src="${pageContext.request.contextPath}/js/inbox.js"></script>
 </body>
 </html>

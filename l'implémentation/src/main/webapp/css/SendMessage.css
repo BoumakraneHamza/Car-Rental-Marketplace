@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+html{
+	font-family: 'Poppins', sans-serif;
+}
+p{
+	margin:0px;
+}
+
+.send-message-form {
+    background: #fff;
+    display: none;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: fit-content;
+    border: 2px solid #E4E4E4;
+    min-width: 450px;
+    border-radius: 5px 5px 0px 0px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+.Send-message-form-header {
+        background: #000;
+    display: flex;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 15px;
+    width: -webkit-fill-available;
+    font-weight: 500;
+    border-radius: 5px 5px 0px 0px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+.Send-message-form-header #cta {
+        display: flex;
+    flex-direction: row;
+    width: 14%;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.Send-message-form-header #cta #minimize {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor:pointer;
+    width: 19px;
+    height: 19px;
+    border-radius: 3px;
+}
+.Send-message-form-header #cta #minimize:hover{
+	background: #959595;
+}
+.Send-message-form-header #cta #close {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    width: 19px;
+    height: 19px;
+    border-radius: 3px;
+}
+.Send-message-form-header #cta #close:hover {
+    background: #959595;
+}
+.Send-message-form-header #cta #close button {
+    color: #fff;
+    border: none;
+    background: none;
+    font-weight: 600;
+    height: fit-content;
+    font-size: 14px;
+    cursor:pointer;
+    width: fit-content;
+}
+.Send-message-form-content {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: flex-start;
+    align-items: flex-start;
+}
+.Send-message-form-content form {
+    display: flex;
+    padding: 10px;
+    width: -webkit-fill-available;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.Send-message-form-content form #filter {
+    margin-right: 15px;
+    height: 40px;
+    border-radius: 5px;
+    border: 2px solid #E4E4E4;
+    padding: 5px 10px;
+    margin-bottom:10px;
+    font-weight: 600;
+}
+.Send-message-form-content form #filter:focus{
+	outline:none;
+	border-color: #9ace48;
+}
+.Send-message-form-content form input[type="text"],input[type="email"]{
+	border: none;
+    padding: 10px;
+    border-bottom:2px solid #E4E4E4;
+}
+.Send-message-form-content form input:focus{
+	outline:none;
+}
+.Send-message-form-content form #content {
+    min-height: 290px;
+    border:none;
+    padding:10px;
+}
+.Send-message-form-content form #content:focus{
+	outline: none;
+}
+.Send-message-form-content form #send {
+    border: none;
+    width: 100px;
+    height: 33px;
+    background: #b8b08d;
+    border-radius: 5px;
+    color: #fff;
+    cursor:pointer;
+    margin-top: 15px;
+    font-size: 15px;
+    font-weight: 500;
+    align-self: flex-end;
+}

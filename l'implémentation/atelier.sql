@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `atelier` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `atelier`;
--- MySQL dump 10.13  Distrib 8.0.28, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
 -- Host: localhost    Database: atelier
 -- ------------------------------------------------------
--- Server version	8.0.28
+-- Server version	8.0.27
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -46,6 +46,35 @@ LOCK TABLES `agence` WRITE;
 /*!40000 ALTER TABLE `agence` DISABLE KEYS */;
 INSERT INTO `agence` VALUES ('agence02',52165,'batna','d02@gmail.com','030102301087','/assets/agency_pics/hertz-logo.png'),('Hertz',1231231,'constantine','d01@email.com','012031023011','/assets/agency_pics/hertz-logo.png');
 /*!40000 ALTER TABLE `agence` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `bureau`
+--
+
+DROP TABLE IF EXISTS `bureau`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `bureau` (
+  `code` varchar(45) NOT NULL,
+  `adress` varchar(45) NOT NULL,
+  `agence_nom` varchar(45) NOT NULL,
+  `secretaire_email` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`code`),
+  KEY `fk_bureau_Agence_idx` (`agence_nom`),
+  KEY `fk_bureau_Utilisateur1_idx` (`secretaire_email`),
+  CONSTRAINT `fk_bureau_Agence` FOREIGN KEY (`agence_nom`) REFERENCES `agence` (`nom`),
+  CONSTRAINT `fk_bureau_Utilisateur1` FOREIGN KEY (`secretaire_email`) REFERENCES `users` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `bureau`
+--
+
+LOCK TABLES `bureau` WRITE;
+/*!40000 ALTER TABLE `bureau` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bureau` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -210,18 +239,18 @@ DROP TABLE IF EXISTS `messages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `messages` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `source` varchar(45) NOT NULL,
   `destination` varchar(45) NOT NULL,
   `title` varchar(45) NOT NULL,
   `content` longtext NOT NULL,
   `creationTime` datetime NOT NULL,
-  `status` varchar(45) NOT NULL,
+  `status` varchar(45) NOT NULL DEFAULT 'not read',
   `tags` varchar(45) NOT NULL,
   `reply` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `reply_idx` (`reply`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -327,12 +356,10 @@ UNLOCK TABLES;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `reservation_BEFORE_INSERT` BEFORE INSERT ON `reservation` FOR EACH ROW BEGIN
 declare theId int;
-
 SELECT `AUTO_INCREMENT` INTO theId
 FROM  INFORMATION_SCHEMA.TABLES
 WHERE TABLE_SCHEMA = 'atelier'
 AND   TABLE_NAME   = 'reservation';
-
 SET `new`.`contrat` = concat("/assets/documents/contracts/", theId, ".pdf");
 END */;;
 DELIMITER ;
@@ -517,4 +544,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-14  0:03:54
+-- Dump completed on 2022-04-14  2:36:33

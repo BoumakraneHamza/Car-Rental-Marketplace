@@ -667,5 +667,24 @@ public class DAO {
 			e.printStackTrace();
 			
 		}
+	public void SendMessage(Message message) throws SQLException {
+		String query ; 
+		PreparedStatement statement = null ;
+		try {
+			connectDB();
+			query = "Insert into messages(source , destination , title , content ,tags)"
+					+ " values(?,?,?,?,?);";
+			statement = connection.prepareStatement(query);
+			statement.setString(1, message.getSource());
+			statement.setString(2, message.getDestination());
+			statement.setString(3, message.getTitle());
+			statement.setString(4, message.getContent());
+			statement.setString(5, message.getTags());
+			statement.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		statement.close();
 	}
 }
+	
