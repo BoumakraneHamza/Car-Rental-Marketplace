@@ -73,7 +73,7 @@
 								<img src="${pageContext.request.contextPath}/assets/search-icon.svg">
 								<input type="text" placeholder="Search">
 							</div>
-							<div id="add"><button><img style="margin-right: 11px;" src="${pageContext.request.contextPath}/assets/add.svg"><p>Add Building</p></button></div>
+							<div id="add" onclick="document.getElementById('tempFormForAddingBuilding').style.visibility='visible'"><button><img style="margin-right: 11px;" src="${pageContext.request.contextPath}/assets/add.svg"><p>Add Building</p></button></div>
 						</div>
 					</div>
 				      <div id="table_header">
@@ -92,7 +92,7 @@
 				      </div>
 				      <div class="table-content">
 				      	<table cellpadding="0" cellspacing="0">
-				      		<tbody>
+				      		<tbody id="BuildingList">
 				      		<c:forEach items="${Buildings}" var="Building">
 			      				<tr id="Building">
 			      					<td id="BuildingCode" style="width: 10%">${Building.code}</td>
@@ -152,6 +152,60 @@
 	</div>
 		<script src="${pageContext.request.contextPath}/js/AgencyBuildings.js"></script>
 <%@include file="/jsp/dropdownList.jsp"%>
+
+		<div id="tempFormForAddingBuilding" style="visibility:hidden;background-color:grey;position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);border: 5px solid #000000;padding: 10px;">
+			<div id="addingFepotForm"><p>adding depot</p>
+				<form id="addingDepot" onsubmit="submitDepot(event)">
+					<div>
+						<label>adress</label><br>
+						<input type="text" name="adress">
+					</div>
+					<div>
+						<label>capacity</label><br>
+						<input type="number" name="capacity">
+					</div>
+					<div>
+						<label>free capacity</label><br>
+						<input type="number" name="freeCapacity">
+					</div>
+					<div>
+						<label>agency name</label><br>
+						<input type="text" name="agencyName">
+					</div>
+					<div>
+						<label>garagiste email</label><br>
+						<input type="email" name="garagisteEmail">
+					</div>
+						<input type="hidden" name="lat">
+						<input type="hidden" name="lon">
+						<input type="hidden" name="type" value="depot">
+					<input type="reset"><input type="submit">
+				</form>
+			</div>
+			<br><br><br>
+			<div id="addingFepotForm"><p>adding office</p>
+				<form id="addingOffice" action="">
+					<div>
+						<label>adress</label><br>
+						<input type="text">
+					</div>
+					<div>
+						<label>agency name</label><br>
+						<input type="number">
+					</div>
+					<div>
+						<label>secretary email</label><br>
+						<input type="email">
+					</div>
+						<input type="hidden">
+						<input type="hidden">
+						<input type="hidden" name="type" value="office">
+					
+					<input type="reset"><input type="submit">
+				</form>
+			</div>
+			
+		</div>
 </body>
 </html>
 </body>

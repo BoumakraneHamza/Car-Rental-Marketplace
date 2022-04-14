@@ -15,16 +15,16 @@ import model.DAO;
 import model.Vehicule;
 
 /**
- * Servlet implementation class ajaxCarFilter
+ * Servlet implementation class AjaxCarFilter
  */
-@WebServlet("/ajaxCarFilter")
-public class ajaxCarFilter extends HttpServlet {
+@WebServlet("/AjaxCarFilter")
+public class AjaxCarFilter extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ajaxCarFilter() {
+    public AjaxCarFilter() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -67,11 +67,10 @@ public class ajaxCarFilter extends HttpServlet {
 			out.print("<agence>" + car.getAgence() + "</agence>\n");
 			out.print("<color>" + car.getColor() + "</color>\n");
 			out.print("<year>" + car.getYear() + "</year>\n");
-			out.print("<rating>" + car.getAverageRating() + "</rating>\n");
+			out.print("<averageRating>" + car.getAverageRating() + "</averageRating>\n");
 			out.print("</car>\n");
 		}
 		out.print("</cars>");
-		out.print("");
 	}
 
 	/**

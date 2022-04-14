@@ -191,6 +191,7 @@ public class DAO {
 	        	vehicule.setImage(result.getString("image"));
 	        	vehicule.setDepot_code(result.getString("depot_code"));
 	        	vehicule.setAgence(result.getString("agence_nom"));
+	        	vehicule.setAverageRating(result.getDouble("rating"));
 	        	
 	        	vehicules.add(vehicule);
 	        }
@@ -637,5 +638,34 @@ public class DAO {
 		}
 		
 		return inboxreturn;
+	}
+	
+	public void addDepot(Depot depot) {
+		String Query;
+		PreparedStatement statement;
+		
+		ResultSet result;
+		try {
+			connectDB();
+			Query = "INSERT INTO `atelier`.`depot` (`adress`, `capacite`, `capacite_libre`, `agence_nom`, `garagiste_email`, `lat`, `lon`) \r\n" 
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
+			statement = connection.prepareStatement(Query);
+			
+			statement.setString(1, depot.getAdress());
+			statement.setInt(2, depot.getCapacite());
+			statement.setInt(3, depot.getCapacite_libre());
+			statement.setString(4, depot.getAgence_nom());
+			statement.setString(5, depot.getGaragiste_email());
+			statement.setString(6, depot.getLat());
+			statement.setString(7, depot.getLon());
+			
+			statement.executeUpdate();
+			
+			
+			statement.close();
+		}catch (SQLException | InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+			
+		}
 	}
 }

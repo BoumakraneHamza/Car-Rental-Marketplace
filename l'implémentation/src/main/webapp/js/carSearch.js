@@ -78,7 +78,7 @@ function filterCars(element){
 		}
 		
 	}
-	xhttp.open("GET","ajaxCarFilter?location="+location+"&pickUp_date="+pickUp_date+"&return_date="+return_date
+	xhttp.open("GET","AjaxCarFilter?location="+location+"&pickUp_date="+pickUp_date+"&return_date="+return_date
 								  +"&pickUp_hour="+pickUp_hour+"&return_hour="+return_hour+"&typeFilter="+typeFilter+"&carRate="+carRate);
 	xhttp.send();
 }
@@ -99,7 +99,7 @@ function createCars(car){
 	const agence = car.getElementsByTagName("agence")[0].childNodes[0].nodeValue;
 	const matricule = car.getElementsByTagName("matricule")[0].childNodes[0].nodeValue;
 	const PLJ = car.getElementsByTagName("PLJ")[0].childNodes[0].nodeValue;
-	const rating = car.getElementsByTagName("rating")[0].childNodes[0].nodeValue;
+	const averageRating = car.getElementsByTagName("averageRating")[0].childNodes[0].nodeValue;
 	
 	var aCar = document.createElement('div');
 	aCar.setAttribute('id','car');
@@ -113,7 +113,7 @@ function createCars(car){
 							</div>\n\
 							<div id=\"rating\">\n\
 								<img src=\""+contextPath+"/assets/star.svg\">\n\
-								<p id=\"score\">"+rating+"</p>\n\
+								<p id=\"score\">"+averageRating+"</p>\n\
 							</div>\n\
 						</div>\n\
 						<h4 style=\"font-size: 15px;font-weight: 600;color: #C4C4C4;margin-top: 5px;\">Features :</h4>\n\

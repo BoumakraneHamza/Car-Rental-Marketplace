@@ -41,7 +41,7 @@ public class ViewAgencyDepots extends HttpServlet {
 		User user = (User) request.getSession().getAttribute("user");
 		if (user != null) {
 			request.setAttribute("user", user);
-			ArrayList<Depot> Buildings = new ArrayList<>();
+			ArrayList<Depot> Buildings = null;
 			DAO dao = new DAO();
 			Buildings = dao.getAgencyDepots(user.getNom());
 
