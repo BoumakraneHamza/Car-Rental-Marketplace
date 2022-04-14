@@ -65,11 +65,12 @@ public class ViewAgencyDepots extends HttpServlet {
 			request.setAttribute("user", user);
 			String depot = request.getParameter("depot");
 			String agency = request.getParameter("agency");
-			ArrayList<Vehicule> cars = new ArrayList<Vehicule>();
+			ArrayList<Vehicule> cars = null;
 			DAO dao = new DAO();
 			cars = dao.getAgencyCars(depot);
 			request.setAttribute("cars", cars);
 			request.setAttribute("depotcode", depot);
+			request.setAttribute("agency", agency);
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/AgencyCars.jsp");
 			dispatcher.forward(request, response);

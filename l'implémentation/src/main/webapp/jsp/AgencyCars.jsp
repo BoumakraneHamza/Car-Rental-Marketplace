@@ -60,17 +60,17 @@
 								<img src="${pageContext.request.contextPath}/assets/search-icon.svg">
 								<input type="text" placeholder="Search">
 							</div>
-							<div id="add"><button><img style="margin-right: 11px;" src="${pageContext.request.contextPath}/assets/add.svg"><p>Add Car</p></button></div>
+							<div id="add" onclick="document.getElementById('tempFormForAddingCars').style.visibility='visible'"><button><img style="margin-right: 11px;" src="${pageContext.request.contextPath}/assets/add.svg"><p>Add Car</p></button></div>
 						</div>
 					</div>
 				</div>
 				<div class="content_body">
 						<c:forEach items="${cars}" var="car">
-							<div id="car">
+						<div id="car">
 							<div id="car_image"><img style="width:240px;height:151px;border-radius: 10px 10px 0px 0px ;" src="${pageContext.request.contextPath}${car.image}"></div>
 							<div id="car_info">
 								<div id="names">
-									<p id="carName">${car.marque}${car.modele}</p>
+									<p id="carName">${car.marque} ${car.modele}</p>
 									<input type="hidden" id="matricule" value="${matricule.matricule}"></input>
 								</div>
 								<div id="rating">
@@ -99,5 +99,56 @@
 	</div>
 <%@include file="/jsp/dropdownList.jsp"%>
 <%@include file="/jsp/AgencyCarDetails.jsp"%>
+
+		<div id="tempFormForAddingCars" style="visibility:hidden;background-color:grey;position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);border: 5px solid #000000;padding: 10px;">
+			<div id="addingCarForm"><p>adding Car</p>
+				<form id="addingCar" onsubmit="submitCar(event)">
+					<div>
+						<label>matricule</label><br>
+						<input type="text" name="matricule">
+					</div>
+					<div>
+						<label>marque</label><br>
+						<input type="text" name="marque">
+					</div>
+					<div>
+						<label>modele</label><br>
+						<input type="text" name="modele">
+					</div>
+					<div>
+						<label>PLJ</label><br>
+						<input type="number" name="PLJ">
+					</div>
+					<div>
+						<label>PLH</label><br>
+						<input type="number" name="PLH">
+					</div>
+					<div>
+						<label>type</label><br>
+						<input type="text" name="type">
+					</div>
+					<div>
+						<label>image</label><br>
+						<input type="file" name="image">
+					</div>
+					<div>
+						<label>year</label><br>
+						<input type="text" name="year">
+					</div>
+					<div>
+						<label>color</label><br>
+						<input type="text" name="color">
+					</div>
+						<input type="hidden" name="depot" value="${depotcode }">
+						<input type="hidden" name="agency" value="${agency }">
+					<input type="reset"><input type="submit">
+				</form>
+			</div>
+		</div>
+<script type="text/javascript">
+	var contextPath = "${pageContext.request.contextPath}";
+	
+</script>
+	<script src="${pageContext.request.contextPath}/js/agency_cars.js"></script>
 </body>
 </html>

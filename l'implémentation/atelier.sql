@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `atelier` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `atelier`;
--- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.28, for Win64 (x86_64)
 --
 -- Host: localhost    Database: atelier
 -- ------------------------------------------------------
--- Server version	8.0.27
+-- Server version	8.0.28
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -46,35 +46,6 @@ LOCK TABLES `agence` WRITE;
 /*!40000 ALTER TABLE `agence` DISABLE KEYS */;
 INSERT INTO `agence` VALUES ('agence02',52165,'batna','d02@gmail.com','030102301087','/assets/agency_pics/hertz-logo.png'),('Hertz',1231231,'constantine','d01@email.com','012031023011','/assets/agency_pics/hertz-logo.png');
 /*!40000 ALTER TABLE `agence` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `bureau`
---
-
-DROP TABLE IF EXISTS `bureau`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `bureau` (
-  `code` varchar(45) NOT NULL,
-  `adress` varchar(45) NOT NULL,
-  `agence_nom` varchar(45) NOT NULL,
-  `secretaire_email` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`code`),
-  KEY `fk_bureau_Agence_idx` (`agence_nom`),
-  KEY `fk_bureau_Utilisateur1_idx` (`secretaire_email`),
-  CONSTRAINT `fk_bureau_Agence` FOREIGN KEY (`agence_nom`) REFERENCES `agence` (`nom`),
-  CONSTRAINT `fk_bureau_Utilisateur1` FOREIGN KEY (`secretaire_email`) REFERENCES `users` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `bureau`
---
-
-LOCK TABLES `bureau` WRITE;
-/*!40000 ALTER TABLE `bureau` DISABLE KEYS */;
-/*!40000 ALTER TABLE `bureau` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -151,8 +122,8 @@ DROP TABLE IF EXISTS `depot`;
 CREATE TABLE `depot` (
   `code` int NOT NULL AUTO_INCREMENT,
   `adress` varchar(45) NOT NULL,
-  `capacite` varchar(45) NOT NULL,
-  `capacite_libre` varchar(45) NOT NULL,
+  `capacite` int NOT NULL,
+  `capacite_libre` int NOT NULL,
   `agence_nom` varchar(45) NOT NULL,
   `garagiste_email` varchar(45) DEFAULT NULL,
   `lat` varchar(45) DEFAULT NULL,
@@ -161,7 +132,8 @@ CREATE TABLE `depot` (
   PRIMARY KEY (`code`,`agence_nom`),
   KEY `fk_Depot_Utilisateur1_idx` (`garagiste_email`),
   KEY `agency_name_idx` (`agence_nom`),
-  CONSTRAINT `agency_name` FOREIGN KEY (`agence_nom`) REFERENCES `agence` (`nom`)
+  CONSTRAINT `agency_name` FOREIGN KEY (`agence_nom`) REFERENCES `agence` (`nom`),
+  CONSTRAINT `check_storage` CHECK (((`capacite` >= 0) and (`capacite_libre` >= 0) and (`capacite_libre` <= `capacite`)))
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -171,7 +143,7 @@ CREATE TABLE `depot` (
 
 LOCK TABLES `depot` WRITE;
 /*!40000 ALTER TABLE `depot` DISABLE KEYS */;
-INSERT INTO `depot` VALUES (1,'constantine','12','11','Hertz','g01@email.com','36.25023','6.57394',2),(2,'batna','15','15','Hertz',NULL,'35.55216','6.17968',NULL),(3,'constantine','15','15','agence02',NULL,'36.2650','6.5833',NULL),(4,'constantine','20','3','Hertz',NULL,'36.2536','6.5546',NULL),(5,'constantine','10','5','agence02',NULL,'36.2493','6.5921',NULL),(6,'constantine','12','6','agence02',NULL,'36.2333','6.5604',NULL),(7,'alger','100','50','Hertz','g01@email.com',NULL,NULL,0);
+INSERT INTO `depot` VALUES (1,'constantine',12,11,'Hertz','g01@email.com','36.25023','6.57394',2),(2,'batna',15,15,'Hertz',NULL,'35.55216','6.17968',NULL),(3,'constantine',15,15,'agence02',NULL,'36.2650','6.5833',NULL),(4,'constantine',20,3,'Hertz',NULL,'36.2536','6.5546',NULL),(5,'constantine',10,5,'agence02',NULL,'36.2493','6.5921',NULL),(6,'constantine',12,6,'agence02',NULL,'36.2333','6.5604',NULL),(7,'alger',100,50,'Hertz','g01@email.com',NULL,NULL,0);
 /*!40000 ALTER TABLE `depot` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -457,20 +429,20 @@ CREATE TABLE `vehicule` (
   `PLJ` double NOT NULL,
   `PLH` double NOT NULL,
   `type` varchar(45) NOT NULL,
-  `image` varchar(50) DEFAULT NULL,
+  `image` varchar(50) DEFAULT '/assets/car_pics/default.jpg',
   `depot_code` int NOT NULL,
   `year` int NOT NULL,
   `color` varchar(45) NOT NULL,
-  `rating` double NOT NULL,
-  `Sec-images` json NOT NULL,
-  `seats` int NOT NULL,
-  `doors` int NOT NULL,
-  `suit_case` int NOT NULL,
-  `mileage` tinyint NOT NULL,
-  `comfort_rating` double NOT NULL,
-  `cleanliness_rating` double NOT NULL,
-  `PickReturn_rating` double NOT NULL,
-  `ValueMoney_rating` double NOT NULL,
+  `rating` double NOT NULL DEFAULT '0',
+  `Sec-images` json DEFAULT NULL,
+  `seats` int DEFAULT NULL,
+  `doors` int DEFAULT NULL,
+  `suit_case` int DEFAULT NULL,
+  `mileage` tinyint DEFAULT NULL,
+  `comfort_rating` double DEFAULT NULL,
+  `cleanliness_rating` double DEFAULT NULL,
+  `PickReturn_rating` double DEFAULT NULL,
+  `ValueMoney_rating` double DEFAULT NULL,
   PRIMARY KEY (`matricule`),
   KEY `code_depot_idx` (`depot_code`),
   CONSTRAINT `depot` FOREIGN KEY (`depot_code`) REFERENCES `depot` (`code`)
@@ -486,6 +458,60 @@ LOCK TABLES `vehicule` WRITE;
 INSERT INTO `vehicule` VALUES ('202212401','Peugot','e-208GT',120,20,'Premium','/assets/car_pics/car02.jpg',2,2022,'Yellow',2.8,'null',0,0,0,0,0,0,0,0),('202212522','Mini','cooper Sl',100,15,'Compact','/assets/car_pics/default01.jpg',1,2021,'Red',3.2,'null',0,0,0,0,0,0,0,0);
 /*!40000 ALTER TABLE `vehicule` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `vehicule_AFTER_INSERT` AFTER INSERT ON `vehicule` FOR EACH ROW BEGIN
+UPDATE `atelier`.`depot` SET `capacite_libre` = `capacite_libre` - 1 WHERE (`code` = `NEW`.`depot_code`);
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `vehicule_AFTER_UPDATE` AFTER UPDATE ON `vehicule` FOR EACH ROW BEGIN
+IF (`OLD`.`depot_code` != `NEW`.`depot_code`) THEN
+UPDATE `atelier`.`depot` SET `capacite_libre` = `capacite_libre` + 1 WHERE (`code` = `OLD`.`depot_code`);
+UPDATE `atelier`.`depot` SET `capacite_libre` = `capacite_libre` - 1 WHERE (`code` = `NEW`.`depot_code`);
+END IF;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `vehicule_AFTER_DELETE` AFTER DELETE ON `vehicule` FOR EACH ROW BEGIN
+UPDATE `atelier`.`depot` SET `capacite_libre` = `capacite_libre` + 1 WHERE (`code` = `OLD`.`depot_code`);
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Dumping events for database 'atelier'
@@ -544,4 +570,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-14  2:50:25
+-- Dump completed on 2022-04-14 22:00:55

@@ -644,7 +644,6 @@ public class DAO {
 		String Query;
 		PreparedStatement statement;
 		
-		ResultSet result;
 		try {
 			connectDB();
 			Query = "INSERT INTO `atelier`.`depot` (`adress`, `capacite`, `capacite_libre`, `agence_nom`, `garagiste_email`, `lat`, `lon`) \r\n" 
@@ -667,6 +666,8 @@ public class DAO {
 			e.printStackTrace();
 			
 		}
+	}
+
 	public void SendMessage(Message message) throws SQLException {
 		String query ; 
 		PreparedStatement statement = null ;
@@ -686,5 +687,36 @@ public class DAO {
 		}
 		statement.close();
 	}
+
+	public void addVehicule(Vehicule vehicule) {
+		String Query;
+		PreparedStatement statement;
+		
+		try {
+			connectDB();
+			Query = "INSERT INTO `atelier`.`vehicule` (`matricule`, `marque`, `modele`, `PLJ`, `PLH`, `type`, `depot_code`, `year`, `color`) \r\n"
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			statement = connection.prepareStatement(Query);
+			
+			statement.setString(1, vehicule.getMatricule());
+			statement.setString(2, vehicule.getMarque());
+			statement.setString(3, vehicule.getModele());
+			statement.setDouble(4, vehicule.getPLJ());
+			statement.setDouble(5, vehicule.getPLH());
+			statement.setString(6, vehicule.getType());
+			//statement.setString(7, vehicule.getImage()); TODO later
+			statement.setString(7, vehicule.getDepot_code());
+			statement.setInt(8, vehicule.getYear());
+			statement.setString(9, vehicule.getColor());
+			
+			statement.executeUpdate();
+			
+			
+			statement.close();
+		}catch (SQLException | InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+			
+		}
+		
+	}
 }
-	
