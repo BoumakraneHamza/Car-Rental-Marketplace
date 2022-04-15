@@ -711,12 +711,28 @@ public class DAO {
 			
 			statement.executeUpdate();
 			
+			statement.close();
+		}catch (SQLException | InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();	
+		}
+	}
+
+	public void deleteVehicule(String matricule) {
+		String Query;
+		PreparedStatement statement;
+		
+		try {
+			connectDB();
+			Query = "DELETE FROM `atelier`.`vehicule` WHERE (`matricule` = ?)";
+			statement = connection.prepareStatement(Query);
+			
+			statement.setString(1, matricule);
+			
+			statement.executeUpdate();
 			
 			statement.close();
 		}catch (SQLException | InstantiationException | IllegalAccessException e) {
-			e.printStackTrace();
-			
+			e.printStackTrace();	
 		}
-		
 	}
 }

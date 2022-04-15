@@ -71,7 +71,7 @@
 							<div id="car_info">
 								<div id="names">
 									<p id="carName">${car.marque} ${car.modele}</p>
-									<input type="hidden" id="matricule" value="${matricule.matricule}"></input>
+									<input type="hidden" id="matricule" value="${car.matricule}"></input>
 								</div>
 								<div id="rating">
 									<img style="width: 18px;margin-right: 5Px;" src="${pageContext.request.contextPath}/assets/star.svg">
@@ -86,7 +86,7 @@
 								</div>
 							</div>
 							<div id="deal">
-								<img src="${pageContext.request.contextPath}/assets/delete-icon.svg">
+								<img src="${pageContext.request.contextPath}/assets/delete-icon.svg" onclick="confirmDelete(${car.matricule})">
 								<div id="cta" onclick="show_details(this)">
 									<button>View Details</button>
 								</div>
@@ -145,6 +145,16 @@
 				</form>
 			</div>
 		</div>
+		<div id="tempFormForDeletingCars" style="visibility:hidden;background-color:grey;position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);border: 5px solid #000000;padding: 10px;">
+			<div id="deleteCarForm"><p>adding Car</p>
+				<form id="deletingCar" onsubmit="deleteCar(event)">
+					<input type="hidden" name="matricule">
+					<input type="hidden" name="depot" value="${depotcode }">
+					<button type="button" onclick="document.getElementById('tempFormForDeletingCars').style.visibility='hidden'">Cancel</button><input type="submit">
+				</form>
+			</div>
+		</div>
+		
 <script type="text/javascript">
 	var contextPath = "${pageContext.request.contextPath}";
 	

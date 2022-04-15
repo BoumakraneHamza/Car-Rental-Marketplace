@@ -1,7 +1,7 @@
 function submitCar(event){
 	event.preventDefault();
 	var param = new URLSearchParams(new FormData(document.getElementById('addingCar'))).toString();
-	console.log(param)
+	
 	var xhttp = new XMLHttpRequest();
 	xhttp.onload = function() {
 		var cars = this.responseXML.getElementsByTagName("car");
@@ -14,9 +14,33 @@ function submitCar(event){
 	xhttp.open("POST","AjaxAddCar");
 	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xhttp.send(param);
-	//xhttp.open("POST","AjaxAddCar?"+param);xhttp.send();
 	
 	document.getElementById('tempFormForAddingCars').style.visibility='hidden';
+}
+
+function deleteCar(event) {
+	event.preventDefault();
+	var param = new URLSearchParams(new FormData(document.getElementById('deletingCar'))).toString();console.log(param);
+	
+	var xhttp = new XMLHttpRequest();
+	xhttp.onload = function() {
+		var cars = this.responseXML.getElementsByTagName("car");
+		
+		document.getElementsByClassName("content_body")[0].innerHTML = '';
+		for(car of cars){
+			createCars(car);
+		}
+	}
+	xhttp.open("POST","AjaxDeleteCar");
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhttp.send(param);
+	
+	document.getElementById('tempFormForDeletingCars').style.visibility='hidden';
+}
+
+function confirmDelete(matricule) {
+	var x = document.getElementById('deletingCar').firstElementChild.value = matricule;
+	document.getElementById('tempFormForDeletingCars').style.visibility='visible';
 }
 
 function createCars(car) {
@@ -50,7 +74,7 @@ function createCars(car) {
 								</div>\n\
 							</div>\n\
 							<div id=\"deal\">\n\
-								<img src=\""+contextPath+"/assets/delete-icon.svg\">\n\
+								<img src=\""+contextPath+"/assets/delete-icon.svg\" onclick=\"confirmDelete("+matricule+")\">\n\
 								<div id=\"cta\" onclick=\"show_details(this)\">\n\
 									<button>View Details</button>\n\
 								</div>\n\
