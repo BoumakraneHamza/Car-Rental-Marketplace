@@ -1,0 +1,217 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+html,body{
+	margin:0px;
+	font-family: 'Poppins', sans-serif;
+	overflow-x:hidden;
+	width:100vw;
+	height:100vh;
+	overflow-y:hidden;
+}
+p{
+	margin:0px;
+}
+.wrapper{
+	width:100vw;
+	height:100vh;
+	position: absolute;
+	display:none;
+    top: 50%;
+    z-index:1;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.add_card_form{
+	width: 500px;
+    margin: auto;
+    height: 600px;
+    position: absolute;
+    z-index:4;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.card_form{
+    width: 430px;
+    margin: 0px auto -130px auto;
+    height: 270px;
+    border-radius: 15px;
+    z-index: 3;
+    position: relative;
+	box-shadow: -1px 10px 20px 6px #a9a9a9;
+}
+.card_info_wrapper{
+	padding: 25px 15px;
+    position: relative;
+    z-index: 4;
+    height: 100%;
+    text-shadow: 7px 6px 10px rgb(14 42 90 / 80%);
+    user-select: none;
+}
+.card-item__top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 0 10px;
+}
+.card-item__chip {
+    width: 60px;
+}
+.card-item__type {
+    height: 45px;
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    max-width: 100px;
+    margin-left: auto;
+    width: 100%;
+}
+.card-item__typeImg {
+    max-width: 100%;
+    object-fit: contain;
+    max-height: 100%;
+    object-position: top right;
+}
+.card-number {
+    display: flex;
+    color: #fff;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    font-size: 20px;
+    padding: 10px 20px;
+}
+.card-number span{
+	margin-top:10px;
+}
+.card_item_bottom {
+    display: flex;
+    color: #fff;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding: 0px 20px;
+}
+#card_holder {
+    font-size: 14px;
+    color: #cecece;
+}
+#full_name {
+    font-size: 16px;
+    color: #fff;
+    margin-top: 10px;
+}
+#Expiry_date {
+    font-size: 14px;
+    color: #cecece;
+}
+#expiry_date {
+    font-size: 16px;
+    color: #fff;
+    margin-top: 10px;
+}
+.inner_card_form {
+    background: #fff;
+    box-shadow: 0 30px 60px 0 rgb(90 116 148 / 40%);
+    border-radius: 10px;
+    padding: 35px 35px 20px 35px;
+    padding-top: 180px;
+    display: flex;
+    margin: auto;
+    width: 400px;
+    flex-direction: column;
+    z-index: 1;
+    flex-wrap: nowrap;
+    height: fit-content;
+    position: relative;
+}
+.card-input {
+	 margin-bottom: 20px;
+}
+ .card-input__label {
+	 font-size: 14px;
+	 margin-bottom: 5px;
+	 font-weight: 500;
+	 color: #1a3b5d;
+	 width: 100%;
+	 display: block;
+	 user-select: none;
+}
+ .card-input__input {
+	width: -webkit-fill-available;
+	 height: 50px;
+	 box-sizing: border-box;
+	 border-radius: 5px;
+	 box-shadow: none;
+	 border: 1px solid #ced6e0;
+	 transition: all 0.3s ease-in-out;
+	 font-size: 18px;
+	 padding: 5px 15px;
+	 background: none;
+	 color: #1a3b5d;
+	 font-family: "Source Sans Pro", sans-serif;
+}
+ .card-input__input:hover, .card-input__input:focus {
+	 border-color: #3d9cff;
+}
+ .card-input__input:focus {
+	 box-shadow: 0px 10px 20px -13px rgba(32, 56, 117, 0.35);
+	 border-color: #3d9cff;
+	 outline:none;
+}
+.card-form__row {
+	 display: flex;
+	 align-items: flex-start;
+}
+ .card-form__col {
+	 flex: auto;
+	 margin-right: 35px;
+}
+ .card-form__col:last-child {
+	 margin-right: 0;
+}
+ .card-form__col.-cvv {
+	 max-width: 150px;
+}
+ .card-form__group {
+	 display: flex;
+	 align-items: flex-start;
+	 flex-wrap: wrap;
+}
+ .card-form__group .card-input__input {
+	 flex: 1;
+	 margin-right: 15px;
+}
+ .card-form__group .card-input__input:last-child {
+	 margin-right: 0;
+}
+.inner_card_form form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.card-cta {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+.card-cta input {
+	width: 170px;
+    height: 50px;
+    background: #B8B08D;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 600;
+    margin-right: 10px;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 3px 10px 20px 0px rgb(35 100 210 / 30%);
+    color: #fff;
+    cursor: pointer;
+    align-self: center;
+}
+#cancel {
+    background: #fff;
+    color: #000;
+    border: 2px solid;
+}

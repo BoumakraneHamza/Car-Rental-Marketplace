@@ -37,67 +37,67 @@
 		<div class="main-frame">
 			<div class="payment-content">
 				<div id="payment_details">
-					<div id="title"><h4>Payment details</h4></div>
+						<p id="main-title">Personal Cards</p>
 					<div id="cards">
-						<div id="card">
-							<div id="ClientName">${user.getNom()} ${user.getPrenom()}</div>
-							<div id="Card-Number">${card.getCardNumber()}</div>
-							<div id="exp">${card.getExp()}</div>		
+						<div class="card" style="background-image:url(https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/${random}.jpeg);">
+							<div class="card_info">
+								<div class="card_top">
+									<img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/chip.png" class="item_chip">
+								 <div class="item_type">
+								 	<img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/visa.png" alt="" class="item_typeImg">
+								 </div>
+								</div>
+								<div class="card_number">
+									<span>${card.getCardNumber()}</span>
+								</div>
+								<div class="item_bottom">
+									<div id="holder">
+										<p>card holder</p>
+										<p id="holder_full_name">${user.getNom()} ${user.getPrenom()}</p>
+									</div>
+									<div id="card_Expiry_date">
+										<p>Expiry date</p>
+										<p id="card_expiry_date">${card.getExp()}</p>
+									</div>
+								</div>
+							</div>
 						</div>
-						<div id="add-card">
+						<div id="add-card" onclick="addCard()">
 							<button>Add Card</button>
 						</div>
 					</div>
 				</div>
 				<div id="payment_history">
-					<div id="title"><h4>Payment History</h4></div>
-					<div id="table_header">
-						<p>Amount</p>
-						<p>Car</p>
-						<p>Agency</p>
-						<p>Date</p>
-						<p>Method</p>
-					</div>
+						<p id="sec_title">Last Transactions<p>
 					<div class="scroll">
 					<div id=table_content>
 						<c:choose>
 							<c:when test="${payments.size()>0}">
 								<c:forEach items="${payments}" var="payment">
 									<div id="full">
-										<div class="transaction">
-											<p>${payment.montant}</p>
-											<p>${payment.car_name}</p>
-											<p>${payment.agence}</p>
-											<p>${payment.date}</p>
-											<div class="more" onclick="show_details(this)"><p>Card ${payment.method}</p><img src="${pageContext.request.contextPath}/assets/angle-down-solid.svg"></div>
-										</div>
-										<div class="details">
-											<div id="bill">
-												<h4>Bill</h4>
-												<img src="${pageContext.request.contextPath}/assets/pdfFile.png">
-											</div>
-											<div id="info">
-												<div id="field">
-													<h4>Status</h4>
-													<p>Completed</p>
-												</div>
-												<div id="field">
-													<h4>Reservation Date</h4>
-													<p>${payment.reservation_date}</p>
-												</div>
-												<div id="field">
-													<h4>Payment ID</h4>
-													<p>${payment.payment_id}</p>
-												</div>
-												<div id="field">
-													<h4>Date Paid</h4>
-													<p>${payment.date}</p>
-												</div>
-											</div>
-											<div id="amount">
-												<h4>Amount Due</h4>
-												<p>${payment.montant}</p>
-											</div>
+										<div class="transaction" onclick="ShowDetails(this)">
+											<p>${payment.value.car_name}</p>
+											<input type="hidden" id="payment_id" value="${payment.value.payment_id}">
+											<c:choose>
+												<c:when test="${payment.value.method.equals('cash')}">
+													<div id="method">
+														<div id="cash_box">
+															<div id="cash_dot"></div>
+														</div>
+														<p>Cash</p>
+													</div>
+												</c:when>
+												<c:otherwise>
+													<div id="method">
+														<div id="card_box">
+															<div id="card_dot"></div>
+														</div>
+														<p>Credit</p>
+													</div>
+												</c:otherwise>
+											</c:choose>
+											<p>${payment.value.date}</p>
+											<p id="amount">${payment.value.montant}</p>
 										</div>
 									</div>
 								</c:forEach>
@@ -110,11 +110,75 @@
 				</div>
 			</div>
 		</div>
-			<div class=date_selection>
+			<div class=side_bar>
+				<p id="main_title">Payment Detail</p>
+				<div class="reciever">
+					<div id="agency_image">
+						<img style="width:150px;" src="${pageContext.request.contextPath}/assets/agency_pics/hertz-logo.png">
+					</div>
+					<p id="agency_name">Hertz</p>
+					<p id="agency_phone">012031023</p>
+				</div>
+				<div class="payment_info">
+					<div id="tile">
+						<div id="title">
+							<img id="date_img" src="${pageContext.request.contextPath}/assets/date-grey.svg">
+							<p id="date">Date</p>
+						</div>
+						<p id="date_value">2022-04-20</p>
+					</div>
+					<div id="tile">
+						<div id="title">
+							<img src="${pageContext.request.contextPath}/assets/card-grey.svg">
+							<p id="amount">Amount</p>
+						</div>
+						<p id="amount_value">$120</p>
+					</div>
+					<div id="tile">
+						<div id="title">
+							<img id="invoice_img" src="${pageContext.request.contextPath}/assets/paperclip.svg">
+							<p id="invoice">Invoice</p>
+						</div>
+						<p id="invoice_id">3</p>
+					</div>
+				</div>
+				<div class="summary">
+					<div class="summary_header">
+						<p>Bill Summary</p>
+						<img class="summary_toggle" src="${pageContext.request.contextPath}/assets/angle-down-solid.svg">
+					</div>
+					<div class="summary_body" style="display:none;">
+						<div id="tile">
+							<p id="title">Car modele</p>
+							<p class="car_name" id="value">Mini Cooper S</p>
+						</div>
+						<div id="tile">
+							<p id="title">Daily Rate</p>
+							<p class="rate" id="value">$100</p>
+						</div>
+						<div id="tile">
+							<p id="title">Duration</p>
+							<p class="duration" id="value">10</p>
+						</div>
+						<div id="tile">
+							<p id="title">Discount</p>
+							<p id="value">30%</p>
+						</div>
+						<div id="tile">
+							<p id="title">Fees</p>
+							<p id="value">$10</p>
+						</div>
+						<div id="tile">
+							<p id="title">Insurance</p>
+							<p id="value">$40</p>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 <script src="${pageContext.request.contextPath}/js/ClientPayment.js"></script>
 	<%@include file="/jsp/dropdownList.jsp"%>
+	<%@include file="/jsp/addCard.jsp"%>
 </body>
 </html>

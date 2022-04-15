@@ -6,8 +6,14 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class DAO {
 
@@ -340,11 +346,11 @@ public class DAO {
 		return reservation;
 	}
 	
-	public ArrayList<Payment> getPayments(String email) throws InstantiationException, IllegalAccessException{
+	public HashMap<Integer,Payment> getPayments(String email) throws InstantiationException, IllegalAccessException, ParseException{
 		String Query;
 		PreparedStatement statement;
 		
-		ArrayList<Payment> payments = new ArrayList<Payment>();
+		HashMap<Integer,Payment> map = new HashMap<>();
 		Payment payment;
 		
 		ResultSet result;
@@ -368,15 +374,24 @@ public class DAO {
 				payment.setDate(result.getString("date"));
 				payment.setCar_name(result.getString("marque") + " " + result.getString("modele"));
 				payment.setReservation_date(result.getString("date_reservation"));
-				
-				payments.add(payment);
+				payment.setPick_up_date(result.getString("date_1"));
+				payment.setReturn_date(result.getString("date_2"));
+				payment.setPLJ(result.getInt("PLJ"));
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+			    Date firstDate = sdf.parse(payment.getPick_up_date());
+			    Date secondDate = sdf.parse(payment.getReturn_date());
+
+			    long diffInMillies = Math.abs(secondDate.getTime() - firstDate.getTime());
+			    long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+			    payment.setDuration(diff);
+				map.put(payment.getPayment_id(), payment);
 			}
 			statement.close();
 		}catch (SQLException e) {
 			System.out.println(e);
 			
 		}
-		return payments;
+		return map;
 	}
 
 	public int SetTempReservation(Reservation data) {

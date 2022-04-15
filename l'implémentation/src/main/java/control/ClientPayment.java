@@ -1,7 +1,11 @@
 package control;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +13,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import model.CreditCards;
 import model.DAO;
@@ -40,17 +46,19 @@ public class ClientPayment extends HttpServlet {
 			
 			DAO dao = new DAO();
 			CreditCards card = null;
-			ArrayList<Payment> payments = null;
-			
+			HashMap<Integer ,Payment> map = null;
 			try {
 				card = dao.getDefaultCard(user.getEmail());
-				payments = dao.getPayments(user.getEmail());
-			} catch (InstantiationException | IllegalAccessException e) {
+				map = dao.getPayments(user.getEmail());
+			} catch (InstantiationException | IllegalAccessException | ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			Random rand = new Random();
+			Integer random = rand.nextInt(25);
+			request.setAttribute("random", random);
 			request.setAttribute("card", card);
-			request.setAttribute("payments", payments);
+			request.setAttribute("payments", map);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/ClientPayment.jsp");
 			dispatcher.forward(request, response);
 		} else {
@@ -64,8 +72,19 @@ public class ClientPayment extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		User user = (User) request.getSession().getAttribute("user");
+		ObjectMapper mapper = new ObjectMapper();
+		 DAO dao = new DAO();
+		 HashMap<Integer,Payment> map = new HashMap<>();
+		 try {
+			map = dao.getPayments(user.getEmail());
+		} catch (InstantiationException | IllegalAccessException | ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 String JsonMap = mapper.writeValueAsString(map);
+		 PrintWriter out = response.getWriter();
+		 out.write(JsonMap);
 	}
 
 }
