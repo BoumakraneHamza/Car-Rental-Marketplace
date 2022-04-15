@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/dropdownList.css">
 </head>
 <body>
-<div class="dropdownList">
+<div class="dropdownList" style="display:none;">
 	<div class="tile" onclick="location.href='/Atelier/ViewProfile'">
 		<div class="viewProfile">
 			<div id="profile_image">

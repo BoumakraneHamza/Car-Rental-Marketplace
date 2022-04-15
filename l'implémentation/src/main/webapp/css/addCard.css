@@ -91,20 +91,20 @@ p{
     justify-content: space-between;
     padding: 0px 20px;
 }
-#card_holder {
+.card_info_wrapper #card_holder {
     font-size: 14px;
     color: #cecece;
 }
-#full_name {
+.card_info_wrapper #full_name {
     font-size: 16px;
     color: #fff;
     margin-top: 10px;
 }
-#Expiry_date {
+.card_info_wrapper #Expiry_date {
     font-size: 14px;
     color: #cecece;
 }
-#expiry_date {
+.card_info_wrapper #expiry_date {
     font-size: 16px;
     color: #fff;
     margin-top: 10px;

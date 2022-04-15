@@ -10,7 +10,6 @@ p{
     width: 330px;
     border-radius: 10px;
     background: #fff;
-    display:none;
     position: absolute;
     margin: 10px;
     top: 55px;
@@ -34,10 +33,13 @@ p{
 	border-radius:5px;
 }
 .dropdownList .tile .viewProfile #profile_image{
-	width:60px;
-	height:60px;
-	border-radius:50%;
-	overflow: hidden;
+	    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .dropdownList .tile .viewProfile .text {
     margin-left: 10px;

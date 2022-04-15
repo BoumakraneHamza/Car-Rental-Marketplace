@@ -17,14 +17,13 @@
     height: 225px;
     margin: 10px 20px;
     border-radius: 15px;
-    z-index: 3;
+    z-index: 1;
     position: relative;
     box-shadow: -1px 10px 20px 6px #a9a9a9;
 }
 .card_info{
 	padding: 25px 15px;
     position: relative;
-    z-index: 4;
     height: 100%;
     text-shadow: 7px 6px 10px rgb(14 42 90 / 80%);
     user-select: none;
@@ -76,20 +75,20 @@ img.item_typeImg {
     justify-content: space-between;
     padding: 0px 20px;
 }
-#holder {
+.card .card_info #holder {
     font-size: 14px;
     color: #cecece;
 }
-#holder_full_name {
+.card .card_info  #holder_full_name {
     font-size: 16px;
     color: #fff;
     margin-top: 10px;
 }
-#card_Expiry_date {
+.card .card_info  #card_Expiry_date {
     font-size: 14px;
     color: #cecece;
 }
-#card_expiry_date {
+.card .card_info  #card_expiry_date {
     font-size: 16px;
     color: #fff;
     margin-top: 10px;

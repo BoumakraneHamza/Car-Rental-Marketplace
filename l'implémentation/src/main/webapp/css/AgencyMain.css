@@ -46,10 +46,14 @@ a, a:visited{
     flex-wrap: nowrap;
     flex-direction: row;
 }
-.header .user img {
-	width: 40px;
+.header .user #user-image {
+    width: 40px;
+    height: 40Px;
+    display: flex;
     border-radius: 50%;
-    height: 40px;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
 .header .user #notification{
 	margin-right: 45px;
