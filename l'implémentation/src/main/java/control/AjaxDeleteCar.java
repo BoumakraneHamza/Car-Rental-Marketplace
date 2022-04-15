@@ -36,6 +36,7 @@ public class AjaxDeleteCar extends HttpServlet {
 		User user = (User) request.getSession().getAttribute("user");
 		if (user.getType().equals("directeur")) {
 			response.setContentType("application/xml");
+			response.setCharacterEncoding("UTF-8");
 			PrintWriter out = response.getWriter();
 			
 			String depot = request.getParameter("depot");

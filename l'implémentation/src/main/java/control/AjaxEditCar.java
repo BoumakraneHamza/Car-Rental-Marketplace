@@ -4,29 +4,27 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.CarFilter;
 import model.DAO;
 import model.User;
 import model.Vehicule;
 
 /**
- * Servlet implementation class AjaxAddCar
+ * Servlet implementation class AjaxEditCar
  */
-@WebServlet("/AjaxAddCar")
-public class AjaxAddCar extends HttpServlet {
+@WebServlet("/AjaxEditCar")
+public class AjaxEditCar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxAddCar() {
+    public AjaxEditCar() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -79,16 +77,18 @@ public class AjaxAddCar extends HttpServlet {
 				vehicule.setMatricule(request.getParameter("matricule"));
 				vehicule.setMarque(request.getParameter("marque"));
 				vehicule.setModele(request.getParameter("modele"));
-				vehicule.setPLJ(Double.parseDouble(request.getParameter("PLJ")));
-				vehicule.setPLH(Double.parseDouble(request.getParameter("PLH")));
-				vehicule.setType(request.getParameter("type"));
-				//vehicule.setImage(request.getParameter("image")); TODO later
-				vehicule.setDepot_code(request.getParameter("depot"));
 				vehicule.setYear(Integer.parseInt(request.getParameter("year")));
 				vehicule.setColor(request.getParameter("color"));
-				//vehicule.set(request.getParameter(""));
+				vehicule.setPLH(Double.parseDouble(request.getParameter("PLH")));
+				vehicule.setPLJ(Double.parseDouble(request.getParameter("PLJ")));
+				vehicule.setNumberSeats(Integer.parseInt(request.getParameter("seats")));
+				vehicule.setNumberDoors(Integer.parseInt(request.getParameter("doors")));
+				vehicule.setNumberSuitCase(Integer.parseInt(request.getParameter("cases")));
+				//vehicule.setMileage(request.getParameter("mileage"));
+				vehicule.setType(request.getParameter("type"));
+				//vehicule.setImage(request.getParameter("image")); TODO later
 				
-				dao.addVehicule(vehicule);
+				dao.editVehicule(vehicule);
 		}
 		doGet(request, response);
 	}

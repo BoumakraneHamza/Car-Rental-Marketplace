@@ -20,8 +20,8 @@
 			<div class="user">
 			<img id="notification" src="${pageContext.request.contextPath}/assets/notification.svg">
 			<div id="user-image">
-			<img style="width: 40px;" src="${pageContext.request.contextPath}${user.image}">
-		</div>
+				<img style="width: 40px;" src="${pageContext.request.contextPath}${user.image}">
+			</div>
 				<div id="user-info">
 					<p id="full-name">${user.nom} ${user.prenom}</p>
 					<p id="user-name">${user.user_name}</p>
@@ -36,7 +36,7 @@
 			<div class="menu">
 				<button class="dashboard"><a href="${pageContext.request.contextPath}/Dashboard"><img src="${pageContext.request.contextPath}/assets/dashboard-icon.svg"></a></button>
 				<button class="Personal" ><a href="${pageContext.request.contextPath}/jsp/AgencyPersonal.jsp"><img src="${pageContext.request.contextPath}/assets/personal-icon.svg"></a></button>
-				<button class="Personal" style="background: #F6AA1C;"><a href="${pageContext.request.contextPath}/jsp/AgencyBuildings.jsp"><img src="${pageContext.request.contextPath}/assets/building-icon-white.svg"></a></button>
+				<button class="Personal" style="background: #F6AA1C;"><a href="${pageContext.request.contextPath}/ViewAgencyDepots"><img src="${pageContext.request.contextPath}/assets/building-icon-white.svg"></a></button>
 				
 			</div>
 			<div class="main-frame">
@@ -88,8 +88,8 @@
 								</div>
 							</div>
 							<div id="deal">
-								<img src="${pageContext.request.contextPath}/assets/delete-icon.svg" onclick="confirmDelete(${car.matricule})">
-								<div id="cta" onclick="show_details(this)">
+								<img src="${pageContext.request.contextPath}/assets/delete-icon.svg" onclick="confirmDelete('${car.matricule}')">
+								<div id="cta" onclick="show_details('${car.matricule}')">
 									<button>View Details</button>
 								</div>
 							</div>
@@ -135,7 +135,7 @@
 					</div>
 					<div>
 						<label>year</label><br>
-						<input type="text" name="year">
+						<input type="number" name="year">
 					</div>
 					<div>
 						<label>color</label><br>

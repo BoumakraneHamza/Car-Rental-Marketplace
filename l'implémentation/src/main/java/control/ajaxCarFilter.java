@@ -34,6 +34,7 @@ public class AjaxCarFilter extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/xml");
+		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		CarFilter filter = new CarFilter();
 		filter.setLocation(request.getParameter("location"));

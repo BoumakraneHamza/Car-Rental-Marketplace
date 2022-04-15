@@ -18,8 +18,8 @@
 			<div class="user">
 			<img id="notification" src="${pageContext.request.contextPath}/assets/notification.svg">
 			<div id="user-image">
-			<img style="width: 40px;" src="${pageContext.request.contextPath}${user.image}">
-		</div>
+				<img style="width: 40px;" src="${pageContext.request.contextPath}${user.image}">
+			</div>
 				<div id="user-info">
 					<p id="full-name">${user.nom} ${user.prenom}</p>
 					<p id="user-name">${user.user_name}</p>

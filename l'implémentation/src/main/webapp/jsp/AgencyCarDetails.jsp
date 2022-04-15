@@ -9,10 +9,13 @@
 <title>CarDetails</title>
 </head>
 <body>
+<form id="editingCar" onsubmit="editCar(event)">
+	<input type="hidden" name="matricule" value="matricule">
+	<input type="hidden" name="depot" value="${depotcode }">
 <div class="CarDetail">
 <div class="sideBar">
 	<div id="car-main-image">
-		<img style="width: 90%;border-radius: 10px 10px 10px 10px;z-index: 1;" src="${pageContext.request.contextPath}/assets/car_pics/default01.jpg">
+		<img style="width: 90%;border-radius: 10px 10px 10px 10px;z-index: 1;" id="image" src="${pageContext.request.contextPath}/assets/car_pics/default.jpg">
 		<div id="edit-image">
 			<img style="width:75%;" src="${pageContext.request.contextPath}/assets/draft-icon-white.svg">
 		</div>
@@ -21,44 +24,44 @@
 		<div id="tile">
 			<div id="text">
 				<p id="title">Marque</p>
-				<p id="value">Mini Cooper</p>
+				<p class="carTexts" id="marque">#</p>
 			</div>
-			<img src="${pageContext.request.contextPath}/assets/draft-icon-black.svg">
+			<img src="${pageContext.request.contextPath}/assets/draft-icon-black.svg" onclick="editInfo('marque')">
 		</div>
 		<div id="tile">
 			<div id="text">
 				<p id="title">Modele</p>
-				<p id="value">Modele S</p>
+				<p class="carTexts" id="modele">#</p>
 			</div>
-			<img src="${pageContext.request.contextPath}/assets/draft-icon-black.svg">
+			<img src="${pageContext.request.contextPath}/assets/draft-icon-black.svg" onclick="editInfo('modele')">
 		</div>
 		<div id="tile">
 			<div id="text">
 				<p id="title">Year</p>
-				<p id="value">2018</p>
+				<p class="carTexts" id="year">#</p>
 			</div>
-			<img src="${pageContext.request.contextPath}/assets/draft-icon-black.svg">
+			<img src="${pageContext.request.contextPath}/assets/draft-icon-black.svg" onclick="editInfo('year')">
 		</div>
 		<div id="tile">
 			<div id="text">
 				<p id="title">Color</p>
-				<p id="value">Red</p>
+				<p class="carTexts" id="color">#</p>
 			</div>
-			<img src="${pageContext.request.contextPath}/assets/draft-icon-black.svg">
+			<img src="${pageContext.request.contextPath}/assets/draft-icon-black.svg" onclick="editInfo('color')">
 		</div>
 		<div id="tile">
 			<div id="text">
 				<p id="title">PLH</p>
-				<p id="value">$30</p>
+				<p class="carTexts" id="PLH">$#</p>
 			</div>
-			<img src="${pageContext.request.contextPath}/assets/draft-icon-black.svg">
+			<img src="${pageContext.request.contextPath}/assets/draft-icon-black.svg" onclick="editInfo('PLH')">
 		</div>
 		<div id="tile">
 			<div id="text">
 				<p id="title">PLJ</p>
-				<p id="value">$120</p>
+				<p class="carTexts" id="PLJ">$#</p>
 			</div>
-			<img src="${pageContext.request.contextPath}/assets/draft-icon-black.svg">
+			<img src="${pageContext.request.contextPath}/assets/draft-icon-black.svg" onclick="editInfo('PLJ')">
 		</div>
 	</div>
 	<div class="review-stat">
@@ -67,7 +70,7 @@
 			<div id="stat">
 				<div id="values">
 					<p id="title">Comfort</p>
-					<p id="number-value">6.3</p>
+					<p id="comfort-number-value">#</p>
 				</div>
 				<div id="bar">
 					<div style="width: 63%;"id="value"></div>
@@ -76,7 +79,7 @@
 			<div id="stat">
 				<div id="values">
 					<p id="title">Cleanliness</p>
-					<p id="number-value">7.4</p>
+					<p id="cleanliness-number-value">#</p>
 				</div>
 				<div id="bar">
 					<div style="width: 74%;"id="value"></div>
@@ -85,7 +88,7 @@
 			<div id="stat">
 				<div id="values">
 					<p id="title">Pick-up & Return</p>
-					<p id="number-value">5.2</p>
+					<p id="pickReturn-number-value">#</p>
 				</div>
 				<div id="bar">
 					<div style="width: 52%;"id="value"></div>
@@ -94,7 +97,7 @@
 			<div id="stat">
 				<div id="values">
 					<p id="title">Value for money</p>
-					<p id="number-value">9.1</p>
+					<p id="valueMoney-umber-value">#</p>
 				</div>
 				<div id="bar">
 					<div style="width: 91%;"id="value"></div>
@@ -123,15 +126,15 @@
 				<p>number of Seats :</p>
 				<div id="values">
 					<div id="value">
-						<input type="radio" id="value2" checked="true" name="seats">
+						<input type="radio" id="seat_value2" name="seats" value="2">
 						<label for="value2">2</label>
 					</div>
 					<div id="value">
-						<input type="radio" id="value4" name="seats">
+						<input type="radio" id="seat_value4" name="seats" value="4">
 						<label for="value4">4</label>
 					</div>
 					<div id="value">
-						<input type="radio" id="value5" name="seats">
+						<input type="radio" id="seat_value5" name="seats" value="5">
 						<label for="value5">5</label>
 					</div>
 				</div>
@@ -140,11 +143,11 @@
 				<p>number of Doors :</p>
 				<div id="values">
 					<div id="value">
-						<input type="radio" id="value2" checked="checked" name="doors">
+						<input type="radio" id="door_value2" name="doors" value="2">
 						<label for="value2">2</label>
 					</div>
 					<div id="value">
-						<input type="radio" id="value2" name="doors">
+						<input type="radio" id="door_value4" name="doors" value="4">
 						<label for="value2">4</label>
 					</div>
 				</div>
@@ -153,15 +156,15 @@
 				<p>number of Large suit cases :</p>
 				<div id="values">
 					<div id="value">
-						<input type="radio" id="value2" checked="checked" name="cases">
+						<input type="radio" id="suitcase_value1" name="cases" value="1">
 						<label for="value2">1</label>
 					</div>
 					<div id="value">
-						<input type="radio" id="value2" name="cases">
+						<input type="radio" id="suitcase_value2" name="cases" value="2">
 						<label for="value2">2</label>
 					</div>
 					<div id="value">
-						<input type="radio" id="value2" name="cases">
+						<input type="radio" id="suitcase_value3" name="cases" value="3">
 						<label for="value2">3</label>
 					</div>
 				</div>
@@ -170,11 +173,11 @@
 				<p>Mileage :</p>
 				<div id="values">
 					<div id="value">
-						<input type="radio" id="value2" checked="checked" name="mileage">
+						<input type="radio" id="mileage_value2" name="mileage" value="yes">
 						<label for="value2">Yes</label>
 					</div>
 					<div id="value">
-						<input type="radio" id="value2" name="mileage">
+						<input type="radio" id="mileage_value2" name="mileage" value="no">
 						<label for="value2">No</label>
 					</div>
 				</div>
@@ -183,23 +186,23 @@
 				<p>Type :</p>
 				<div id="values">
 					<div id="value">
-						<input type="radio" id="value2" checked="checked" name="type">
+						<input type="radio" id="compact" name="type" value="compact">
 						<label for="value2">Compact</label>
 					</div>
 					<div id="value">
-						<input type="radio" id="value2" name="type">
+						<input type="radio" id="coupe" name="type" value="coupe">
 						<label for="value2">Coupe</label>
 					</div>
 					<div id="value">
-						<input type="radio" id="value2" name="type">
+						<input type="radio" id="sedan" name="type" value="sedan">
 						<label for="value2">Sedan</label>
 					</div>
 					<div id="value">
-						<input type="radio" id="value2" name="type">
+						<input type="radio" id="suv" name="type" value="suv">
 						<label for="value2">Suv</label>
 					</div>
 					<div id="value">
-						<input type="radio" id="value2" name="type">
+						<input type="radio" id="premium" name="type" value="premium">
 						<label for="value2">Premium</label>
 					</div>
 				</div>
@@ -212,6 +215,10 @@
 	</div>
 </div>
 </div>
+</form>
+<script type="text/javascript">
+	var contextPath = '${pageContext.request.contextPath}';
+</script>
 <script src="${pageContext.request.contextPath}/js/AgencyCarDetails.js"></script>
 </body>
 </html>

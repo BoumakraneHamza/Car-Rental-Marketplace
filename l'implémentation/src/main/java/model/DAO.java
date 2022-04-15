@@ -451,7 +451,6 @@ public class DAO {
 			e.printStackTrace();
 		}
 		return null;
-		
 	}
 	
 	public Vehicule getVehicule(String matricule) {
@@ -461,16 +460,31 @@ public class DAO {
 		Vehicule vehicule = new Vehicule();
 		try {
 			connectDB();
-			query = "Select * from vehicule where matricule="+matricule;
+			query = "Select * from vehicule where matricule = ?";
 			statement = connection.prepareStatement(query);
+			
+			statement.setString(1, matricule);
+			
 			result = statement.executeQuery();
 			
 			if(result.next()) {
+				vehicule.setMatricule(result.getString("matricule"));
 				vehicule.setMarque(result.getString("marque"));
 				vehicule.setModele(result.getString("modele"));
-				vehicule.setMatricule(result.getString("matricule"));
-				vehicule.setColor(result.getString("color"));
 				vehicule.setYear(result.getInt("year"));
+				vehicule.setColor(result.getString("color"));
+				vehicule.setPLJ(result.getDouble("PLJ"));
+				vehicule.setPLH(result.getDouble("PLH"));
+				vehicule.setNumberSeats(result.getInt("seats"));
+				vehicule.setNumberDoors(result.getInt("doors"));
+				vehicule.setNumberSuitCase(result.getInt("suit_case"));
+				vehicule.setMileage(result.getString("mileage"));
+				vehicule.setType(result.getString("type"));
+				vehicule.setImage(result.getString("image"));
+				vehicule.setComfortRating(result.getInt("comfort_rating"));
+				vehicule.setCleanlinessRating(result.getInt("cleanliness_rating"));
+				vehicule.setPickReturnRating(result.getInt("pickReturn_rating"));
+				vehicule.setValueMoneyRating(result.getInt("ValueMoney_rating"));
 			}
 			statement.close();
 			
@@ -480,6 +494,7 @@ public class DAO {
 		}
 		return null;
 	}
+	
 	public ArrayList<Depot> getAgencyDepots(String AgencyName) {
 		String Query;
 		PreparedStatement statement;
@@ -742,6 +757,39 @@ public class DAO {
 			statement = connection.prepareStatement(Query);
 			
 			statement.setString(1, matricule);
+			
+			statement.executeUpdate();
+			
+			statement.close();
+		}catch (SQLException | InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();	
+		}
+	}
+
+	public void editVehicule(Vehicule vehicule) {
+		String Query;
+		PreparedStatement statement;
+		
+		try {
+			connectDB();
+			Query = "UPDATE `atelier`.`vehicule` \r\n"
+					+ "SET `marque` = ?, `modele` = ?, `PLJ` = ?, `PLH` = ?, `type` = ?, `year` = ?, `color` = ?, `seats` = ?, `doors` = ?, `suit_case` = ? \r\n"
+					+ "WHERE (`matricule` = ?)";
+			statement = connection.prepareStatement(Query);
+			
+			
+			statement.setString(1, vehicule.getMarque());
+			statement.setString(2, vehicule.getModele());
+			statement.setDouble(3, vehicule.getPLJ());
+			statement.setDouble(4, vehicule.getPLH());
+			statement.setString(5, vehicule.getType());
+			statement.setInt(6, vehicule.getYear());
+			statement.setString(7, vehicule.getColor());
+			statement.setInt(8, vehicule.getNumberSeats());
+			statement.setInt(9, vehicule.getNumberDoors());
+			statement.setInt(10, vehicule.getNumberSuitCase());
+			
+			statement.setString(11, vehicule.getMatricule());
 			
 			statement.executeUpdate();
 			

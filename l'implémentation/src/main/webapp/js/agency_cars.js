@@ -20,7 +20,7 @@ function submitCar(event){
 
 function deleteCar(event) {
 	event.preventDefault();
-	var param = new URLSearchParams(new FormData(document.getElementById('deletingCar'))).toString();console.log(param);
+	var param = new URLSearchParams(new FormData(document.getElementById('deletingCar'))).toString();
 	
 	var xhttp = new XMLHttpRequest();
 	xhttp.onload = function() {
@@ -74,8 +74,8 @@ function createCars(car) {
 								</div>\n\
 							</div>\n\
 							<div id=\"deal\">\n\
-								<img src=\""+contextPath+"/assets/delete-icon.svg\" onclick=\"confirmDelete("+matricule+")\">\n\
-								<div id=\"cta\" onclick=\"show_details(this)\">\n\
+								<img src=\""+contextPath+"/assets/delete-icon.svg\" onclick=\"confirmDelete('"+matricule+"')\">\n\
+								<div id=\"cta\" onclick=\"show_details('"+matricule+"')\">\n\
 									<button>View Details</button>\n\
 								</div>\n\
 							</div>"

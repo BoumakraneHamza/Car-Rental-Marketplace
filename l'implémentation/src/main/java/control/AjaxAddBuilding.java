@@ -36,6 +36,7 @@ public class AjaxAddBuilding extends HttpServlet {
 		User user = (User) request.getSession().getAttribute("user");
 		if (user.getType().equals("directeur")) {
 			response.setContentType("application/xml");
+			response.setCharacterEncoding("UTF-8");
 			PrintWriter out = response.getWriter();
 			
 			ArrayList<Depot> buildings = null;
