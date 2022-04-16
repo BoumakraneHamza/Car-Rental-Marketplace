@@ -88,6 +88,7 @@ public class DAO {
     	statement.close();
 		return user;
 	}
+	
 	private User getServiceClient(String email) throws SQLException {
 		User user = null ;
 		String query = "SELECT * FROM serviceclient WHERE email = ?";
@@ -170,9 +171,9 @@ public class DAO {
 			statement.close();
 			
 			System.out.println("Success !");
-	}catch (SQLException e) {
-		System.out.println("Failure on getting default payment card because :" + e);
-	}
+		}catch (SQLException e) {
+			System.out.println("Failure on getting default payment card because :" + e);
+		}
 		return card;
 	}
 	
@@ -231,6 +232,7 @@ public class DAO {
 		
 		return vehicules;
 	}
+	
 	public ArrayList<Vehicule> getAgencyCars(String depotCode){
 		String Query ; 
 		PreparedStatement statement; 
@@ -271,6 +273,7 @@ public class DAO {
 			}
 		return cars;
 	}
+	
 	public ArrayList<Reservation> getReservation(String email) throws InstantiationException, IllegalAccessException{
 		String Query;
 		ArrayList<Reservation> reservationList = new ArrayList<Reservation>();
@@ -565,6 +568,64 @@ public class DAO {
 		}
 		return depots;
 	}
+	
+	public ArrayList<Employee> getAgencyPersonals(String AgencyName) {
+		String Query;
+		PreparedStatement statement;
+		
+		ArrayList<Employee> employees = new ArrayList<Employee>();
+		Employee employee;
+		
+		ResultSet result;
+		try {
+			connectDB();
+			Query = "SELECT * \r\n"
+					+ "FROM atelier.garagiste \r\n"
+					+ "WHERE agency_name = ?";
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, AgencyName);
+			
+			result = statement.executeQuery();
+			while(result.next()) {
+				employee = new Employee();
+				employee.setEmail(result.getString("email"));
+				employee.setFirstName(result.getString("prenom"));
+				employee.setLastName(result.getString("nom"));
+				employee.setImage(result.getString("photo"));
+				employee.setWorkingLocation(result.getString("working_location"));
+				employee.setMonthlySession(result.getString("monthly_session"));
+				employee.setType("garagiste");
+				
+				employees.add(employee);
+			}
+			
+			Query = "SELECT * \r\n"
+					+ "FROM atelier.secretary \r\n"
+					+ "WHERE agency_name = ?";
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, AgencyName);
+			
+			result = statement.executeQuery();
+			while(result.next()) {
+				employee = new Employee();
+				employee.setEmail(result.getString("email"));
+				employee.setFirstName(result.getString("prenom"));
+				employee.setLastName(result.getString("nom"));
+				employee.setImage(result.getString("photo"));
+				employee.setWorkingLocation(result.getString("working_location"));
+				//employee.setMonthlySession(result.getString("monthly_session"));
+				employee.setType("secretaire");
+				
+				employees.add(employee);
+			}
+			
+			statement.close();
+		}catch (SQLException | InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return employees;
+	}
+	
 	public ArrayList<Depot> getDepots(String location) {
 		String Query;
 		PreparedStatement statement;
@@ -625,6 +686,7 @@ public class DAO {
 			e.printStackTrace();
 		}
 	}
+	
 	public void ReadMessage(int messageId) throws InstantiationException, IllegalAccessException, SQLException {
 	public void ReadMessage(int conversationId) throws InstantiationException, IllegalAccessException, SQLException {
 		connectDB();
@@ -637,6 +699,7 @@ public class DAO {
 		statement.executeUpdate();
 		statement.close();
 	}
+	
 	public InboxReturn getMessages(String email){
 	public InboxReturn getRecievedMessages(String email){
 		String Query;
@@ -777,7 +840,7 @@ public class DAO {
 			
 		}
 	}
-
+	
 	public void SendMessage(Message message) throws SQLException {
 	public ArrayList<Message> ReadConversation(int id) {
 		String Query = "Select * from messages where id_conversation = ? Order by creationTime DESC";
@@ -832,6 +895,7 @@ public class DAO {
 		}
 		return messages;
 	}
+	
 	public void SendMessage(Message message , Conversation conversation) throws SQLException {
 		String query ; 
 		PreparedStatement statement = null ;
@@ -866,6 +930,7 @@ public class DAO {
 		}
 		statement.close();
 	}
+	
 	public void reply_message(Message message) throws SQLException {
 		String query ; 
 		PreparedStatement statement = null ;
@@ -968,8 +1033,40 @@ public class DAO {
 			
 			statement.close();
 		}catch (SQLException | InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+	}
+		
+	public void addEmployee(Employee employee) {
+		String Query;
+		PreparedStatement statement;
+		
+		if (employee.getType().equals("garagiste")) {
+			Query = "INSERT INTO `atelier`.`garagiste` (`email`, `nom`, `prenom`, `photo`, `working_location`, `agency_name`) \r\n"
+					+ "VALUES (?, ?, ?, ?, ?, ?)";
+		} else {
+			Query = "INSERT INTO `atelier`.`secretary` (`email`, `nom`, `prenom`, `photo`, `working_location`, `agency_name`) \r\n"
+					+ "VALUES (?, ?, ?, ?, ?, ?)";
+		}
+		
+		try {
+			connectDB();
+			statement = connection.prepareStatement(Query);
+			
+			statement.setString(1, employee.getEmail());
+			statement.setString(2, employee.getLastName());
+			statement.setString(3, employee.getFirstName());
+			statement.setString(4, employee.getImage());
+			statement.setString(5, employee.getWorkingLocation());
+			statement.setString(6, employee.getAgencyName());
+			
+			statement.executeUpdate();
+			statement.close();
+		}catch (SQLException | InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();	
 		}
+	}
+		
 	public ArrayList<request> GetRequests(){
 		ArrayList<request> requests = new ArrayList<request>();
 		request req = null;

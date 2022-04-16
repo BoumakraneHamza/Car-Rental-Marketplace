@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib   uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,7 +34,7 @@
 	<div class="content">
 			<div class="menu">
 				<button class="dashboard"><a href="${pageContext.request.contextPath}/Dashboard"><img src="${pageContext.request.contextPath}/assets/dashboard-icon.svg"></a></button>
-				<button class="Personal" style="background: #F6AA1C;"><a href="${pageContext.request.contextPath}/jsp/AgencyPersonal.jsp"><img src="${pageContext.request.contextPath}/assets/personal-icon-white.svg"></a></button>
+				<button class="Personal" style="background: #F6AA1C;"><a href="${pageContext.request.contextPath}/ViewAgencyPersonal"><img src="${pageContext.request.contextPath}/assets/personal-icon-white.svg"></a></button>
 				<button class="Personal"><a href="${pageContext.request.contextPath}/ViewAgencyDepots"><img src="${pageContext.request.contextPath}/assets/building-icon-grey.svg"></a></button>
 			</div>
 			<div class="main-frame">
@@ -71,7 +72,7 @@
 								<img src="${pageContext.request.contextPath}/assets/search-icon.svg">
 								<input type="text" placeholder="Search">
 							</div>
-							<div id="add"><button><img style="margin-right: 11px;" src="${pageContext.request.contextPath}/assets/add.svg"><p>Add Personal</p></button></div>
+							<div id="add" onclick="document.getElementById('tempFormForAddingEmployees').style.visibility='visible'"><button><img style="margin-right: 11px;" src="${pageContext.request.contextPath}/assets/add.svg"><p>Add Personal</p></button></div>
 						</div>
 					</div>
 				      <div id="table_header">
@@ -89,105 +90,23 @@
 				      </div>
 				      <div class="table-content">
 				      	<table cellpadding="0" cellspacing="0">
-				      		<tbody>
-			      				<tr id="employee">
-			      					<td id="employeeId" style="width: 20%">Constantine-algeria</td>
-			              			<td id="employeeName" style="width: 20%">Hamza Boumakrane</td>
-			              			<td id="employeePhone" style="width: 20%"><div id="wrapper"><div id="status"></div><p id="time">since 20:00</p></div></td>
-			              			<td id="employeeGender" style="width: 20%">6h 30min</td>
-			              			<td id="employeeEmail" style="width: 20%">169h 55min</td>
-					      		</tr>
-					      		<tr id="employee">
-			      					<td id="employeeId" style="width: 20%">Constantine-algeria</td>
-			              			<td id="employeeName" style="width: 20%">Hamza Boumakrane</td>
-			              			<td id="employeePhone" style="width: 20%"><div id="wrapper"><div id="status"></div><p id="time">since 20:00</p></div></td>
-			              			<td id="employeeGender" style="width: 20%">6h 30min</td>
-			              			<td id="employeeEmail" style="width: 20%">169h 55min</td>
-					      		</tr>
-					      		<tr id="employee">
-			      					<td id="employeeId" style="width: 20%">Constantine-algeria</td>
-			              			<td id="employeeName" style="width: 20%">Hamza Boumakrane</td>
-			              			<td id="employeePhone" style="width: 20%"><div id="wrapper"><div id="status"></div><p id="time">since 20:00</p></div></td>
-			              			<td id="employeeGender" style="width: 20%">6h 30min</td>
-			              			<td id="employeeEmail" style="width: 20%">169h 55min</td>
-					      		</tr>
-					      		<tr id="employee">
-			      					<td id="employeeId" style="width: 20%">Constantine-algeria</td>
-			              			<td id="employeeName" style="width: 20%">Hamza Boumakrane</td>
-			              			<td id="employeePhone" style="width: 20%"><div id="wrapper"><div id="status"></div><p id="time">since 20:00</p></div></td>
-			              			<td id="employeeGender" style="width: 20%">6h 30min</td>
-			              			<td id="employeeEmail" style="width: 20%">169h 55min</td>
-					      		</tr>
-					      		<tr id="employee">
-			      					<td id="employeeId" style="width: 20%">Constantine-algeria</td>
-			              			<td id="employeeName" style="width: 20%">Hamza Boumakrane</td>
-			              			<td id="employeePhone" style="width: 20%"><div id="wrapper"><div id="status"></div><p id="time">since 20:00</p></div></td>
-			              			<td id="employeeGender" style="width: 20%">6h 30min</td>
-			              			<td id="employeeEmail" style="width: 20%">169h 55min</td>
-					      		</tr>
-					      		<tr id="employee">
-			      					<td id="employeeId" style="width: 20%">Constantine-algeria</td>
-			              			<td id="employeeName" style="width: 20%">Hamza Boumakrane</td>
-			              			<td id="employeePhone" style="width: 20%"><div id="wrapper"><div id="status"></div><p id="time">since 20:00</p></div></td>
-			              			<td id="employeeGender" style="width: 20%">6h 30min</td>
-			              			<td id="employeeEmail" style="width: 20%">169h 55min</td>
-					      		</tr>
-					      		<tr id="employee">
-			      					<td id="employeeId" style="width: 20%">Constantine-algeria</td>
-			              			<td id="employeeName" style="width: 20%">Hamza Boumakrane</td>
-			              			<td id="employeePhone" style="width: 20%"><div id="wrapper"><div id="status"></div><p id="time">since 20:00</p></div></td>
-			              			<td id="employeeGender" style="width: 20%">6h 30min</td>
-			              			<td id="employeeEmail" style="width: 20%">169h 55min</td>
-					      		</tr>
-					      		<tr id="employee">
-			      					<td id="employeeId" style="width: 20%">Constantine-algeria</td>
-			              			<td id="employeeName" style="width: 20%">Hamza Boumakrane</td>
-			              			<td id="employeePhone" style="width: 20%"><div id="wrapper"><div id="status"></div><p id="time">since 20:00</p></div></td>
-			              			<td id="employeeGender" style="width: 20%">6h 30min</td>
-			              			<td id="employeeEmail" style="width: 20%">169h 55min</td>
-					      		</tr>
-					      		<tr id="employee">
-			      					<td id="employeeId" style="width: 20%">Constantine-algeria</td>
-			              			<td id="employeeName" style="width: 20%">Hamza Boumakrane</td>
-			              			<td id="employeePhone" style="width: 20%"><div id="wrapper"><div id="status"></div><p id="time">since 20:00</p></div></td>
-			              			<td id="employeeGender" style="width: 20%">6h 30min</td>
-			              			<td id="employeeEmail" style="width: 20%">169h 55min</td>
-					      		</tr>
-					      		<tr id="employee">
-			      					<td id="employeeId" style="width: 20%">Constantine-algeria</td>
-			              			<td id="employeeName" style="width: 20%">Hamza Boumakrane</td>
-			              			<td id="employeePhone" style="width: 20%"><div id="wrapper"><div id="status"></div><p id="time">since 20:00</p></div></td>
-			              			<td id="employeeGender" style="width: 20%">6h 30min</td>
-			              			<td id="employeeEmail" style="width: 20%">169h 55min</td>
-					      		</tr>
-					      		<tr id="employee">
-			      					<td id="employeeId" style="width: 20%">Constantine-algeria</td>
-			              			<td id="employeeName" style="width: 20%">Hamza Boumakrane</td>
-			              			<td id="employeePhone" style="width: 20%"><div id="wrapper"><div id="status"></div><p id="time">since 20:00</p></div></td>
-			              			<td id="employeeGender" style="width: 20%">6h 30min</td>
-			              			<td id="employeeEmail" style="width: 20%">169h 55min</td>
-					      		</tr>
-					      		<tr id="employee">
-			      					<td id="employeeId" style="width: 20%">Constantine-algeria</td>
-			              			<td id="employeeName" style="width: 20%">Hamza Boumakrane</td>
-			              			<td id="employeePhone" style="width: 20%"><div id="wrapper"><div id="status"></div><p id="time">since 20:00</p></div></td>
-			              			<td id="employeeGender" style="width: 20%">6h 30min</td>
-			              			<td id="employeeEmail" style="width: 20%">169h 55min</td>
-					      		</tr>
-					      		<tr id="employee">
-			      					<td id="employeeId" style="width: 20%">Constantine-algeria</td>
-			              			<td id="employeeName" style="width: 20%">Hamza Boumakrane</td>
-			              			<td id="employeePhone" style="width: 20%"><div id="wrapper"><div id="status"></div><p id="time">since 20:00</p></div></td>
-			              			<td id="employeeGender" style="width: 20%">6h 30min</td>
-			              			<td id="employeeEmail" style="width: 20%">169h 55min</td>
-					      		</tr>
-					      		<tr id="employee">
-			      					<td id="employeeId" style="width: 20%">Constantine-algeria</td>
-			              			<td id="employeeName" style="width: 20%">Hamza Boumakrane</td>
-			              			<td id="employeePhone" style="width: 20%"><div id="wrapper"><div id="status"></div><p id="time">since 20:00</p></div></td>
-			              			<td id="employeeGender" style="width: 20%">6h 30min</td>
-			              			<td id="employeeEmail" style="width: 20%">169h 55min</td>
-					      		</tr>
+				      		<tbody id="employees-list">
+					      		<c:choose>
+									<c:when test="${not empty employees}">
+										<c:forEach items="${employees}" var="employee">
+								      		<tr id="employee">
+						      					<td id="employeeId" style="width: 20%">${employee.workingLocation}</td>
+						              			<td id="employeeName" style="width: 20%">${employee.firstName} ${employee.lastName}</td>
+						              			<td id="employeePhone" style="width: 20%"><div id="wrapper"><div id="status"></div><p id="time">since 20:00</p></div></td>
+						              			<td id="employeeGender" style="width: 20%">6h 30min</td>
+						              			<td id="employeeEmail" style="width: 20%">169h 55min</td>
+								      		</tr>
+							      		</c:forEach>
+						      		</c:when>
+						      		<c:otherwise>
+										<tr id="employee"><td>No Employees <td></tr>
+									</c:otherwise>
+								</c:choose>
 				      		</tbody>
 				      	</table>
 				      </div>
@@ -251,5 +170,65 @@
 			</div>
 	</div>
 <%@include file="/jsp/dropdownList.jsp"%>
+
+		<div id="tempFormForAddingEmployees" style="visibility:hidden;background-color:grey;position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);border: 5px solid #000000;padding: 10px;">
+			<div id="addingGaragisteForm"><p>adding garagiste</p>
+				<form id="addingGaragiste" onsubmit="submitEmployee(event, this)">
+					<div>
+						<label>first name</label><br>
+						<input type="text" name="firstName">
+					</div>
+					<div>
+						<label>last name</label><br>
+						<input type="text" name="lastName">
+					</div>
+					<div>
+						<label>email</label><br>
+						<input type="email" name="email">
+					</div>
+					<div>
+						<label>image</label><br>
+						<input type="text" name="image">
+					</div>
+					<div>
+						<label>working location</label><br>
+						<input type="text" name="workingLocation">
+					</div>
+						<input type="hidden" name="agency" value="${user.nom}">
+						<input type="hidden" name="type" value="garagiste">
+					<input type="reset"><input type="submit">
+				</form>
+			</div>
+			<br><br><br>
+			<div id="addingSercetaryForm"><p>adding secretary</p>
+				<form id="addingSecretary" onsubmit="submitEmployee(event, this)">
+					<div>
+						<label>first name</label><br>
+						<input type="text" name="firstName">
+					</div>
+					<div>
+						<label>last name</label><br>
+						<input type="text" name="lastName">
+					</div>
+					<div>
+						<label>email</label><br>
+						<input type="email" name="email">
+					</div>
+					<div>
+						<label>image</label><br>
+						<input type="text" name="image">
+					</div>
+					<div>
+						<label>working location</label><br>
+						<input type="text" name="workingLocation">
+					</div>
+						<input type="hidden" name="agency" value="${user.nom}">
+						<input type="hidden" name="type" value="secretary">
+					<input type="reset"><input type="submit">
+				</form>
+			</div>
+			
+		</div>
+<script src="${pageContext.request.contextPath}/js/agency_personal.js"></script>
 </body>
 </html>
