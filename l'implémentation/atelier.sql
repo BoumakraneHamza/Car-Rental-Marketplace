@@ -86,6 +86,41 @@ INSERT INTO `client` VALUES ('Nathanial ','Olson',549837,'1@email.com','11111111
 UNLOCK TABLES;
 
 --
+-- Table structure for table `conversation`
+--
+
+DROP TABLE IF EXISTS `conversation`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `conversation` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(45) NOT NULL,
+  `source` varchar(45) NOT NULL,
+  `destination` varchar(45) NOT NULL,
+  `last_updated` datetime DEFAULT NULL,
+  `tags` varchar(45) NOT NULL,
+  `not_read_count` int DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `source_idx` (`source`),
+  KEY `destination_idx` (`destination`),
+  KEY `initiator` (`source`),
+  KEY `reciever` (`destination`),
+  CONSTRAINT `initiator` FOREIGN KEY (`source`) REFERENCES `users` (`email`),
+  CONSTRAINT `reciever` FOREIGN KEY (`destination`) REFERENCES `users` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `conversation`
+--
+
+LOCK TABLES `conversation` WRITE;
+/*!40000 ALTER TABLE `conversation` DISABLE KEYS */;
+INSERT INTO `conversation` VALUES (1,'Pdf Signature problem','Hamza@gmail.com','serviceClient@email.com','2022-04-16 17:08:57','Problem report',0);
+/*!40000 ALTER TABLE `conversation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `creditcards`
 --
 
@@ -212,6 +247,7 @@ DROP TABLE IF EXISTS `messages`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `messages` (
   `id` int NOT NULL AUTO_INCREMENT,
+  `id_conversation` int NOT NULL,
   `source` varchar(45) NOT NULL,
   `destination` varchar(45) NOT NULL,
   `title` varchar(45) NOT NULL,
@@ -223,6 +259,10 @@ CREATE TABLE `messages` (
   PRIMARY KEY (`id`),
   KEY `reply_idx` (`reply`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`id`,`id_conversation`),
+  KEY `conversation_idx` (`id_conversation`),
+  CONSTRAINT `conversation` FOREIGN KEY (`id_conversation`) REFERENCES `conversation` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -232,6 +272,7 @@ CREATE TABLE `messages` (
 LOCK TABLES `messages` WRITE;
 /*!40000 ALTER TABLE `messages` DISABLE KEYS */;
 INSERT INTO `messages` VALUES (5,'Hamza@gmail.com','1@email.com','Problem avec les pdf ','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dapibus sem nec tellus porta, eget venenatis dui gravida. Mauris ornare aliquet ipsum, ut suscipit ipsum interdum nec. Sed tincidunt euismod diam, non volutpat lorem blandit id. Quisque rutrum nisl et nisi euismod, eu scelerisque sem suscipit. Donec et tortor vel magna euismod ullamcorper. Donec id aliquam nisi. ','2022-04-13 00:49:20','not read','reclamation',0),(6,'1@email.com','Hamza@gmail.com','Problem avec les pdf 2','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dapibus sem nec tellus porta, eget venenatis dui gravida. Mauris ornare aliquet ipsum, ut suscipit ipsum interdum nec. Sed tincidunt euismod diam, non volutpat lorem blandit id. Quisque rutrum nisl et nisi euismod, eu scelerisque sem suscipit. Donec et tortor vel magna euismod ullamcorper. Donec id aliquam nisi. ','2022-04-13 00:53:09','not read','reclamation',0),(7,'1@email.com','serviceClient@email.com','Hello world²','Hello again','2022-04-14 02:49:46','read','Reclamation',0);
+INSERT INTO `messages` VALUES (1,1,'Hamza@gmail.com','serviceClient@email.com',' Dear Nathanial i have found a bug on the pdf generator where it does not show my signature on the contract','2022-04-16 17:07:07','read'),(30,1,'serviceClient@email.com','Hamza@gmail.com','Dear Hamza I have found the problem earlier and I am working on it Thank you Bye ','2022-04-16 17:08:57','read');
 /*!40000 ALTER TABLE `messages` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -245,6 +286,8 @@ UNLOCK TABLES;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `messages_BEFORE_INSERT` BEFORE INSERT ON `messages` FOR EACH ROW BEGIN
 SET NEW.creationTime = NOW();
+update conversation set last_updated = Now() where conversation.id = New.id_conversation; 
+update conversation set conversation.not_read_count = conversation.not_read_count +1  where conversation.id = New.id_conversation; 
 END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -278,6 +321,30 @@ CREATE TABLE `offices` (
 LOCK TABLES `offices` WRITE;
 /*!40000 ALTER TABLE `offices` DISABLE KEYS */;
 /*!40000 ALTER TABLE `offices` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `requests`
+--
+
+DROP TABLE IF EXISTS `requests`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `requests` (
+  `id` int NOT NULL,
+  `conversation_id` int NOT NULL,
+  `status` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `requests`
+--
+
+LOCK TABLES `requests` WRITE;
+/*!40000 ALTER TABLE `requests` DISABLE KEYS */;
+/*!40000 ALTER TABLE `requests` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -370,6 +437,20 @@ CREATE TABLE `secretary` (
   `prenom` varchar(45) NOT NULL,
   `photo` varchar(45) NOT NULL,
   PRIMARY KEY (`email`)
+-- Table structure for table `serviceclient`
+--
+
+DROP TABLE IF EXISTS `serviceclient`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `serviceclient` (
+  `email` varchar(45) NOT NULL,
+  `image` varchar(45) NOT NULL,
+  `nom` varchar(45) NOT NULL,
+  `prenom` varchar(45) NOT NULL,
+  `user_name` varchar(45) NOT NULL,
+  PRIMARY KEY (`email`),
+  CONSTRAINT `email` FOREIGN KEY (`email`) REFERENCES `users` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -380,6 +461,13 @@ CREATE TABLE `secretary` (
 LOCK TABLES `secretary` WRITE;
 /*!40000 ALTER TABLE `secretary` DISABLE KEYS */;
 /*!40000 ALTER TABLE `secretary` ENABLE KEYS */;
+-- Dumping data for table `serviceclient`
+--
+
+LOCK TABLES `serviceclient` WRITE;
+/*!40000 ALTER TABLE `serviceclient` DISABLE KEYS */;
+INSERT INTO `serviceclient` VALUES ('serviceClient@email.com','/assets/profile_pics/serviceClient.svg','Service','Client','Service Client');
+/*!40000 ALTER TABLE `serviceclient` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -425,6 +513,7 @@ CREATE TABLE `users` (
   `email` varchar(45) NOT NULL,
   `mot_pass` varchar(45) NOT NULL,
   `type` enum('client','directeur','secretaire','garagiste') NOT NULL,
+  `type` enum('client','directeur','secretaire','garagiste','service_client') NOT NULL,
   PRIMARY KEY (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -436,6 +525,7 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES ('1@email.com','12345678','client'),('d01@email.com','12345678','directeur'),('d02@gmail.com','12345678','directeur'),('g01@email.com','test','garagiste'),('Hamza@gmail.com','test','client');
+INSERT INTO `users` VALUES ('1@email.com','12345678','client'),('d01@email.com','12345678','directeur'),('d02@gmail.com','12345678','directeur'),('g01@email.com','test','garagiste'),('Hamza@gmail.com','test','client'),('serviceClient@email.com','test','service_client');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 

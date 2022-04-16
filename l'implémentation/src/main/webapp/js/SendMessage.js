@@ -7,6 +7,7 @@ const input2 = sendMessage.querySelector("#title");
 const inputSend = sendMessage.querySelector("#send");
 const textArea = sendMessage.querySelector("#content");
 const filter = sendMessage.querySelector("#filter");
+const reply_conversation_id = sendMessage.querySelector("#a_reply");
 minimize.addEventListener("click",function(){
 	if(form.style.display != "none"){
 		form.style.display="none";
@@ -31,14 +32,22 @@ inputSend.addEventListener("click",function(e){
 	const titleValue = input2.value;
 	const contentValue= textArea.value;
 	const tagValue= filter.value;
-	
+	let conv_id = 0;
+	conv_id = reply_conversation_id.value;
 	let xhr = new XMLHttpRequest();
 	xhr.onload = function() {
 		 if(xhr.status === 200) {                       
        		$(".inbox-list").load("Inbox #email");
+			$("#menu_list").load("Inbox #menu_list .tile");
 			closeSendingMessage();
+			//update(conv_id);
     	}
 	}
-	xhr.open("POST","SendMessage?destination="+destValue+"&title="+titleValue+"&content="+contentValue+"&tag="+tagValue);
+	if(conv_id>0){
+		xhr.open("POST","SendMessage?destination="+destValue+"&title="+titleValue+"&content="+contentValue+"&tag="+tagValue+"&conversation_id="+conv_id);
+	}
+	else{
+		xhr.open("POST","SendMessage?destination="+destValue+"&title="+titleValue+"&content="+contentValue+"&tag="+tagValue);
+	}
 	xhr.send();
 });

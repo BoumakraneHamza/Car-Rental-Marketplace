@@ -22,7 +22,8 @@
 		</div>
 	</div>
 	<div class="Send-message-form-content">
-		<form>
+		<form id="send_message_form_form"action="SendMessage" method="POST">
+		<input id="a_reply" type="hidden" name="conversation_id">
 			<c:choose>
 				<c:when test="${user.getType().equals('client')}">
 					<input id="destination" type="hidden" name="destination" value="serviceClient@email.com">

@@ -1,0 +1,71 @@
+.main-frame {
+    width: calc(100vw - 50px);
+    height: calc(100vh - 55px);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+.requests {
+    width: 35%;
+    height: calc(100vh - 75px);
+    background: #fff;
+    margin: 10px 5px 10px 10px;
+    border: 2px solid #E4E4E4;
+}
+.request_content {
+    margin: 10px 10px 10px 5px;
+    width: 65%;
+    height: calc(100vh - 75px);
+    background: #fff;
+    border: 2px solid #E4E4E4;
+}
+.requests .tab_header {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    border-bottom: 2px solid #E4E4E4;
+    width: -webkit-fill-available;
+}
+.requests .tab_header #tab_header_title {
+    font-size: 18px;
+    font-weight: 500;
+}
+.requests .tab_header #cta {
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+}
+.requests .tab_header #cta #filter {
+    margin-right: 15px;
+    height: 40px;
+    border-radius: 5px;
+    border: 2px solid #E4E4E4;
+    padding: 5px 10px;
+    font-weight: 600;
+}
+.requests .tab_header #cta #filter:focus{
+	outline:none;
+	border-color: #9ace48;
+}
+.requests .tab_header #cta button {
+    border: none;
+    width: 120px;
+    height: 40px;
+    background: #b8b08d;
+    border-radius: 5px;
+    display: flex;
+    color: #fff;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    align-self: flex-end;
+    align-items: center;
+    justify-content: center;
+}

@@ -3,15 +3,14 @@ package model;
 public class Message {
 	
 	private int id;
-	private String title;
 	private String source;
 	private String sourceName ; 
 	private String sourceImage;
 	private String destination;
 	private String content;
+	private int coversation_id;
 	private String time;
 	private String status ;
-	private String tags;
 	
 	public int getId() {
 		return id;
@@ -19,11 +18,11 @@ public class Message {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+	public int getCoversation_id() {
+		return coversation_id;
 	}
-	public String getTitle() {
-		return title;
+	public void setCoversation_id(int coversation_id) {
+		this.coversation_id = coversation_id;
 	}
 	public String getContent() {
 		return content;
@@ -48,12 +47,6 @@ public class Message {
 	}
 	public void setStatus(String status) {
 		this.status = status;
-	}
-	public String getTags() {
-		return tags;
-	}
-	public void setTags(String tags) {
-		this.tags = tags;
 	}
 	public String getTime() {
 		return time;

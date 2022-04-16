@@ -39,8 +39,8 @@ public class Dashboard extends HttpServlet {
 			request.setAttribute("user", user);
 			DAO dao = new DAO();
 			InboxReturn inbox = new InboxReturn();
-			inbox = dao.getMessages(user.getEmail());
-			request.setAttribute("messages", inbox.Messages);
+			inbox = dao.getRecievedMessages(user.getEmail());
+			request.setAttribute("conversation", inbox.conversation);
 			request.setAttribute("counter", inbox.NotReadMessages);
 			String url = "/";
 
@@ -56,6 +56,8 @@ public class Dashboard extends HttpServlet {
 				request.setAttribute("card", card);
 			} else if (user.getType().equals("directeur")) {
 				url = url + "jsp/AgencyDashboard.jsp"; 
+			} else if(user.getType().equals("service_client")){
+				url = url + "jsp/ServiceClientDashboard.jsp";
 			}
 			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 			dispatcher.forward(request, response);

@@ -3,21 +3,15 @@ package model;
 import java.util.ArrayList;
 
 public class InboxReturn {
-	public ArrayList<Message> Messages;
+	public ArrayList<Conversation> conversation;
 	public int NotReadMessages;
 	
 	public InboxReturn() {
-		Messages = new ArrayList<Message>();
+		conversation = new ArrayList<>();
 	}
 	
-	public ArrayList<Message> getMessages() {
-		return Messages;
-	}
 	public int getNotReadMessages() {
 		return NotReadMessages;
-	}
-	public void setMessages(ArrayList<Message> messages) {
-		Messages = messages;
 	}
 	public void setNotReadMessages(int notReadMessages) {
 		NotReadMessages = notReadMessages;

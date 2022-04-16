@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Conversation;
 import model.DAO;
 import model.Message;
 import model.User;
@@ -45,21 +46,34 @@ public class SendMessage extends HttpServlet {
 			DAO dao = new DAO();
 			Message message = new Message();
 			message.setContent(request.getParameter("content"));
-			message.setTitle(request.getParameter("title"));
 			message.setSource(user.getEmail());
 			message.setDestination(request.getParameter("destination"));
-			message.setTags(request.getParameter("tag"));
-			try {
-				dao.SendMessage(message);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			Conversation conversation = new Conversation();
+			conversation.setTitle(request.getParameter("title"));
+			conversation.setTags(request.getParameter("tag"));
+			conversation.setSource(user.getEmail());
+			conversation.setDestination(request.getParameter("destination"));
+			if(request.getParameterMap().containsKey("conversation_id")) {
+				int id = 0;
+				id= Integer.parseInt(request.getParameter("conversation_id"));
+				message.setCoversation_id(id);
+				try {
+					dao.reply_message(message);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}else {
+					try {
+						dao.SendMessage(message ,conversation);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 			}
 			response.setStatus(200);
-			
-		}else {
 			
 		}
 	}
 
-}
