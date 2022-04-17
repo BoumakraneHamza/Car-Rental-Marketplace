@@ -687,10 +687,8 @@ public class DAO {
 		}
 	}
 	
-	public void ReadMessage(int messageId) throws InstantiationException, IllegalAccessException, SQLException {
 	public void ReadMessage(int conversationId) throws InstantiationException, IllegalAccessException, SQLException {
 		connectDB();
-		String Query = "update messages set status='read' where id="+messageId;
 		String Query = "update messages set status='read' where id_conversation="+conversationId;
 		PreparedStatement statement = connection.prepareStatement(Query);
 		statement.executeUpdate();
@@ -700,11 +698,9 @@ public class DAO {
 		statement.close();
 	}
 	
-	public InboxReturn getMessages(String email){
 	public InboxReturn getRecievedMessages(String email){
 		String Query;
 		PreparedStatement statement;
-		InboxReturn inboxreturn = new InboxReturn();
 		InboxReturn inbox = new InboxReturn();
 		Conversation conversation = null;
 		ArrayList<Message> messages = null;
@@ -712,14 +708,11 @@ public class DAO {
 		ResultSet result;
 		try {
 			connectDB();
-			Query = "select * from messages where source=? or destination=? Order by creationTime DESC";
 			Query = "select * from conversation where destination=? Order by last_updated DESC";
 			statement = connection.prepareStatement(Query);
 			statement.setString(1, email);
-			statement.setString(2, email);
 			result = statement.executeQuery();
 			while(result.next()) {
-				message = new Message();
 				messages= new ArrayList<>();
 				conversation =  new Conversation();
 				conversation.setId(result.getInt("id"));
@@ -729,31 +722,10 @@ public class DAO {
 				conversation.setLast_updated(result.getString("last_updated"));
 				conversation.setTags(result.getString("tags"));
 				
-				message.setId(result.getInt("id"));
-				message.setSource(result.getString("source"));
-				message.setDestination(result.getString("destination"));
-				message.setTitle(result.getString("title"));
-				message.setContent(result.getString("content"));
-				message.setStatus(result.getString("status"));
-				if(message.getStatus().equals("not read") && !message.getSource().equals(email)) {
-					inboxreturn.NotReadMessages++;
-				}
-				message.setTime(result.getString("creationTime"));
-				message.setTags(result.getString("tags"));
-				Query = "select type from users where email=? limit 1";
 				Query = "select * from messages where id_conversation=? Order by creationTime DESC";
 				statement = connection.prepareStatement(Query);
 				statement.setInt(1, conversation.getId());
 				ResultSet result1 = statement.executeQuery();
-				if(result1.next()) {
-					if(result1.getString("type").equals("client")) {
-						Query = "select user_name , image from client where email=? limit 1";
-						statement = connection.prepareStatement(Query);
-						
-						statement.setString(1, message.getSource());
-						ResultSet result2 = statement.executeQuery();
-						if(result2.next()) {
-							message.setSourceName(result2.getString("user_name"));
 				while(result1.next()) {
 					message = new Message();
 					message.setId(result1.getInt("id"));
@@ -785,7 +757,6 @@ public class DAO {
 							Query = "select user_name , image from serviceclient where email=? limit 1";
 							statement = connection.prepareStatement(Query);
 							
-							message.setSourceImage(result2.getString("image"));
 							statement.setString(1, message.getSource());
 							ResultSet result3 = statement.executeQuery();
 							if(result3.next()) {
@@ -793,23 +764,18 @@ public class DAO {
 								message.setSourceImage(result3.getString("image"));
 							}
 						}
-						//TODO other user types
 					}
-					
 					messages.add(message);
 				}
-				inboxreturn.Messages.add(message);
 				conversation.setMessages(messages);
 				inbox.conversation.add(conversation);
 			}
 			statement.close();
-			
 	
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		
-		return inboxreturn;
 		return inbox;
 	}
 	
@@ -841,7 +807,6 @@ public class DAO {
 		}
 	}
 	
-	public void SendMessage(Message message) throws SQLException {
 	public ArrayList<Message> ReadConversation(int id) {
 		String Query = "Select * from messages where id_conversation = ? Order by creationTime DESC";
 		PreparedStatement statement; 
@@ -936,18 +901,13 @@ public class DAO {
 		PreparedStatement statement = null ;
 		try {
 			connectDB();
-			query = "Insert into messages(source , destination , title , content ,tags)"
 			query = "Insert into messages(id_conversation,source , destination , content , status)"
 					+ " values(?,?,?,?,?);";
 			statement = connection.prepareStatement(query);
-			statement.setString(1, message.getSource());
-			statement.setString(2, message.getDestination());
-			statement.setString(3, message.getTitle());
 			statement.setLong(1, message.getCoversation_id());
 			statement.setString(2, message.getSource());
 			statement.setString(3, message.getDestination());
 			statement.setString(4, message.getContent());
-			statement.setString(5, message.getTags());
 			statement.setString(5, "not read");
 			statement.executeUpdate();
 		}catch(Exception e) {
