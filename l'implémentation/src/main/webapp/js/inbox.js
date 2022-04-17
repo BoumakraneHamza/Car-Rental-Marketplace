@@ -1,3 +1,6 @@
+$( document ).ready(function() {
+		updateSentMessagesCounter();
+});
 function expand(element){
 	element.classList.toggle("active");
 }
@@ -23,9 +26,7 @@ function clearChild(e){
 setInterval(function () {
         let xhr = new XMLHttpRequest();
 		xhr.onload = function() {
-			 if(xhr.status === 200) {                       
-	       		$(".inbox-list").load("Inbox #email");
-				$("#menu_list").load("Inbox #menu_list .tile");
+			 if(xhr.status === 200) {                    
 	    	}
 		}
 		xhr.open("GET","Inbox");
@@ -34,17 +35,99 @@ setInterval(function () {
 function updateSentMessagesCounter(){
 	let xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function(){
+		var json;
 		if(this.readyState == 4 && this.status == 200){
 			json = JSON.parse(this.responseText);
 			console.log(json);
+			const menu_list = document.querySelector("#menu_list");
+			const sent= menu_list.querySelector("#sent");
+			let element = sent.querySelector("#update")
+			element.parentNode.removeChild(element);
+			let update_counter = document.createElement("div");
+			update_counter.setAttribute("id","update");
+			const counter = document.createElement("p").innerHTML = json.NotReadMessages;
+			update_counter.append(counter);
+			sent.append(update_counter);	
 		}
-		const menu_list = document.querySelector("#menu_list");
-		const sent= menu_list.querySelector("#sent")
-		let update_counter = document.createElement("div");
-		update_counter.setAttribute("id","update");
-		const counter = document.createElement("p").innerHTML = json.NotReadMessages;
-		update_counter.append(counter);
-		sent.append(update_counter);
+	}
+	xhr.open("GET","getSentConversation");
+	xhr.send();
+}
+function getSentMessages(){
+	let xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function(){
+		var json;
+		if(this.readyState == 4 && this.status == 200){
+			json = JSON.parse(this.responseText);
+			console.log(json);
+			let counter = json.conversation.length;
+			console.log(counter);
+			for (let i=0 ;i<counter;i++){
+				const email = document.createElement("div");
+				email.setAttribute("id","email");
+				if (json.conversation[i].not_read_count > 0){
+					email.setAttribute("style","background:#fff");
+				}
+				email.setAttribute("onclick","read(this)");
+				const image = document.createElement("div");
+				image.setAttribute("id","image");
+				const imagesrc=document.createElement("img");
+				imagesrc.setAttribute("style","width:50px;");
+				let path = "/Atelier"+json.conversation[i].messages[0].sourceImage;
+				imagesrc.setAttribute("src", path);
+				image.append(imagesrc);
+				email.append(image);
+				const email_content = document.createElement("div");
+				email_content.setAttribute("id","email-content");
+				const header = document.createElement("div");
+				header.setAttribute("id","header");
+				const inputConvId = document.createElement("input");
+				inputConvId.setAttribute("id","id");
+				inputConvId.setAttribute("type","hidden");
+				inputConvId.setAttribute("value",json.conversation[i].id);
+				header.append(inputConvId);
+				const inputTitle = document.createElement("input");
+				inputTitle.setAttribute("id","title");
+				inputTitle.setAttribute("type","hidden");
+				inputTitle.setAttribute("value",json.conversation[i].title);
+				header.append(inputTitle);
+				const sender = document.createElement("p");
+				sender.setAttribute("id","sender");
+				sender.innerHTML = json.conversation[i].messages[0].sourceName;
+				header.append(sender);
+				const time = document.createElement("p");
+				time.setAttribute("id","time");
+				time.innerHTML = json.conversation[i].last_updated;
+				header.append(time);
+				email_content.append(header);
+				const content = document.createElement("div");
+				content.setAttribute("id","content");
+				const text = document.createElement("p");
+				text.setAttribute("id","text");
+				text.innerHTML = json.conversation[i].messages[0].content;
+				content.append(text);
+				email_content.append(content);
+				const tags = document.createElement("div");
+				tags.setAttribute("id","tags");
+				const tag = document.createElement("p");
+				tag.setAttribute("id","tag");
+				tag.innerHTML = json.conversation[i].tags;
+				tags.append(tag);
+				if (json.conversation[i].not_read_count > 0){
+					const status = document.createElement("div");
+					status.setAttribute("id","status");
+					const number = document.createElement("p");
+					number.innerHTML = json.conversation[i].not_read_count;
+					status.append(number);
+					tags.append(status);
+				}
+				email_content.append(tags);
+				email.append(email_content);
+				const inbox_list = document.querySelector(".inbox-list");
+				clearChild(inbox_list);
+				inbox_list.append(email);
+			}
+		}
 	}
 	xhr.open("GET","getSentConversation");
 	xhr.send();
@@ -61,16 +144,12 @@ function read(element){
 	xhr.onreadystatechange = function() {
 	    if (this.readyState == 4 && this.status == 200) {    
 			json = JSON.parse(this.responseText);            
-       		$(".inbox-list").load("Inbox #email");
-			$("#menu_list").load("Inbox #menu_list .tile");
 			console.log(json);
+			getSentMessages();
+			updateSentMessagesCounter();
 			count = Object.keys(json).length;
 			const tag = element.querySelector("#tag").innerHTML;
-			const timer = json[0].time;
 			const title = element.querySelector("#title").value;
-			const image = json[0].sourceImage;
-			const user_name = json[0].sourceName;
-			const text = json[0].content;
 			let conversation_id = conversation_content.querySelector("#conversation_id");
 			let id=element.querySelector("#id").value;
 			conversation_id.value = id
@@ -109,12 +188,12 @@ function read(element){
 			}
 			
 			ReadingField.querySelector("#tag").innerHTML = tag;
-			ReadingField.querySelector("#timer").innerHTML = timer;
+			ReadingField.querySelector("#timer").innerHTML = json[0].time;
 			ReadingField.querySelector("#title").innerHTML = title;
-			ReadingField.querySelector("#imageSrc").src = "/Atelier"+ image;
-			ReadingField.querySelector("#sender-user-name").innerHTML = user_name;
-			ReadingField.querySelector("#email-time").innerHTML = timer;
-			ReadingField.querySelector("#main-email-content-text").querySelector("#text").innerHTML = text; 
+			ReadingField.querySelector("#imageSrc").src = "/Atelier"+ json[0].sourceImage;
+			ReadingField.querySelector("#sender-user-name").innerHTML = json[0].sourceName;
+			ReadingField.querySelector("#email-time").innerHTML = json[0].time;
+			ReadingField.querySelector("#main-email-content-text").querySelector("#text").innerHTML = json[0].content; 
     	}
 	}
 	xhr.open("POST","Inbox?id="+id+"&action=read");

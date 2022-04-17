@@ -54,7 +54,7 @@
 							</c:when>
 						</c:choose>
 					</div>
-					<div class="tile" id="sent" onclick="updateSentMessagesCounter()"><button><img src="${pageContext.request.contextPath}/assets/sent.svg"><p>Sent Emails</p></button>
+					<div class="tile" id="sent" onclick="getSentMessages()"><button><img src="${pageContext.request.contextPath}/assets/sent.svg"><p>Sent Emails</p></button>
 						<div id="update" style="display:none;">
 						</div>
 					</div>

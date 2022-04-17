@@ -179,7 +179,7 @@ CREATE TABLE `conversation` (
 
 LOCK TABLES `conversation` WRITE;
 /*!40000 ALTER TABLE `conversation` DISABLE KEYS */;
-INSERT INTO `conversation` VALUES (23,'Problem with the contract signature','1@email.com','serviceClient@email.com','2022-04-17 13:05:59','Problem Report',1);
+INSERT INTO `conversation` VALUES (23,'Problem with the contract signature','1@email.com','serviceClient@email.com','2022-04-17 13:05:59','Problem Report',0);
 /*!40000 ALTER TABLE `conversation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -363,7 +363,7 @@ CREATE TABLE `messages` (
 
 LOCK TABLES `messages` WRITE;
 /*!40000 ALTER TABLE `messages` DISABLE KEYS */;
-INSERT INTO `messages` VALUES (32,23,'1@email.com','serviceClient@email.com','Hello I have a problem with the pdf signature not showing even though I signed the contract thank you ','2022-04-17 13:05:59','not read');
+INSERT INTO `messages` VALUES (32,23,'1@email.com','serviceClient@email.com','Hello I have a problem with the pdf signature not showing even though I signed the contract thank you ','2022-04-17 13:05:59','read');
 /*!40000 ALTER TABLE `messages` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -818,4 +818,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-17 14:02:34
+-- Dump completed on 2022-04-17 16:56:44
