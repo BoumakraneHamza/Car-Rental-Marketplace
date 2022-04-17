@@ -233,14 +233,7 @@
     font-size: 15px;
     font-weight: 500;
 }
-.content .main-frame .Sec-menu #menu_list #inbox {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: row;
-    flex-wrap: nowrap;
-}
-.content .main-frame .Sec-menu #menu_list #inbox #update {
+.content .main-frame .Sec-menu #menu_list #update {
     width: 20px;
     height: 20px;
     background: #B8B08D;
@@ -258,6 +251,11 @@
     margin-bottom: 15px;
     border-radius: 5px;
     cursor:pointer;
+     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
 }
 .content .main-frame .Sec-menu #menu_list .tile:hover{
 	background:#f9F9F9;

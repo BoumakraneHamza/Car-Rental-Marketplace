@@ -72,7 +72,24 @@ public class DAO {
 		
 		return user;
 	}
-	
+	public String getUserType(String email) { 
+		String userType = null;
+		String query = "SELECT type from users where email = ? limit 1";
+		PreparedStatement statement ;
+		ResultSet result ; 
+		try {
+			connectDB();
+			statement = connection.prepareStatement(query);
+			statement.setString(1, email);
+			result = statement.executeQuery();
+			if(result.next()) {
+				userType = result.getString("type");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return userType;
+	}
 	private User getAgencyDirecteurInfo(String email) throws SQLException {
 		User user = null ;
 		String query = "SELECT * FROM agence WHERE email_compte = ?";
@@ -778,6 +795,86 @@ public class DAO {
 		
 		return inbox;
 	}
+	public InboxReturn getSentMessages(String email){
+		String Query;
+		PreparedStatement statement;
+		InboxReturn inbox = new InboxReturn();
+		Conversation conversation = null;
+		ArrayList<Message> messages = null;
+		Message message;
+		ResultSet result;
+		try {
+			connectDB();
+			Query = "select * from conversation where source=? Order by last_updated DESC";
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, email);
+			result = statement.executeQuery();
+			while(result.next()) {
+				messages= new ArrayList<>();
+				conversation =  new Conversation();
+				conversation.setId(result.getInt("id"));
+				conversation.setDestination(result.getString("destination"));
+				conversation.setSource(result.getString("source"));
+				conversation.setTitle(result.getString("title"));
+				conversation.setLast_updated(result.getString("last_updated"));
+				conversation.setTags(result.getString("tags"));
+				
+				Query = "select * from messages where id_conversation=? Order by creationTime DESC";
+				statement = connection.prepareStatement(Query);
+				statement.setInt(1, conversation.getId());
+				ResultSet result1 = statement.executeQuery();
+				while(result1.next()) {
+					message = new Message();
+					message.setId(result1.getInt("id"));
+					message.setSource(result1.getString("source"));
+					message.setDestination(result1.getString("destination"));
+					message.setContent(result1.getString("content"));
+					message.setTime(result1.getString("creationTime"));
+					message.setStatus(result1.getString("status"));
+					if(message.getStatus().equals("not read")) {
+						conversation.not_read_count++;
+						inbox.NotReadMessages++;	
+					}
+					Query = "select type from users where email=? limit 1";
+					statement = connection.prepareStatement(Query);
+					statement.setString(1, message.getSource());
+					ResultSet result2 = statement.executeQuery();	
+					if(result2.next()) {
+						if(result2.getString("type").equals("client")) {
+							Query = "select user_name , image from client where email=? limit 1";
+							statement = connection.prepareStatement(Query);
+							
+							statement.setString(1, message.getSource());
+							ResultSet result3 = statement.executeQuery();
+							if(result3.next()) {
+								message.setSourceName(result3.getString("user_name"));
+								message.setSourceImage(result3.getString("image"));
+							}
+						}else if(result2.getString("type").equals("service_client")) {
+							Query = "select user_name , image from serviceclient where email=? limit 1";
+							statement = connection.prepareStatement(Query);
+							
+							statement.setString(1, message.getSource());
+							ResultSet result3 = statement.executeQuery();
+							if(result3.next()) {
+								message.setSourceName(result3.getString("user_name"));
+								message.setSourceImage(result3.getString("image"));
+							}
+						}
+					}
+					messages.add(message);
+				}
+				conversation.setMessages(messages);
+				inbox.conversation.add(conversation);
+			}
+			statement.close();
+	
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return inbox;
+	}
 	
 	public void addDepot(Depot depot) {
 		String Query;
@@ -889,6 +986,14 @@ public class DAO {
 				statement.setString(4, message.getContent());
 				statement.setString(5, "not read");
 				statement.executeUpdate();
+				String userType = getUserType(conversation.getDestination());
+				if (userType.equals("service_client")) {
+					query ="Insert into requests(conversation_id,status) values(?,?)";
+					statement = connection.prepareStatement(query);
+					statement.setLong(1, conversation_id);
+					statement.setString(2, "available");
+					statement.executeUpdate();
+				}
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -910,6 +1015,13 @@ public class DAO {
 			statement.setString(4, message.getContent());
 			statement.setString(5, "not read");
 			statement.executeUpdate();
+			String userType = getUserType(message.getDestination());
+			if (userType.equals("service_client")) {
+				query ="update requests set status= available where conversation_id=?";
+				statement = connection.prepareStatement(query);
+				statement.setLong(1, message.getCoversation_id());
+				statement.executeUpdate();
+			}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

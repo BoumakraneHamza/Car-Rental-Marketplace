@@ -31,7 +31,24 @@ setInterval(function () {
 		xhr.open("GET","Inbox");
 		xhr.send();
 },10000);
-
+function updateSentMessagesCounter(){
+	let xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function(){
+		if(this.readyState == 4 && this.status == 200){
+			json = JSON.parse(this.responseText);
+			console.log(json);
+		}
+		const menu_list = document.querySelector("#menu_list");
+		const sent= menu_list.querySelector("#sent")
+		let update_counter = document.createElement("div");
+		update_counter.setAttribute("id","update");
+		const counter = document.createElement("p").innerHTML = json.NotReadMessages;
+		update_counter.append(counter);
+		sent.append(update_counter);
+	}
+	xhr.open("GET","getSentConversation");
+	xhr.send();
+}
 const ReadingField = document.querySelector(".email-content");
 const Replies_list = document.querySelector(".email_replies_list");
 const conversation_content = document.querySelector("#conversation-content"); 

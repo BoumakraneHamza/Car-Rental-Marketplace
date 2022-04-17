@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `atelier` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `atelier`;
--- MySQL dump 10.13  Distrib 8.0.28, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
 -- Host: localhost    Database: atelier
 -- ------------------------------------------------------
--- Server version	8.0.28
+-- Server version	8.0.27
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -46,6 +46,35 @@ LOCK TABLES `agence` WRITE;
 /*!40000 ALTER TABLE `agence` DISABLE KEYS */;
 INSERT INTO `agence` VALUES ('agence02',52165,'batna','d02@gmail.com','030102301087','/assets/agency_pics/hertz-logo.png'),('Hertz',1231231,'constantine','d01@email.com','012031023011','/assets/agency_pics/hertz-logo.png');
 /*!40000 ALTER TABLE `agence` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `bureau`
+--
+
+DROP TABLE IF EXISTS `bureau`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `bureau` (
+  `code` varchar(45) NOT NULL,
+  `adress` varchar(45) NOT NULL,
+  `agence_nom` varchar(45) NOT NULL,
+  `secretaire_email` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`code`),
+  KEY `fk_bureau_Agence_idx` (`agence_nom`),
+  KEY `fk_bureau_Utilisateur1_idx` (`secretaire_email`),
+  CONSTRAINT `fk_bureau_Agence` FOREIGN KEY (`agence_nom`) REFERENCES `agence` (`nom`),
+  CONSTRAINT `fk_bureau_Utilisateur1` FOREIGN KEY (`secretaire_email`) REFERENCES `users` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `bureau`
+--
+
+LOCK TABLES `bureau` WRITE;
+/*!40000 ALTER TABLE `bureau` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bureau` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -141,7 +170,7 @@ CREATE TABLE `conversation` (
   KEY `reciever` (`destination`),
   CONSTRAINT `initiator` FOREIGN KEY (`source`) REFERENCES `users` (`email`),
   CONSTRAINT `reciever` FOREIGN KEY (`destination`) REFERENCES `users` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -150,7 +179,7 @@ CREATE TABLE `conversation` (
 
 LOCK TABLES `conversation` WRITE;
 /*!40000 ALTER TABLE `conversation` DISABLE KEYS */;
-INSERT INTO `conversation` VALUES (1,'Pdf Signature problem','Hamza@gmail.com','serviceClient@email.com','2022-04-16 17:08:57','Problem report',0),(2,'Pdf Signature problem','Hamza@gmail.com','1@email.com','2022-04-16 17:08:57','Problem report',0),(3,'Pdf Signature problem','1@email.com','serviceClient@email.com','2022-04-16 17:08:57','Problem report',0);
+INSERT INTO `conversation` VALUES (23,'Problem with the contract signature','1@email.com','serviceClient@email.com','2022-04-17 13:05:59','Problem Report',1);
 /*!40000 ALTER TABLE `conversation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -319,17 +348,13 @@ CREATE TABLE `messages` (
   `id_conversation` int NOT NULL,
   `source` varchar(45) NOT NULL,
   `destination` varchar(45) NOT NULL,
-  `title` varchar(45) NOT NULL,
   `content` longtext NOT NULL,
   `creationTime` datetime NOT NULL,
   `status` varchar(45) NOT NULL DEFAULT 'not read',
-  `tags` varchar(45) NOT NULL,
-  `reply` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`,`id_conversation`),
-  KEY `reply_idx` (`reply`),
   KEY `conversation_idx` (`id_conversation`),
   CONSTRAINT `conversation` FOREIGN KEY (`id_conversation`) REFERENCES `conversation` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -338,7 +363,7 @@ CREATE TABLE `messages` (
 
 LOCK TABLES `messages` WRITE;
 /*!40000 ALTER TABLE `messages` DISABLE KEYS */;
-INSERT INTO `messages` VALUES (1,1,'Hamza@gmail.com','serviceClient@email.com','Problem avec les pdf ',' Dear Nathanial i have found a bug on the pdf generator where it does not show my signature on the contract','2022-04-16 17:07:07','read','reclamation',0),(5,2,'Hamza@gmail.com','1@email.com','Problem avec les pdf ','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dapibus sem nec tellus porta, eget venenatis dui gravida. Mauris ornare aliquet ipsum, ut suscipit ipsum interdum nec. Sed tincidunt euismod diam, non volutpat lorem blandit id. Quisque rutrum nisl et nisi euismod, eu scelerisque sem suscipit. Donec et tortor vel magna euismod ullamcorper. Donec id aliquam nisi. ','2022-04-13 00:49:20','not read','reclamation',0),(6,2,'1@email.com','Hamza@gmail.com','Problem avec les pdf 2','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dapibus sem nec tellus porta, eget venenatis dui gravida. Mauris ornare aliquet ipsum, ut suscipit ipsum interdum nec. Sed tincidunt euismod diam, non volutpat lorem blandit id. Quisque rutrum nisl et nisi euismod, eu scelerisque sem suscipit. Donec et tortor vel magna euismod ullamcorper. Donec id aliquam nisi. ','2022-04-13 00:53:09','not read','reclamation',0),(7,3,'1@email.com','serviceClient@email.com','Hello world²','Hello again','2022-04-14 02:49:46','read','Reclamation',0),(30,1,'serviceClient@email.com','Hamza@gmail.com','Problem avec les pdf ','Dear Hamza I have found the problem earlier and I am working on it Thank you Bye ','2022-04-16 17:08:57','read','reclamation',0);
+INSERT INTO `messages` VALUES (32,23,'1@email.com','serviceClient@email.com','Hello I have a problem with the pdf signature not showing even though I signed the contract thank you ','2022-04-17 13:05:59','not read');
 /*!40000 ALTER TABLE `messages` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -397,11 +422,11 @@ DROP TABLE IF EXISTS `requests`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `requests` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `conversation_id` int NOT NULL,
   `status` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -410,6 +435,7 @@ CREATE TABLE `requests` (
 
 LOCK TABLES `requests` WRITE;
 /*!40000 ALTER TABLE `requests` DISABLE KEYS */;
+INSERT INTO `requests` VALUES (1,23,'available');
 /*!40000 ALTER TABLE `requests` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -792,4 +818,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-16 23:39:17
+-- Dump completed on 2022-04-17 14:02:34

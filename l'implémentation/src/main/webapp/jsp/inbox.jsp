@@ -54,7 +54,10 @@
 							</c:when>
 						</c:choose>
 					</div>
-					<div class="tile" id="sent"><button><img src="${pageContext.request.contextPath}/assets/sent.svg"><p>Sent Emails</p></button></div>
+					<div class="tile" id="sent" onclick="updateSentMessagesCounter()"><button><img src="${pageContext.request.contextPath}/assets/sent.svg"><p>Sent Emails</p></button>
+						<div id="update" style="display:none;">
+						</div>
+					</div>
 					<div class="tile" id="draft"><button><img src="${pageContext.request.contextPath}/assets/draft-icon.svg"><p>Draft</p></button></div>
 				</div>
 			</div>
