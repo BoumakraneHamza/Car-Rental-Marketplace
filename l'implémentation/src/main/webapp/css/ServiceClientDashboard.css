@@ -12,13 +12,6 @@
     margin: 10px 5px 10px 10px;
     border: 2px solid #E4E4E4;
 }
-.request_content {
-    margin: 10px 10px 10px 5px;
-    width: 65%;
-    height: calc(100vh - 75px);
-    background: #fff;
-    border: 2px solid #E4E4E4;
-}
 .requests .tab_header {
     padding: 10px;
     display: flex;
@@ -68,4 +61,91 @@
     align-self: flex-end;
     align-items: center;
     justify-content: center;
+}
+.requests .request_list {
+    padding: 0px 15px;
+}
+.request_list #request {
+   	display: flex;
+    flex-direction: row;
+    cursor:pointer;
+    border: 2px solid #E4E4E4;
+    flex-wrap: nowrap;
+    background: #f0f0f0;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    align-items: center;
+}
+.requests .request_list #request #email-content {
+    width: 79%;
+}
+.requests .request_list #request #email-content #header {
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+.requests .request_list #request #image {
+	margin-right: 14px;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    display: flex;
+    border-radius: 50%;
+    align-items: center;
+}
+.requests .request_list #request #email-content #content {
+	font-size: 13px;
+    margin: 5px 0px;
+    display: block;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow: hidden;
+    max-height: 1.6em;
+    line-height: 1.8em;
+}
+.requests .request_list #request #email-content #header p {
+    font-weight: 600;
+}
+.requests .request_list #request #email-content #content p {
+    margin: 0px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+.requests .request_list #request #email-content #tags {
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+}
+.requests .request_list #request #email-content #tags #status {
+    width: 20px;
+    height: 20px;
+    background: #B8B08D;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+    color: #fff;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 16px;
+}
+.requests .request_list #request #email-content #tags #tag {
+    background: #76e9b2;
+    width: fit-content;
+    padding: 3px 10px;
+    border-radius: 10px;
+    font-weight: 500;
+}
+.email-content {
+    margin: 10px 10px 10px 5px;
+    width: 65%;
+    height: calc(100vh - 75px);
+    background: #fff;
+    border: 2px solid #E4E4E4;
 }

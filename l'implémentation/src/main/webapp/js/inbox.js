@@ -62,6 +62,8 @@ function getSentMessages(){
 			console.log(json);
 			let counter = json.conversation.length;
 			console.log(counter);
+			const inbox_list = document.querySelector(".inbox-list");
+			clearChild(inbox_list);
 			for (let i=0 ;i<counter;i++){
 				const email = document.createElement("div");
 				email.setAttribute("id","email");
@@ -123,8 +125,6 @@ function getSentMessages(){
 				}
 				email_content.append(tags);
 				email.append(email_content);
-				const inbox_list = document.querySelector(".inbox-list");
-				clearChild(inbox_list);
 				inbox_list.append(email);
 			}
 		}

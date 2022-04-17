@@ -57,7 +57,7 @@ public class Dashboard extends HttpServlet {
 			} else if (user.getType().equals("directeur")) {
 				url = url + "jsp/AgencyDashboard.jsp"; 
 			} else if(user.getType().equals("service_client")){
-				url = url + "jsp/ServiceClientDashboard.jsp";
+				url = url + "/ServiceClient";
 			}
 			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 			dispatcher.forward(request, response);

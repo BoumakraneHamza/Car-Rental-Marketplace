@@ -8,6 +8,7 @@
 <title>Inbox</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/inbox.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ClientMain.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/InboxSystem.css">
 <script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 </head>
 <body>
@@ -189,7 +190,7 @@
 				</div>
 				<button onclick="reply_message(this)"><img src="${pageContext.request.contextPath}/assets/sent-icon-white.svg"><p>reply</p></button>
 			</div>
-			</div>
+		</div>
 	<script src="${pageContext.request.contextPath}/js/inbox.js"></script>
 	<%@include file="/jsp/dropdownList.jsp"%>
 	<%@include file="/jsp/sendMessage.jsp"%>

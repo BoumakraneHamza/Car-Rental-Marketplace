@@ -1148,7 +1148,7 @@ public class DAO {
 		try {
 			connectDB();
 			statement = connection.prepareStatement(Query);
-			statement.setString(1, "Available");
+			statement.setString(1, "available");
 			result = statement.executeQuery();
 			while(result.next()) {
 				req = new request();
@@ -1163,9 +1163,14 @@ public class DAO {
 					conversation.setId(result1.getInt("id"));
 					conversation.setSource(result1.getString("source"));
 					conversation.setTitle(result1.getString("title"));
+					conversation.setNot_read_count(result1.getInt("not_read_count"));
+					conversation.setTags(result1.getString("tags"));
+					conversation.setLast_updated(result1.getString("last_updated"));
 					ArrayList<Message> msgs = ReadConversation(conversation.getId());
 					conversation.setMessages(msgs);
+					req.setConversation(conversation);
 				}
+				requests.add(req);
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
