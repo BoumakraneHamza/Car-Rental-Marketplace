@@ -57,24 +57,24 @@
 							<div id="messages">
 								<c:forEach var="i" begin="0" end="3" step="1">
 									<c:choose>
-										<c:when test="${messages[i].status == 'not read' && messages[i].source != user.email}">
+										<c:when test="${conversation[i].not_read_count > 0 }">
 											<div id="email"  style="background:#fff;">
 												<div id="image">
-													<img id="imageSrc" style="width:50px;"src="${pageContext.request.contextPath}${messages[i].sourceImage}">
+													<img id="imageSrc" style="width:50px;"src="${pageContext.request.contextPath}${conversation[i].messages[conversation[i].messages.size()-1].sourceImage}">
 												</div>
 												<div id="email-content">
 													<div id="email_header">
-														<input id="id" type="hidden" value="${messages[i].id}">
-														<input id="title" type="hidden" value="${messages[i].title}">
-														<p id="sender">${messages[i].sourceName}</p>
-														<p id="time">${messages[i].time}</p>
+														<input id="id" type="hidden" value="${conversation[i].id}">
+														<input id="title" type="hidden" value="${conversation[i].title}">
+														<p id="sender">${conversation[i].messages[conversation[i].messages.size()-1].sourceName}</p>
+														<p id="time">${conversation[i].last_updated}</p>
 													</div>
 													<div id="content">
-														<p id="text">${messages[i].content}</p>
+														<p id="text">${conversation[i].messages[conversation[i].messages.size()-1].content}</p>
 													</div>
 													<div id="tags">
-														<p id="tag">${messages[i].tags}</p>
-														<div id="status"><p>1</p></div>
+														<p id="tag">${conversation[i].tags}</p>
+														<div id="status"><p>${conversation[i].not_read_count}</p></div>
 													</div>
 												</div>
 											</div>

@@ -58,8 +58,6 @@ public class Login extends HttpServlet {
 		try {
 
 			User user = dao.checkLogin(email, password);
-			System.out.println(user.getEmail());
-			
 			if (user != null) {
 
 				HttpSession session = request.getSession();

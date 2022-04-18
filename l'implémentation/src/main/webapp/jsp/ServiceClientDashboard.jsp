@@ -56,8 +56,8 @@
 						</div>
 						<div id="email-content">
 							<div id="header">
-								<input id="id" type="hidden" value="${requests[i].conversation.id}">
-								<input id="title" type="hidden" value="">
+								<input id="id" type="hidden" value="${requests[i].id}">
+								<input id="title" type="hidden" value="${requests[i].conversation.title}">
 								<p id="sender">${requests[i].conversation.messages[0].sourceName}</p>
 								<p id="time">${requests[i].conversation.last_updated}</p>
 							</div>
@@ -79,32 +79,51 @@
 			</div>
 		</div>
 		<div class="email-content">
-		<div id="conversation-content" style="display:block">
+			<c:choose>
+				<c:when test="${requests.size()>0}">
+				<style>
+				#no-messages{
+					display:none;
+				}
+				</style>
+				</c:when>
+				<c:otherwise>
+				<style>
+					#conversation-content{
+						display:none;
+					}
+				</style>
+				</c:otherwise>
+			</c:choose>
+			<div id="no-messages">
+				<img src="${pageContext.request.contextPath}/assets/No_messages.svg">
+				<p>No new Messages</p>
+			</div>
+			<div id="conversation-content">
 			<input id="conversation_id" type="hidden">
-			<div class="email_header">
-				<div id="tags">
-					<p id="tag">${conversation[0].tags}</p>
-				</div>
-				<div id="cta">
-					<img src="${pageContext.request.contextPath}/assets/delete-icon.svg">
-				</div>
+					<div class="email_header">
+					<div id="tags">
+						<p id="tag">${requests[0].conversation.tags}</p>
+					</div>
+					<div id="cta">
+						<img src="${pageContext.request.contextPath}/assets/delete-icon.svg">
+					</div>
 			</div>
 			<div class="email_meta">
-					<p id="timer">${conversation[0].messages[0].time}</p>
-					<p id="title">${conversation[0].title}</</p>
+					<p id="timer">${requests[0].conversation.messages[0].time}</p>
+					<p id="title">${requests[0].conversation.title}</p>
 			</div>
 			<div class="email_replies_list">
-			<input type="hidden" value="${requests[0].conversation.messages.size()-2}">
-			<c:forEach items="${requests[0].conversation.messages}" begin="1" var="message">
+			<c:forEach var="i" begin="1" end="${requests[0].conversation.messages.size() < 0 ? 0 : conversation[0].messages.size()}" step="1">
 					<div class="reply" onclick="expand(this)">
 						<div id="reply_source">
 							<div id="source_image">
-								<img style="width:50px;" src="${pageContext.request.contextPath}${message.sourceImage}">
+								<img style="width:50px;" src="${pageContext.request.contextPath}${requests[0].conversation.messages[i].sourceImage}">
 							</div>
-							<p id="sender">${message.sourceName}</p>
+							<p id="sender">${requests[0].conversation.messages[i].sourceName}</p>
 						</div>
-						<div id="text_demo"><p>${message.content}</p></div>
-						<p id="time">${message.time}</p>
+						<div id="text_demo"><p>${requests[0].conversation.messages[i].content}</p></div>
+						<p id="time">${requests[0].conversation.messages[i].time}</p>
 					</div>
 			</c:forEach>
 				</div>
@@ -122,10 +141,10 @@
 					</div>
 				</div>
 				<button onclick="reply_message(this)"><img src="${pageContext.request.contextPath}/assets/sent-icon-white.svg"><p>reply</p></button>
+			</div>
 		</div>
 		</div>
 		</div>
-	</div>
 	<script src="${pageContext.request.contextPath}/js/ServiceClientDashboard.js"></script>
 <%@include file="/jsp/dropdownList.jsp"%>
 </body>

@@ -1177,4 +1177,40 @@ public class DAO {
 		}
 		return requests;
 	}
+	public request GetRequestsById(String id){
+		request requests = null;
+		String Query = "Select * from requests where id= ? limit 1";
+		PreparedStatement statement ;
+		ResultSet result ;
+		try {
+			connectDB();
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, id);
+			result = statement.executeQuery();
+			while(result.next()) {
+				requests = new request();
+				requests.setId(result.getString("id"));
+				requests.setStatus(result.getString("status"));
+				Query = "Select * from conversation where id=? limit 1";
+				statement = connection.prepareStatement(Query);
+				statement.setString(1, result.getString("conversation_id"));
+				ResultSet result1 = statement.executeQuery();
+				if(result1.next()) {
+					Conversation conversation = new Conversation();
+					conversation.setId(result1.getInt("id"));
+					conversation.setSource(result1.getString("source"));
+					conversation.setTitle(result1.getString("title"));
+					conversation.setNot_read_count(result1.getInt("not_read_count"));
+					conversation.setTags(result1.getString("tags"));
+					conversation.setLast_updated(result1.getString("last_updated"));
+					ArrayList<Message> msgs = ReadConversation(conversation.getId());
+					conversation.setMessages(msgs);
+					requests.setConversation(conversation);
+				}
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return requests;
+	}
 }

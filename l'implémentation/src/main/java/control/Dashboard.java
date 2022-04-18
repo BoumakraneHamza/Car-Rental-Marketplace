@@ -39,15 +39,15 @@ public class Dashboard extends HttpServlet {
 		if (user != null) {
 			request.setAttribute("user", user);
 			DAO dao = new DAO();
-			InboxReturn inbox = new InboxReturn();
-			inbox = dao.getRecievedMessages(user.getEmail());
-			request.setAttribute("conversation", inbox.conversation);
-			request.setAttribute("counter", inbox.NotReadMessages);
 			String url = "/";
 
 			if (user.getType().equals("client")) {
 				url = url + "jsp/ClientDashboard.jsp";
 				CreditCards card = null;
+				InboxReturn inbox = new InboxReturn();
+				inbox = dao.getRecievedMessages(user.getEmail());
+				request.setAttribute("conversation", inbox.conversation);
+				request.setAttribute("counter", inbox.NotReadMessages);
 				Random rand = new Random();
 				Integer random = rand.nextInt(25);
 				request.setAttribute("random", random);
@@ -61,7 +61,7 @@ public class Dashboard extends HttpServlet {
 			} else if (user.getType().equals("directeur")) {
 				url = url + "jsp/AgencyDashboard.jsp"; 
 			} else if(user.getType().equals("service_client")){
-				url = url + "/ServiceClient";
+				url = url + "ServiceClient";
 			}
 			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 			dispatcher.forward(request, response);

@@ -191,6 +191,8 @@
 				<button onclick="reply_message(this)"><img src="${pageContext.request.contextPath}/assets/sent-icon-white.svg"><p>reply</p></button>
 			</div>
 		</div>
+		</div>
+		</div>
 	<script src="${pageContext.request.contextPath}/js/inbox.js"></script>
 	<%@include file="/jsp/dropdownList.jsp"%>
 	<%@include file="/jsp/sendMessage.jsp"%>

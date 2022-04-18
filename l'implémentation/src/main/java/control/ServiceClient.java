@@ -1,6 +1,7 @@
 package control;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -9,6 +10,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import model.DAO;
 import model.User;
@@ -51,8 +54,18 @@ public class ServiceClient extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		User user = (User) request.getSession().getAttribute("user");
+		if (user != null) {
+			request.setAttribute("user", user);
+			DAO dao = new DAO();
+			String id= request.getParameter("id");
+			System.out.println("id" + id);
+			request requests = dao.GetRequestsById(id);
+			ObjectMapper mapper = new ObjectMapper();
+			String JsonString = mapper.writeValueAsString(requests);
+			PrintWriter out = response.getWriter();
+			out.write(JsonString);
+		}
 	}
 
 }
