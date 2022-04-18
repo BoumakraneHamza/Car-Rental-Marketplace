@@ -2,9 +2,7 @@ package control;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,16 +16,16 @@ import model.User;
 import model.request;
 
 /**
- * Servlet implementation class ServiceClient
+ * Servlet implementation class GetRequestInfo
  */
-@WebServlet("/ServiceClient")
-public class ServiceClient extends HttpServlet {
+@WebServlet("/GetRequestInfo")
+public class GetRequestInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ServiceClient() {
+    public GetRequestInfo() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,13 +38,13 @@ public class ServiceClient extends HttpServlet {
 		if (user != null) {
 			request.setAttribute("user", user);
 			DAO dao = new DAO();
-			ArrayList<request> requests = dao.GetRequests();
-			request.setAttribute("requests", requests);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/ServiceClientDashboard.jsp");
-			dispatcher.forward(request, response);
-		} else {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/login.jsp");
-			dispatcher.forward(request, response);
+			String id= request.getParameter("id");
+			System.out.println("id" + id);
+			request requests = dao.GetRequestsById(id);
+			ObjectMapper mapper = new ObjectMapper();
+			String JsonString = mapper.writeValueAsString(requests);
+			PrintWriter out = response.getWriter();
+			out.write(JsonString);
 		}
 	}
 
@@ -54,6 +52,7 @@ public class ServiceClient extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

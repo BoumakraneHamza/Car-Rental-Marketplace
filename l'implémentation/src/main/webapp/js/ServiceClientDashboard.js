@@ -68,6 +68,6 @@ function read(element){
 			ReadingField.querySelector("#main-email-content-text").querySelector("#text").innerHTML = json.conversation.messages[0].content; 
     	}
 	}
-	xhr.open("POST","ServiceClient?id="+id);
+	xhr.open("GET","GetRequestInfo?id="+id);
 	xhr.send();
 }
