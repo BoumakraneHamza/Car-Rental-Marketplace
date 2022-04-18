@@ -1,6 +1,7 @@
 package control;
 
 import java.io.IOException;
+import java.util.Random;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -47,6 +48,9 @@ public class Dashboard extends HttpServlet {
 			if (user.getType().equals("client")) {
 				url = url + "jsp/ClientDashboard.jsp";
 				CreditCards card = null;
+				Random rand = new Random();
+				Integer random = rand.nextInt(25);
+				request.setAttribute("random", random);
 				try {
 					card = dao.getDefaultCard(user.getEmail());
 				} catch (InstantiationException | IllegalAccessException e) {

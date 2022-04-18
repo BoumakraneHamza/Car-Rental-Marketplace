@@ -525,3 +525,84 @@ a, a:visited{
 	font-size: 18px;
     font-weight: 600;
 }
+.card {
+    width: 275px;
+    height: 180px;
+    margin: 10px 20px;
+    border-radius: 15px;
+    z-index: 1;
+    position: relative;
+    box-shadow: -1px 10px 20px 6px #a9a9a9;
+}
+.card_info {
+    padding: 22px 5px 0px;
+    position: relative;
+    height: fit-content;
+    text-shadow: 7px 6px 10px rgb(14 42 90 / 80%);
+    user-select: none;
+}
+.card_top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+.item_chip {
+	width: 35px;
+}
+.item_type {
+    height: fit-content;
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    max-width: 100px;
+    margin-left: auto;
+    width: 100%;
+    align-items: center;
+}
+img.item_typeImg {
+	width: 40px;
+}
+.item_typeImg {
+    max-width: 100%;
+    object-fit: contain;
+    max-height: 100%;
+    object-position: top right;
+}
+.card_number {
+    display: flex;
+    color: #fff;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    font-size: 19px;
+    padding: 7px 20px;
+}
+.card_number span{
+	margin-top:10px;
+}
+.item_bottom {
+    display: flex;
+    color: #fff;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding: 8px 20px;
+}
+.card .card_info #holder {
+    font-size: 12px;
+    color: #cecece;
+}
+.card .card_info  #holder_full_name {
+	font-size: 14px;
+    color: #fff;
+    margin-top: 10px;
+}
+.card .card_info  #card_Expiry_date {
+    font-size: 12px;
+    color: #cecece;
+}
+.card .card_info  #card_expiry_date {
+    font-size: 14px;
+    color: #fff;
+    margin-top: 10px;
+}
