@@ -168,7 +168,7 @@
 												</div>
 												<div id="rating">
 													<img src="${pageContext.request.contextPath}/assets/star.svg">
-													<p id="score">${vehicule.rating}</p>
+													<p id="score">${vehicule.getAverageRating()}</p>
 												</div>
 											</div>
 											<h4 style="font-size: 15px;font-weight: 600;color: #C4C4C4;margin-top: 5px;">Features :</h4>

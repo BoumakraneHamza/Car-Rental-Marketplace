@@ -149,3 +149,13 @@
     background: #fff;
     border: 2px solid #E4E4E4;
 }
+#response_done {
+    width: fit-content;
+    height: fit-content;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 17px;
+    font-weight: 500;
+}

@@ -17,9 +17,9 @@ minimize.addEventListener("click",function(){
 });
 function closeSendingMessage(){
 	sendMessage.style.display="none";
-	input1.value=null;
-	input2.value=null;
-	textArea.value=null;
+	if(input1){input1.value=null;}
+	if(input2){input2.value=null;}
+	if(textArea){textArea.value=null;}
 }
 closeBtn.addEventListener("click",function(){
 	closeSendingMessage();
@@ -27,18 +27,26 @@ closeBtn.addEventListener("click",function(){
 
 inputSend.addEventListener("click",function(e){
 	e.preventDefault();
-	const destValue = input1.value;
-	console.log(destValue);
-	const titleValue = input2.value;
+	let destValue = input1.value;
+	let titleValue ;
+	if(input2){
+		titleValue = input2.value;
+	}
+	else{
+		titleValue = null;
+	}
 	const contentValue= textArea.value;
-	const tagValue= filter.value;
+	let tagValue;
+	if (filter){
+		tagValue = filter.value;
+	}else{
+		tagValue = null
+	}
 	let conv_id = 0;
 	conv_id = reply_conversation_id.value;
 	let xhr = new XMLHttpRequest();
 	xhr.onload = function() {
 		 if(xhr.status === 200) {                       
-       		$(".inbox-list").load("Inbox #email");
-			$("#menu_list").load("Inbox #menu_list .tile");
 			closeSendingMessage();
 			//update(conv_id);
     	}

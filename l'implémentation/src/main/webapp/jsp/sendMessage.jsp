@@ -34,10 +34,22 @@
 					</select>
 				</c:when>
 				<c:otherwise>
-					<input required="required" id="destination" name="destination" placeholder="destination" type="email">
+				<c:choose>
+					<c:when test="${user.getType().equals('service_client')}">
+						<input id="destination" name="destination" type="hidden">
+						<input id="request_id" type="hidden" name="request_id">
+					</c:when>
+					<c:otherwise>
+						<input required="required" id="destination" name="destination" placeholder="destination" type="email">
+					</c:otherwise>
+				</c:choose>
 				</c:otherwise>
 			</c:choose>
-			<input required="required" id="title" name="title" placeholder="subject" type="text">
+			<c:choose>
+				<c:when test="${!user.getType().equals('service_client')}">
+					<input required="required" id="title" name="title" placeholder="subject" type="text">
+				</c:when>
+				</c:choose>
 			<textarea required="required" name="content" id="content"></textarea>
 			<input id="send" type="submit" value="send">
 		</form>

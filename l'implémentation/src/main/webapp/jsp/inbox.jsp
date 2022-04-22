@@ -77,17 +77,17 @@
 								<c:when test="${conversation[i].not_read_count > 0 }">
 									<div id="email"  style="background:#fff;" onclick="read(this)">
 										<div id="image">
-											<img id="imageSrc" style="width:50px;"src="${pageContext.request.contextPath}${conversation[i].messages[conversation[i].messages.size()-1].sourceImage}">
+											<img id="imageSrc" style="width:50px;"src="${pageContext.request.contextPath}${conversation[i].messages[0].sourceImage}">
 										</div>
 										<div id="email-content">
 											<div id="header">
 												<input id="id" type="hidden" value="${conversation[i].id}">
 												<input id="title" type="hidden" value="${conversation[i].title}">
-												<p id="sender">${conversation[i].messages[conversation[i].messages.size()-1].sourceName}</p>
+												<p id="sender">${conversation[i].messages[0].sourceName}</p>
 												<p id="time">${conversation[i].last_updated}</p>
 											</div>
 											<div id="content">
-												<p id="text">${conversation[i].messages[conversation[i].messages.size()-1].content}</p>
+												<p id="text">${conversation[i].messages[0].content}</p>
 											</div>
 											<div id="tags">
 												<p id="tag">${conversation[i].tags}</p>
@@ -99,17 +99,17 @@
 								<c:otherwise>
 									<div id="email" onclick="read(this)">
 										<div id="image">
-											<img id="imageSrc" style="width:50px;"src="${pageContext.request.contextPath}${conversation[i].messages[conversation[i].messages.size()-1].sourceImage}">
+											<img id="imageSrc" style="width:50px;"src="${pageContext.request.contextPath}${conversation[i].messages[0].sourceImage}">
 										</div>
 										<div id="email-content">
 											<div id="header">
 												<input id="id" type="hidden" value="${conversation[i].id}">
 												<input id="title" type="hidden" value="${conversation[i].title}">
-												<p id="sender">${conversation[i].messages[conversation[i].messages.size()-1].sourceName}</p>
+												<p id="sender">${conversation[i].messages[0].sourceName}</p>
 												<p id="time">${conversation[i].last_updated}</p>
 											</div>
 											<div id="content">
-												<p id="text">${conversation[i].messages[conversation[i].messages.size()-1].content}</p>
+												<p id="text">${conversation[i].messages[0].content}</p>
 											</div>
 											<div id="tags">
 												<p id="tag">${conversation[i].tags}</p>
@@ -179,13 +179,13 @@
 				<div class="main-email-content">
 					<div id="main-email-content-header">
 						<div id="sender-info">
-							<div id="sender-image"><img id="imageSrc" style="width:50px;" src="${pageContext.request.contextPath}${conversation[0].messages[conversation[0].messages.size()-1].sourceImage}"></div>
-							<p id="sender-user-name">${conversation[0].messages[messages.size()-1].sourceName}</p>
+							<div id="sender-image"><img id="imageSrc" style="width:50px;" src="${pageContext.request.contextPath}${conversation[0].messages[0].sourceImage}"></div>
+							<p id="sender-user-name">${conversation[0].messages[0].sourceName}</p>
 						</div>
-						<p id="email-time">${conversation[0].messages[conversation[0].messages.size()-1].time}</p>
+						<p id="email-time">${conversation[0].messages[0].time}</p>
 					</div>
 					<div id="main-email-content-text">
-						<p id="text">${conversation[0].messages[conversation[0].messages.size()-1].content}</p>
+						<p id="text">${conversation[0].messages[0].content}</p>
 					</div>
 				</div>
 				<button onclick="reply_message(this)"><img src="${pageContext.request.contextPath}/assets/sent-icon-white.svg"><p>reply</p></button>

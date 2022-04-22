@@ -991,31 +991,27 @@ public class DAO {
 				message.setContent(result.getString("content"));
 				message.setTime(result.getString("creationTime"));
 				message.setStatus(result.getString("status"));
-				Query = "select type from users where email=? limit 1";
-				statement = connection.prepareStatement(Query);
-				statement.setString(1, message.getSource());
-				ResultSet result2 = statement.executeQuery();	
-				if(result2.next()) {
-					if(result2.getString("type").equals("client")) {
-						Query = "select user_name , image from client where email=? limit 1";
-						statement = connection.prepareStatement(Query);
-						
-						statement.setString(1, message.getSource());
-						ResultSet result3 = statement.executeQuery();
-						if(result3.next()) {
-							message.setSourceName(result3.getString("user_name"));
-							message.setSourceImage(result3.getString("image"));
-						}
-					}else if(result2.getString("type").equals("service_client")) {
-						Query = "select user_name , image from serviceclient where email=? limit 1";
-						
-						statement = connection.prepareStatement(Query);
-						statement.setString(1, message.getSource());
-						ResultSet result3 = statement.executeQuery();
-						if(result3.next()) {
-							message.setSourceName(result3.getString("user_name"));
-							message.setSourceImage(result3.getString("image"));
-						}
+				String source = result.getString("source");
+				String usertype = getUserType(source);
+				if(usertype.equals("client")) {
+					Query = "select user_name , image from client where email=? limit 1";
+					statement = connection.prepareStatement(Query);
+					
+					statement.setString(1, message.getSource());
+					ResultSet result3 = statement.executeQuery();
+					if(result3.next()) {
+						message.setSourceName(result3.getString("user_name"));
+						message.setSourceImage(result3.getString("image"));
+					}
+				}else if(usertype.equals("service_client")) {
+					Query = "select user_name , image from serviceclient where email=? limit 1";
+					
+					statement = connection.prepareStatement(Query);
+					statement.setString(1, message.getSource());
+					ResultSet result3 = statement.executeQuery();
+					if(result3.next()) {
+						message.setSourceName(result3.getString("user_name"));
+						message.setSourceImage(result3.getString("image"));
 					}
 				}
 				messages.add(message);
@@ -1084,7 +1080,8 @@ public class DAO {
 			statement.setString(5, "not read");
 			statement.executeUpdate();
 			String userType = getUserType(message.getDestination());
-			if (userType.equals("service_client")) {
+			String sourceType = getUserType(message.getSource());
+			if (userType.equals("service_client") && !sourceType.equals("service_client")) {
 				query ="update requests set status= available where conversation_id=?";
 				statement = connection.prepareStatement(query);
 				statement.setLong(1, message.getCoversation_id());
@@ -1206,7 +1203,19 @@ public class DAO {
 			e.printStackTrace();	
 		}
 	}
-		
+	public void RespondToRequest(String requestId) {
+		String Query = "Update requests set status = ? where id = ?";
+		PreparedStatement statement ; 
+		try {
+			connectDB();
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, "not_available");
+			statement.setString(2, requestId);
+			statement.executeUpdate(); 
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 	public ArrayList<request> GetRequests(){
 		ArrayList<request> requests = new ArrayList<request>();
 		request req = null;

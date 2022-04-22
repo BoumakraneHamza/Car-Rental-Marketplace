@@ -1,13 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%@ taglib   uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <html>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ClientMain.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ServiceClientDashboard.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/InboxSystem.css">
+<script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <title>Dashboard</title>
 </head>
 <body>
@@ -43,7 +45,7 @@
 						    <option value="Reclamation">Reclamation</option>
 						    <option value="Bug Report">Bug Report</option>
 					</select>
-					<button>Request more</button>
+					<button onclick="loadMore()">Request more</button>
 				</div>
 			</div>
 			<div class="request_list">
@@ -56,7 +58,8 @@
 						</div>
 						<div id="email-content">
 							<div id="header">
-								<input id="id" type="hidden" value="${requests[i].id}">
+								<input id="request_id" type="hidden" value="${requests[i].id}">
+								<input id="conversation_id" type="hidden" value="${requests[i].conversation.id}">
 								<input id="title" type="hidden" value="${requests[i].conversation.title}">
 								<p id="sender">${requests[i].conversation.messages[0].sourceName}</p>
 								<p id="time">${requests[i].conversation.last_updated}</p>
@@ -79,73 +82,80 @@
 			</div>
 		</div>
 		<div class="email-content">
-			<c:choose>
-				<c:when test="${requests.size()>0}">
-				<style>
-				#no-messages{
-					display:none;
-				}
-				</style>
-				</c:when>
-				<c:otherwise>
-				<style>
-					#conversation-content{
+			<div class="email_content_content">
+				<c:choose>
+					<c:when test="${requests.size()>0}">
+					<style>
+					#no-messages{
 						display:none;
 					}
-				</style>
-				</c:otherwise>
-			</c:choose>
-			<div id="no-messages">
-				<img src="${pageContext.request.contextPath}/assets/No_messages.svg">
-				<p>No new Messages</p>
-			</div>
-			<div id="conversation-content">
-			<input id="conversation_id" type="hidden">
+					</style>
+					</c:when>
+					<c:otherwise>
+					<style>
+						#conversation-content{
+							display:none;
+						}
+					</style>
+					</c:otherwise>
+				</c:choose>
+				<div id="no-messages">
+					<img src="${pageContext.request.contextPath}/assets/No_messages.svg">
+					<p>No new Messages</p>
+				</div>
+				<div id="response_done" display="none">
+					<img style="width:150px;" src="${pageContext.request.contextPath}/assets/response_done.svg">
+					<p>Well done</p>
+				</div>
+				<div id="conversation-content">
+				<input id="conversation_id" type="hidden">
+				<input id="request_id" type="hidden">
 					<div class="email_header">
 					<div id="tags">
 						<p id="tag">${requests[0].conversation.tags}</p>
 					</div>
-					<div id="cta">
-						<img src="${pageContext.request.contextPath}/assets/delete-icon.svg">
-					</div>
-			</div>
-			<div class="email_meta">
+				</div>
+				<div class="email_meta">
 					<p id="timer">${requests[0].conversation.messages[0].time}</p>
 					<p id="title">${requests[0].conversation.title}</p>
-			</div>
-			<div class="email_replies_list">
-			<c:forEach var="i" begin="1" end="${requests[0].conversation.messages.size() < 0 ? 0 : conversation[0].messages.size()}" step="1">
-					<div class="reply" onclick="expand(this)">
-						<div id="reply_source">
-							<div id="source_image">
-								<img style="width:50px;" src="${pageContext.request.contextPath}${requests[0].conversation.messages[i].sourceImage}">
+				</div>
+				<c:set var="array_size" value="${fn:length(requests[0].conversation.messages)}" />
+				<div class="email_replies_list">
+				<c:forEach var="i" begin="1" end="${requests[0].conversation.messages.size()-1 < 0 ? 0 : requests[0].conversation.messages.size()-1}" step="1">
+						<div class="reply" onclick="expand(this)">
+							<div id="reply_source">
+								<div id="source_image">
+									<img style="width:50px;" src="${pageContext.request.contextPath}${requests[0].conversation.messages[array_size-i].sourceImage}">
+								</div>
+								<p id="sender">${requests[0].conversation.messages[array_size-i].sourceName}</p>
 							</div>
-							<p id="sender">${requests[0].conversation.messages[i].sourceName}</p>
+							<div id="text_demo"><p>${requests[0].conversation.messages[array_size-i].content}</p></div>
+							<p id="time">${requests[0].conversation.messages[array_size-i].time}</p>
 						</div>
-						<div id="text_demo"><p>${requests[0].conversation.messages[i].content}</p></div>
-						<p id="time">${requests[0].conversation.messages[i].time}</p>
+				</c:forEach>
 					</div>
-			</c:forEach>
-				</div>
-			
-				<div class="main-email-content">
-					<div id="main-email-content-header">
-						<div id="sender-info">
-							<div id="sender-image"><img id="imageSrc" style="width:50px;" src="${pageContext.request.contextPath}${requests[0].conversation.messages[0].sourceImage}"></div>
-							<p id="sender-user-name">${requests[0].conversation.messages[0].sourceName}</p>
+				
+					<div class="main-email-content">
+						<div id="main-email-content-header">
+							<div id="sender-info">
+								<div id="sender-image"><img id="imageSrc" style="width:50px;" src="${pageContext.request.contextPath}${requests[0].conversation.messages[0].sourceImage}"></div>
+								<p id="sender-user-name">${requests[0].conversation.messages[0].sourceName}</p>
+								<input id="sender-email" type="hidden" value="${requests[0].conversation.messages[0].getSource()}">
+							</div>
+							<p id="email-time">${requests[0].conversation.messages[0].time}</p>
 						</div>
-						<p id="email-time">${requests[0].conversation.messages[0].time}</p>
+						<div id="main-email-content-text">
+							<p id="text">${requests[0].conversation.messages[0].content}</p>
+						</div>
 					</div>
-					<div id="main-email-content-text">
-						<p id="text">${requests[0].conversation.messages[0].content}</p>
-					</div>
+					<button onclick="reply_message(this)"><img src="${pageContext.request.contextPath}/assets/sent-icon-white.svg"><p>reply</p></button>
 				</div>
-				<button onclick="reply_message(this)"><img src="${pageContext.request.contextPath}/assets/sent-icon-white.svg"><p>reply</p></button>
 			</div>
-		</div>
+			</div>
 		</div>
 		</div>
 	<script src="${pageContext.request.contextPath}/js/ServiceClientDashboard.js"></script>
-<%@include file="/jsp/dropdownList.jsp"%>
+	<%@include file="/jsp/dropdownList.jsp"%>
+	<%@include file="/jsp/sendMessage.jsp"%>	
 </body>
 </html>

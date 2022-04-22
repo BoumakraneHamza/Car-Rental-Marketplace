@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%@ taglib   uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -55,22 +56,23 @@
 								<h4>MailBox</h4>
 							</div>
 							<div id="messages">
-								<c:forEach var="i" begin="0" end="3" step="1">
+								<c:forEach var="i" begin="0" end="${conversation.size()-1}" step="1">
+									<c:set var="messages_size" value="${fn:length(conversation[i].messages)-1}" />
 									<c:choose>
 										<c:when test="${conversation[i].not_read_count > 0 }">
 											<div id="email"  style="background:#fff;">
 												<div id="image">
-													<img id="imageSrc" style="width:50px;"src="${pageContext.request.contextPath}${conversation[i].messages[conversation[i].messages.size()-1].sourceImage}">
+													<img id="imageSrc" style="width:50px;"src="${pageContext.request.contextPath}${conversation[i].messages[messages_size].sourceImage}">
 												</div>
 												<div id="email-content">
 													<div id="email_header">
 														<input id="id" type="hidden" value="${conversation[i].id}">
 														<input id="title" type="hidden" value="${conversation[i].title}">
-														<p id="sender">${conversation[i].messages[conversation[i].messages.size()-1].sourceName}</p>
+														<p id="sender">${conversation[i].messages[messages_size].sourceName}</p>
 														<p id="time">${conversation[i].last_updated}</p>
 													</div>
 													<div id="content">
-														<p id="text">${conversation[i].messages[conversation[i].messages.size()-1].content}</p>
+														<p id="text">${conversation[i].messages[messages_size].content}</p>
 													</div>
 													<div id="tags">
 														<p id="tag">${conversation[i].tags}</p>

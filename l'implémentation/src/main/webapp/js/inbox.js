@@ -53,6 +53,85 @@ function updateSentMessagesCounter(){
 	xhr.open("GET","getSentConversation");
 	xhr.send();
 }
+function getRecivedMessages(){
+	let xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function(){
+		var json;
+		if(this.readyState == 4 && this.status == 200){
+			json = JSON.parse(this.responseText);
+			console.log(json);
+			let counter = json.conversation.length;
+			console.log(counter);
+			const inbox_list = document.querySelector(".inbox-list");
+			clearChild(inbox_list);
+			for (let i=0 ;i<counter;i++){
+				const email = document.createElement("div");
+				email.setAttribute("id","email");
+				if (json.conversation[i].not_read_count > 0){
+					email.setAttribute("style","background:#fff");
+				}
+				email.setAttribute("onclick","read(this)");
+				const image = document.createElement("div");
+				image.setAttribute("id","image");
+				const imagesrc=document.createElement("img");
+				imagesrc.setAttribute("style","width:50px;");
+				let path = "/Atelier"+json.conversation[i].messages[0].sourceImage;
+				imagesrc.setAttribute("src", path);
+				image.append(imagesrc);
+				email.append(image);
+				const email_content = document.createElement("div");
+				email_content.setAttribute("id","email-content");
+				const header = document.createElement("div");
+				header.setAttribute("id","header");
+				const inputConvId = document.createElement("input");
+				inputConvId.setAttribute("id","id");
+				inputConvId.setAttribute("type","hidden");
+				inputConvId.setAttribute("value",json.conversation[i].id);
+				header.append(inputConvId);
+				const inputTitle = document.createElement("input");
+				inputTitle.setAttribute("id","title");
+				inputTitle.setAttribute("type","hidden");
+				inputTitle.setAttribute("value",json.conversation[i].title);
+				header.append(inputTitle);
+				const sender = document.createElement("p");
+				sender.setAttribute("id","sender");
+				sender.innerHTML = json.conversation[i].messages[0].sourceName;
+				header.append(sender);
+				const time = document.createElement("p");
+				time.setAttribute("id","time");
+				time.innerHTML = json.conversation[i].last_updated;
+				header.append(time);
+				email_content.append(header);
+				const content = document.createElement("div");
+				content.setAttribute("id","content");
+				const text = document.createElement("p");
+				text.setAttribute("id","text");
+				text.innerHTML = json.conversation[i].messages[0].content;
+				content.append(text);
+				email_content.append(content);
+				const tags = document.createElement("div");
+				tags.setAttribute("id","tags");
+				const tag = document.createElement("p");
+				tag.setAttribute("id","tag");
+				tag.innerHTML = json.conversation[i].tags;
+				tags.append(tag);
+				if (json.conversation[i].not_read_count > 0){
+					const status = document.createElement("div");
+					status.setAttribute("id","status");
+					const number = document.createElement("p");
+					number.innerHTML = json.conversation[i].not_read_count;
+					status.append(number);
+					tags.append(status);
+				}
+				email_content.append(tags);
+				email.append(email_content);
+				inbox_list.append(email);
+			}
+		}
+	}
+	xhr.open("GET","inbox");
+	xhr.send();
+}
 function getSentMessages(){
 	let xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function(){
@@ -145,8 +224,6 @@ function read(element){
 	    if (this.readyState == 4 && this.status == 200) {    
 			json = JSON.parse(this.responseText);            
 			console.log(json);
-			getSentMessages();
-			updateSentMessagesCounter();
 			count = Object.keys(json).length;
 			const tag = element.querySelector("#tag").innerHTML;
 			const title = element.querySelector("#title").value;
