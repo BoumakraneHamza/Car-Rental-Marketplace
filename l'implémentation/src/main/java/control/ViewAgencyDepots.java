@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Building;
 import model.DAO;
 import model.Depot;
 import model.Reservation;
@@ -41,9 +42,9 @@ public class ViewAgencyDepots extends HttpServlet {
 		User user = (User) request.getSession().getAttribute("user");
 		if (user != null) {
 			request.setAttribute("user", user);
-			ArrayList<Depot> Buildings = null;
+			ArrayList<Building> Buildings = null;
 			DAO dao = new DAO();
-			Buildings = dao.getAgencyDepots(user.getNom());
+			Buildings = dao.getAgencyBuildings(user.getNom());
 
 			request.setAttribute("Buildings", Buildings);
 			

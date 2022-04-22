@@ -254,7 +254,7 @@ public class DAO {
 		String Query ; 
 		PreparedStatement statement; 
 		ResultSet result ; 
-		ArrayList<Vehicule> cars = new ArrayList<>();
+		ArrayList<Vehicule> cars = new ArrayList<Vehicule>();
 		Vehicule vehicule = null ;
 		try {
 			connectDB();
@@ -535,13 +535,11 @@ public class DAO {
 		return null;
 	}
 	
-	public ArrayList<Depot> getAgencyDepots(String AgencyName) {
+	public ArrayList<Building> getAgencyBuildings(String AgencyName) {
 		String Query;
+		ArrayList<Building> buildings = new ArrayList<Building>();
+		
 		PreparedStatement statement;
-		
-		ArrayList<Depot> depots = new ArrayList<Depot>();
-		Depot depot;
-		
 		ResultSet result;
 		try {
 			connectDB();
@@ -553,37 +551,83 @@ public class DAO {
 			result = statement.executeQuery();
 			
 			while(result.next()) {
-				depot = new Depot();
+				Depot depot = new Depot();
 				depot.setCode(result.getString("code"));
 				depot.setAdress(result.getString("adress"));
 				depot.setCapacite(result.getInt("capacite"));
 				depot.setCapacite_libre(result.getInt("capacite_libre"));
 				depot.setAgence_nom(result.getString("agence_nom"));
-				depot.setGaragiste_email(result.getString("garagiste_email"));
+				depot.setEmployee_email(result.getString("garagiste_email"));
 				depot.setLat(result.getString("lat"));
 				depot.setLon(result.getString("lon"));
 				depot.setBookings(result.getInt("Bookings"));
-				Query = "Select * from garagiste where email = ?";
-				statement = connection.prepareStatement(Query);
-				statement.setString(1, depot.getGaragiste_email());
-				User garagiste = new User();
-				ResultSet result1 = statement.executeQuery();
-				if(result1.next()) {
-					garagiste.setNom(result1.getString("nom"));
-					garagiste.setPrenom(result1.getString("prenom"));
-					garagiste.setImage(result1.getString("photo"));
-					garagiste.setEmail(depot.getGaragiste_email());
-				}
-				depot.setGaragiste(garagiste);
+				depot.setEmployee(getBuildingEmployee(depot));
 				depot.setCapacityPercentile((depot.getCapacite_libre()*100)/depot.getCapacite());
-				depots.add(depot);
+				
+				buildings.add(depot);
+			}
+			
+			Query = "select * \r\n"
+					+ "from offices \r\n"
+					+ "where agency_name  = ?";
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, AgencyName);
+			result = statement.executeQuery();
+			
+			while(result.next()) {
+				Office office = new Office();
+				office.setCode(result.getString("code"));
+				office.setAdress(result.getString("address"));
+				office.setAgence_nom(result.getString("agency_name"));
+				office.setEmployee_email(result.getString("email_secretaire"));
+				office.setLat(result.getString("lat"));
+				office.setLon(result.getString("lon"));
+				office.setBookings(result.getInt("Bookings"));
+				office.setEmployee(getBuildingEmployee(office));
+				
+				buildings.add(office);
 			}
 			statement.close();
-		}catch (Exception e) {
-			System.out.println(e);
-			
+		} catch (SQLException | InstantiationException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return depots;
+		return buildings;
+	}
+	
+	public Employee getBuildingEmployee(Building building) {
+		Employee employee = null;
+		String query;
+		PreparedStatement statement;
+		String type;
+		
+		if (building.getType() == "depot") {
+			query = "SELECT * FROM atelier.garagiste WHERE email = ?";
+			type = "garagiste";
+		} else {
+			query = "SELECT * FROM atelier.secretary WHERE email = ?";
+			type = "secretary";
+		}
+		try {
+			connectDB();
+			statement = connection.prepareStatement(query);
+			statement.setString(1, building.getEmployee_email());
+			ResultSet result = statement.executeQuery();
+			if(result.next()) {
+				employee = new Employee();
+				employee.setLastName(result.getString("nom"));
+				employee.setFirstName(result.getString("prenom"));
+				employee.setImage(result.getString("photo"));
+				employee.setEmail(result.getString("email"));
+				employee.setWorkingLocation(result.getString("working_location"));
+				//employee.setMonthlySession(result.getString("monthly_session"));
+				employee.setType(type);
+			}
+		} catch (SQLException | InstantiationException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return employee;
 	}
 	
 	public ArrayList<Employee> getAgencyPersonals(String AgencyName) {
@@ -904,6 +948,30 @@ public class DAO {
 		}
 	}
 	
+	public void addOffice(Office office) {
+		String Query;
+		PreparedStatement statement;
+		
+		try {
+			connectDB();
+			Query = "INSERT INTO `atelier`.`offices` (`agency_name`, `address`, `email_secretaire`, `lat`, `lon`) \r\n" 
+					+ "VALUES (?, ?, ?, ?, ?)";
+			statement = connection.prepareStatement(Query);
+
+			statement.setString(1, office.getAgence_nom());
+			statement.setString(2, office.getAdress());
+			statement.setString(3, office.getSecretary_email());
+			statement.setString(4, office.getLat());
+			statement.setString(5, office.getLon());
+			
+			statement.executeUpdate();
+			
+			statement.close();
+		}catch (SQLException | InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public ArrayList<Message> ReadConversation(int id) {
 		String Query = "Select * from messages where id_conversation = ? Order by creationTime DESC";
 		PreparedStatement statement; 
@@ -1177,6 +1245,7 @@ public class DAO {
 		}
 		return requests;
 	}
+	
 	public request GetRequestsById(String id){
 		request requests = null;
 		String Query = "Select * from requests where id= ? limit 1";

@@ -1,49 +1,15 @@
 package model;
 
-public class Depot {
-	private String code;
-	private String adress;
+public class Depot extends Building{
 	private int capacite;
 	private int capacite_libre;
-	private String agence_nom;
-	private String garagiste_email;
-	private String lat;
-	private String lon;
-	private User garagiste;
 	private int CapacityPercentile;
-	private int bookings;
 	
-	public void setGaragiste(User garagiste) {
-		this.garagiste = garagiste;
-	}
-	public User getGaragiste() {
-		return garagiste;
-	}
-	public void setBookings(int bookings) {
-		this.bookings = bookings;
-	}
-	public int getBookings() {
-		return bookings;
-	}
-	public void setCapacityPercentile(int capacityPercentile) {
-		CapacityPercentile = capacityPercentile;
-	}
-	public int getCapacityPercentile() {
-		return CapacityPercentile;
+	public Depot() {
+		super();
+		setType("depot");
 	}
 	
-	public String getCode() {
-		return code;
-	}
-	public void setCode(String code) {
-		this.code = code;
-	}
-	public String getAdress() {
-		return adress;
-	}
-	public void setAdress(String adress) {
-		this.adress = adress;
-	}
 	public int getCapacite() {
 		return capacite;
 	}
@@ -56,28 +22,22 @@ public class Depot {
 	public void setCapacite_libre(int capacite_libre) {
 		this.capacite_libre = capacite_libre;
 	}
-	public String getAgence_nom() {
-		return agence_nom;
+	public Employee getGaragiste() {
+		return this.getEmployee();
 	}
-	public void setAgence_nom(String agence_nom) {
-		this.agence_nom = agence_nom;
+	public void setGaragiste(Employee garagiste) {
+		setEmployee(garagiste);
+	}
+	public int getCapacityPercentile() {
+		return CapacityPercentile;
+	}
+	public void setCapacityPercentile(int capacityPercentile) {
+		CapacityPercentile = capacityPercentile;
 	}
 	public String getGaragiste_email() {
-		return garagiste_email;
+		return super.getEmployee_email();
 	}
 	public void setGaragiste_email(String garagiste_email) {
-		this.garagiste_email = garagiste_email;
-	}
-	public String getLat() {
-		return lat;
-	}
-	public void setLat(String lat) {
-		this.lat = lat;
-	}
-	public String getLon() {
-		return lon;
-	}
-	public void setLon(String lon) {
-		this.lon = lon;
+		super.setEmployee_email(garagiste_email);
 	}
 }

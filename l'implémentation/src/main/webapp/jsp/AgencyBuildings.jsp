@@ -95,13 +95,17 @@
 				      	<table cellpadding="0" cellspacing="0">
 				      		<tbody id="BuildingList">
 				      		<c:forEach items="${Buildings}" var="Building">
-			      				<tr id="Building">
+			      				<tr id="Building" onclick="depotDetails(this)">
 			      					<td id="BuildingCode" style="width: 10%">${Building.code}</td>
-			              			<td id="BuildingType" style="width: 15%"><p id="value">depot</p></td>
+			              			<td id="BuildingType" style="width: 15%"><p id="value">${Building.type}</p></td>
 			              			<td id="BuildingStatus" style="width: 15%"><div id="wrapper"><div id="status"></div><p>Active</p></div></td>
 			              			<td id="BuildingLocation" style="width: 25%">${Building.adress}</td>
 			              			<td id="BuildingBookings" style="width: 15%"><p id="value">+${Building.bookings}</p></td>
-			              			<td id="BuildingCapacity" style="width: 20%"><div class="battery"><div class="level" style="width:${Building.getCapacityPercentile()}%;"></div></div>${Building.getCapacityPercentile()}%</td>
+			              			<td id="BuildingCapacity" style="width: 20%"><div class="battery"><div class="level" style="width:${Building.type eq 'depot' ? Building.getCapacityPercentile() : 0}%;"></div></div>${Building.type eq 'depot' ? Building.getCapacityPercentile() : 0}%</td>
+			              			<td hidden="true" id="BuildingTotalCapacity">${Building.type eq 'depot' ? Building.capacite : 0}</td>
+			              			<td hidden="true" >${Building.employee.firstName}</td>
+			              			<td hidden="true" >${Building.employee.type}</td>
+			              			<td hidden="true" >${Building.employee.image}</td>
 					      		</tr>
 					      	</c:forEach>
 				      		</tbody>
@@ -112,29 +116,29 @@
 				    	<div class="data">
 				    		<div class="details_header">
 					    		<div id="BuildingName">
-					    			<div id="type">Depot</div>
+					    			<div id="type">${Buildings[0].type}:</div>
 					    			<div id="code">${Buildings[0].code}</div>
 					    		</div>
 					    		<div id="Capacity">
-					    			<div class="battery"><div class="level" style="width:${Buildings[0].getCapacityPercentile()}%;"></div></div><p id="value">${Buildings[0].getCapacityPercentile()}%</p>
+					    			<div class="battery"><div id="batteryLevel" class="level" style="width:${Buildings[0].type eq 'depot' ? Buildings[0].getCapacityPercentile() : 0}%;"></div></div><p class="batteryValue" id="value">${Buildings[0].type eq 'depot' ? Buildings[0].getCapacityPercentile() : 0}%</p>
 					    		</div>
 					    	</div>
 					    	<div class="responsable_personal">
 					    		<div id="employee_info">
 					    			<div id="info_header">
-					    				<p id="employeeName">${Buildings[0].garagiste.prenom}</p>
+					    				<p id="employeeName">${Buildings[0].employee.firstName}</p>
 					    				<div id="cta">
 					    					<img style="width:21px;" src="${pageContext.request.contextPath}/assets/sent-icon-black.svg">
 					    				</div>
 					    			</div>
-					    			<div id="employement"><p>Employement :</p><p id="value">Garagiste</p></div>
+					    			<div id="employement"><p>Employement :</p><p class="employeeType" id="value">${Buildings[0].employee.type}</p></div>
 					    		</div>
-					    		<img style="width:70px;" src="${pageContext.request.contextPath}${Buildings[0].garagiste.image}">
+					    		<img id="employeeImage" style="width:70px;" src="${pageContext.request.contextPath}${Buildings[0].employee.image}">
 					    	</div>
 					    	<div class="stats">
 					    		<div id="detailed_capacity">
 					    		<p id="stat_header">Total Capacity :</p>
-					    		<p id="value">${Buildings[0].capacite}</p>
+					    		<p class="capaciteValue" id="value">${Buildings[0].type eq 'depot' ? Buildings[0].capacite : 0}</p>
 					    		</div>
 					    		<p id="stat_header">Weekly Bookings</p>
 					    		<canvas id="booking_chart"></canvas>
@@ -156,7 +160,7 @@
 
 		<div id="tempFormForAddingBuilding" style="visibility:hidden;background-color:grey;position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);border: 5px solid #000000;padding: 10px;">
 			<div id="addingFepotForm"><p>adding depot</p>
-				<form id="addingDepot" onsubmit="submitDepot(event)">
+				<form id="addingDepot" onsubmit="submitBuilding(event, this)">
 					<div>
 						<label>adress</label><br>
 						<input type="text" name="adress">
@@ -170,36 +174,30 @@
 						<input type="number" name="freeCapacity">
 					</div>
 					<div>
-						<label>agency name</label><br>
-						<input type="text" name="agencyName">
-					</div>
-					<div>
 						<label>garagiste email</label><br>
 						<input type="email" name="garagisteEmail">
 					</div>
 						<input type="hidden" name="lat">
 						<input type="hidden" name="lon">
+						<input type="hidden" name="agencyName" value="${user.nom}">
 						<input type="hidden" name="type" value="depot">
 					<input type="reset"><input type="submit">
 				</form>
 			</div>
 			<br><br><br>
 			<div id="addingFepotForm"><p>adding office</p>
-				<form id="addingOffice" action="">
+				<form id="addingOffice" onsubmit="submitBuilding(event, this)">
 					<div>
 						<label>adress</label><br>
-						<input type="text">
-					</div>
-					<div>
-						<label>agency name</label><br>
-						<input type="number">
+						<input type="text" name="adress">
 					</div>
 					<div>
 						<label>secretary email</label><br>
-						<input type="email">
+						<input type="email" name="secretaryEmail">
 					</div>
-						<input type="hidden">
-						<input type="hidden">
+						<input type="hidden" name="lat">
+						<input type="hidden" name="lon">
+						<input type="hidden" name="agencyName" value="${user.nom}">
 						<input type="hidden" name="type" value="office">
 					
 					<input type="reset"><input type="submit">
@@ -207,6 +205,9 @@
 			</div>
 			
 		</div>
+<script type="text/javascript">
+	var contextPath = "${pageContext.request.contextPath}";
+</script>
 </body>
 </html>
 </body>

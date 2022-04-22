@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Building;
 import model.DAO;
 import model.Depot;
+import model.Office;
 import model.User;
 
 /**
@@ -39,26 +41,31 @@ public class AjaxAddBuilding extends HttpServlet {
 			response.setCharacterEncoding("UTF-8");
 			PrintWriter out = response.getWriter();
 			
-			ArrayList<Depot> buildings = null;
+			ArrayList<Building> buildings = null;
 			DAO dao = new DAO();
-			buildings = dao.getAgencyDepots(user.getNom());
+			buildings = dao.getAgencyBuildings(user.getNom());
 			
-			out.print("<building>\n");
-			for(Depot build : buildings) {
-				out.print("<depot>\n");
+			out.print("<buildings>\n");
+			for(Building build : buildings) {
+				out.print("<"+build.getType()+">\n");
 				out.print("<code>" + build.getCode()+ "</code>\n");
 				out.print("<adress>" + build.getAdress() + "</adress>\n");
-				out.print("<capacite>" + build.getCapacite() + "</capacite>\n");
-				out.print("<capacite_libre>" + build.getCapacite_libre() + "</capacite_libre>\n");
 				out.print("<agence_nom>" + build.getAgence_nom() + "</agence_nom>\n");
-				out.print("<garagiste_email>" + build.getGaragiste_email() + "</garagiste_email>\n");
+				out.print("<garagiste_email>" + build.getEmployee_email() + "</garagiste_email>\n");
 				out.print("<lat>" + build.getLat() + "</lat>\n");
 				out.print("<lon>" + build.getLon() + "</lon>\n");
-				out.print("<capacityPercentile>" + build.getCapacityPercentile() + "</capacityPercentile>\n");
 				out.print("<bookings>" + build.getBookings() + "</bookings>\n");
-				out.print("</depot>\n");
+				if (build.getType().equals("depot")) {
+					out.print("<capacite>" + ((Depot) build).getCapacite() + "</capacite>\n");
+					out.print("<capacite_libre>" + ((Depot) build).getCapacite_libre() + "</capacite_libre>\n");
+					out.print("<capacityPercentile>" + ((Depot) build).getCapacityPercentile() + "</capacityPercentile>\n");
+				}
+				out.print("<employeeFirstName>" + build.getEmployee().getFirstName() + "</employeeFirstName>\n");
+				out.print("<employeeType>" + build.getEmployee().getType() + "</employeeType>\n");
+				out.print("<employeeImage>" + build.getEmployee().getImage() + "</employeeImage>\n");
+				out.print("</"+build.getType()+">\n");
 			}
-			out.print("</building>");
+			out.print("</buildings>");
 			
 		}
 		
@@ -82,7 +89,14 @@ public class AjaxAddBuilding extends HttpServlet {
 				
 				dao.addDepot(depot);
 			} else {
-
+				DAO dao = new DAO();
+				Office office = new Office();
+				
+				office.setAdress(request.getParameter("adress"));
+				office.setAgence_nom(request.getParameter("agencyName"));
+				office.setSecretary_email(request.getParameter("secretaryEmail"));
+				
+				dao.addOffice(office);
 			}
 		}
 		doGet(request, response);
