@@ -56,7 +56,7 @@
 								<h4>MailBox</h4>
 							</div>
 							<div id="messages">
-								<c:forEach var="i" begin="0" end="${conversation.size()-1}" step="1">
+								<c:forEach var="i" begin="0" end="${conversation.size()}" step="1">
 									<c:set var="messages_size" value="${fn:length(conversation[i].messages)-1}" />
 									<c:choose>
 										<c:when test="${conversation[i].not_read_count > 0 }">

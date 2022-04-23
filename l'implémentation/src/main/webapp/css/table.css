@@ -19,7 +19,7 @@
 #DataBase .table-content table tbody tr{
 	text-align: initial;
     padding: 20px;
-    height: 30px;
+    height: 60px;
     display: flex;
     cursor:pointer;
     flex-direction: row;
