@@ -1,0 +1,147 @@
+.main-frame {
+    width: calc(100vw - 50px);
+    height: calc(100vh - 55px);
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.main-frame .reservations {
+    width: calc(100vw - 90px);
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.main-frame .reservations #tab_header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+	width: calc(100vw - 90px);
+    justify-content: space-between;
+}
+.main-frame .reservations #tab_header #tab_header_title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-left: 10px;
+}
+.main-frame .reservations #tab_header #tab_right_corner {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 33%;
+    align-items: center;
+    justify-content: space-between;
+}
+.main-frame .reservations #tab_header #tab_right_corner #summary {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+	margin-right: 10px;
+    width: 65%;
+    align-items: center;
+    justify-content: space-between;
+}
+.main-frame .reservations #tab_header #tab_right_corner #summary #tile {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.main-frame .reservations #tab_header #tab_right_corner #summary #tile #value {
+    font-size: 20px;
+    font-weight: 600;
+}
+.main-frame .reservations #tab_header #tab_right_corner #summary #tile #title {
+    font-size: 15px;
+    font-weight: 500;
+    color: #C4C4C4;
+}
+.main-frame .reservations #tab_header #tab_right_corner #cta {
+	border: 2px solid #b8b08d;
+    width: 100px;
+    height: 40px;
+    cursor: pointer;
+    background: none;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 3px;
+    color: #b8b08d;
+    margin: 0px auto;
+}
+.main-frame .reservations .tab_slider {
+    display: flex;
+    width: calc(100vw - 130px);
+    padding: 10px 20px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.main-frame .reservations .tab_slider .booking_card {
+	display: flex;
+    background: #fff;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding: 10Px;
+    width: fit-content;
+    border: 2px solid #E4E4E4;
+    border-radius: 5px;
+}
+.main-frame .reservations .tab_slider .booking_card #card_tab_title {
+    font-weight: 600;
+    font-size: 14px;
+}
+.main-frame .reservations .tab_slider .booking_card .date {
+    border-bottom: 2px solid #E4E4E4;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-items: flex-start;
+}
+.main-frame .reservations .tab_slider .booking_card .date #pick_up {
+	display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 700;
+}
+.main-frame .reservations .tab_slider .booking_card .date #pick_up #main_date {
+    font-size: 20px;
+    font-weight: 700;
+}
+.main-frame .reservations .tab_slider .booking_card .date #remaining_time {
+    font-size: 15px;
+    color: #C4C4C4;
+    font-weight: 600;
+}
+.main-frame .reservations .tab_slider .booking_card  #vehicule {
+	display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding: 10px;
+    border-bottom: 2px solid #E4E4E4;
+}
+.main-frame .reservations .tab_slider .booking_card  #vehicule #car_name {
+    background: #b2f3b2;
+    padding: 5px 10px;
+    margin-top: 10px;
+    border-radius: 3px;
+    font-size: 15px;
+    font-weight: 600;
+}
+.main-frame .reservations .tab_slider .booking_card #renter {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.main-frame .reservations .tab_slider .booking_card #renter #renter_name {
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 10px;
+}

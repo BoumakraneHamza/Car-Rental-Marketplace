@@ -14,6 +14,7 @@ public class User {
 	private String type;
 	private String user_name;
 	private String password;
+	private Garagiste garagisteInfo;
 	
 	public void setPassword(String password) {
 		this.password = password;
@@ -93,5 +94,10 @@ public class User {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
+	public Garagiste getGaragisteInfo() {
+		return garagisteInfo;
+	}
+	public void setGaragisteInfo(Garagiste garagisteInfo) {
+		this.garagisteInfo = garagisteInfo;
+	}
 }

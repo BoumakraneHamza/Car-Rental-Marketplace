@@ -103,7 +103,7 @@
 					<img src="${pageContext.request.contextPath}/assets/No_messages.svg">
 					<p>No new Messages</p>
 				</div>
-				<div id="response_done" display="none">
+				<div id="response_done">
 					<img style="width:150px;" src="${pageContext.request.contextPath}/assets/response_done.svg">
 					<p>Well done</p>
 				</div>

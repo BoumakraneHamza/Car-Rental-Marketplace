@@ -269,7 +269,7 @@ CREATE TABLE `garagiste` (
 
 LOCK TABLES `garagiste` WRITE;
 /*!40000 ALTER TABLE `garagiste` DISABLE KEYS */;
-INSERT INTO `garagiste` VALUES ('aaaa@aaa.aa','aaaa','aaaa','','aaaaa',NULL,'Hertz'),('g01@email.com','Boumakrane','Hamza','/assets/profile_pics/1email.png','batna','0000-00-00','Hertz'),('g02@email.com','gara','garagiste','/assets/profile_pics/1email.png','constantine','0000-00-00','Hertz');
+INSERT INTO `garagiste` VALUES ('aaaa@aaa.aa','aaaa','aaaa','/assets/profile_pics/1email.png','aaaaa',NULL,'Hertz'),('g01@email.com','Boumakrane','Hamza','/assets/profile_pics/1email.png','batna','0000-00-00','Hertz'),('g02@email.com','gara','garagiste','/assets/profile_pics/1email.png','constantine','0000-00-00','Hertz');
 /*!40000 ALTER TABLE `garagiste` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -790,4 +790,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-22 19:12:33
+-- Dump completed on 2022-04-23  1:01:17

@@ -63,6 +63,9 @@ public class DAO {
 	            else if(result.getString("type").equals("service_client")) {
 	            	user = getServiceClient(result.getString("email"));
 	            }
+	            else if(result.getString("type").equals("garagiste")) {
+	            	user = getGaragiste(result.getString("email"));
+	            }
 	        }
 	        statement.close();
 	        System.out.println("Success !");
@@ -106,6 +109,35 @@ public class DAO {
 		return user;
 	}
 	
+	private User getGaragiste(String email) {
+		User user = null ;
+		Garagiste garagiste = null;
+		String Query = "Select * from garagiste where email = ? limit 1";
+		PreparedStatement statement;
+		ResultSet result ; 
+		try {
+			connectDB();
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, email);
+			result = statement.executeQuery();
+			if (result.next()) {
+				user = new User();
+				garagiste = new Garagiste();
+				user.setEmail(email);
+				user.setType("garagiste");
+				user.setNom(result.getString("nom"));
+				user.setPrenom(result.getString("prenom"));
+				user.setImage(result.getString("photo"));
+				garagiste.setAgency_name(result.getString("agency_name"));
+				garagiste.setMonthly_session(result.getString("monthly_session"));
+				garagiste.setWorking_location(result.getString("working_location"));
+				user.setGaragisteInfo(garagiste);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
 	private User getServiceClient(String email) throws SQLException {
 		User user = null ;
 		String query = "SELECT * FROM serviceclient WHERE email = ?";

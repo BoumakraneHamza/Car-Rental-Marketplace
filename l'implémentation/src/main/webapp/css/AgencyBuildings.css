@@ -27,6 +27,15 @@
     font-weight: 500;
     font-size: 16px;
 }
+.main-frame .main-content #DataBase #BuildingType #value2 {
+    background: #bbd2ff;
+    width: fit-content;
+    padding: 5px 23px;
+    height: fit-content;
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 16px;
+}
 .main-frame .main-content #DataBase #BuildingCapacity {
     display: flex;
     align-items: center;

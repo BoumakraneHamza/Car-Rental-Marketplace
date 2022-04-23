@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/AgencyMain.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/ClientMain.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/table.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/AgencyBuildings.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/toggle.css">
@@ -97,7 +97,15 @@
 				      		<c:forEach items="${Buildings}" var="Building">
 			      				<tr id="Building" onclick="depotDetails(this)">
 			      					<td id="BuildingCode" style="width: 10%">${Building.code}</td>
-			              			<td id="BuildingType" style="width: 15%"><p id="value">${Building.type}</p></td>
+			              			<td id="BuildingType" style="width: 15%">
+			              			<c:choose><c:when test="${Building.type.equals('depot')}">
+			              				<p id="value">${Building.type}</p>
+			              			</c:when>
+			              			<c:otherwise>
+			              				<p id="value2">${Building.type}</p>
+			              			</c:otherwise>
+			              			</c:choose>
+			              			</td>
 			              			<td id="BuildingStatus" style="width: 15%"><div id="wrapper"><div id="status"></div><p>Active</p></div></td>
 			              			<td id="BuildingLocation" style="width: 25%">${Building.adress}</td>
 			              			<td id="BuildingBookings" style="width: 15%"><p id="value">+${Building.bookings}</p></td>
