@@ -48,6 +48,7 @@ public class AjaxAddBuilding extends HttpServlet {
 			out.print("<buildings>\n");
 			for(Building build : buildings) {
 				out.print("<"+build.getType()+">\n");
+				
 				out.print("<code>" + build.getCode()+ "</code>\n");
 				out.print("<adress>" + build.getAdress() + "</adress>\n");
 				out.print("<agence_nom>" + build.getAgence_nom() + "</agence_nom>\n");
@@ -60,9 +61,15 @@ public class AjaxAddBuilding extends HttpServlet {
 					out.print("<capacite_libre>" + ((Depot) build).getCapacite_libre() + "</capacite_libre>\n");
 					out.print("<capacityPercentile>" + ((Depot) build).getCapacityPercentile() + "</capacityPercentile>\n");
 				}
-				out.print("<employeeFirstName>" + build.getEmployee().getFirstName() + "</employeeFirstName>\n");
-				out.print("<employeeType>" + build.getEmployee().getType() + "</employeeType>\n");
-				out.print("<employeeImage>" + build.getEmployee().getImage() + "</employeeImage>\n");
+				try {
+					out.print("<employeeFirstName>" + build.getEmployee().getFirstName() + "</employeeFirstName>\n");
+					out.print("<employeeType>" + build.getEmployee().getType() + "</employeeType>\n");
+					out.print("<employeeImage>" + build.getEmployee().getImage() + "</employeeImage>\n");
+				} catch (Exception e) {
+					out.print("<employeeFirstName>" + "</employeeFirstName>\n");
+					out.print("<employeeType>" + "</employeeType>\n");
+					out.print("<employeeImage>" + "</employeeImage>\n");
+				}
 				out.print("</"+build.getType()+">\n");
 			}
 			out.print("</buildings>");
@@ -86,6 +93,8 @@ public class AjaxAddBuilding extends HttpServlet {
 				depot.setCapacite_libre(Integer.parseInt(request.getParameter("freeCapacity")));
 				depot.setAgence_nom(request.getParameter("agencyName"));
 				depot.setGaragiste_email(request.getParameter("garagisteEmail"));
+				depot.setLat(request.getParameter("lat"));
+				depot.setLon(request.getParameter("lon"));
 				
 				dao.addDepot(depot);
 			} else {
@@ -95,6 +104,8 @@ public class AjaxAddBuilding extends HttpServlet {
 				office.setAdress(request.getParameter("adress"));
 				office.setAgence_nom(request.getParameter("agencyName"));
 				office.setSecretary_email(request.getParameter("secretaryEmail"));
+				office.setLat(request.getParameter("lat"));
+				office.setLon(request.getParameter("lon"));
 				
 				dao.addOffice(office);
 			}

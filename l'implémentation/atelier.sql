@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `atelier` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `atelier`;
--- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.28, for Win64 (x86_64)
 --
 -- Host: localhost    Database: atelier
 -- ------------------------------------------------------
--- Server version	8.0.27
+-- Server version	8.0.28
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -202,6 +202,7 @@ CREATE TABLE `depot` (
   KEY `fk_Depot_Utilisateur1_idx` (`garagiste_email`),
   KEY `agency_name_idx` (`agence_nom`),
   CONSTRAINT `agency_name` FOREIGN KEY (`agence_nom`) REFERENCES `agence` (`nom`),
+  CONSTRAINT `fk_garagiste` FOREIGN KEY (`garagiste_email`) REFERENCES `garagiste` (`email`),
   CONSTRAINT `check_storage` CHECK (((`capacite` >= 0) and (`capacite_libre` >= 0) and (`capacite_libre` <= `capacite`)))
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -372,7 +373,11 @@ CREATE TABLE `offices` (
   `email_secretaire` varchar(45) DEFAULT NULL,
   `lat` varchar(45) DEFAULT NULL,
   `lon` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`code`,`agency_name`)
+  PRIMARY KEY (`code`,`agency_name`),
+  KEY `fk_agency_idx` (`agency_name`),
+  KEY `fk_secretary_idx` (`email_secretaire`),
+  CONSTRAINT `fk_agency` FOREIGN KEY (`agency_name`) REFERENCES `agence` (`nom`),
+  CONSTRAINT `fk_secretary` FOREIGN KEY (`email_secretaire`) REFERENCES `secretary` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -790,4 +795,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-23  1:01:17
+-- Dump completed on 2022-04-23 12:42:47

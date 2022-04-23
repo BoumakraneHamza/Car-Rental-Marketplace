@@ -94,7 +94,8 @@
 					      		<c:choose>
 									<c:when test="${not empty employees}">
 										<c:forEach items="${employees}" var="employee">
-								      		<tr id="employee">
+								      		<tr id="employee" onclick="employeeDetails(this)">
+								      			<td hidden="true" id="employeetype">${employee.type}</td>
 						      					<td id="employeeId" style="width: 20%">${employee.workingLocation}</td>
 						              			<td id="employeeName" style="width: 20%">${employee.firstName} ${employee.lastName}</td>
 						              			<td id="employeePhone" style="width: 20%"><div id="wrapper"><div id="status"></div><p id="time">since 20:00</p></div></td>
@@ -116,12 +117,12 @@
 				    		<div id="header">
 				    		<div id="employee_info">
 				    			<div id="info_header">
-				    				<p id="employeeName">Hamza</p>
+				    				<p class="employeeName" id="employeeName">${employees[0].firstName } ${employees[0].lastName }</p>
 				    				<div id="cta">
 				    					<img style="width:21px;" src="${pageContext.request.contextPath}/assets/sent-icon-black.svg">
 				    				</div>
 				    			</div>
-				    			<div id="employement"><p>Employement :</p><p id="value">Garagiste</p></div>
+				    			<div id="employement"><p>Employement :</p><p class="employeeType" id="value">${employees[0].type }</p></div>
 				    		</div>
 				    		<img style="width:70px;" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
 				    	</div>

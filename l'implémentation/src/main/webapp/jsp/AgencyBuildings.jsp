@@ -11,6 +11,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
 <meta charset="UTF-8">
 <title>Buildings</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+   crossorigin=""/>
 </head>
 <body>
 <div class="header">
@@ -74,7 +77,7 @@
 								<img src="${pageContext.request.contextPath}/assets/search-icon.svg">
 								<input type="text" placeholder="Search">
 							</div>
-							<div id="add" onclick="document.getElementById('tempFormForAddingBuilding').style.visibility='visible'"><button><img style="margin-right: 11px;" src="${pageContext.request.contextPath}/assets/add.svg"><p>Add Building</p></button></div>
+							<div id="add" onclick="addingBuilding()"><button><img style="margin-right: 11px;" src="${pageContext.request.contextPath}/assets/add.svg"><p>Add Building</p></button></div>
 						</div>
 					</div>
 				      <div id="table_header">
@@ -166,10 +169,10 @@
 		<script src="${pageContext.request.contextPath}/js/AgencyBuildings.js"></script>
 <%@include file="/jsp/dropdownList.jsp"%>
 
-		<div id="tempFormForAddingBuilding" style="visibility:hidden;background-color:grey;position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);border: 5px solid #000000;padding: 10px;">
+		<div id="tempFormForAddingBuilding" style="visibility:hidden;background-color:grey;position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);border: 5px solid #000000;padding: 10px;display: flex;">
 			<div id="addingFepotForm"><p>adding depot</p>
 				<form id="addingDepot" onsubmit="submitBuilding(event, this)">
-					<div>
+					<div style="padding: 10px;">
 						<label>adress</label><br>
 						<input type="text" name="adress">
 					</div>
@@ -185,17 +188,21 @@
 						<label>garagiste email</label><br>
 						<input type="email" name="garagisteEmail">
 					</div>
-						<input type="hidden" name="lat">
-						<input type="hidden" name="lon">
+					<div>
+						<label>location</label><br>
+						<div id="depotLocationInputMap" style="width:200px;height:200px;margin: 10px;"></div>
+					</div>
+						<input id="depotLat" type="hidden" name="lat">
+						<input id="depotLon" type="hidden" name="lon">
 						<input type="hidden" name="agencyName" value="${user.nom}">
 						<input type="hidden" name="type" value="depot">
 					<input type="reset"><input type="submit">
 				</form>
 			</div>
-			<br><br><br>
+			<br>
 			<div id="addingFepotForm"><p>adding office</p>
 				<form id="addingOffice" onsubmit="submitBuilding(event, this)">
-					<div>
+					<div style="padding: 10px;">
 						<label>adress</label><br>
 						<input type="text" name="adress">
 					</div>
@@ -203,8 +210,12 @@
 						<label>secretary email</label><br>
 						<input type="email" name="secretaryEmail">
 					</div>
-						<input type="hidden" name="lat">
-						<input type="hidden" name="lon">
+					<div>
+					<label>location</label><br>
+						<div id="officeLocationInputMap" style="width:200px;height:200px;margin: 10px;"></div>
+					</div>
+						<input id="officeLat" type="hidden" name="lat">
+						<input id="officeLon" type="hidden" name="lon">
 						<input type="hidden" name="agencyName" value="${user.nom}">
 						<input type="hidden" name="type" value="office">
 					
@@ -216,6 +227,9 @@
 <script type="text/javascript">
 	var contextPath = "${pageContext.request.contextPath}";
 </script>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin=""></script>
 </body>
 </html>
 </body>

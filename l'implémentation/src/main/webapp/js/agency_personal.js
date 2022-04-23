@@ -1,3 +1,11 @@
+function employeeDetails(element) {
+	element = element.firstElementChild;
+	document.getElementsByClassName('employeeType')[0].innerHTML = element.innerText;
+	element = element.nextElementSibling.nextElementSibling;
+	document.getElementsByClassName('employeeName')[0].innerHTML = element.innerText;
+	
+}
+
 function submitEmployee(event, form) {
 	event.preventDefault();
 	var param = new URLSearchParams(new FormData(form)).toString();

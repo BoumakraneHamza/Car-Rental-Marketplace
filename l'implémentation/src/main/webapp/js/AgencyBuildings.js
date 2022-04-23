@@ -19,10 +19,58 @@ let char2 = new Chart(Bookings_chart ,{
 	},
 });
 
+var depotMap;
+var officeMap;
+function addingBuilding() {
+	
+	if (depotMap == null){
+		depotMap = L.map('depotLocationInputMap');
+		depotMap.setView([36.24600, 6.57083], 11);
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	    	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+	    }).addTo(depotMap);
+	}
+    
+    var depotMarker;
+    depotMap.on('click', function(e) {
+		if(depotMarker == null)
+		depotMarker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(depotMap);
+		else
+		depotMarker.setLatLng(e.latlng);
+		
+		document.getElementById('depotLat').value = e.latlng.lat
+		document.getElementById('depotLon').value = e.latlng.lng
+	});    
+    
+    if (officeMap == null){
+	    officeMap = L.map('officeLocationInputMap');
+		officeMap.setView([36.24600, 6.57083], 11);
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+	    }).addTo(officeMap);
+    }
+    
+    var officeMarker;
+    officeMap.on('click', function(e) {
+		if(officeMarker == null)
+		officeMarker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(officeMap);
+		else
+		officeMarker.setLatLng(e.latlng);
+		
+		document.getElementById('officeLat').value = e.latlng.lat
+		document.getElementById('officeLon').value = e.latlng.lng
+	});
+    
+	document.getElementById('tempFormForAddingBuilding').style.visibility='visible'
+}
+
 function depotDetails(element) {
 	element = element.firstElementChild;
 	document.getElementById('code').innerHTML = element.innerHTML;
+	if(element.nextElementSibling.innerText == "depot")
 	document.getElementsByName('depot')[0].value = element.innerHTML;
+	else
+	document.getElementsByName('depot')[0].value = "";
 	element = element.nextElementSibling;
 	document.getElementById('type').innerHTML = element.innerText+":";
 	element = element.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling;
@@ -59,15 +107,15 @@ function submitBuilding(event, element){
 }
 
 function createBuildings(build) {
-	const code = build.getElementsByTagName("code")[0].childNodes[0].nodeValue;
-	const adress = build.getElementsByTagName("adress")[0].childNodes[0].nodeValue;
-	const bookings = build.getElementsByTagName("bookings")[0].childNodes[0].nodeValue;
+	const code = build.getElementsByTagName("code")[0].innerHTML
+	const adress = build.getElementsByTagName("adress")[0].innerHTML
+	const bookings = build.getElementsByTagName("bookings")[0].innerHTML
 	const buildType = build.nodeName
-	const capacityPercentile = buildType == "depot" ? build.getElementsByTagName("capacityPercentile")[0].childNodes[0].nodeValue : 0;
-	const capacite = buildType == "depot" ? build.getElementsByTagName("capacite")[0].childNodes[0].nodeValue : 0;
-	const employeeFirstName = build.getElementsByTagName("employeeFirstName")[0].childNodes[0].nodeValue;
-	const employeeType = build.getElementsByTagName("employeeType")[0].childNodes[0].nodeValue;
-	const employeeImage = build.getElementsByTagName("employeeImage")[0].childNodes[0].nodeValue;
+	const capacityPercentile = buildType == "depot" ? build.getElementsByTagName("capacityPercentile")[0].innerHTML : 0;
+	const capacite = buildType == "depot" ? build.getElementsByTagName("capacite")[0].innerHTML : 0;
+	const employeeFirstName = build.getElementsByTagName("employeeFirstName")[0].innerHTML
+	const employeeType = build.getElementsByTagName("employeeType")[0].innerHTML
+	const employeeImage = build.getElementsByTagName("employeeImage")[0].innerHTML
 	
 	var aBuilding = document.createElement('tr');
 	aBuilding.setAttribute('id','Building');
