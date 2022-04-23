@@ -1,31 +1,42 @@
-.main-frame {
+.main-frame{
     width: calc(100vw - 50px);
     height: calc(100vh - 55px);
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
 }
-.main-frame .reservations {
-    width: calc(100vw - 90px);
-    padding: 20px 10px;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-}
-.main-frame .reservations #tab_header {
+.main-frame .top_main_frame {
+	height: calc(50vh - 45px);
+    width: calc(100vw - 50px);
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+    padding: 10px;
     align-items: center;
-	width: calc(100vw - 90px);
     justify-content: space-between;
 }
-.main-frame .reservations #tab_header #tab_header_title {
+.main-frame .top_main_frame .reservations {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    height: 100%;
+}
+.main-frame .top_main_frame .reservations #tab_header {
+	display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+	margin-bottom: 10px;
+}
+.main-frame .top_main_frame .reservations #tab_header #tab_header_title {
     font-size: 20px;
     font-weight: 600;
     margin-left: 10px;
 }
-.main-frame .reservations #tab_header #tab_right_corner {
+.main-frame .top_main_frame .reservations #tab_header #tab_right_corner {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -33,7 +44,7 @@
     align-items: center;
     justify-content: space-between;
 }
-.main-frame .reservations #tab_header #tab_right_corner #summary {
+.main-frame .top_main_frame .reservations #tab_header #tab_right_corner #summary {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -42,23 +53,25 @@
     align-items: center;
     justify-content: space-between;
 }
-.main-frame .reservations #tab_header #tab_right_corner #summary #tile {
+.main-frame .top_main_frame .reservations #tab_header #tab_right_corner #summary #tile {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
     justify-content: space-between;
     align-items: center;
 }
-.main-frame .reservations #tab_header #tab_right_corner #summary #tile #value {
-    font-size: 20px;
+.main-frame .top_main_frame .reservations #tab_header #tab_right_corner #summary #tile #value {
+	font-size: 20px;
     font-weight: 600;
+    line-height: 16px;
 }
-.main-frame .reservations #tab_header #tab_right_corner #summary #tile #title {
-    font-size: 15px;
+.main-frame .top_main_frame .reservations #tab_header #tab_right_corner #summary #tile #title {
+   	font-size: 15px;
     font-weight: 500;
+    line-height: 14px;
     color: #C4C4C4;
 }
-.main-frame .reservations #tab_header #tab_right_corner #cta {
+.main-frame .top_main_frame .reservations #tab_header #tab_right_corner #cta {
 	border: 2px solid #b8b08d;
     width: 100px;
     height: 40px;
@@ -70,30 +83,30 @@
     color: #b8b08d;
     margin: 0px auto;
 }
-.main-frame .reservations .tab_slider {
-    display: flex;
-    width: calc(100vw - 130px);
-    padding: 10px 20px;
+.main-frame .top_main_frame .reservations .tab_slider {
+	display: flex;
+    width: 100%;
+    padding: 0px 10px;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-between;
     align-items: center;
 }
-.main-frame .reservations .tab_slider .booking_card {
+.main-frame .top_main_frame .reservations .tab_slider .booking_card {
 	display: flex;
     background: #fff;
     flex-direction: column;
     flex-wrap: nowrap;
-    padding: 10Px;
+    padding: 10px 5px;
     width: fit-content;
     border: 2px solid #E4E4E4;
     border-radius: 5px;
 }
-.main-frame .reservations .tab_slider .booking_card #card_tab_title {
+.main-frame .top_main_frame .reservations .tab_slider .booking_card #card_tab_title {
     font-weight: 600;
     font-size: 14px;
 }
-.main-frame .reservations .tab_slider .booking_card .date {
+.main-frame .top_main_frame .reservations .tab_slider .booking_card .date {
     border-bottom: 2px solid #E4E4E4;
     padding: 10px;
     display: flex;
@@ -102,7 +115,7 @@
     align-content: center;
     align-items: flex-start;
 }
-.main-frame .reservations .tab_slider .booking_card .date #pick_up {
+.main-frame .top_main_frame .reservations .tab_slider .booking_card .date #pick_up {
 	display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -110,23 +123,23 @@
     font-size: 13px;
     font-weight: 700;
 }
-.main-frame .reservations .tab_slider .booking_card .date #pick_up #main_date {
+.main-frame .top_main_frame .reservations .tab_slider .booking_card .date #pick_up #main_date {
     font-size: 20px;
     font-weight: 700;
 }
-.main-frame .reservations .tab_slider .booking_card .date #remaining_time {
+.main-frame .top_main_frame .reservations .tab_slider .booking_card .date #remaining_time {
     font-size: 15px;
     color: #C4C4C4;
     font-weight: 600;
 }
-.main-frame .reservations .tab_slider .booking_card  #vehicule {
+.main-frame .top_main_frame .reservations .tab_slider .booking_card  #vehicule {
 	display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
     padding: 10px;
     border-bottom: 2px solid #E4E4E4;
 }
-.main-frame .reservations .tab_slider .booking_card  #vehicule #car_name {
+.main-frame .top_main_frame .reservations .tab_slider .booking_card  #vehicule #car_name {
     background: #b2f3b2;
     padding: 5px 10px;
     margin-top: 10px;
@@ -134,14 +147,197 @@
     font-size: 15px;
     font-weight: 600;
 }
-.main-frame .reservations .tab_slider .booking_card #renter {
+.main-frame .top_main_frame .reservations .tab_slider .booking_card #renter {
     padding: 10px;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
 }
-.main-frame .reservations .tab_slider .booking_card #renter #renter_name {
-    font-size: 18px;
-    font-weight: 600;
+.main-frame .top_main_frame .reservations .tab_slider .booking_card #renter #renter_tile {
+	display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
     margin-top: 10px;
+}
+.main-frame .top_main_frame .reservations .tab_slider .booking_card #renter #renter_tile #renter_image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+.main-frame .top_main_frame .reservations .tab_slider .booking_card #renter #renter_tile #renter_name {
+    font-size: 16px;
+    font-weight: 500;
+}
+.main-frame .top_main_frame .performance_card {
+	width: 20%;
+    height: 100%;
+    display: flex;
+    padding: 10px;
+    border: 2px solid #E4E4E4;
+    border-radius: 5Px;
+    background: #fff;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.main-frame .top_main_frame .performance_card .card_header {
+    padding: 0px 10px 10px;
+	border-bottom: 2px solid #E4E4E4;
+}
+.main-frame .top_main_frame .performance_card .card_header #title {
+    font-size: 17px;
+    font-weight: 500;
+}
+.main-frame .top_main_frame .performance_card #percentile {
+    font-size: 25px;
+    text-align: center;
+    font-weight: 600;
+	margin-top: 10px;
+}
+.main-frame .top_main_frame .performance_card #subtitle {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 10px;
+    color: #C4C4C4;
+}
+.main-frame .top_main_frame .performance_card #SeeReviews {
+    width: 180px;
+    height: 35px;
+    margin-top: 12px;
+    align-self: center;
+    border: 2px solid #b196ea;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #b196ea;
+    cursor: pointer;
+    background: none;
+    font-family: 'Poppins', sans-serif;
+}
+.main-frame .bottom_main_frame {
+	height: 50vh;
+    padding: 0px 10px 10px 10px;
+    display: flex;
+    width: calc(100vw - 50px);
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+}
+.main-frame .bottom_main_frame .stats {
+	width: 80%;
+    padding: 0px 10px;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+.main-frame .bottom_main_frame .stats .stats_wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+.main-frame .bottom_main_frame .stats .stats_wrapper .stat {
+    background: #fff;
+    border: 2px solid #E4E4E4;
+    width: 33%;
+    border-radius: 5px;
+    height: 100%;
+}
+.main-frame .bottom_main_frame .stats .stats_wrapper .stat #stat_header {
+    font-size: 17px;
+    font-weight: 500;
+    padding: 10Px;
+}
+.main-frame .bottom_main_frame .stats .stats_wrapper .stat #canvas_wrapper {
+    width: 100%;
+    height: calc(100% - 60px);
+}
+.main-frame .bottom_main_frame .stats .tab_header {
+    padding: 0px 0px 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+.main-frame .bottom_main_frame .stats .tab_header #title {
+    font-size: 20px;
+    font-weight: 500;
+}
+.main-frame .bottom_main_frame .Reported_problems {
+	width: 20%;
+    height: 100%;
+    padding: 0px 10px 10px;
+    background: #fff;
+    border: 2px solid #E4E4E4;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+.main-frame .bottom_main_frame .Reported_problems .reported_tab_header {
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    border-bottom: 2px solid #E4E4E4;
+}
+.main-frame .bottom_main_frame .Reported_problems .Report_list {
+	display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    height: -webkit-fill-available;
+}
+.main-frame .bottom_main_frame .Reported_problems .Report_list .report {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding: 10px;
+    background: #fafafa;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+.main-frame .bottom_main_frame .Reported_problems .Report_list .report #title {
+    font-size: 16px;
+    max-width: 200px;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+.main-frame .bottom_main_frame .Reported_problems .Report_list .report #tags #tag {
+    width: fit-content;
+    background: #93cbff;
+    padding: 2px 15px;
+    border-radius: 6px;
+    font-weight: 500;
+}
+.main-frame .bottom_main_frame .Reported_problems .Report_list .report #tags {
+    display: flex;
+    flex-direction: row;
+    margin-top: 7px;
+    flex-wrap: nowrap;
+}
+.main-frame .bottom_main_frame .Reported_problems #SeeReviews {
+	width: 180px;
+    height: 45px;
+    align-self: center;
+    border: 2px solid #b196ea;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #b196ea;
+    cursor: pointer;
+    background: none;
+    font-family: 'Poppins', sans-serif;
 }

@@ -1,0 +1,43 @@
+*:after, *:before {
+  box-sizing: border-box;
+}
+.multigraph {
+    width: 200px;
+    margin-top:15px;
+    height: 100px;
+    position: relative;
+    align-self: center;
+    overflow: hidden;
+}
+.multigraph:before {
+  content: '';
+  width: 200px;
+  height: 100px;
+  position: absolute;
+  border: 30px solid rgba(0,0,0,0.1);
+  border-radius: 300px 300px 0 0;
+  border-bottom: none;
+}
+.graph {
+  width: 200px;
+  height : 100px;
+  position: absolute;
+
+}
+.graph:before, .graph:after {
+  width: 200px;
+  height : 100px;
+  position: absolute;
+  top: 100%;
+  border: 30px solid #b196ea;
+  content: '';
+  border-radius:0 0 300px 300px;
+  border-top: none;
+  animation: demo 3s;
+  transform-origin: center top;
+}
+
+@keyframes demo {
+  0% { transform: rotate(0deg) }
+  50% { transform: rotate(180deg) }
+}
