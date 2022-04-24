@@ -177,7 +177,7 @@
 					You need to make an efforts
 					to reach your goal
 				</p>
-				<button id="SeeReviews">View Statistics</button>
+				<button onclick="location.href='GaragisteCars'" id="SeeReviews">View Statistics</button>
 			</div>
 		</div>
 			<div class="bottom_main_frame">

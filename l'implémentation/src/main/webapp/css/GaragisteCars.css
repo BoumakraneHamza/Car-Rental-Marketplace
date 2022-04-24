@@ -1,0 +1,274 @@
+.content .main-frame {
+    width: 75vw;
+    height: calc(100vh - 55px);
+}
+.content .main-frame .content_header {
+	height: 50px;
+    width: auto;
+    border-bottom: 2px solid #E4E4E4;
+    padding: 10px 0px 10px 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin-right: 10Px;
+	margin-top: 10px;
+    justify-content: space-between;
+}
+.content .main-frame  .content_header #left {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: 40%;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+.content .main-frame  .content_header #left #title_header {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+.content .main-frame  .content_header #left #title {
+    display: flex;
+    font-size: 18px;
+    font-weight: 600;
+}
+.content .main-frame  .content_header #left #back {
+	width: 40px;
+    height: 40px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    border: 2px solid #E4E4E4;
+    margin-right: 10px;
+}
+.content .main-frame  .content_header #left #searchBar {
+	display: flex;
+    align-items: center;
+    align-content: center;
+    width: 260px;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    margin-right: 15px;
+}
+.content .main-frame  .content_header #left #searchBar input {
+	width: 100%;
+    box-sizing: border-box;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 0px 6px 6px 0px;
+    color: #99a3ba;
+    border: 2px solid #ededed;
+    background: #F7F8FA;
+    border-left: none;
+}
+.content .main-frame  .content_header #left #searchBar input::placeholder {
+	font-size:12px;
+	font-weight:400;
+	font-family: 'Poppins', sans-serif;
+}
+.content .main-frame  .content_header #left #searchBar input:focus{
+	outline:none;
+}
+ .content .main-frame  .content_header #left #searchBar img {
+    border: 2px solid #ededed;
+    padding: 11px 0px 11px 11px;
+    border-radius: 6px 0px 0px 6px;
+    border-right: none;
+    background: #F7F8FA;
+    width: 31px;
+}
+.content .main-frame  .content_header #right {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+.content .main-frame .content_header #right #filter {
+    height: 40px;
+    border-radius: 5px;
+    border: 2px solid #E4E4E4;
+    padding: 5px 10px;
+    font-weight: 600;
+}
+.content .main-frame  .content_header #right #filter:focus{
+	outline:none;
+	border-color: #9ace48;
+}
+.content .main-frame .content-frame {
+    width:100%;
+    display: flex;
+   	height: calc(100vh - 115px);
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+.content .main-frame .content-frame .content_body {
+   	height: auto;
+    width: 75vw;
+    display: flex;
+    flex-wrap: wrap;
+    background: #fff;
+    overflow-y: auto;
+    padding: 10px;
+    border: 2px solid #E4E4E4;
+    flex-direction: row;
+    margin: 10px;
+    border-radius: 5px;
+}
+.content .main-frame .content-frame .content_body #car{
+	border: 2px solid #EFEFEF;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: fit-content;
+    height: fit-content;
+    margin: 5px;
+}
+.content .main-frame .content-frame .content_body #car #car_image {
+    padding: 5px;
+}
+.content .main-frame .content-frame .content_body #car #car_info{
+	display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+	padding: 5px 10px;
+    border-bottom: 2px solid #E4E4E4;
+}
+.content .main-frame .content-frame .content_body #car #car_info #names{
+	margin-right: 15px;
+}
+.content .main-frame .content-frame .content_body #car #car_info #names #carName{
+	font-weight: 500;
+    font-size: 15px;
+}
+.content .main-frame .content-frame .content_body #car #car_info #rating {
+    font-size: 17px;
+    display: flex;
+    font-weight: 600;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+.content .main-frame .content-frame .content_body #car #car_features {
+    border-bottom: 2px solid #E4E4E4;
+}
+.content .main-frame .content-frame .content_body #car #car_features #features {
+   	display: flex;
+    flex-direction: column;
+    font-size: 15px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    font-weight: 500;
+}
+.content .main-frame .content-frame .content_body #car #deal {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    padding: 10px;
+    width: 70%;
+    align-items: center;
+    align-self: flex-end;
+}
+.content .main-frame .content_body #car #deal #cta button {
+    border: none;
+    background: #B8B08D;
+    display: flex;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    font-size: 13px;
+    font-weight: 500;
+    align-items: center;
+    width: 100px;
+    height: 35px;
+    font-family: 'Poppins', sans-serif;
+}
+.content .sidebar {
+	background: #fff;
+    width: 25vw;
+    height: calc(100vh - 75px);
+    margin: 10px;
+    border-radius: 5px;
+    border: 2px solid #E4E4E4;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.content .sidebar #canvas_wrapper {
+    height: 38vh;
+}
+.content .sidebar #review_list {
+	display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding: 0px 10px;
+    overflow-y: auto;
+    height: 46vh;
+    overflow-x: hidden;
+}
+.content .sidebar .reviews #review_list #review {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    height: 100px;
+}
+.content .sidebar .reviews #review_list #review #renter {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+.content .sidebar .reviews #review_list #review #renter #verticatl_line {
+    border: none;
+    border-left: 2px dotted #71c050;
+    color: #fff;
+    background-color: #fff;
+    width: 1px;
+    height: 60px;
+}
+.content .sidebar .reviews #review_list #review #renter #renter_image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.content .sidebar .reviews #review_list #review #content {
+	display: flex;
+    flex-direction: column;
+    padding-left: 5px;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+}
+.content .sidebar .reviews #review_list #review #content #renter_name {
+    font-size: 17px;
+    font-weight: 600;
+}
+.content .sidebar .reviews #review_list #review #content #review_content {
+    overflow: hidden;
+    font-size: 14px;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.content .sidebar .reviews #review_list #review #content #date {
+    font-size: 14px;
+    color: #C4C4C4;
+    font-weight: 500;
+}

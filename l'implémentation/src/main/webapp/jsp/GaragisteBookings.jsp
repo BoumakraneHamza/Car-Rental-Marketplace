@@ -5,8 +5,6 @@
 <html>
 <head>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ClientMain.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/table.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/toggle.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/GaragisteBookings.css">
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>

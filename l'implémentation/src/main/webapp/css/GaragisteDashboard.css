@@ -267,10 +267,12 @@
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-between;
+    align-items: center;
 }
 .main-frame .bottom_main_frame .stats .tab_header #title {
     font-size: 20px;
     font-weight: 500;
+    height:fit-content;
 }
 .main-frame .bottom_main_frame .stats .tab_header #range_picker {
     padding: 10px 20px;
