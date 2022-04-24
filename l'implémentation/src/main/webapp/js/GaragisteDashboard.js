@@ -1,3 +1,13 @@
+$(function() {
+  $('input[name="range_picker"]').daterangepicker({
+    timePicker: true,
+    startDate: moment().startOf('hour'),
+    endDate: moment().startOf('hour').add(32, 'hour'),
+    locale: {
+      format: 'M/DD hh:mm A'
+    }
+  });
+});
 const stat1 = document.querySelector("#stat1");
 let char1 = new Chart(stat1 ,{
 	type:'doughnut',

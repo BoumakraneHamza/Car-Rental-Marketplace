@@ -1,0 +1,145 @@
+.main-frame {
+	width: calc(100vw - 15%);
+    height: calc(100vh - 55px);
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    margin: 0px auto;
+}
+.main-frame .main-frame-header {
+	display: flex;
+    flex-direction: row;
+    padding: 10px;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+.main-frame .main-frame-header #left {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    width: 30%;
+    justify-content: space-between;
+}
+.main-frame .main-frame-header #left #header_title {
+    font-size: 21px;
+    font-weight: 600;
+}
+.main-frame .main-frame-header #left #searchBar {
+	display: flex;
+    align-items: center;
+    align-content: center;
+    width: 60%;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    margin-right: 15px;
+}
+.main-frame .main-frame-header #left #searchBar input {
+	width: 100%;
+    box-sizing: border-box;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 0px 6px 6px 0px;
+    color: #99a3ba;
+    border: 2px solid #ededed;
+    background: #F7F8FA;
+    border-left: none;
+}
+.main-frame .main-frame-header #left #searchBar input::placeholder {
+	font-size:12px;
+	font-weight:400;
+	font-family: 'Poppins', sans-serif;
+}
+.main-frame .main-frame-header #left #searchBar input:focus{
+	outline:none;
+}
+.main-frame .main-frame-header #left #searchBar img {
+	border: 2px solid #ededed;
+    padding: 11px 0px 12px 11px;
+    border-radius: 6px 0px 0px 6px;
+    border-right: none;
+    background: #F7F8FA;
+    width: 30Px;
+}
+.main-frame .main-frame-header #right {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+.main-frame .main-frame-header #right .cta button {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    font-size: 14px;
+    flex-wrap: nowrap;
+    cursor:pointer;
+    font-weight: 600;
+    border: 2px solid #b196ea;
+    border-radius: 5Px;
+    color: #b196ea;
+    height: 45px;
+    width: 150px;
+    margin-right: 20px;
+    justify-content: center;
+}
+.main-frame .main-frame-header #right #range_picker {
+    padding: 10px 20px;
+    width: 260px;
+    border: 2px solid #E4E4E4;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: 'Poppins', sans-serif;
+}
+.main-frame .main-frame-header #right #range_picker::placeholder {
+	font-size:12px;
+	font-weight:400;
+	font-family: 'Poppins', sans-serif;
+}
+.main-frame .main-frame-header #right #range_picker:focus{
+	outline:none;
+	border-color: #b196ea;
+}
+.main-frame .main-frame-content {
+    width: 100%;
+    height: -webkit-fill-available;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.main-frame .main-frame-content .content-header {
+	width: 100%;
+    display: grid;
+    padding: 10px;
+    color: #C4C4C4;
+    font-size: 16px;
+    border-bottom: 2px solid #E4E4E4;
+    font-weight: 500;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    justify-items: center;
+}
+.main-frame .main-frame-content .database-content {
+	display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex-wrap: nowrap;
+    height: calc(100vh - 170px);
+}
+.main-frame .main-frame-content .database-content #booking {
+    padding: 15px;
+    display: grid;
+    cursor:pointer;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    justify-items: center;
+    background: #fff;
+    margin: 2px;
+    border: 2px solid #E4E4E4;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 500;
+}

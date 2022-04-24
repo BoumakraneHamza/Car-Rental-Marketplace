@@ -8,6 +8,10 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/GaragisteDashboard.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/circleProgressBar.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <title>Dashboard</title>
 <style>
 	.graph:after {
@@ -59,7 +63,7 @@
 								<p id="title">This Month</p>
 							</div>
 						</div>
-						<button id="cta">Full List</button>
+						<button onclick="window.location.href='${pageContext.request.contextPath}/jsp/GaragisteBookings.jsp'" id="cta">Full List</button>
 					</div>
 				</div>
 				<div class="tab_slider">
@@ -180,7 +184,7 @@
 				<div class="stats">
 					<div class="tab_header">
 						<p id="title">Reported Problems</p>
-						<p id="rangePicker"></p>
+						<input id="range_picker" type="text" name="range_picker">
 					</div>
 					<div class="stats_wrapper">
 						<div class="stat">
