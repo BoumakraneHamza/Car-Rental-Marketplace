@@ -201,6 +201,5 @@
 </div>
 <script src="${pageContext.request.contextPath}/js/GaragisteCars.js"></script>
 <%@include file="/jsp/dropdownList.jsp"%>
-<%@include file="/jsp/AgencyCarDetails.jsp"%>
 </body>
 </html>

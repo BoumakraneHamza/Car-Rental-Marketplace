@@ -225,7 +225,7 @@
 							</div>
 						</div>
 					</div>
-					<button id="SeeReviews">View All</button>
+					<button onclick="window.location.href='${pageContext.request.contextPath}/jsp/GaragisteProblems.jsp'" id="SeeReviews">View All</button>
 				</div>
 			</div>
 		</div>

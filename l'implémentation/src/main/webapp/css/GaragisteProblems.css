@@ -1,0 +1,134 @@
+.main-frame {
+    width: calc(75vw - 50px);
+    margin: 10px;
+    height: auto;
+}
+.main-frame .main-frame-header {
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.main-frame .main-frame-header #main-frame-title {
+    font-size: 19px;
+    font-weight: 600;
+}
+.main-frame .main-frame-header #searchBar {
+	display: flex;
+    align-items: center;
+    align-content: center;
+    width: 260px;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+.main-frame .main-frame-header #searchBar input {
+	width: 100%;
+    box-sizing: border-box;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 0px 6px 6px 0px;
+    color: #99a3ba;
+    border: 2px solid #ededed;
+    background: #F7F8FA;
+    border-left: none;
+}
+.main-frame .main-frame-header #searchBar input::placeholder {
+	font-size:12px;
+	font-weight:400;
+	font-family: 'Poppins', sans-serif;
+}
+.main-frame .main-frame-header #searchBar input:focus{
+	outline:none;
+}
+ .main-frame .main-frame-header #searchBar img {
+    border: 2px solid #ededed;
+    padding: 11px 0px 11px 11px;
+    border-radius: 6px 0px 0px 6px;
+    border-right: none;
+    background: #F7F8FA;
+    width: 31px;
+}
+.main-frame .main-content{
+	width: -webkit-fill-available;
+    height: calc(100vh - 129px);
+    background: #fff;
+    border: 2px solid #E4E4E4;
+    border-radius: 5px;
+}
+.main-frame .main-content .stats {
+    width: calc(75vw - 50px);
+    height: fit-content;
+}
+.main-frame .main-content .stats #stats_title {
+    font-size: 17px;
+    font-weight: 600;
+    padding: 10px;
+}
+.main-frame .main-content .stats #stat_wrapper {
+    width: calc(75vw - 50px);
+    height: -webkit-fill-available;
+    padding:0px 25px ;
+}
+.main-frame .main-content .problems_list {
+	width: auto;
+    height: calc(100vh - 328px);
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    flex-wrap: nowrap;
+	justify-content: space-between;
+}
+.main-frame .main-content .ex-over{
+	background:#F9F9F9;
+}
+.main-frame .main-content .problems_list .Tab{
+	width: 32%;
+    height: 100%;
+}
+.main-frame .main-content .problems_list .Tab #Tab_header {
+    font-size: 16px;
+    font-weight: 500;
+    padding: 10px;
+}
+.main-frame .main-content .problems_list .Tab .Problem_list {
+    width: 100%;
+    height: calc(100vh - 395px);
+    padding: 10px;
+}
+.main-frame .main-content .problems_list .Tab .Problem_list .problem {
+    border: 2px solid #E4E4E4;
+    background:#fff;
+    cursor:grab;
+    position:relative;
+    border-radius: 5px;
+    padding: 5px 15px;
+}
+.main-frame .main-content .problems_list .Tab .Problem_list .moving{
+	padding:20px;
+}
+.main-frame .main-content .problems_list .Tab .Problem_list .problem #title {
+    font-size: 17px;
+    font-weight: 600;
+}
+.main-frame .main-content .problems_list .Tab .Problem_list .problem #tag {
+    width: fit-content;
+    height: fit-content;
+    margin: 5px;
+    background: #b8b08d;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 500;
+}
+.sidebar {
+    width: calc(25vw - 30px);
+    background: #fff;
+    margin: 10px 10px 10px 5px;
+    border: 2px solid #E4E4E4;
+    border-radius: 5px;
+    height: auto;
+}
