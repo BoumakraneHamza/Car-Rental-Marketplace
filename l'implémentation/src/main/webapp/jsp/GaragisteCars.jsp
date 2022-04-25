@@ -36,40 +36,35 @@
 <div class="content">
 		<div class="menu">
 			<button class="dashboard"><a href="${pageContext.request.contextPath}/Dashboard"><img src="${pageContext.request.contextPath}/assets/dashboard-icon.svg"></a></button>
-		<button class="Personal" ><a href="${pageContext.request.contextPath}/ViewAgencyPersonal"><img src="${pageContext.request.contextPath}/assets/personal-icon.svg"></a></button>
-		<button class="Personal" style="background: #F6AA1C;"><a href="${pageContext.request.contextPath}/ViewAgencyDepots"><img src="${pageContext.request.contextPath}/assets/building-icon-white.svg"></a></button>
-		
-	</div>
+		</div>
 	<div class="main-frame">
+		<div id="main-header-wrapper">
+			<p id="main-frame-header">Depot vehicles</p>
+			<select name="Filter" id="filter">
+				<option value="all">Show All</option>
+			    <option value="depots">Show Rented</option>
+			    <option value="offices">Show Available</option>
+			</select>
+		</div>
+		<div class="content-frame">
 		<div class="content_header">
 			<div id="left">
-				<div id="title_header">
-					<div id="back" onclick="location.href='Dashboard'" style="cursor:pointer;">
-						<img src="${pageContext.request.contextPath}/assets/angle-left-solid.svg">
-					</div>
-					<div id="title">
-						<p>Depot N° </p>
-						<p id="value">${depotcode}</p>
-					</div>
-				</div>
 				<div id="searchBar">
 					<img src="${pageContext.request.contextPath}/assets/search-icon.svg">
 					<input type="text" placeholder="Search">
 				</div>
 			</div>
-			<div id="right">
-				<select name="Filter" id="filter">
-					<option value="all">Show All</option>
-				    <option value="depots">Show Rented</option>
-				    <option value="offices">Show Available</option>
-				</select>
-			</div>
 		</div>
-		<div class="content-frame">
 			<div class="content_body">
 			<c:forEach items="${cars}" var="car">
 			<div id="car">
-				<div id="car_image"><img style="width:240px;height:151px;border-radius: 10px 10px 0px 0px ;" src="${pageContext.request.contextPath}${car.image}"></div>
+				<div id="car_image">
+					<div id="cta">
+						<img id="calendar" src="${pageContext.request.contextPath}/assets/date-checked-white.svg">
+						<img onclick="showStat(this)" id="stats"src="${pageContext.request.contextPath}/assets/chart-pie-white.svg">
+					</div>
+					<img style="width:240px;height:151px;border-radius: 10px 10px 0px 0px ;" src="${pageContext.request.contextPath}${car.image}">
+				</div>
 				<div id="car_info">
 					<div id="names">
 						<p id="carName">${car.marque} ${car.modele}</p>
@@ -80,26 +75,16 @@
 						<p id="score">${car.getAverageRating()}</p>
 					</div>
 				</div>
-				<h4 style="font-size: 15px;font-weight: 600;color: #C4C4C4;margin-top: 5px;margin-left: 10px;">Features :</h4>
-				<div id="car_features">
-					<div id="features">
-						<span>Daily Rate : ${car.PLJ}</span>
-						<span>Hourly Rate : ${car.PLH}</span>
-					</div>
-				</div>
-				<div id="deal">
-					<img src="${pageContext.request.contextPath}/assets/delete-icon.svg" onclick="confirmDelete('${car.matricule}')">
-					<div id="cta" onclick="show_details('${car.matricule}')">
-						<button>View Details</button>
-					</div>
-				</div>
 			</div>	
 			</c:forEach>					
 			</div>
 		</div>
 	</div>
-	<div class="sidebar">
+	<div class="sidebar" style="display:none">
+		<div id="sidebar_header">
 		<p id="tab_header">Car review stats</p>
+		<button id="exit" onclick="hideStat()">X</button>
+		</div>
 		<div id="canvas_wrapper">
 			<canvas id="stat1"></canvas>
 		</div>
