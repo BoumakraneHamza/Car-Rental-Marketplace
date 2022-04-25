@@ -148,7 +148,7 @@
 			</div>
 		</div>
 		<div id="tempFormForDeletingCars" style="visibility:hidden;background-color:grey;position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);border: 5px solid #000000;padding: 10px;">
-			<div id="deleteCarForm"><p>adding Car</p>
+			<div id="deleteCarForm"><p>delete car?</p>
 				<form id="deletingCar" onsubmit="deleteCar(event)">
 					<input type="hidden" name="matricule">
 					<input type="hidden" name="depot" value="${depotcode }">

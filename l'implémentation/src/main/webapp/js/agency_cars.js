@@ -39,7 +39,7 @@ function deleteCar(event) {
 }
 
 function confirmDelete(matricule) {
-	var x = document.getElementById('deletingCar').firstElementChild.value = matricule;
+	document.getElementById('deletingCar').firstElementChild.value = matricule;
 	document.getElementById('tempFormForDeletingCars').style.visibility='visible';
 }
 

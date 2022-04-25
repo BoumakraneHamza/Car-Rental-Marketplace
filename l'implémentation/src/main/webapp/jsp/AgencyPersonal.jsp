@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/table.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/AgencyPersonal.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/toggle.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/ViewProfile.css">
 <meta charset="UTF-8">
 <title>Personal</title>
 </head>
@@ -96,11 +97,14 @@
 										<c:forEach items="${employees}" var="employee">
 								      		<tr id="employee" onclick="employeeDetails(this)">
 								      			<td hidden="true" id="employeetype">${employee.type}</td>
-						      					<td id="employeeId" style="width: 20%">${employee.workingLocation}</td>
+								      			<td hidden="true" id="employeeEmail">${employee.email}</td>
+								      			<td hidden="true" id="employeeImage">${employee.image}</td>
+						      					<td id="employeeId" style="width: 20%">${employee.type eq "garagiste" ? "Depot" : "Office"} N° ${employee.workingLocation}</td>
 						              			<td id="employeeName" style="width: 20%">${employee.firstName} ${employee.lastName}</td>
 						              			<td id="employeePhone" style="width: 20%"><div id="wrapper"><div id="status"></div><p id="time">since 20:00</p></div></td>
 						              			<td id="employeeGender" style="width: 20%">6h 30min</td>
-						              			<td id="employeeEmail" style="width: 20%">169h 55min</td>
+						              			<td id="employeeMail" style="width: 20%">169h 55min</td>
+						              			<td><button onclick="confirmDelete('${employee.email}', '${employee.type}')">delete employee</button></td>
 								      		</tr>
 							      		</c:forEach>
 						      		</c:when>
@@ -124,7 +128,7 @@
 				    			</div>
 				    			<div id="employement"><p>Employement :</p><p class="employeeType" id="value">${employees[0].type }</p></div>
 				    		</div>
-				    		<img style="width:70px;" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
+				    		<img id="employeeDetailsImage" style="width:70px;" src="${pageContext.request.contextPath}${employees[0].image}">
 				    	</div>
 				    	<div id="time">
 				    		<div id="monthly_time">
@@ -161,11 +165,15 @@
 				    	<div id="body">
 				    		<div id="location">
 				    			<p>Working Location :</p>
-				    			<p id="value">Depot N° 12</p>
+				    			<p id="value" class="employeeBuilding" >${employee.type eq "garagiste" ? "Depot" : "Office"} N° ${employee.workingLocation}</p>
 				    		</div>
 				    	</div>
 				    	</div>
-				    	<button>View Profile</button>
+				    	<form class="details" onsubmit="viewProfile(event, this)">
+				    		<input id="employeeEmailInput" type="hidden" name="employeeEmail" value="${employees[0].email }">
+				    		<input id="employeeTypeInput" type="hidden" name="employeeType" value="${employees[0].type }">
+				    		<button>View Profile</button>
+				    	</form>
 				    </div>
 				</div>
 			</div>
@@ -177,26 +185,26 @@
 				<form id="addingGaragiste" onsubmit="submitEmployee(event, this)">
 					<div>
 						<label>first name</label><br>
-						<input type="text" name="firstName">
+						<input required type="text" name="firstName">
 					</div>
 					<div>
 						<label>last name</label><br>
-						<input type="text" name="lastName">
+						<input required type="text" name="lastName">
 					</div>
 					<div>
 						<label>email</label><br>
-						<input type="email" name="email">
+						<input required type="email" name="email">
 					</div>
 					<div>
 						<label>image</label><br>
-						<input type="text" name="image">
+						<input required type="text" name="image">
 					</div>
 					<div>
 						<label>working location</label><br>
-						<input type="text" name="workingLocation">
+						<input required type="text" name="workingLocation">
 					</div>
-						<input type="hidden" name="agency" value="${user.nom}">
-						<input type="hidden" name="type" value="garagiste">
+						<input required type="hidden" name="agency" value="${user.nom}">
+						<input required type="hidden" name="type" value="garagiste">
 					<input type="reset"><input type="submit">
 				</form>
 			</div>
@@ -205,31 +213,47 @@
 				<form id="addingSecretary" onsubmit="submitEmployee(event, this)">
 					<div>
 						<label>first name</label><br>
-						<input type="text" name="firstName">
+						<input required type="text" name="firstName">
 					</div>
 					<div>
 						<label>last name</label><br>
-						<input type="text" name="lastName">
+						<input required type="text" name="lastName">
 					</div>
 					<div>
 						<label>email</label><br>
-						<input type="email" name="email">
+						<input required type="email" name="email">
 					</div>
 					<div>
 						<label>image</label><br>
-						<input type="text" name="image">
+						<input required type="text" name="image">
 					</div>
 					<div>
 						<label>working location</label><br>
-						<input type="text" name="workingLocation">
+						<input required type="text" name="workingLocation">
 					</div>
-						<input type="hidden" name="agency" value="${user.nom}">
-						<input type="hidden" name="type" value="secretary">
+						<input required type="hidden" name="agency" value="${user.nom}">
+						<input required type="hidden" name="type" value="secretary">
 					<input type="reset"><input type="submit">
 				</form>
 			</div>
-			
 		</div>
+		<div id="tempFormForDeletingEmployees" style="visibility:hidden;background-color:grey;position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);border: 5px solid #000000;padding: 10px;">
+			<div id="deleteEmployeeForm"><p>delete employee?</p>
+				<form id="deletingEmployee" onsubmit="deleteEmployee(event, this)">
+					<input type="hidden" name="email">
+					<input type="hidden" name="type">
+					<button type="button" onclick="document.getElementById('tempFormForDeletingEmployees').style.visibility='hidden'">Cancel</button><input type="submit">
+				</form>
+			</div>
+		</div>
+		<form id="editEmployeeForm" class="info" onsubmit="editEmployee(event, this)" style="visibility:hidden;position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);border: 5px solid #000000;padding: 10px;">
+		<div class="wrapper" id="employeeProfileDetails">
+		
+		</div>
+		</form>
+<script type="text/javascript">
+	var contextPath = "${pageContext.request.contextPath}";
+</script>
 <script src="${pageContext.request.contextPath}/js/agency_personal.js"></script>
 </body>
 </html>

@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `atelier` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `atelier`;
--- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.28, for Win64 (x86_64)
 --
 -- Host: localhost    Database: atelier
 -- ------------------------------------------------------
--- Server version	8.0.27
+-- Server version	8.0.28
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -199,6 +199,7 @@ CREATE TABLE `depot` (
   `lon` varchar(45) DEFAULT NULL,
   `Bookings` int DEFAULT '0',
   PRIMARY KEY (`code`,`agence_nom`),
+  UNIQUE KEY `garagiste_email_UNIQUE` (`garagiste_email`),
   KEY `fk_Depot_Utilisateur1_idx` (`garagiste_email`),
   KEY `agency_name_idx` (`agence_nom`),
   CONSTRAINT `agency_name` FOREIGN KEY (`agence_nom`) REFERENCES `agence` (`nom`),
@@ -213,7 +214,7 @@ CREATE TABLE `depot` (
 
 LOCK TABLES `depot` WRITE;
 /*!40000 ALTER TABLE `depot` DISABLE KEYS */;
-INSERT INTO `depot` VALUES (1,'constantine',12,10,'Hertz','g01@email.com','36.25023','6.57394',2),(2,'batna',15,15,'Hertz',NULL,'35.55216','6.17968',NULL),(3,'constantine',15,15,'agence02',NULL,'36.2650','6.5833',NULL),(4,'constantine',20,3,'Hertz',NULL,'36.2536','6.5546',NULL),(5,'constantine',10,5,'agence02',NULL,'36.2493','6.5921',NULL),(6,'constantine',12,6,'agence02',NULL,'36.2333','6.5604',NULL),(7,'alger',100,50,'Hertz','g01@email.com',NULL,NULL,0);
+INSERT INTO `depot` VALUES (1,'constantine',12,10,'Hertz','g02@email.com','36.25023','6.57394',2),(2,'batna',15,15,'Hertz','g01@email.com','35.55216','6.17968',NULL),(3,'constantine',15,15,'agence02',NULL,'36.2650','6.5833',NULL),(4,'constantine',20,3,'Hertz',NULL,'36.2536','6.5546',NULL),(5,'constantine',10,5,'agence02',NULL,'36.2493','6.5921',NULL),(6,'constantine',12,6,'agence02',NULL,'36.2333','6.5604',NULL),(7,'alger',100,50,'Hertz','g03@email.com',NULL,NULL,0);
 /*!40000 ALTER TABLE `depot` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -376,6 +377,7 @@ CREATE TABLE `offices` (
   `lat` varchar(45) DEFAULT NULL,
   `lon` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`code`,`agency_name`),
+  UNIQUE KEY `email_secretaire_UNIQUE` (`email_secretaire`),
   KEY `fk_agency_idx` (`agency_name`),
   KEY `fk_secretary_idx` (`email_secretaire`),
   CONSTRAINT `fk_agency` FOREIGN KEY (`agency_name`) REFERENCES `agence` (`nom`),
@@ -507,9 +509,11 @@ CREATE TABLE `secretary` (
   `nom` varchar(45) NOT NULL,
   `prenom` varchar(45) NOT NULL,
   `photo` varchar(45) NOT NULL DEFAULT '/assets/profile_pics/default.png',
-  `working_location` varchar(45) NOT NULL,
+  `working_location` int NOT NULL,
   `agency_name` varchar(45) NOT NULL,
-  PRIMARY KEY (`email`)
+  PRIMARY KEY (`email`),
+  KEY `fk_location_idx` (`working_location`),
+  CONSTRAINT `fk_location` FOREIGN KEY (`working_location`) REFERENCES `offices` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -519,7 +523,7 @@ CREATE TABLE `secretary` (
 
 LOCK TABLES `secretary` WRITE;
 /*!40000 ALTER TABLE `secretary` DISABLE KEYS */;
-INSERT INTO `secretary` VALUES ('s01@email.com','secr','secretary','/assets/profile_pics/1email.png','constantine','Hertz'),('s02@email.com','secretary','secr','/assets/profile_pics/1email.png','batna','Hertz');
+INSERT INTO `secretary` VALUES ('s01@email.com','secr','secretary','/assets/profile_pics/1email.png',1,'Hertz'),('s02@email.com','secretary','secr','/assets/profile_pics/1email.png',2,'Hertz');
 /*!40000 ALTER TABLE `secretary` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -638,7 +642,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('1@email.com','12345678','client'),('d01@email.com','12345678','directeur'),('d02@gmail.com','12345678','directeur'),('g01@email.com','test','garagiste'),('Hamza@gmail.com','test','client'),('s01@email.com','12345678','secretaire'),('s02@email.com','12345678','secretaire'),('serviceClient@email.com','test','service_client');
+INSERT INTO `users` VALUES ('1@email.com','12345678','client'),('d01@email.com','12345678','directeur'),('d02@gmail.com','12345678','directeur'),('g01@email.com','test','garagiste'),('g03@email.com','12345678','garagiste'),('Hamza@gmail.com','test','client'),('s01@email.com','12345678','secretaire'),('s02@email.com','12345678','secretaire'),('serviceClient@email.com','test','service_client');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -797,4 +801,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-24 20:03:16
+-- Dump completed on 2022-04-25 18:38:55

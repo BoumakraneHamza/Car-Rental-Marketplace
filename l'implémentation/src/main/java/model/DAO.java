@@ -128,9 +128,9 @@ public class DAO {
 				user.setNom(result.getString("nom"));
 				user.setPrenom(result.getString("prenom"));
 				user.setImage(result.getString("photo"));
-				garagiste.setAgency_name(result.getString("agency_name"));
-				garagiste.setMonthly_session(result.getString("monthly_session"));
-				garagiste.setWorking_location(result.getString("working_location"));
+				garagiste.setAgencyName(result.getString("agency_name"));
+				garagiste.setMonthlySession(result.getString("monthly_session"));
+				garagiste.setWorkingLocation(result.getString("working_location"));
 				user.setGaragisteInfo(garagiste);
 			}
 		}catch(Exception e) {
@@ -322,45 +322,9 @@ public class DAO {
 			}
 		return cars;
 	}
+	
 	public ArrayList<Vehicule> getDepotCars(String depotCode){
-		String Query ; 
-		PreparedStatement statement; 
-		ResultSet result ; 
-		ArrayList<Vehicule> cars = new ArrayList<Vehicule>();
-		Vehicule vehicule = null ;
-		try {
-			connectDB();
-			Query = "Select * from vehicule where depot_code= ?";
-			statement = connection.prepareStatement(Query);
-			statement.setString(1, depotCode);
-			result = statement.executeQuery();
-			while(result.next()) {
-				vehicule = new Vehicule();
-				vehicule.setMatricule(result.getString("matricule"));
-	        	vehicule.setMarque(result.getString("marque"));
-	        	vehicule.setModele(result.getString("modele"));
-	        	vehicule.setPLJ(result.getDouble("PLJ"));
-	        	vehicule.setPLH(result.getDouble("PLH"));
-	        	vehicule.setType(result.getString("type"));
-	        	vehicule.setYear(result.getInt("year"));
-	        	vehicule.setImage(result.getString("image"));
-	        	vehicule.setDepot_code(result.getString("depot_code"));
-	        	vehicule.setColor(result.getString("color"));
-	        	vehicule.setNumberSeats(result.getInt("seats"));
-	        	vehicule.setNumberDoors(result.getInt("doors"));
-	        	vehicule.setNumberSuitCase(result.getInt("suit_case"));
-	        	vehicule.setMileage(result.getString("mileage"));
-	        	vehicule.setAverageRating(result.getDouble("rating"));
-	        	vehicule.setComfortRating(result.getDouble("comfort_rating"));
-	        	vehicule.setCleanlinessRating(result.getDouble("cleanliness_rating"));
-	        	vehicule.setPickReturnRating(result.getDouble("PickReturn_rating"));
-	        	vehicule.setValueMoneyRating(result.getDouble("ValueMoney_rating"));
-	        	cars.add(vehicule);
-			}
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-		return cars;
+		return getAgencyCars(depotCode);
 	}
 	
 	public ArrayList<Reservation> getReservation(String email) throws InstantiationException, IllegalAccessException{
@@ -720,7 +684,7 @@ public class DAO {
 			
 			result = statement.executeQuery();
 			while(result.next()) {
-				employee = new Employee();
+				employee = new Garagiste();
 				employee.setEmail(result.getString("email"));
 				employee.setFirstName(result.getString("prenom"));
 				employee.setLastName(result.getString("nom"));
@@ -1245,6 +1209,62 @@ public class DAO {
 			e.printStackTrace();
 		}
 	}
+	
+	public Employee getEmployee(String email, String type) {
+		String Query;
+		PreparedStatement statement;
+		Employee employee = null;
+		
+		ResultSet result;
+		try {
+			connectDB();
+			if(type.equals("garagiste")) {
+				Query = "SELECT * \r\n"
+						+ "FROM atelier.garagiste \r\n"
+						+ "WHERE email = ?";
+				
+				statement = connection.prepareStatement(Query);
+				statement.setString(1, email);
+				
+				result = statement.executeQuery();
+				
+				if(result.next()) {
+					employee = new Garagiste();
+					employee.setEmail(result.getString("email"));
+					employee.setFirstName(result.getString("prenom"));
+					employee.setLastName(result.getString("nom"));
+					employee.setImage(result.getString("photo"));
+					employee.setWorkingLocation(result.getString("working_location"));
+					employee.setMonthlySession(result.getString("monthly_session"));
+					employee.setType("garagiste");
+				}
+			} else {
+				Query = "SELECT * \r\n"
+						+ "FROM atelier.secretary \r\n"
+						+ "WHERE email = ?";
+				
+				statement = connection.prepareStatement(Query);
+				statement.setString(1, email);
+				
+				result = statement.executeQuery();
+				if(result.next()) {
+					employee = new Employee();
+					employee.setEmail(result.getString("email"));
+					employee.setFirstName(result.getString("prenom"));
+					employee.setLastName(result.getString("nom"));
+					employee.setImage(result.getString("photo"));
+					employee.setWorkingLocation(result.getString("working_location"));
+					//employee.setMonthlySession(result.getString("monthly_session"));
+					employee.setType("secretaire");
+				}
+			}
+			
+			statement.close();
+		}catch (SQLException | InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return employee;
+	}
 		
 	public void addEmployee(Employee employee) {
 		String Query;
@@ -1275,6 +1295,61 @@ public class DAO {
 			e.printStackTrace();	
 		}
 	}
+	
+	public void deleteEmployee(String email, String type) {
+		String Query;
+		PreparedStatement statement;
+		
+		try {
+			connectDB();
+			if (type.equals("garagiste"))
+				Query = "DELETE FROM `atelier`.`garagiste` WHERE (`email` = ?)";
+			else
+				Query = "DELETE FROM `atelier`.`secretary` WHERE (`email` = ?)";
+			
+			statement = connection.prepareStatement(Query);
+			
+			statement.setString(1, email);
+			
+			statement.executeUpdate();
+			
+			statement.close();
+		}catch (SQLException | InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();	
+		}
+	}
+	
+	public void editEmployee(Employee employee) {
+		String Query;
+		PreparedStatement statement;
+		
+		try {
+			connectDB();
+			if(employee.getType().equals("garagiste")) {
+				Query = "UPDATE `atelier`.`garagiste` \r\n"
+						+ "SET `nom` = ?, `prenom` = ?, `working_location` = ? \r\n"
+						+ "WHERE (`email` = ?);";
+			} else {
+				Query = "UPDATE `atelier`.`secretary` \r\n"
+						+ "SET `nom` = ?, `prenom` = ?, `working_location` = ? \r\n"
+						+ "WHERE (`email` = ?);";
+			}
+			
+			statement = connection.prepareStatement(Query);
+			
+			statement.setString(1, employee.getLastName());
+			statement.setString(2, employee.getFirstName());
+			statement.setString(3, employee.getWorkingLocation());
+			statement.setString(4, employee.getEmail());
+			
+			statement.executeUpdate();
+			
+			statement.close();
+		}catch (SQLException | InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void RespondToRequest(String requestId) {
 		String Query = "Update requests set status = ? where id = ?";
 		PreparedStatement statement ; 
