@@ -14,7 +14,6 @@
   width: 200px;
   height: 100px;
   position: absolute;
-  border: 30px solid rgba(0,0,0,0.1);
   border-radius: 300px 300px 0 0;
   border-bottom: none;
 }
@@ -29,7 +28,6 @@
   height : 100px;
   position: absolute;
   top: 100%;
-  border: 30px solid #b196ea;
   content: '';
   border-radius:0 0 300px 300px;
   border-top: none;

@@ -97,6 +97,8 @@
     width: 100%;
     height: calc(100vh - 395px);
     padding: 10px;
+    border-left: 2px solid #E4E4E4;
+    border-right: 2px solid #E4E4E4;
 }
 .main-frame .main-content .problems_list .Tab .Problem_list .problem {
     border: 2px solid #E4E4E4;
@@ -105,9 +107,19 @@
     position:relative;
     border-radius: 5px;
     padding: 5px 15px;
+    transform: scale(1.0);
+    transition:all .3s cubic-bezier(0.23, 1, 0.32, 1); 
+	-o-transition:all .3s cubic-bezier(0.23, 1, 0.32, 1);
+	-moz-transition:all .3s cubic-bezier(0.23, 1, 0.32, 1); 
+	-webkit-transition:all .3s cubic-bezier(0.23, 1, 0.32, 1);
+	box-shadow: 1px 20px 20px 0px #e9e9e9;
 }
 .main-frame .main-content .problems_list .Tab .Problem_list .moving{
-	padding:20px;
+	transform: scale(1.1);
+	transition:all .3s cubic-bezier(0.23, 1, 0.32, 1);
+	-o-transition:all .3s cubic-bezier(0.23, 1, 0.32, 1);
+	-moz-transition:all .3s cubic-bezier(0.23, 1, 0.32, 1); 
+	-webkit-transition:all .3s cubic-bezier(0.23, 1, 0.32, 1);
 }
 .main-frame .main-content .problems_list .Tab .Problem_list .problem #title {
     font-size: 17px;
@@ -125,10 +137,70 @@
     font-weight: 500;
 }
 .sidebar {
-    width: calc(25vw - 30px);
+	width: calc(25vw - 30px);
     background: #fff;
     margin: 10px 10px 10px 5px;
     border: 2px solid #E4E4E4;
     border-radius: 5px;
     height: auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.sidebar #sidebar_header_title {
+    padding: 10px;
+    font-weight: 600;
+}
+.sidebar .graph_stats {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding: 10px;
+}
+.sidebar .graph_stats #stats {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: 30%;
+    align-items: center;
+}
+.sidebar .graph_stats #stats #title {
+    font-size: 14px;
+    font-weight: 600;
+}
+.sidebar .graph_stats #stats #stat_value {
+   	display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: flex-end;
+    justify-content: space-evenly;
+    width: 100%;
+}
+.sidebar .graph_stats #stats #stat_value #total {
+    font-size: 18px;
+    font-weight: 600;
+}
+.sidebar .graph_stats #stats #stat_value #increase {
+    font-size: 14px;
+    font-weight: 600;
+    color: #53d991;
+}
+.sidebar .stat_history {
+	display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    margin-top: 10px;
+}
+.sidebar .stat_history #stat_history_header {
+    padding: 10Px;
+}
+.sidebar .stat_history #stat_history_header #title {
+    font-size: 16px;
+    font-weight: 600;
+    width: fit-content;
+}
+.sidebar .stat_history #stat_history_wrapper {
+    height: 10vw;
+	padding: 0px 10px;
 }

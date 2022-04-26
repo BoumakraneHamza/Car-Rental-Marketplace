@@ -17,6 +17,14 @@
 	.graph:after {
 	  transform: rotate(90deg);
 	}
+	.multigraph:before{
+		border:30px solid #8fc73e;
+		border-bottom:none;
+	}
+	.graph:before, .graph:after{
+		border:30px solid #3d415c;
+		border-top:none;
+	}
 </style>
 </head>
 <body>

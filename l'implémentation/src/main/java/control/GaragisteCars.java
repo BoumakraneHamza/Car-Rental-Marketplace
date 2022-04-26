@@ -38,8 +38,8 @@ public class GaragisteCars extends HttpServlet {
 			request.setAttribute("user", user);
 			ArrayList<Vehicule> cars = null;
 			DAO dao = new DAO();
-			cars = dao.getDepotCars(user.getGaragisteInfo().getWorking_location());
-			String depot = user.getGaragisteInfo().getWorking_location();
+			cars = dao.getDepotCars(user.getGaragisteInfo().getWorkingLocation());
+			String depot = user.getGaragisteInfo().getWorkingLocation();
 			request.setAttribute("cars", cars);
 			request.setAttribute("depotcode", depot);
 			
