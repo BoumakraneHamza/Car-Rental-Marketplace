@@ -66,6 +66,9 @@ public class DAO {
 	            else if(result.getString("type").equals("garagiste")) {
 	            	user = getGaragiste(result.getString("email"));
 	            }
+	            else if(result.getString("type").equals("secretaire")) {
+	            	user = getSecretaire(result.getString("email"));
+	            }
 	        }
 	        statement.close();
 	        System.out.println("Success !");
@@ -135,6 +138,34 @@ public class DAO {
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
+		}
+		return user;
+	}
+	private User getSecretaire(String email) {
+		User user = null ;
+		Secretaire secretaire = null;
+		String Query = "Select * from secretary where email = ? limit 1";
+		PreparedStatement statement;
+		ResultSet result ;
+		try {
+			connectDB();
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, email);
+			result = statement.executeQuery();
+			if (result.next()) {
+				user = new User();
+				secretaire = new Secretaire();
+				user.setEmail(email);
+				user.setType("secretaire");
+				user.setNom(result.getString("nom"));
+				user.setPrenom(result.getString("prenom"));
+				user.setImage(result.getString("photo"));
+				secretaire.setWorkingLocation(result.getString("working_location"));
+				secretaire.setAgencyName(result.getString("agency_name"));
+				user.setSecretaireInfo(secretaire);
+			}
+			}catch(Exception e) {
+				e.printStackTrace();
 		}
 		return user;
 	}

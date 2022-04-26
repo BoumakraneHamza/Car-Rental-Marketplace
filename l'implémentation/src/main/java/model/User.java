@@ -15,7 +15,14 @@ public class User {
 	private String user_name;
 	private String password;
 	private Garagiste garagisteInfo;
+	private Secretaire SecretaireInfo;
 	
+	public void setSecretaireInfo(Secretaire secretaireInfo) {
+		SecretaireInfo = secretaireInfo;
+	}
+	public Secretaire getSecretaireInfo() {
+		return SecretaireInfo;
+	}
 	public void setPassword(String password) {
 		this.password = password;
 	}
