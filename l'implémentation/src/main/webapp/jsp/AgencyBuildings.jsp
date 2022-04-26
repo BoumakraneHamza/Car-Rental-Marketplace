@@ -117,6 +117,8 @@
 			              			<td hidden="true" >${Building.employee.firstName}</td>
 			              			<td hidden="true" >${Building.employee.type}</td>
 			              			<td hidden="true" >${Building.employee.image}</td>
+			              			<td><button onclick="confirmDelete(${Building.code}, '${Building.type}')">delete building</button></td>
+			              			<td><button onclick="viewBuilding(${Building.code}, '${Building.type}')">edit building</button></td>
 					      		</tr>
 					      	</c:forEach>
 				      		</tbody>
@@ -222,7 +224,22 @@
 					<input type="reset"><input type="submit">
 				</form>
 			</div>
-			
+		</div>
+		<div id="tempFormForDeletingBuildings" style="visibility:hidden;background-color:grey;position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);border: 5px solid #000000;padding: 10px;">
+			<div id="deleteBuildingForm"><p>delete building?</p>
+				<form id="deletingBuilding" onsubmit="deleteBuilding(event, this)">
+					<input type="hidden" name="code">
+					<input type="hidden" name="type">
+					<button type="button" onclick="document.getElementById('tempFormForDeletingBuildings').style.visibility='hidden'">Cancel</button><input type="submit">
+				</form>
+			</div>
+		</div>
+		<div id="tempFormForeditingBuildings" style="visibility:hidden;background-color:grey;position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);border: 5px solid #000000;padding: 10px;">
+			<div id="editBuildingForm"><p>edit building</p>
+				<form id="editingBuilding" onsubmit="editBuilding(event, this)">
+					
+				</form>
+			</div>
 		</div>
 <script type="text/javascript">
 	var contextPath = "${pageContext.request.contextPath}";

@@ -13,20 +13,20 @@ import javax.servlet.http.HttpServletResponse;
 import model.Building;
 import model.DAO;
 import model.Depot;
-import model.Office;
+import model.Employee;
 import model.User;
 
 /**
- * Servlet implementation class AjaxAddBuilding
+ * Servlet implementation class AjaxDeleteBuilding
  */
-@WebServlet("/AjaxAddBuilding")
-public class AjaxAddBuilding extends HttpServlet {
+@WebServlet("/AjaxDeleteBuilding")
+public class AjaxDeleteBuilding extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxAddBuilding() {
+    public AjaxDeleteBuilding() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -82,31 +82,9 @@ public class AjaxAddBuilding extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) request.getSession().getAttribute("user");
 		if (user.getType().equals("directeur")) {
-			if (request.getParameter("type").equals("depot")) {
-				DAO dao = new DAO();
-				Depot depot = new Depot();
-				
-				depot.setAdress(request.getParameter("adress"));
-				depot.setCapacite(Integer.parseInt(request.getParameter("capacity")));
-				depot.setCapacite_libre(Integer.parseInt(request.getParameter("freeCapacity")));
-				depot.setAgence_nom(request.getParameter("agencyName"));
-				depot.setGaragiste_email(request.getParameter("garagisteEmail"));
-				depot.setLat(request.getParameter("lat"));
-				depot.setLon(request.getParameter("lon"));
-				
-				dao.addDepot(depot);
-			} else {
-				DAO dao = new DAO();
-				Office office = new Office();
-				
-				office.setAdress(request.getParameter("adress"));
-				office.setAgence_nom(request.getParameter("agencyName"));
-				office.setSecretary_email(request.getParameter("secretaryEmail"));
-				office.setLat(request.getParameter("lat"));
-				office.setLon(request.getParameter("lon"));
-				
-				dao.addOffice(office);
-			}
+			DAO dao = new DAO();
+			
+			dao.deleteBuilding(request.getParameter("code"), request.getParameter("type"));
 		}
 		doGet(request, response);
 	}

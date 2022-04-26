@@ -21,13 +21,15 @@ function viewProfile(event, element) {
 		var employee = this.responseXML.documentElement.firstElementChild;
 		
 		document.getElementById("employeeProfileDetails").innerHTML = '';
-		showEmployeeProfile(employee)
+		if(employee != null) {
+			showEmployeeProfile(employee);
+			document.getElementById('editEmployeeForm').style.visibility='visible';
+		}
+		
 	}
 	xhttp.open("POST","AjaxEmployeeDetails");
 	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xhttp.send(param);
-	
-	document.getElementById('editEmployeeForm').style.visibility='visible';
 }
 
 function confirmDelete(email, type) {

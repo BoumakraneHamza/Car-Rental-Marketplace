@@ -214,7 +214,7 @@ CREATE TABLE `depot` (
 
 LOCK TABLES `depot` WRITE;
 /*!40000 ALTER TABLE `depot` DISABLE KEYS */;
-INSERT INTO `depot` VALUES (1,'constantine',12,10,'Hertz','g02@email.com','36.25023','6.57394',2),(2,'batna',15,15,'Hertz','g01@email.com','35.55216','6.17968',NULL),(3,'constantine',15,15,'agence02',NULL,'36.2650','6.5833',NULL),(4,'constantine',20,3,'Hertz',NULL,'36.2536','6.5546',NULL),(5,'constantine',10,5,'agence02',NULL,'36.2493','6.5921',NULL),(6,'constantine',12,6,'agence02',NULL,'36.2333','6.5604',NULL),(7,'alger',100,50,'Hertz','g03@email.com',NULL,NULL,0);
+INSERT INTO `depot` VALUES (1,'constantine',12,10,'Hertz','g02@email.com','36.25023','6.57394',8),(2,'batna',15,15,'Hertz','g01@email.com','35.55216','6.17968',9),(3,'constantine',15,15,'agence02',NULL,'36.2650','6.5833',0),(4,'constantine',20,3,'Hertz',NULL,'36.2536','6.5546',0),(5,'constantine',10,5,'agence02',NULL,'36.2493','6.5921',0),(6,'constantine',12,6,'agence02',NULL,'36.2333','6.5604',0),(7,'alger',100,50,'Hertz','g03@email.com',NULL,NULL,0);
 /*!40000 ALTER TABLE `depot` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -473,6 +473,30 @@ FROM  INFORMATION_SCHEMA.TABLES
 WHERE TABLE_SCHEMA = 'atelier'
 AND   TABLE_NAME   = 'reservation';
 SET `new`.`contrat` = concat("/assets/documents/contracts/", theId, ".pdf");
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `reservation_AFTER_INSERT` AFTER INSERT ON `reservation` FOR EACH ROW BEGIN
+declare codeDepot varchar(10);
+declare agencyName varchar(10);
+SELECT `depot_code` INTO codeDepot FROM `vehicule` where `matricule` = NEW.`vehicule_matricule`;
+SELECT `agence_nom` INTO agencyName FROM `depot` WHERE `code` = codeDepot;
+
+UPDATE `atelier`.`depot` 
+SET `Bookings` = `Bookings`+1 
+WHERE (`code` = codeDepot) and (`agence_nom` = agencyName);
 END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -801,4 +825,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-25 18:38:55
+-- Dump completed on 2022-04-26 17:08:09

@@ -1039,6 +1039,130 @@ public class DAO {
 		}
 	}
 	
+	public void deleteBuilding(String code, String type) {
+		String Query;
+		PreparedStatement statement;
+		
+		try {
+			connectDB();
+			if (type.equals("depot"))
+				Query = "DELETE FROM `atelier`.`depot` WHERE (`code` = ?)";
+			else
+				Query = "DELETE FROM `atelier`.`offices` WHERE (`code` = ?)";
+			
+			statement = connection.prepareStatement(Query);
+			
+			statement.setString(1, code);
+			
+			statement.executeUpdate();
+			
+			statement.close();
+		}catch (SQLException | InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();	
+		}
+	}
+	
+	public Building getBuilding(String code, String type) {
+		String Query;
+		PreparedStatement statement;
+		Building building = null;
+		
+		ResultSet result;
+		try {
+			connectDB();
+			if(type.equals("depot")) {
+				Query = "SELECT * \r\n"
+						+ "FROM atelier.depot \r\n"
+						+ "WHERE code = ?";
+				
+				statement = connection.prepareStatement(Query);
+				statement.setString(1, code);
+				
+				result = statement.executeQuery();
+				
+				if(result.next()) {
+					building = new Depot();
+					building.setCode(result.getString("code"));
+					building.setAdress(result.getString("adress"));
+					((Depot)building).setCapacite(result.getInt("capacite"));
+					((Depot)building).setCapacite_libre(result.getInt("capacite_libre"));
+					building.setAgence_nom(result.getString("agence_nom"));
+					building.setEmployee_email(result.getString("garagiste_email"));
+					building.setLat(result.getString("lat"));
+					building.setLon(result.getString("lon"));
+					building.setBookings(result.getInt("Bookings"));
+					building.setEmployee(getBuildingEmployee(building));
+					((Depot)building).setCapacityPercentile((((Depot)building).getCapacite_libre()*100)/((Depot)building).getCapacite());
+				}
+			} else {
+				Query = "SELECT * \r\n"
+						+ "FROM atelier.offices \r\n"
+						+ "WHERE code = ?";
+				
+				statement = connection.prepareStatement(Query);
+				statement.setString(1, code);
+				
+				result = statement.executeQuery();
+				
+				if(result.next()) {
+					building = new Office();
+					building.setCode(result.getString("code"));
+					building.setAdress(result.getString("address"));
+					building.setAgence_nom(result.getString("agency_name"));
+					building.setEmployee_email(result.getString("email_secretaire"));
+					building.setLat(result.getString("lat"));
+					building.setLon(result.getString("lon"));
+					building.setBookings(result.getInt("Bookings"));
+					building.setEmployee(getBuildingEmployee(building));
+				}
+			}
+			statement.close();
+		}catch (SQLException | InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return building;
+	}
+	
+	public void editBuilding(Building building) {
+		String Query;
+		PreparedStatement statement;
+		
+		try {
+			connectDB();
+			if(building.getType().equals("depot")) {
+				Query = "UPDATE `atelier`.`depot` \r\n"
+						+ "SET `adress` = ?, `garagiste_email` = ?, `lat` = ?, `lon` = ?, `Bookings` = ?, `capacite` = ?, `capacite_libre` = ?\r\n"
+						+ "WHERE (`code` = ?) and (`agence_nom` = ?)";
+				statement = connection.prepareStatement(Query);
+				
+				statement.setInt(6, ((Depot)building).getCapacite());
+				statement.setInt(7, ((Depot)building).getCapacite_libre());
+				statement.setString(8, building.getCode());
+				statement.setString(9, building.getAgence_nom());
+			} else {
+				Query = "UPDATE `atelier`.`offices` \r\n"
+						+ "SET `address` = ?, `email_secretaire` = ?, `lat` = ?, `lon` = ?,`Bookings` = ?\r\n"
+						+ "WHERE (`code` = ?) and (`agency_name` = ?)";
+				statement = connection.prepareStatement(Query);
+				
+				statement.setString(6, building.getCode());
+				statement.setString(7, building.getAgence_nom());
+			}
+			
+			statement.setString(1, building.getAdress());
+			statement.setString(2, building.getEmployee_email());
+			statement.setString(3, building.getLat());
+			statement.setString(4, building.getLon());
+			statement.setInt(5, building.getBookings());
+			
+			statement.executeUpdate();
+			
+			statement.close();
+		}catch (SQLException | InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public ArrayList<Message> ReadConversation(int id) {
 		String Query = "Select * from messages where id_conversation = ? Order by creationTime DESC";
 		PreparedStatement statement; 

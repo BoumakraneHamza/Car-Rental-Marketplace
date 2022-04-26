@@ -19,6 +19,23 @@ let char2 = new Chart(Bookings_chart ,{
 	},
 });
 
+function viewBuilding(code, type) {
+	event.preventDefault();
+	
+	var xhttp = new XMLHttpRequest();
+	xhttp.onload = function() {
+		var employee = this.responseXML.documentElement.firstElementChild;
+		
+		document.getElementById("editingBuilding").innerHTML = '';
+		if(employee != null) {
+			BuildingInformation(employee);
+			document.getElementById('tempFormForeditingBuildings').style.visibility='visible';
+		}
+	}
+	xhttp.open("GET","AjaxBuildingDetails"+"?code="+code+"&type="+type);
+	xhttp.send();
+}
+
 var depotMap;
 var officeMap;
 function addingBuilding() {
@@ -86,6 +103,54 @@ function depotDetails(element) {
 	document.getElementById('employeeImage').src = contextPath+element.innerText;
 }
 
+function confirmDelete(code, type) {
+	var element = document.getElementById('deletingBuilding').firstElementChild;
+	element.value = code;
+	element.nextElementSibling.value = type;
+	document.getElementById('tempFormForDeletingBuildings').style.visibility='visible';
+}
+
+function deleteBuilding(event, element) {
+	event.preventDefault();
+	var param = new URLSearchParams(new FormData(element)).toString();
+	
+	var xhttp = new XMLHttpRequest();
+	xhttp.onload = function() {
+		var buildings = this.responseXML.documentElement.children;
+		
+		document.getElementById("BuildingList").innerHTML = '';
+		for(build of buildings){
+			createBuildings(build);
+		}
+	}
+	xhttp.open("POST","AjaxDeleteBuilding");
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhttp.send(param);
+	
+	document.getElementById('tempFormForDeletingBuildings').style.visibility='hidden';
+}
+
+
+function editBuilding(event, element) {
+	event.preventDefault();
+	var param = new URLSearchParams(new FormData(element)).toString();
+	
+	var xhttp = new XMLHttpRequest();
+	xhttp.onload = function() {
+		var buildings = this.responseXML.documentElement.children;
+		
+		document.getElementById("BuildingList").innerHTML = '';
+		for(build of buildings){
+			createBuildings(build);
+		}
+	}
+	xhttp.open("POST","AjaxEditBuilding");
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhttp.send(param);console.log(param)
+	
+	document.getElementById('tempFormForeditingBuildings').style.visibility='hidden'
+}
+
 function submitBuilding(event, element){
 	event.preventDefault();
 	var param = new URLSearchParams(new FormData(element)).toString();
@@ -107,22 +172,23 @@ function submitBuilding(event, element){
 }
 
 function createBuildings(build) {
-	const code = build.getElementsByTagName("code")[0].innerHTML
-	const adress = build.getElementsByTagName("adress")[0].innerHTML
-	const bookings = build.getElementsByTagName("bookings")[0].innerHTML
+	const code = build.getAttribute('code');
+	const adress = build.getAttribute('adress');
+	const bookings = build.getAttribute('bookings');
 	const buildType = build.nodeName
-	const capacityPercentile = buildType == "depot" ? build.getElementsByTagName("capacityPercentile")[0].innerHTML : 0;
-	const capacite = buildType == "depot" ? build.getElementsByTagName("capacite")[0].innerHTML : 0;
-	const employeeFirstName = build.getElementsByTagName("employeeFirstName")[0].innerHTML
-	const employeeType = build.getElementsByTagName("employeeType")[0].innerHTML
-	const employeeImage = build.getElementsByTagName("employeeImage")[0].innerHTML
+	const capacityPercentile = buildType == "depot" ? build.getAttribute('capacityPercentile') : 0;
+	const capacite = buildType == "depot" ? build.getAttribute('capacite') : 0;
+	const employeeFirstName = build.getAttribute('employeeFirstName');
+	const employeeType = build.getAttribute('employeeType');
+	const employeeImage = build.getAttribute('employeeImage');
+	
 	
 	var aBuilding = document.createElement('tr');
 	aBuilding.setAttribute('id','Building');
 	aBuilding.setAttribute('onclick','depotDetails(this)');
 	
 	aBuilding.innerHTML = "\n<td id=\"BuildingCode\" style=\"width: 10%\">"+code+"</td>\n\
-		<td id=\"BuildingType\" style=\"width: 15%\"><p id=\"value\">"+buildType+"</p></td>\n\
+		<td id=\"BuildingType\" style=\"width: 15%\"><p id=\"value"+(buildType == 'office' ? '2' : '')+"\">"+buildType+"</p></td>\n\
 		<td id=\"BuildingStatus\" style=\"width: 15%\"><div id=\"wrapper\"><div id=\"status\"></div><p>Active</p></div></td>\n\
 		<td id=\"BuildingLocation\" style=\"width: 25%\">"+adress+"</td>\n\
 		<td id=\"BuildingBookings\" style=\"width: 15%\"><p id=\"value\">+"+bookings+"</p></td>\n\
@@ -130,8 +196,59 @@ function createBuildings(build) {
 		<td hidden=\"true\" id=\"BuildingTotalCapacity\">"+capacite+"</td>\n\
 		<td hidden=\"true\" >"+employeeFirstName+"</td>\n\
 		<td hidden=\"true\" >"+employeeType+"</td>\n\
-		<td hidden=\"true\" >"+employeeImage+"</td>"
+		<td hidden=\"true\" >"+employeeImage+"</td>\n\
+		<td><button onclick=\"confirmDelete("+code+", '"+buildType+"')\">delete building</button></td>\n\
+	    <td><button onclick=\"viewBuilding("+code+", '"+buildType+"')\">edit building</button></td>"
 	
 	const buildList = document.getElementById("BuildingList");
 	buildList.appendChild(aBuilding);
+}
+
+function BuildingInformation(build) {
+	const code = build.getAttribute('code');
+	const adress = build.getAttribute('adress');
+	const bookings = build.getAttribute('bookings');
+	const type = build.nodeName
+	const capacityPercentile = type == "depot" ? build.getAttribute('capacityPercentile') : 0;
+	const capacity = type == "depot" ? build.getAttribute('capacite') : 0;
+	const freeCapacity = type == "depot" ? build.getAttribute('capacite_libre') : 0;
+	const employeeEmail = build.getAttribute('employee_email');
+	const lat = build.getAttribute('lat');
+	const lon = build.getAttribute('lon');
+	//const  = build.getAttribute('');
+	
+	
+	
+	var buildingInfo = document.createElement('div');
+	
+	buildingInfo.innerHTML = "\n<input type=\"hidden\" value=\""+code+"\" name=\"code\">\n\
+								<input type=\"hidden\" value=\""+type+"\" name=\"type\">\n\
+								<div>\n\
+									<label>adress</label><br>\n\
+									<input type=\"text\" value=\""+adress+"\" name=\"adress\">\n\
+								</div>\n\
+								<div>\n\
+									<label>employee email</label><br>\n\
+									<input type=\"text\" value=\""+employeeEmail+"\" name=\"employeeEmail\">\n\
+								</div>\n\
+								<div>\n\
+									<label>bookings</label><br>\n\
+									<input type=\"text\" value=\""+bookings+"\" name=\"bookings\">\n\
+								</div>";
+	if (type == "depot") {
+		buildingInfo.innerHTML = buildingInfo.innerHTML + "\n<div>\n\
+																<label>capacity</label><br>\n\
+																<input type=\"text\" value=\""+capacity+"\" name=\"capacity\">\n\
+															</div>\n\
+															<div>\n\
+																<label>free capacity</label><br>\n\
+																<input type=\"text\" value=\""+freeCapacity+"\" name=\"freeCapacity\">\n\
+															</div>";
+	}
+	buildingInfo.innerHTML = buildingInfo.innerHTML + "\n<input type=\"hidden\" value=\""+lat+"\" name=\"lat\">\n\
+														<input type=\"hidden\" value=\""+lon+"\" name=\"lon\">\n\
+														<button type=\"button\" onclick=\"document.getElementById('tempFormForeditingBuildings').style.visibility='hidden'\">Cancel</button><input type=\"submit\">";
+	
+	const buildingForm = document.getElementById("editingBuilding");
+	buildingForm.appendChild(buildingInfo);
 }
