@@ -1,11 +1,9 @@
 CREATE DATABASE  IF NOT EXISTS `atelier` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `atelier`;
--- MySQL dump 10.13  Distrib 8.0.28, for Win64 (x86_64)
 -- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
 -- Host: localhost    Database: atelier
 -- ------------------------------------------------------
--- Server version	8.0.28
 -- Server version	8.0.27
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -215,7 +213,7 @@ CREATE TABLE `depot` (
 
 LOCK TABLES `depot` WRITE;
 /*!40000 ALTER TABLE `depot` DISABLE KEYS */;
-INSERT INTO `depot` VALUES (1,'constantine',12,10,'Hertz','g02@email.com','36.25023','6.57394',8),(2,'batna',15,15,'Hertz','g01@email.com','35.55216','6.17968',9),(3,'constantine',15,15,'agence02',NULL,'36.2650','6.5833',0),(4,'constantine',20,3,'Hertz',NULL,'36.2536','6.5546',0),(5,'constantine',10,5,'agence02',NULL,'36.2493','6.5921',0),(6,'constantine',12,6,'agence02',NULL,'36.2333','6.5604',0),(7,'alger',100,50,'Hertz','g03@email.com',NULL,NULL,0);
+INSERT INTO `depot` VALUES (1,'constantine',12,10,'Hertz','g01@email.com','36.25023','6.57394',8),(2,'batna',15,15,'Hertz',NULL,'35.55216','6.17968',9),(3,'constantine',15,15,'agence02',NULL,'36.2650','6.5833',0),(4,'constantine',20,3,'Hertz',NULL,'36.2536','6.5546',0),(5,'constantine',10,5,'agence02',NULL,'36.2493','6.5921',0),(6,'constantine',12,6,'agence02',NULL,'36.2333','6.5604',0),(7,'alger',100,50,'Hertz','g01@email.com',NULL,NULL,0);
 /*!40000 ALTER TABLE `depot` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -337,7 +335,7 @@ CREATE TABLE `meetings` (
 
 LOCK TABLES `meetings` WRITE;
 /*!40000 ALTER TABLE `meetings` DISABLE KEYS */;
-INSERT INTO `meetings` VALUES ('1@email.com','s01@email.com','2022-04-27 08:00:00');
+INSERT INTO `meetings` VALUES ('1@email.com','s01@email.com','2022-04-27 08:01:00'),('1@email.com','s01@email.com','2022-04-28 14:16:00'),('1@email.com','s01@email.com','2022-04-28 15:01:00'),('Hamza@gmail.com','s01@email.com','2022-04-26 09:01:00'),('Hamza@gmail.com','s01@email.com','2022-04-28 14:01:00'),('Hamza@gmail.com','s01@email.com','2022-04-29 14:01:00');
 /*!40000 ALTER TABLE `meetings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -522,7 +520,6 @@ declare codeDepot varchar(10);
 declare agencyName varchar(10);
 SELECT `depot_code` INTO codeDepot FROM `vehicule` where `matricule` = NEW.`vehicule_matricule`;
 SELECT `agence_nom` INTO agencyName FROM `depot` WHERE `code` = codeDepot;
-
 UPDATE `atelier`.`depot` 
 SET `Bookings` = `Bookings`+1 
 WHERE (`code` = codeDepot) and (`agence_nom` = agencyName);
@@ -855,5 +852,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-26 17:08:09
--- Dump completed on 2022-04-27  3:25:17
+-- Dump completed on 2022-04-27 19:01:02

@@ -39,9 +39,15 @@
 		</div>
 		<div class="calendar_frame">
 			<div id="calendar_header">
-				<button class="nav_btn" id="back"><img style="width:12px" src="${pageContext.request.contextPath}/assets/angle-left-solid.svg"></button>
-				<p id="calendar_month"></p>
-				<button class="nav_btn" id="next"><img style="width:12px" src="${pageContext.request.contextPath}/assets/angle-right-solid.svg"></button>
+				
+				<div id="left">
+					<p id="calendar_month"></p>
+				</div>
+				<div id="right">
+					<button class="nav_btn" id="back"><img style="width:12px;transform: rotate(180deg);" src="${pageContext.request.contextPath}/assets/angle-right-solid.svg"></button>
+					<button id="today"><p id="text">Today</p></button>
+					<button class="nav_btn" id="next"><img style="width:12px" src="${pageContext.request.contextPath}/assets/angle-right-solid.svg"></button>
+				</div>
 			</div>
 			<div id="calendar_sec_header">
 			</div>
@@ -230,6 +236,32 @@
 		</div>
 	</div>
 	<div class="sidebar">
+	<div id="tab_header">
+		<p id="title">Upcoming activities</p>
+		<p id="subtitle">Don't miss scheduled activities</p>
+	</div>
+	<div id="activities_list">
+		<div id="activity_date">
+			<p id="date">Wednesday , 27 April</p>
+		</div>
+		<div id="activity_list">
+			<div id="appt">
+				<div id="time">
+					<p id="start_time">10:00</p>
+					<p id="end_time">10:00</p>
+				</div>
+				<div id="appt_info">
+					<p id="title">Meeting</p>
+					<p id="subtitle">Hamza Boumakrane</p>
+				</div>
+				<div id="image_wrapper">
+					<div id="client_image">
+						<img style="width:50px;" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	</div>
 </div>
 <script src="${pageContext.request.contextPath}/js/SecretarySchedule.js"></script>

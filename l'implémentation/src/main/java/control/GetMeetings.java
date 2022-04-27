@@ -38,12 +38,16 @@ public class GetMeetings extends HttpServlet {
 		if (user != null) {
 			request.setAttribute("user", user);
 			DAO dao = new DAO();
-			HashMap<String,User> map = new HashMap<>();
-			map = dao.getMeetings(user.getEmail());
+			HashMap<String,User> Calendar = new HashMap<>();
+			HashMap<String,User> Upcoming = new HashMap<>();
+			Calendar = dao.getMeetings(user.getEmail());
+			Upcoming = dao.getUpcomingMeetings(user.getEmail());
 			ObjectMapper mapper = new ObjectMapper();
-			String JsonMap = mapper.writeValueAsString(map);
+			String CalendarString = mapper.writeValueAsString(Calendar);
+			String UpcomingString = mapper.writeValueAsString(Upcoming);
+			String Data = "["+CalendarString+","+UpcomingString+"]";
 			PrintWriter out = response.getWriter();
-			out.write(JsonMap);
+			out.write(Data);
 		}else {
 			
 		}

@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -1602,6 +1604,31 @@ public class DAO {
 			connectDB();
 			statement = connection.prepareStatement(Query);
 			statement.setString(1, email);
+			result = statement.executeQuery();
+			while(result.next()) {
+				User user = new User();
+				user = getClientInfo(result.getString("client"));
+				String date = result.getString("date");
+				map.put(date, user);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return map;
+	}
+	public HashMap<String ,User> getUpcomingMeetings(String email){
+		HashMap<String ,User> map = new HashMap<>();
+		String Query = "Select * from meetings where secretary=? and date > ? Order By date asc limit 4";
+		 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+		 LocalDateTime now = LocalDateTime.now(); 
+		 String Time = now.toString();
+		PreparedStatement statement;
+		ResultSet result;
+		try {
+			connectDB();
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, email);
+			statement.setString(2, Time);
 			result = statement.executeQuery();
 			while(result.next()) {
 				User user = new User();
