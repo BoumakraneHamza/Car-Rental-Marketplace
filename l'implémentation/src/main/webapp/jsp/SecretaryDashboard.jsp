@@ -5,8 +5,23 @@
 <html>
 <head>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ClientMain.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/circleProgressBar.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/SecretaryDashboard.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
 <title>Dashboard</title>
+<style>
+	.graph:after {
+	  transform: rotate(90deg);
+	}
+	.multigraph:before{
+		border:30px solid #8fc73e;
+		border-bottom:none;
+	}
+	.graph:before, .graph:after{
+		border:30px solid #3d415c;
+		border-top:none;
+	}
+</style>
 </head>
 <body>
 <div class="header">
@@ -160,14 +175,144 @@
 						</div>
 					</div>
 				</div>
-				<button id="View_Details">See All Activity</button>
+				<button id="View_Details" onclick="location.href='${pageContext.request.contextPath}/SecretarySchedule'">See All Activity</button>
+			</div>
+			<div class="Review_score">
+				<div id="tab_header">
+			<p id="title">Review Score History</p>
+			</div>
+			<div id="stat_history_wrapper">
+				<canvas id="score_history"></canvas>
+			</div>
 			</div>
 		</div>
 	</div>
 	<div class="side_bar">
-	<div class="side_bar_content"></div>
+	<div class="side_bar_content">
+		<div id="tab_header">
+			<p id="title">Your Reviews Score</p>
+		</div>
+		<div class="multigraph">
+		  	<span class="graph"></span>
+		</div>
+		<p id="percentile">50%</p>
+		<p id="subtitle">
+			You need to make an efforts
+			to reach your goal
+		</p>
+		<div class="reviews">
+			<p id="reviews_header">Reviews</p>
+			<div id="review_list">
+				<div id="review">
+					<div id="renter">
+						<div id="renter_image">
+							<img style="width:40px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
+						</div>
+						<div id="verticatl_line"></div>
+					</div>
+					<div id="content">
+						<p id="renter_name">Nathanial</p>
+						<p id="review_content">Great Car , Great Team , awsome cutomer service , I recommend</p>
+						<p id="date">20 Dec , 10:00AM</p>
+					</div>
+				</div>
+				<div id="review">
+					<div id="renter">
+						<div id="renter_image">
+							<img style="width:40px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
+						</div>
+						<div id="verticatl_line"></div>
+					</div>
+					<div id="content">
+						<p id="renter_name">Nathanial</p>
+						<p id="review_content">Great Car , Great Team , awsome cutomer service , I recommend</p>
+						<p id="date">20 Dec , 10:00AM</p>
+					</div>
+				</div>
+				<div id="review">
+					<div id="renter">
+						<div id="renter_image">
+							<img style="width:40px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
+						</div>
+						<div id="verticatl_line"></div>
+					</div>
+					<div id="content">
+						<p id="renter_name">Nathanial</p>
+						<p id="review_content">Great Car , Great Team , awsome cutomer service , I recommend</p>
+						<p id="date">20 Dec , 10:00AM</p>
+					</div>
+				</div>
+				<div id="review">
+					<div id="renter">
+						<div id="renter_image">
+							<img style="width:40px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
+						</div>
+						<div id="verticatl_line"></div>
+					</div>
+					<div id="content">
+						<p id="renter_name">Nathanial</p>
+						<p id="review_content">Great Car , Great Team , awsome cutomer service , I recommend</p>
+						<p id="date">20 Dec , 10:00AM</p>
+					</div>
+				</div>
+				<div id="review">
+					<div id="renter">
+						<div id="renter_image">
+							<img style="width:40px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
+						</div>
+						<div id="verticatl_line"></div>
+					</div>
+					<div id="content">
+						<p id="renter_name">Nathanial</p>
+						<p id="review_content">Great Car , Great Team , awsome cutomer service , I recommend</p>
+						<p id="date">20 Dec , 10:00AM</p>
+					</div>
+				</div>
+				<div id="review">
+					<div id="renter">
+						<div id="renter_image">
+							<img style="width:40px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
+						</div>
+						<div id="verticatl_line"></div>
+					</div>
+					<div id="content">
+						<p id="renter_name">Nathanial</p>
+						<p id="review_content">Great Car , Great Team , awsome cutomer service , I recommend</p>
+						<p id="date">20 Dec , 10:00AM</p>
+					</div>
+				</div>
+				<div id="review">
+					<div id="renter">
+						<div id="renter_image">
+							<img style="width:40px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
+						</div>
+						<div id="verticatl_line"></div>
+					</div>
+					<div id="content">
+						<p id="renter_name">Nathanial</p>
+						<p id="review_content">Great Car , Great Team , awsome cutomer service , I recommend</p>
+						<p id="date">20 Dec , 10:00AM</p>
+					</div>
+				</div>
+				<div id="review">
+					<div id="renter">
+						<div id="renter_image">
+							<img style="width:40px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
+						</div>
+						<div id="verticatl_line"></div>
+					</div>
+					<div id="content">
+						<p id="renter_name">Nathanial</p>
+						<p id="review_content">Great Car , Great Team , awsome cutomer service , I recommend</p>
+						<p id="date">20 Dec , 10:00AM</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	</div>
 </div>
+<script src="${pageContext.request.contextPath}/js/SecretaryDashboard.js"></script>
 <%@include file="/jsp/dropdownList.jsp"%>
 </body>
 </html>

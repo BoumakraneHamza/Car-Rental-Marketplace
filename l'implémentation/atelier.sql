@@ -1,10 +1,12 @@
 CREATE DATABASE  IF NOT EXISTS `atelier` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `atelier`;
 -- MySQL dump 10.13  Distrib 8.0.28, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
 -- Host: localhost    Database: atelier
 -- ------------------------------------------------------
 -- Server version	8.0.28
+-- Server version	8.0.27
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -199,7 +201,6 @@ CREATE TABLE `depot` (
   `lon` varchar(45) DEFAULT NULL,
   `Bookings` int DEFAULT '0',
   PRIMARY KEY (`code`,`agence_nom`),
-  UNIQUE KEY `garagiste_email_UNIQUE` (`garagiste_email`),
   KEY `fk_Depot_Utilisateur1_idx` (`garagiste_email`),
   KEY `agency_name_idx` (`agence_nom`),
   CONSTRAINT `agency_name` FOREIGN KEY (`agence_nom`) REFERENCES `agence` (`nom`),
@@ -262,6 +263,7 @@ CREATE TABLE `garagiste` (
   `monthly_session` date DEFAULT NULL,
   `agency_name` varchar(45) NOT NULL,
   PRIMARY KEY (`email`),
+  UNIQUE KEY `email_UNIQUE` (`email`),
   KEY `location_idx` (`working_location`),
   CONSTRAINT `location` FOREIGN KEY (`working_location`) REFERENCES `depot` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -310,6 +312,34 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+--
+-- Table structure for table `meetings`
+--
+
+DROP TABLE IF EXISTS `meetings`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `meetings` (
+  `client` varchar(45) NOT NULL,
+  `secretary` varchar(45) NOT NULL,
+  `date` datetime NOT NULL,
+  PRIMARY KEY (`client`,`date`),
+  KEY `secretary_idx` (`secretary`),
+  CONSTRAINT `client` FOREIGN KEY (`client`) REFERENCES `client` (`email`),
+  CONSTRAINT `secretary` FOREIGN KEY (`secretary`) REFERENCES `secretary` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `meetings`
+--
+
+LOCK TABLES `meetings` WRITE;
+/*!40000 ALTER TABLE `meetings` DISABLE KEYS */;
+INSERT INTO `meetings` VALUES ('1@email.com','s01@email.com','2022-04-27 08:00:00');
+/*!40000 ALTER TABLE `meetings` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `messages`
@@ -377,12 +407,11 @@ CREATE TABLE `offices` (
   `lat` varchar(45) DEFAULT NULL,
   `lon` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`code`,`agency_name`),
-  UNIQUE KEY `email_secretaire_UNIQUE` (`email_secretaire`),
   KEY `fk_agency_idx` (`agency_name`),
   KEY `fk_secretary_idx` (`email_secretaire`),
   CONSTRAINT `fk_agency` FOREIGN KEY (`agency_name`) REFERENCES `agence` (`nom`),
   CONSTRAINT `fk_secretary` FOREIGN KEY (`email_secretaire`) REFERENCES `secretary` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -536,6 +565,7 @@ CREATE TABLE `secretary` (
   `working_location` int NOT NULL,
   `agency_name` varchar(45) NOT NULL,
   PRIMARY KEY (`email`),
+  UNIQUE KEY `email_UNIQUE` (`email`),
   KEY `fk_location_idx` (`working_location`),
   CONSTRAINT `fk_location` FOREIGN KEY (`working_location`) REFERENCES `offices` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -666,7 +696,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('1@email.com','12345678','client'),('d01@email.com','12345678','directeur'),('d02@gmail.com','12345678','directeur'),('g01@email.com','test','garagiste'),('g03@email.com','12345678','garagiste'),('Hamza@gmail.com','test','client'),('s01@email.com','12345678','secretaire'),('s02@email.com','12345678','secretaire'),('serviceClient@email.com','test','service_client');
+INSERT INTO `users` VALUES ('1@email.com','12345678','client'),('d01@email.com','12345678','directeur'),('d02@gmail.com','12345678','directeur'),('g01@email.com','test','garagiste'),('g02@email.com','12345678','garagiste'),('g03@email.com','12345678','garagiste'),('Hamza@gmail.com','test','client'),('s01@email.com','12345678','secretaire'),('s02@email.com','12345678','secretaire'),('serviceClient@email.com','test','service_client');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -826,3 +856,4 @@ DELIMITER ;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2022-04-26 17:08:09
+-- Dump completed on 2022-04-27  3:25:17

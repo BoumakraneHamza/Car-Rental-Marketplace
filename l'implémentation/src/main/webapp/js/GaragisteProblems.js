@@ -72,7 +72,6 @@ dragula([
 var today = new Date();
 var d;
 var months = new Array();
-
 for(var i = 6; i > 0; i -= 1) {
   d = new Date(today.getFullYear(), today.getMonth() - i, 1);
   months.push(d.toLocaleString('en-US', {month: 'short'}));
