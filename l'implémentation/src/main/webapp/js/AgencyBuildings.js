@@ -42,7 +42,7 @@ function addingBuilding() {
 	
 	if (depotMap == null){
 		depotMap = L.map('depotLocationInputMap');
-		depotMap.setView([36.24600, 6.57083], 11);
+		depotMap.locate({setView: true});
 		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	    	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 	    }).addTo(depotMap);
@@ -61,7 +61,7 @@ function addingBuilding() {
     
     if (officeMap == null){
 	    officeMap = L.map('officeLocationInputMap');
-		officeMap.setView([36.24600, 6.57083], 11);
+		officeMap.locate({setView: true});
 		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 	    }).addTo(officeMap);
@@ -245,10 +245,38 @@ function BuildingInformation(build) {
 																<input type=\"text\" value=\""+freeCapacity+"\" name=\"freeCapacity\">\n\
 															</div>";
 	}
-	buildingInfo.innerHTML = buildingInfo.innerHTML + "\n<input type=\"hidden\" value=\""+lat+"\" name=\"lat\">\n\
-														<input type=\"hidden\" value=\""+lon+"\" name=\"lon\">\n\
+	buildingInfo.innerHTML = buildingInfo.innerHTML + "\n<div>\n\
+															<label>location</label><br>\n\
+															<div id=\"modifyingLocation\" style=\"width:200px;height:200px;\"></div>\n\
+														</div>\n\
+														<input id=\"modifyBuildLat\" type=\"hidden\" value=\""+lat+"\" name=\"lat\">\n\
+														<input id=\"modifyBuildLon\" type=\"hidden\" value=\""+lon+"\" name=\"lon\">\n\
 														<button type=\"button\" onclick=\"document.getElementById('tempFormForeditingBuildings').style.visibility='hidden'\">Cancel</button><input type=\"submit\">";
 	
 	const buildingForm = document.getElementById("editingBuilding");
 	buildingForm.appendChild(buildingInfo);
+	
+	var buildMap = L.map('modifyingLocation');
+	if (lat!='null' && lon!='null') {
+		buildMap.setView([lat, lon], 11);
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	    	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+	    }).addTo(buildMap);
+	    
+	    var buildingMarker = L.marker([lat, lon]).addTo(buildMap);
+	} else {
+		buildMap.locate({setView: true});
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	    	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+	    }).addTo(buildMap);
+	}
+	buildMap.on('click', function(e) {
+			if(buildingMarker == null)
+			buildingMarker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(buildMap);
+			else
+			buildingMarker.setLatLng(e.latlng);
+			
+			document.getElementById('modifyBuildLat').value = e.latlng.lat
+			document.getElementById('modifyBuildLon').value = e.latlng.lng
+		});
 }
