@@ -6,12 +6,9 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.servlet.RequestDispatcher;
@@ -78,9 +75,8 @@ public class initReservation extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) request.getSession().getAttribute("user");
-		if (user != null) {
+		if (user != null && user.getType().equals("client")) {
 			String path = request.getServletContext().getRealPath("/assets/documents/contracts");
-			System.out.println(path);
 			Reservation reservation = new Reservation();
 			reservation.setEmail(user.getEmail());
 			reservation.setAgence(request.getParameter("agence"));
@@ -98,6 +94,41 @@ public class initReservation extends HttpServlet {
 			
 			try {
 				CreatePaperWork.CreateContract(reservation, user, path, String.valueOf(reservationId));
+			} catch (InvalidFormatException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			request.setAttribute("reservationId", reservationId);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/SelectPayment");
+			dispatcher.forward(request, response);
+		}else if(user != null && user.getType().equals("secretaire")) {
+			DAO dao = new DAO();
+			String email = (String) request.getParameter("email");
+			String password = (String) request.getParameter("password");
+			User client = null;
+			try {
+				client = dao.checkLogin(email,password);
+			} catch (InstantiationException | IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			String path = request.getServletContext().getRealPath("/assets/documents/contracts");
+			System.out.println(path);
+			Reservation reservation = new Reservation();
+			reservation.setEmail(client.getEmail());
+			reservation.setAgence(request.getParameter("agence"));
+			reservation.setVehicule(request.getParameter("matricule"));
+			reservation.setPick_up_date(request.getParameter("pickUp_date"));
+			reservation.setReturn_date(request.getParameter("return_date"));
+			reservation.setPick_up_hour(request.getParameter("pickUp_hour"));
+			reservation.setReturn_hour(request.getParameter("return_hour"));
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu/MM/dd");
+		    LocalDate localDate = LocalDate.now();
+			reservation.setReservation_date(dtf.format(localDate));
+			reservation.setLocation(request.getParameter("location"));
+			int reservationId = dao.SetTempReservation(reservation);
+			try {
+				CreatePaperWork.CreateContract(reservation, client, path, String.valueOf(reservationId));
 			} catch (InvalidFormatException | IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

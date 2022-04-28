@@ -46,7 +46,7 @@ public class DAO {
 			
 			connectDB();
 			
-			query = "SELECT * FROM users WHERE email = ? and mot_pass = ?";
+			query = "SELECT * FROM users WHERE email = ? and mot_pass = ? limit 1";
 			statement = connection.prepareStatement(query);
 			statement.setString (1, email);
 			statement.setString(2, password);

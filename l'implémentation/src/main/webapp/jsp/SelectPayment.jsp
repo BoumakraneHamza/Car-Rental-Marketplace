@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib   uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -96,20 +97,36 @@
 		 					<label for="checkbox_2" >Pay with cash</label>
 		 				</div>
 		 				<div id="cash_info">
-		 					<div id="sec_text">
-		 						<p>To Continue Paying Cash for your Booking . Please make sure to 
-									visit one of our offices in the next 24 hours </p>
-		 					</div>
-		 					<div id="office">
-		 							<div id="title">
-		 								<p id="main_text">Choose an office</p>
-		 								<p id="desc_text">Finish your Booking in a nearby office</p>
-		 							</div>
-		 							<button><img src="${pageContext.request.contextPath}/assets/location.svg"></button>
-		 					</div>
-		 					<div id="confirmation">
-		 						<button>Confirm Meeting</button>
-		 					</div>
+		 				<c:choose>
+		 					<c:when test="${user.getType().equals('client')}">
+		 						<div id="sec_text">
+		 							<p>To Continue Paying Cash for your Booking . Please make sure to 
+										visit one of our offices in the next 24 hours 
+									</p>
+			 					</div>
+			 					<div id="office">
+			 							<div id="title">
+			 								<p id="main_text">Choose an office</p>
+			 								<p id="desc_text">Finish your Booking in a nearby office</p>
+			 							</div>
+			 							<button><img src="${pageContext.request.contextPath}/assets/location.svg"></button>
+			 					</div>
+			 					<div id="confirmation">
+			 						<button>Confirm Meeting</button>
+			 					</div>
+		 					</c:when>
+		 					<c:otherwise>
+		 						<div id="sec_text">
+		 							<p>To Continue your Booking Process. Please Confirm 
+		 								that the process of payment has been completed. 
+									</p>
+			 					</div>
+			 					<form id="confirmation" action="contractView" method="post">
+			 						<input name="reservationId" type="hidden" value="${reservationId}">
+			 						<button type="submit">Confirm Payment</button>
+			 					</form>
+		 					</c:otherwise>
+		 				</c:choose>
 		 				</div>
 		 			</div>
 		 		</div>

@@ -1,6 +1,6 @@
 let nav = 0;
 let json;
-let map = new Map();
+let map = null;
 function clearChild(e){
 	var child = e.lastElementChild; 
     while (child) {
@@ -183,7 +183,6 @@ function create_Upcoming_Acts(){
 			day:'numeric',
 			month:'long',
 		});
-		console.log(keys[i]);
 		date.innerHTML = ActDate;
 		activity_date.append(date);
 		const activity_list = document.createElement("div");
@@ -192,7 +191,6 @@ function create_Upcoming_Acts(){
 		let apptValues = map.get(keys[i]);
 		for (let arr in apptValues){
 			let ApptArray = apptValues[arr];
-			console.log(ApptArray);
 			let MeetingDate = ApptArray[1];
 			let MTD = new Date(MeetingDate);
 			var MTD2 = new Date(MTD.getTime() + 15*60000);
@@ -260,6 +258,7 @@ function getData(){
 			let values = []
 			let value = [Upcoming[firstIndex] ,firstIndex ];
 			values.push(value);
+			map = new Map();
 			map.set(date,values)
 			n=0;
 			for (let key in Upcoming){
@@ -283,7 +282,6 @@ function getData(){
 				}
 				n++;
 			}
-			console.log(map);
 			create_Upcoming_Acts();
 			load();
 		}

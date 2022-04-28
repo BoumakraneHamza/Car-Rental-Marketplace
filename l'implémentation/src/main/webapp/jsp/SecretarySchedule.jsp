@@ -241,26 +241,6 @@
 		<p id="subtitle">Don't miss scheduled activities</p>
 	</div>
 	<div id="activities_list">
-		<div id="activity_date">
-			<p id="date">Wednesday , 27 April</p>
-		</div>
-		<div id="activity_list">
-			<div id="appt">
-				<div id="time">
-					<p id="start_time">10:00</p>
-					<p id="end_time">10:00</p>
-				</div>
-				<div id="appt_info">
-					<p id="title">Meeting</p>
-					<p id="subtitle">Hamza Boumakrane</p>
-				</div>
-				<div id="image_wrapper">
-					<div id="client_image">
-						<img style="width:50px;" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
-					</div>
-				</div>
-			</div>
-		</div>
 	</div>
 	</div>
 </div>

@@ -13,12 +13,12 @@
 	.graph:after {
 	  transform: rotate(90deg);
 	}
-	.multigraph:before{
-		border:30px solid #8fc73e;
-		border-bottom:none;
+	.multigraph:before {
+	    border: 30px solid #C5DCFA;
+	    border-bottom: none;
 	}
 	.graph:before, .graph:after{
-		border:30px solid #3d415c;
+		border:30px solid #6A0F49;
 		border-top:none;
 	}
 </style>
@@ -50,10 +50,28 @@
 	<div class="main-frame">
 		<div class="next_Appointment">
 			<div id="tab_header">
-				<div id=title>
-					<p id="main">Next Appointment</p>
-					<p id="subtitle">/ Client Profile</p>
+				<div class="left">
+					<div id=title>
+						<p id="main">Next Appointment</p>
+						<p id="subtitle">/ Client Profile</p>
+					</div>
 				</div>
+				<div class="add">
+					<button id="add">
+						<img src="${pageContext.request.contextPath}/assets/add.svg">
+						<p>add</p>
+					</button>
+					<div class="add_client_booking" style="display:none;">
+						<div id="tile" class="New_client">
+							<img style="width:20px;" id="icon" src="${pageContext.request.contextPath}/assets/user.svg">
+							<p id="title">New Client</p>
+						</div>
+						<div id="tile">
+							<img style="width: 10px;margin-right: 5px;margin-left: 5Px;" id="icon" src="${pageContext.request.contextPath}/assets/activity.svg">
+							<p id="title">New Booking</p>
+						</div>
+					</div>
+			</div>
 			</div>
 			<div id="tab_content">
 				<div id="main_content">
@@ -312,6 +330,17 @@
 	</div>
 	</div>
 </div>
+<form class="new_Booking_form" action="CarSearch" method="get" style="display:none;">
+	<div id="header">
+		<p id="title">Authenticate client</p>
+		<button id="cancel"><img src="${pageContext.request.contextPath}/assets/cancel.svg"></button>
+	</div>
+		<label>Email Address</label>
+		<input id="client_email" aria-autocomplete="both" aria-haspopup="false" autocapitalize="off" autocomplete="off" autocorrect="off" autofocus="" role="combobox" spellcheck="false" name="email" type="email" placeholder="Client Email Address">
+		<label>Password</label>
+		<input id="client_password" name="password" type="password" placeholder="Client password">
+		<button type="submit" id="submit_Btn" ><p>authenticate</p><img src="${pageContext.request.contextPath}/assets/arrow-right.svg"></button>
+</form>
 <script src="${pageContext.request.contextPath}/js/SecretaryDashboard.js"></script>
 <%@include file="/jsp/dropdownList.jsp"%>
 </body>

@@ -36,6 +36,12 @@
 		</div>
 			<div class="bill">
 			<form action="initReservation" method="post">
+				<c:choose>
+  					<c:when test="${user.getType().equals('secretaire')}">
+  						<input name="email" type="hidden" value="${client_email}">
+  						<input name="password" type="hidden" value="${client_password}">
+  					</c:when>
+		  		</c:choose>
 				<div id="details">
 					<p>Booking Details</p>
 					<div id="line"></div>

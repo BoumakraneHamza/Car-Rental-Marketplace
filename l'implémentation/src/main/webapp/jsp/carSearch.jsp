@@ -63,6 +63,12 @@
 								to take advantage of any opportunity</p>
 		  				</div>
 		  				<form action="CarSearch" method="post">
+		  				<c:choose>
+		  					<c:when test="${user.getType().equals('secretaire')}">
+		  						<input name="email" type="hidden" value="${client_email}">
+		  						<input name="password" type="hidden" value="${client_password}">
+		  					</c:when>
+		  				</c:choose>
 		  				<div id="search_inputs">
 		  					<div id="input_field">
 		  						<div id="field">

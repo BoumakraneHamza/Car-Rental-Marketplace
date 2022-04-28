@@ -61,10 +61,8 @@ public class CreatePaperWork {
     	  try {
     	    for (XWPFPictureData pictureData : document.getAllPictures()) {
     	     String fileName =  pictureData.getFileName();
-    	     System.out.println(fileName);
     	      byte[] bytes = image;
     	      replacePictureData(pictureData, bytes);
-    	      System.out.println(fileName + " replaced");
     	    }
     	   document.write(out);
     	  } catch (Exception ex) {
@@ -151,8 +149,6 @@ public class CreatePaperWork {
                        for (XWPFParagraph p : cell.getParagraphs()) {
                         for (XWPFRun r : p.getRuns()) {
                          String text = r.getText(0);
-                         System.out.println(text);
-                         System.out.println(text.equals(entry.getKey()));
                          if (text != null && text.equals(entry.getKey())) {
                           text = text.replace(entry.getKey(), entry.getValue());
                           r.setText(text, 0);
