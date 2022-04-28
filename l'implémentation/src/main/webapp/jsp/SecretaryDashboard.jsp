@@ -66,7 +66,7 @@
 							<img style="width:20px;" id="icon" src="${pageContext.request.contextPath}/assets/user.svg">
 							<p id="title">New Client</p>
 						</div>
-						<div id="tile">
+						<div id="tile" class="New_booking">
 							<img style="width: 10px;margin-right: 5px;margin-left: 5Px;" id="icon" src="${pageContext.request.contextPath}/assets/activity.svg">
 							<p id="title">New Booking</p>
 						</div>

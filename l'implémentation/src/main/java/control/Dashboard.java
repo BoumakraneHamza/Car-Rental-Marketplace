@@ -40,10 +40,15 @@ public class Dashboard extends HttpServlet {
 			request.setAttribute("user", user);
 			DAO dao = new DAO();
 			String url = "/";
-
+			
 			if (user.getType().equals("client")) {
 				url = url + "jsp/ClientDashboard.jsp";
 				CreditCards card = null;
+				//this code attribute is used in case of returning from the booking process
+				//trying to extend the status attribute to the jsp page
+				System.out.println(request.getAttribute("status"));
+				System.out.println("status is read");
+				request.setAttribute("status", request.getAttribute("status"));
 				InboxReturn inbox = new InboxReturn();
 				inbox = dao.getRecievedMessages(user.getEmail());
 				request.setAttribute("conversation", inbox.conversation);

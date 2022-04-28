@@ -185,6 +185,22 @@
 			</div>
 		</div>
 	</div>
+	<c:choose>
+		<c:when test="${status.equals('success')}">
+			<style>
+				.content{
+					filter:blur(5px);
+				}
+			</style>
+			<div id="booking_completed">
+				<img style="width:100px;" src="${pageContext.request.contextPath}/assets/check-illustration.svg">
+				<p id="title">Booking Completed</p>
+				<p id="subtitle">Congrats! Your Booking successfully done</p>
+				<button id="ok" onclick="deleteUnBlur()"><p>Ok</p></button>
+			</div>
+			
+		</c:when>
+	</c:choose>
 	<%@include file="/jsp/dropdownList.jsp"%>
 	<script src="${pageContext.request.contextPath}/js/ClientDashboard.js"></script>
 </body>

@@ -1,23 +1,13 @@
 package control;
 
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.stream.Collectors;
 
-import javax.imageio.ImageIO;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.codec.binary.Base64;
 
 import fileManipulation.CreatePaperWork;
 
@@ -51,15 +41,20 @@ public class SaveImg extends HttpServlet {
 		String reservationId = request.getParameter("reservationId");
 		String path = request.getServletContext().getRealPath("/assets/documents/contracts");
 		String test = request.getParameter("signature");
-	    System.out.print(test);
 	    String base64Image = test.split(",")[1];
 	    byte[] bImg = javax.xml.bind.DatatypeConverter.parseBase64Binary(base64Image);
+	    String status = "failed";
 	    try {
 			CreatePaperWork.FinishContract(path, reservationId , bImg);
+			status = "success";
+			System.out.println("status is set");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	    request.setAttribute("status", status);
+	    RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard");
+		dispatcher.forward(request, response);
 	}
 
 }

@@ -64,8 +64,8 @@ cancel.addEventListener("click",function(e){
 		new_booking_form.style.display="none";
 	}
 });
-let new_client_tile = list_add.querySelector(".New_client");
-new_client_tile.addEventListener("click",function(){
+let new_booking_tile = list_add.querySelector(".New_booking");
+new_booking_tile.addEventListener("click",function(){
 	if(new_booking_form.style.display=="none"){
 		new_booking_form.style.display="flex";
 		list_add.style.display="none"
