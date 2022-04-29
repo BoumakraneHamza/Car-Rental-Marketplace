@@ -221,3 +221,9 @@ function getData(){
 	xhr.send();
 }
 getData();
+function showProfile(){
+	const User_Banner = document.querySelector(".User_Banner");
+	const banner_wrapper = document.querySelector(".banner_wrapper");
+	banner_wrapper.style.display="block";
+	User_Banner.classList.toggle("active");
+}

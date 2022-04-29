@@ -17,10 +17,6 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(theMap);
 
-const ntic = L.marker([36.24476,6.56997]).addTo(theMap).bindPopup('this is a test <h1>NTIC</h1><br> <p>information tech</p>');
-ntic.openPopup();
-
-
 function setCoordinates(inp) {
  var xmlhttp = new XMLHttpRequest();
  var url = "https://nominatim.openstreetmap.org/search?format=json&limit=3&q=" + inp;

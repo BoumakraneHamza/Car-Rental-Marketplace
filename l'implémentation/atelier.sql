@@ -68,6 +68,8 @@ CREATE TABLE `client` (
   `image` varchar(50) NOT NULL,
   `user_name` varchar(45) NOT NULL,
   `defaultPaymentMethod` varchar(45) DEFAULT NULL,
+  `currentLat` varchar(45) NOT NULL,
+  `CurrentLong` varchar(45) NOT NULL,
   PRIMARY KEY (`email`),
   UNIQUE KEY `num_carte_UNIQUE` (`num_carte`),
   KEY `CreditCard_idx` (`defaultPaymentMethod`),
@@ -81,7 +83,7 @@ CREATE TABLE `client` (
 
 LOCK TABLES `client` WRITE;
 /*!40000 ALTER TABLE `client` DISABLE KEYS */;
-INSERT INTO `client` VALUES ('Nathanial ','Olson',549837,'1@email.com','111111111111','2001-01-01','male','regulier',0,'/assets/profile_pics/1email.png','@olson','1122 3344 5566 7788'),('Hamza','Boumakrane',123131,'Hamza@gmail.com','12312310','2001-04-02','male','regulier',0,'/assets/profile_pics/hamzagmail.jpg','@Hamza','9879 2041 7230 1275');
+INSERT INTO `client` VALUES ('Nathanial ','Olson',549837,'1@email.com','111111111111','2001-01-01','male','regulier',0,'/assets/profile_pics/1email.png','@olson','1122 3344 5566 7788','',''),('Hamza','Boumakrane',123131,'Hamza@gmail.com','12312310','2001-04-02','male','regulier',0,'/assets/profile_pics/hamzagmail.jpg','@Hamza','9879 2041 7230 1275','','');
 /*!40000 ALTER TABLE `client` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -852,4 +854,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-29  1:36:27
+-- Dump completed on 2022-04-29 17:54:29

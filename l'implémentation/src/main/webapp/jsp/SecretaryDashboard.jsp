@@ -94,15 +94,16 @@
 					<div id="content_header">
 						<div id="left">
 							<div id="renter_name_status">
-								<p id="Renter_name">${map.get(key).nom} ${map.get(key).prenom}</p>
-								<p id="status">Online</p>
+								<p id="Renter_name" onclick="showProfile()">${map.get(key).nom} ${map.get(key).prenom}</p>
+								<div id="status"><img style="width:20px;" src="${pageContext.request.contextPath}/assets/check-circle-not-fill.svg"><p id="value">Active</p></div>
 							</div>
 							<div id="renter_age_gender">
 								<p id="Age">${age} Yrs,</p>
 								<p id="gender"> ${map.get(key).sexe}</p>
 							</div>
 						</div>
-						<div id="right">	
+						<div id="right">
+							<button id="start_appt"><img style="width:25px;" src="${pageContext.request.contextPath}/assets/open-circle.svg"><p id="title">Start Appointment</p></button>	
 						</div>
 					</div>
 					<div id="content_middle">
@@ -316,5 +317,6 @@
 	</c:choose>
 <script src="${pageContext.request.contextPath}/js/SecretaryDashboard.js"></script>
 <%@include file="/jsp/dropdownList.jsp"%>
+<%@include file="/jsp/UserBanner.jsp"%>
 </body>
 </html>

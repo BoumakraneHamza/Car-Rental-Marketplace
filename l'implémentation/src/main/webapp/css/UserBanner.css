@@ -1,0 +1,347 @@
+.banner_wrapper{
+	width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0%;
+    background: #5c5c5c;
+    opacity: 25%;
+}
+.User_Banner {
+	visibility:hidden;
+	width: 33vw;
+    height: 100vh;
+    position: absolute;
+    margin-right:-33vw;
+    	transition:all 0.2s linear; 
+	-o-transition:all 0.2s linear;
+	-moz-transition:all 0.2s linear; 
+	-webkit-transition:all 0.2s linear;
+    right: 0px;
+    top:0px;
+}
+.User_Banner.active{
+    visibility:visible;
+    margin-right:0px;
+    	transition:all 0.2s linear; 
+	-o-transition:all 0.2s linear;
+	-moz-transition:all 0.2s linear; 
+	-webkit-transition:all 0.2s linear;
+}
+.User_Banner .profile_Banner{
+	height: 25vh;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+.User_Banner .profile_Banner #map{
+	height: 100%;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}	
+.User_Banner .profile_Banner .mapouter{
+	height:100%;
+	width:100%;
+}	
+.User_Banner .profile_Banner #map_canvas{
+	height:100%;
+	width:100%;
+}
+.User_Banner .profile_Banner #exit {
+	position: absolute;
+    top: 5%;
+    z-index: 5;
+    right: 5%;
+    border: none;
+    background: #FFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 40px;
+    height: 40px;
+    border-radius: 12Px;
+    cursor: pointer;
+}
+.User_Banner .Profile_info {
+   	display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    position: relative;
+    z-index: 2;
+}
+.User_Banner .Profile_info #client_image_header {
+    margin-top: -50px;
+    height: 50px;
+    background-image: linear-gradient(to bottom, rgb(255 255 255 / 11%), rgba(255,255,255, 1) 90%);
+}
+.User_Banner .Profile_info #client_image_header #client_image {
+	width: 75px;
+    height: 75px;
+    overflow: hidden;
+    display: flex;
+    border-radius: 50%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: -27px;
+    margin-left: 24px;
+}
+.User_Banner .Profile_info  #client_info {
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding: 0px 16px;
+}
+.User_Banner .Profile_info  #client_info #first_row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding: 10px;
+    align-items: center;
+    
+}
+.User_Banner .Profile_info  #client_info #first_row #client_name {
+	font-size: 25px;
+    font-weight: 600;
+    line-height: 23px;
+}
+.User_Banner .Profile_info  #client_info #first_row #status {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin-left: 15px;
+}
+.User_Banner .Profile_info  #client_info #first_row #status #value {
+    margin-left: 10px;
+    font-size: 15px;
+    font-weight: 500;
+}
+.User_Banner .Profile_info  #client_info #second_row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+	padding: 7px 10px;
+}
+.User_Banner .Profile_info  #client_info #second_row #client_email {
+    font-size: 15px;
+    font-weight: 500;
+    color: #9a9999;
+    margin-right: 10px;
+}
+.User_Banner .Profile_info  #client_info #second_row #client_location {
+    font-size: 15px;
+    font-weight: 500;
+    color: #9a9999;
+}
+.User_Banner .Profile_info  #client_info #third_row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding: 10px;
+	align-items: center;
+}
+.User_Banner .Profile_info  #client_info #third_row #tiles {
+	display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 80%;
+    justify-content: space-between;
+}
+.User_Banner .Profile_info  #client_info #third_row #tiles .middle {
+    border-left: 2px solid #E4E4E4;
+    border-right: 2px solid #E4E4E4;
+}
+.User_Banner .Profile_info  #client_info #third_row #tiles #tile{
+    padding: 0px 10px;
+}
+.User_Banner .Profile_info  #client_info #third_row #tiles #tile #title {
+    font-size: 15px;
+    font-weight: 500;
+    color: #C4C4C4;
+}
+.User_Banner .Profile_info  #client_info #third_row #tiles #tile #subtitle {
+    font-size: 17px;
+    font-weight: 500;
+}
+.User_Banner .Profile_info  #client_info #third_row #options {
+    width: 23px;
+    height: 23px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: #f1efef;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.User_Banner .Profile_info  #client_info #third_row #options #report_client {
+	position: absolute;
+    background: #fff;
+    top: 94%;
+    right: 5%;
+    border: 2px solid #E4E4E4;
+    padding: 5px;
+    border-radius: 5px;
+}
+.User_Banner .Profile_info  #client_info #third_row #options #report_client #tile {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+}
+.User_Banner .Profile_info  #client_info #third_row #options #report_client #tile:hover {
+   	background:#F9F9F9;
+}
+.User_Banner .Profile_info  #client_info #third_row #options #report_client #tile #title {
+    font-size: 15px;
+    font-weight: 500;
+    margin-left: 10px;
+}
+.User_Banner .Reservations_list {
+    background: #fff;
+    height: -webkit-fill-available;
+    padding: 10px 26px;
+}
+.User_Banner .Reservations_list #list_header {
+   	padding: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    background: #ececec;
+    border-radius: 11Px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    cursor:pointer;
+}
+.User_Banner .Reservations_list #list_header #title_div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+.User_Banner .Reservations_list #list_header #title_div #counter{
+	margin-left:8px;
+}
+.User_Banner .Reservations_list #list_header #title {
+    margin-left: 16px;
+}
+.User_Banner .Reservations_list #list_header .header_icon{
+	margin-right:10px;
+	transition:all 0.3s linear; 
+	-o-transition:all 0.3s linear;
+	-moz-transition:all 0.3s linear; 
+	-webkit-transition:all 0.3s linear;
+}
+.User_Banner .Reservations_list #list_header .header_icon.active{
+	-webkit-transform:rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  transform: rotate(180deg);
+  transition:all 0.3s linear; 
+	-o-transition:all 0.3s linear;
+	-moz-transition:all 0.3s linear; 
+	-webkit-transition:all 0.3s linear;
+}
+@keyframes growDown {
+  0% {
+    transform: scaleY(0)
+  }
+  80% {
+    transform: scaleY(1.1)
+  }
+  100% {
+    transform: scaleY(1)
+  }
+}
+.User_Banner .Reservations_list #list_content {
+    flex-direction: column;
+    padding: 10px;
+    margin: 8px 0px;
+    flex-wrap: nowrap;
+    height: 48vh;
+    overflow-y: overlay;
+    animation: growDown 300ms ease-in-out forwards;
+    transform-origin: top center
+}
+@keyframes rotateX {
+  0% {
+    opacity: 0;
+    transform: rotateX(-90deg);
+  }
+  50% {
+    transform: rotateX(-20deg);
+  }
+  100% {
+    opacity: 1;
+    transform: rotateX(0deg);
+  }
+}
+.User_Banner .Reservations_list #list_content #booking {
+   	    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin: 7px 0px;
+    align-items: flex-start;
+    animation: rotateX 300ms (num * 60ms) ease-in-out forwards;
+    transform-origin: top center
+}
+.User_Banner .Reservations_list #list_content #booking #booking_info {
+	display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: -webkit-fill-available;
+    height: 100%;
+    justify-content: space-between;
+}
+.User_Banner .Reservations_list #list_content #booking #booking_info #first_row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding: 0px 5px 5px;
+    line-height: 18px;
+}
+.User_Banner .Reservations_list #list_content #booking #booking_info #first_row #car_name {
+    font-size: 16px;
+    font-weight: 600;
+}
+.User_Banner .Reservations_list #list_content #booking #booking_info #first_row #depot_code {
+    font-size: 16px;
+    font-weight: 500;
+}
+.User_Banner .Reservations_list #list_content #booking #booking_info  #second_row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+}
+.User_Banner .Reservations_list #list_content #booking #booking_info  #second_row #tile {
+	display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    height: 51px;
+    align-items: flex-start;
+    padding: 0px 5px;
+    justify-content: space-between;
+}
+.User_Banner .Reservations_list #list_content #booking #booking_info  #second_row #tile #title {
+    font-size: 15px;
+    font-weight: 500;
+    color: #C4C4C4;
+}
+.User_Banner .Reservations_list #list_content #booking #booking_info  #second_row #tile #value {
+    font-size: 17px;
+    font-weight: 500;
+}
