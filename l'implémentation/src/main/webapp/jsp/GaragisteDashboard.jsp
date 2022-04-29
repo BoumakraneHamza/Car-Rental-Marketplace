@@ -86,7 +86,7 @@
 						</div>
 						<div id="renter">
 							<p id="card_tab_title">Renter</p>
-							<div id="renter_tile">
+							<div id="renter_tile" onclick="showProfile()">
 								<div id="renter_image">
 									<img style="width:40px;" src="${pageContext.request.contextPath}/assets/profile_pics/hamzagmail.jpg">
 								</div>
@@ -106,7 +106,7 @@
 						</div>
 						<div id="renter">
 							<p id="card_tab_title">Renter</p>
-							<div id="renter_tile">
+							<div id="renter_tile" onclick="showProfile()">
 								<div id="renter_image">
 									<img style="width:40px;" src="${pageContext.request.contextPath}/assets/profile_pics/hamzagmail.jpg">
 								</div>
@@ -125,7 +125,7 @@
 						</div>
 						<div id="renter">
 							<p id="card_tab_title">Renter</p>
-							<div id="renter_tile">
+							<div id="renter_tile" onclick="showProfile()">
 								<div id="renter_image">
 									<img style="width:40px;" src="${pageContext.request.contextPath}/assets/profile_pics/hamzagmail.jpg">
 								</div>
@@ -144,7 +144,7 @@
 						</div>
 						<div id="renter">
 							<p id="card_tab_title">Renter</p>
-							<div id="renter_tile">
+							<div id="renter_tile"  onclick="showProfile()">
 								<div id="renter_image">
 									<img style="width:40px;" src="${pageContext.request.contextPath}/assets/profile_pics/hamzagmail.jpg">
 								</div>
@@ -163,7 +163,7 @@
 						</div>
 						<div id="renter">
 							<p id="card_tab_title">Renter</p>
-							<div id="renter_tile">
+							<div id="renter_tile" onclick="showProfile()">
 								<div id="renter_image">
 									<img style="width:40px;" src="${pageContext.request.contextPath}/assets/profile_pics/hamzagmail.jpg">
 								</div>
@@ -240,5 +240,6 @@
 	</div>
 	<script src="${pageContext.request.contextPath}/js/GaragisteDashboard.js"></script>
 	<%@include file="/jsp/dropdownList.jsp"%>
+<%@include file="/jsp/UserBanner.jsp"%>
 </body>
 </html>

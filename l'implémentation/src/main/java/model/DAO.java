@@ -1616,6 +1616,28 @@ public class DAO {
 		}
 		return map;
 	}
+	public HashMap<String ,User> getMeetingsWithClient(String email,String client_email){
+		HashMap<String ,User> map = new HashMap<>();
+		String Query = "Select * from meetings where secretary=? and client = ?";
+		PreparedStatement statement;
+		ResultSet result;
+		try {
+			connectDB();
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, email);
+			statement.setString(2, client_email);
+			result = statement.executeQuery();
+			while(result.next()) {
+				User user = new User();
+				user = getClientInfo(result.getString("client"));
+				String date = result.getString("date");
+				map.put(date, user);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return map;
+	}
 	public HashMap<String ,User> getUpcomingMeetings(String email ,String limit){
 		HashMap<String ,User> map = new HashMap<>();
 		String Query = "Select * from meetings where secretary=? and date > ? Order By date asc limit "+limit;

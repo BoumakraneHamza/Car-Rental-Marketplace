@@ -84,3 +84,9 @@ let char3 = new Chart(stat3 ,{
 		maintainAspectRatio: false,
 	}
 });
+function showProfile(){
+	const User_Banner = document.querySelector(".User_Banner");
+	const banner_wrapper = document.querySelector(".banner_wrapper");
+	banner_wrapper.style.display="block";
+	User_Banner.classList.toggle("active");
+}

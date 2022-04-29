@@ -169,10 +169,12 @@
     align-items: center;
     justify-content: center;
     margin-right: 10px;
+    cursor:pointer;
 }
 .main-frame .top_main_frame .reservations .tab_slider .booking_card #renter #renter_tile #renter_name {
     font-size: 16px;
     font-weight: 500;
+    cursor:pointer;
 }
 .main-frame .top_main_frame .performance_card {
 	width: 20%;

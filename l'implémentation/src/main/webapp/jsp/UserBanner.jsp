@@ -54,7 +54,7 @@
 				<div id="options">
 					<img style="width: 15px;" src="${pageContext.request.contextPath}/assets/3-point-option.svg">
 					<div id="report_client" style="display:none;">
-						<div id="tile">
+						<div id="tile" onclick="report()">
 							<img src="${pageContext.request.contextPath}/assets/info.svg">
 							<p id="title">Report client</p>
 						</div>

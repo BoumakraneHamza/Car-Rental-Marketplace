@@ -28,4 +28,9 @@ exit.addEventListener("click",()=>{
 banner_wrapper.addEventListener("click",()=>{
 	banner_wrapper.style.display="none";
 	User_Banner.classList.toggle("active");
-})
+});
+function report(){
+	document.querySelector('.report_client').style.display='flex';
+	User_Banner.classList.toggle("active");
+	banner_wrapper.style.display="none";
+}
