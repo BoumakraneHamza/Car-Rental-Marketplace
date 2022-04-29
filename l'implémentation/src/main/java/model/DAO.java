@@ -1616,9 +1616,9 @@ public class DAO {
 		}
 		return map;
 	}
-	public HashMap<String ,User> getUpcomingMeetings(String email){
+	public HashMap<String ,User> getUpcomingMeetings(String email ,String limit){
 		HashMap<String ,User> map = new HashMap<>();
-		String Query = "Select * from meetings where secretary=? and date > ? Order By date asc limit 4";
+		String Query = "Select * from meetings where secretary=? and date > ? Order By date asc limit "+limit;
 		 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
 		 LocalDateTime now = LocalDateTime.now(); 
 		 String Time = now.toString();
@@ -1641,4 +1641,24 @@ public class DAO {
 		}
 		return map;
 	}
+	public String GetReservationCounter(String email) {
+		String Query = "select count(id) as count from reservation where locataire_email = ?";
+		PreparedStatement statement;
+		ResultSet result;
+		String counter = null;
+		try {
+			connectDB();
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, email);
+			result = statement.executeQuery();
+			if (result.next()) {
+				counter = result.getString("count");
+			}
+			statement.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return counter;
+	}
+	
 }

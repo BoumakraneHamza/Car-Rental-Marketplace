@@ -70,7 +70,7 @@ public class Dashboard extends HttpServlet {
 			} else if(user.getType().equals("garagiste")) {
 				url = url + "jsp/GaragisteDashboard.jsp";
 			} else if(user.getType().equals("secretaire")) {
-				url = url + "jsp/SecretaryDashboard.jsp";
+				url = url + "SecretaryDashboard";
 			}
 			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 			dispatcher.forward(request, response);

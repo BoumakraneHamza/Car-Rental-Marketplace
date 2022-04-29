@@ -286,7 +286,7 @@ function getData(){
 			load();
 		}
 	};
-	xhr.open("GET","GetMeetings");
+	xhr.open("GET","GetMeetings?limit="+4);
 	xhr.send();
 }
 $( document ).ready(function() {

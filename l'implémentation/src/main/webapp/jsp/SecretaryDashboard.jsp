@@ -73,19 +73,20 @@
 					</div>
 			</div>
 			</div>
-			<div id="tab_content">
+			<c:forEach items="${map.keySet()}" var="key">
+				<div id="tab_content">
 				<div id="main_content">
 					<div id="client_image">
-						<img style="width:185px;" src="${pageContext.request.contextPath}/assets/profile_pics/hamzagmail.jpg">
+						<img style="width:185px;" src="${pageContext.request.contextPath}${map.get(key).image}">
 					</div>
 					<div id="client_main_info">
 						<div id="tile">
 							<p id="title">N° Reservations :</p>
-							<p id="value">24</p>
+							<p id="value">${counter}</p>
 						</div>
 						<div id="tile">
 							<p id="title">N° warnings :</p>
-							<p id="value">0</p>
+							<p id="value">${map.get(key).alert}</p>
 						</div>
 					</div>
 				</div>
@@ -93,12 +94,12 @@
 					<div id="content_header">
 						<div id="left">
 							<div id="renter_name_status">
-								<p id="Renter_name">Boumakrane Hamza</p>
+								<p id="Renter_name">${map.get(key).nom} ${map.get(key).prenom}</p>
 								<p id="status">Online</p>
 							</div>
 							<div id="renter_age_gender">
-								<p id="Age">22 Yrs,</p>
-								<p id="gender"> Male</p>
+								<p id="Age">${age} Yrs,</p>
+								<p id="gender"> ${map.get(key).sexe}</p>
 							</div>
 						</div>
 						<div id="right">	
@@ -108,7 +109,7 @@
 						<div id="left">
 							<div id="tile">
 								<p id="title">Scheduled Appt</p>
-								<p id="value">10 Dec 2022 , 10:00 AM</p>
+								<p id="value">${key}</p>
 							</div>
 						</div>
 						<div id="middle">
@@ -128,18 +129,19 @@
 						<div id="left">
 							<div id="tile">
 								<p id="title">Customer Phone</p>
-								<p id="value">01 23 01 30 10</p>
+								<p id="value">${map.get(key).telephone}</p>
 							</div>
 						</div>
 						<div id="right">
 							<div id="tile">
 								<p id="title">Customer Email</p>
-								<p id="value">Hamza@email.com</p>
+								<p id="value">${map.get(key).email}</p>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+			</c:forEach>
 		</div>
 		<div class="Summary_Cards">
 			<div class="Schedule">
@@ -147,51 +149,6 @@
 					<p id="header_title">Upcoming_Schedule</p>
 				</div>
 				<div id="schedule_list">
-					<div id="task">
-						<div id="time">
-							<p id="start_time">10:00</p>
-							<p id="end_time">10:15</p>
-						</div>
-						<div id="task_info">
-							<p id="title">Meeting</p>
-							<p id="subtitle">Hamza Boumakrane</p>
-						</div>
-						<div id="image_wrapper">
-							<div id="client_image">
-								<img style="width:50px;" src="${pageContext.request.contextPath}/assets/profile_pics/hamzagmail.jpg">
-							</div>
-						</div>
-					</div>
-					<div id="task">
-						<div id="time">
-							<p id="start_time">10:00</p>
-							<p id="end_time">10:15</p>
-						</div>
-						<div id="task_info">
-							<p id="title">Meeting</p>
-							<p id="subtitle">Hamza Boumakrane</p>
-						</div>
-						<div id="image_wrapper">
-							<div id="client_image">
-								<img style="width:50px;" src="${pageContext.request.contextPath}/assets/profile_pics/hamzagmail.jpg">
-							</div>
-						</div>
-					</div>
-					<div id="task">
-						<div id="time">
-							<p id="start_time">10:00</p>
-							<p id="end_time">10:15</p>
-						</div>
-						<div id="task_info">
-							<p id="title">Meeting</p>
-							<p id="subtitle">Hamza Boumakrane</p>
-						</div>
-						<div id="image_wrapper">
-							<div id="client_image">
-								<img style="width:50px;" src="${pageContext.request.contextPath}/assets/profile_pics/hamzagmail.jpg">
-							</div>
-						</div>
-					</div>
 				</div>
 				<button id="View_Details" onclick="location.href='${pageContext.request.contextPath}/SecretarySchedule'">See All Activity</button>
 			</div>
@@ -213,6 +170,7 @@
 		<div class="multigraph">
 		  	<span class="graph"></span>
 		</div>
+		<img id="score_status" style="width:40px;" src="${pageContext.request.contextPath}/assets/Hands001.jpg">
 		<p id="percentile">50%</p>
 		<p id="subtitle">
 			You need to make an efforts
@@ -341,6 +299,21 @@
 		<input id="client_password" name="password" type="password" placeholder="Client password">
 		<button type="submit" id="submit_Btn" ><p>authenticate</p><img src="${pageContext.request.contextPath}/assets/arrow-right.svg"></button>
 </form>
+<c:choose>
+		<c:when test="${status.equals('success')}">
+			<style>
+				.content{
+					filter:blur(5px);
+				}
+			</style>
+			<div id="booking_completed">
+				<img style="width:100px;" src="${pageContext.request.contextPath}/assets/check-illustration.svg">
+				<p id="title">Booking Completed</p>
+				<p id="subtitle">Congrats! Your Booking successfully done</p>
+				<button id="ok" onclick="deleteUnBlur()"><p>Ok</p></button>
+			</div>
+		</c:when>
+	</c:choose>
 <script src="${pageContext.request.contextPath}/js/SecretaryDashboard.js"></script>
 <%@include file="/jsp/dropdownList.jsp"%>
 </body>

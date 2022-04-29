@@ -198,7 +198,6 @@
 				<p id="subtitle">Congrats! Your Booking successfully done</p>
 				<button id="ok" onclick="deleteUnBlur()"><p>Ok</p></button>
 			</div>
-			
 		</c:when>
 	</c:choose>
 	<%@include file="/jsp/dropdownList.jsp"%>

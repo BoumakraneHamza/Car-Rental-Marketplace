@@ -37,11 +37,12 @@ public class GetMeetings extends HttpServlet {
 		User user = (User) request.getSession().getAttribute("user");
 		if (user != null) {
 			request.setAttribute("user", user);
+			String limit = request.getParameter("limit");
 			DAO dao = new DAO();
 			HashMap<String,User> Calendar = new HashMap<>();
 			HashMap<String,User> Upcoming = new HashMap<>();
 			Calendar = dao.getMeetings(user.getEmail());
-			Upcoming = dao.getUpcomingMeetings(user.getEmail());
+			Upcoming = dao.getUpcomingMeetings(user.getEmail(),limit);
 			ObjectMapper mapper = new ObjectMapper();
 			String CalendarString = mapper.writeValueAsString(Calendar);
 			String UpcomingString = mapper.writeValueAsString(Upcoming);
