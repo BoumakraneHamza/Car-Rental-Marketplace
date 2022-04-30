@@ -8,23 +8,25 @@ $(function() {
     }
   });
 });
+function randomColorArray(len) {
+	let arr = [];
+	for (let i = 0; i < len; i++) {
+		var r = Math.floor(Math.random() * 255);
+		var g = Math.floor(Math.random() * 255);
+		var b = Math.floor(Math.random() * 255);
+		arr.push("rgb(" + r + "," + g + "," + b + ")");
+	}
+	return arr;
+}
 const stat1 = document.querySelector("#stat1");
 let char1 = new Chart(stat1 ,{
 	type:'doughnut',
 	data:{
-		labels:['Mini Cooper','Peugot','Mercedice','Reneaut','Porche'],
+		labels:Object.keys(stat1Data),
 		datasets:[{
 			label:'active hours',
-			data:[
-				6,5,3,4,2
-			],
-			backgroundColor: [
-		      '#8fc73e',
-		      '#527c85',
-		      '#9cb5ba',
-			  '#B56576',
-			  '#E56B6F',
-		    ],
+			data:Object.values(stat1Data),
+			backgroundColor:randomColorArray(Object.keys(stat1Data).length),
 			hoverOffset: 6,
 		}]
 	},
@@ -32,7 +34,6 @@ let char1 = new Chart(stat1 ,{
 		responsive:true,
 		maintainAspectRatio: false,
 	}
-	
 });
 const stat2 = document.querySelector("#stat2");
 let char2 = new Chart(stat2 ,{
@@ -41,9 +42,7 @@ let char2 = new Chart(stat2 ,{
 		labels:['Hamza','Oussama','Nathanial'],
 		datasets:[{
 			label:'active hours',
-			data:[
-				6,7,3
-			],
+			data:[6,7,3],
 			backgroundColor: [
 		      '#8fc73e',
 		      '#527c85',
@@ -63,12 +62,10 @@ const stat3 = document.querySelector("#stat3");
 let char3 = new Chart(stat3 ,{
 	type:'doughnut',
 	data:{
-		labels:['Hamza','Oussama','Nathanial'],
+		labels:Object.keys(stat3Data),
 		datasets:[{
 			label:'active hours',
-			data:[
-				6,7,3
-			],
+			data:Object.values(stat3Data),
 			backgroundColor: [
 		      '#8fc73e',
 		      '#527c85',

@@ -37,7 +37,7 @@ public class ServiceClient extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) request.getSession().getAttribute("user");
-		if (user != null) {
+		if (user.getType().equals("service_client")) {
 			request.setAttribute("user", user);
 			DAO dao = new DAO();
 			ArrayList<request> requests = dao.GetRequests();

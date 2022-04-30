@@ -11,7 +11,6 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -1709,5 +1708,121 @@ public class DAO {
 		}
 		return counter;
 	}
+	public ArrayList<Reservation> getDepotReservations(String depotCode) {
+		return getDepotReservations(depotCode, false, 0);
+	}
 	
+	public ArrayList<Reservation> getDepotReservations(String depotCode, boolean upComing, int limit) {
+		String query;
+		ArrayList<Reservation> reservations = new ArrayList<Reservation>();
+		PreparedStatement statement;
+		Reservation reservation = null;
+		ResultSet result;
+		try {
+			connectDB();
+			if (upComing) {
+				query = "SELECT *, TIMEDIFF(CONCAT(date_1, \" \", hour_1), NOW()) AS `timeLeft`\r\n"
+						+ "FROM reservation AS r\r\n"
+						+ "JOIN vehicule AS v ON r.vehicule_matricule = v.matricule\r\n"
+						+ "JOIN client AS c ON r.locataire_email = c.email\r\n"
+						+ "WHERE depot_code = ?\r\n"
+						+ "AND TIMEDIFF(CONCAT(date_1, \" \", hour_1), NOW()) >= 0\r\n"
+						+ "ORDER BY CONCAT(date_1, \" \", hour_1) ASC";
+			} else {
+				query = "SELECT *\r\n"
+						+ "FROM reservation AS r\r\n"
+						+ "JOIN vehicule AS v ON r.vehicule_matricule = v.matricule\r\n"
+						+ "JOIN client AS c ON r.locataire_email = c.email\r\n"
+						+ "WHERE depot_code = ?\r\n"
+						+ "ORDER BY CONCAT(date_1, \" \", hour_1) ASC";
+			}
+			if (limit != 0) {
+				query = query + " limit " + limit;//start from here TODO
+			}
+			
+			statement = connection.prepareStatement(query);
+			statement.setString(1, depotCode);
+			result = statement.executeQuery();
+			
+			
+			
+			while(result.next()) {
+				reservation = new Reservation();
+				
+				reservation.setId(result.getInt("id"));
+				reservation.setEmail(result.getString("locataire_email"));
+				reservation.setVehicule(result.getString("vehicule_matricule"));
+				reservation.setPick_up_date(result.getString("date_1"));
+				reservation.setReturn_date(result.getString("date_2"));
+				reservation.setStatus(result.getString("etat"));
+				reservation.setContrat(result.getString("contrat"));
+				reservation.setPick_up_hour(result.getString("hour_1"));
+				reservation.setReturn_hour(result.getString("hour_2"));
+				reservation.setReservation_date(result.getString("date_reservation"));
+				reservation.setLocation(result.getString("location"));
+				reservation.setCarName(result.getString("marque") + " " + result.getString("modele"));
+				reservation.setPLH(result.getInt("PLH"));
+				reservation.setPLJ(result.getInt("PLJ"));
+				reservation.setCarImage(result.getString("v.image"));
+				reservation.setRenterName(result.getString("nom") + " " + result.getString("prenom"));
+				reservation.setRenterImage(result.getString("c.image"));
+				if (upComing) {
+					reservation.setTimeLeft(result.getString("timeLeft"));
+				}
+				
+				reservations.add(reservation);
+			}
+			statement.close();
+		}catch (SQLException | InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return reservations;
+	}
+	
+	public HashMap<String,Integer> depotCarStatByMarque(String depotCode) {
+		String query;
+		PreparedStatement statement;
+		HashMap<String,Integer> carStat = new HashMap<String,Integer>();
+		ResultSet result;
+		
+		try {
+			connectDB();
+			query = "SELECT marque, count(matricule) AS `total`\r\n"
+					+ "FROM atelier.vehicule GROUP BY marque";
+			
+			statement = connection.prepareStatement(query);
+			result = statement.executeQuery();
+			
+			while (result.next()) {
+				carStat.put(result.getString("marque"),result.getInt("total"));
+			}
+		} catch (SQLException | InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return carStat;
+	}
+	
+	public HashMap<String,Integer> depotCarStatByRating(String depotCode) {
+		String query;
+		PreparedStatement statement;
+		HashMap<String,Integer> carStat = new HashMap<String,Integer>();
+		ResultSet result;
+		
+		try {
+			connectDB();
+			query = "SELECT ROUND(rating) AS `rating`, count(matricule) AS `total`\r\n"
+					+ "FROM atelier.vehicule\r\n"
+					+ "GROUP BY ROUND(rating) ORDER BY ROUND(rating)";
+			
+			statement = connection.prepareStatement(query);
+			result = statement.executeQuery();
+			
+			while (result.next()) {
+				carStat.put(result.getString("rating"),result.getInt("total"));
+			}
+		} catch (SQLException | InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return carStat;
+	}
 }

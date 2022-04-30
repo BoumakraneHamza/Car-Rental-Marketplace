@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `atelier` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `atelier`;
--- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.28, for Win64 (x86_64)
 --
 -- Host: localhost    Database: atelier
 -- ------------------------------------------------------
--- Server version	8.0.27
+-- Server version	8.0.28
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -203,6 +203,7 @@ CREATE TABLE `depot` (
   `lon` varchar(45) DEFAULT NULL,
   `Bookings` int DEFAULT '0',
   PRIMARY KEY (`code`,`agence_nom`),
+  UNIQUE KEY `garagiste_email_UNIQUE` (`garagiste_email`),
   KEY `fk_Depot_Utilisateur1_idx` (`garagiste_email`),
   KEY `agency_name_idx` (`agence_nom`),
   CONSTRAINT `agency_name` FOREIGN KEY (`agence_nom`) REFERENCES `agence` (`nom`),
@@ -217,7 +218,7 @@ CREATE TABLE `depot` (
 
 LOCK TABLES `depot` WRITE;
 /*!40000 ALTER TABLE `depot` DISABLE KEYS */;
-INSERT INTO `depot` VALUES (1,'constantine',12,10,'Hertz','g01@email.com','36.25023','6.57394',22),(2,'batna',15,15,'Hertz',NULL,'35.55216','6.17968',12),(3,'constantine',15,15,'agence02',NULL,'36.2650','6.5833',0),(4,'constantine',20,3,'Hertz',NULL,'36.2536','6.5546',0),(5,'constantine',10,5,'agence02',NULL,'36.2493','6.5921',0),(6,'constantine',12,6,'agence02',NULL,'36.2333','6.5604',0),(7,'alger',100,50,'Hertz','g01@email.com',NULL,NULL,0);
+INSERT INTO `depot` VALUES (1,'constantine',12,11,'Hertz','g01@email.com','36.25023','6.57394',22),(2,'batna',15,14,'Hertz',NULL,'35.55216','6.17968',12),(3,'constantine',15,15,'agence02',NULL,'36.2650','6.5833',0),(4,'constantine',20,3,'Hertz',NULL,'36.2536','6.5546',0),(5,'constantine',10,5,'agence02',NULL,'36.2493','6.5921',0),(6,'constantine',12,6,'agence02',NULL,'36.2333','6.5604',0),(7,'alger',100,48,'Hertz','g02@email.com',NULL,NULL,0);
 /*!40000 ALTER TABLE `depot` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -277,7 +278,7 @@ CREATE TABLE `garagiste` (
 
 LOCK TABLES `garagiste` WRITE;
 /*!40000 ALTER TABLE `garagiste` DISABLE KEYS */;
-INSERT INTO `garagiste` VALUES ('aaaa@aaa.aa','aaaa','aaaa','/assets/profile_pics/1email.png',1,NULL,'Hertz'),('g01@email.com','Boumakrane','Hamza','/assets/profile_pics/1email.png',2,'0000-00-00','Hertz'),('g02@email.com','gara','garagiste','/assets/profile_pics/1email.png',3,'0000-00-00','Hertz');
+INSERT INTO `garagiste` VALUES ('aaaa@aaa.aa','aaaa','aaaa','/assets/profile_pics/1email.png',2,NULL,'Hertz'),('g01@email.com','Boumakrane','Hamza','/assets/profile_pics/1email.png',1,'0000-00-00','Hertz'),('g02@email.com','gara','garagiste','/assets/profile_pics/1email.png',7,'0000-00-00','Hertz');
 /*!40000 ALTER TABLE `garagiste` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -409,6 +410,7 @@ CREATE TABLE `offices` (
   `lat` varchar(45) DEFAULT NULL,
   `lon` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`code`,`agency_name`),
+  UNIQUE KEY `email_secretaire_UNIQUE` (`email_secretaire`),
   KEY `fk_agency_idx` (`agency_name`),
   KEY `fk_secretary_idx` (`email_secretaire`),
   CONSTRAINT `fk_agency` FOREIGN KEY (`agency_name`) REFERENCES `agence` (`nom`),
@@ -724,12 +726,12 @@ CREATE TABLE `vehicule` (
   `Sec-images` json DEFAULT NULL,
   `seats` int NOT NULL DEFAULT '4',
   `doors` int NOT NULL DEFAULT '4',
-  `suit_case` int DEFAULT NULL,
-  `mileage` tinyint DEFAULT NULL,
-  `comfort_rating` double DEFAULT NULL,
-  `cleanliness_rating` double DEFAULT NULL,
-  `PickReturn_rating` double DEFAULT NULL,
-  `ValueMoney_rating` double DEFAULT NULL,
+  `suit_case` int DEFAULT '0',
+  `mileage` tinyint DEFAULT '0',
+  `comfort_rating` double DEFAULT '0',
+  `cleanliness_rating` double DEFAULT '0',
+  `PickReturn_rating` double DEFAULT '0',
+  `ValueMoney_rating` double DEFAULT '0',
   PRIMARY KEY (`matricule`),
   KEY `code_depot_idx` (`depot_code`),
   CONSTRAINT `depot` FOREIGN KEY (`depot_code`) REFERENCES `depot` (`code`)
@@ -742,7 +744,7 @@ CREATE TABLE `vehicule` (
 
 LOCK TABLES `vehicule` WRITE;
 /*!40000 ALTER TABLE `vehicule` DISABLE KEYS */;
-INSERT INTO `vehicule` VALUES ('202212401','Peugot','e-208GT',120,20,'Premium','/assets/car_pics/car02.jpg',2,2022,'Yellow',2.8,'null',5,4,0,0,0,0,0,0),('202212522','Mini','cooper Sl',100,15,'Compact','/assets/car_pics/default01.jpg',1,2021,'Red',3.2,'null',4,2,0,0,0,0,0,0),('gggg','aaaa','bbbb',6666,7777,'premium','/assets/car_pics/default.jpg',1,7777,'gggg',0,NULL,2,2,1,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `vehicule` VALUES ('202212401','Peugot','e-208GT',120,20,'Premium','/assets/car_pics/car02.jpg',2,2022,'Yellow',2.8,NULL,5,4,0,0,0,0,0,0),('202212519','porsche','macan',210,55,'premium','/assets/car_pics/default.jpg',7,2019,'black',0,NULL,4,4,0,0,0,0,0,0),('202212520','mercedes','c-class',200,50,'coupe','/assets/car_pics/default.jpg',7,2020,'white',0,NULL,4,4,0,0,0,0,0,0),('202212521','renault','captur',190,35,'suv','/assets/car_pics/default.jpg',2,2021,'blue',0,NULL,4,4,0,0,0,0,0,0),('202212522','Mini','cooper Sl',100,15,'Compact','/assets/car_pics/default01.jpg',1,2021,'Red',3.2,NULL,4,2,0,0,0,0,0,0);
 /*!40000 ALTER TABLE `vehicule` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -857,4 +859,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-30 18:46:46
+-- Dump completed on 2022-04-30 15:11:10

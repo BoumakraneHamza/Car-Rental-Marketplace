@@ -40,7 +40,7 @@ public class ViewAgencyDepots extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) request.getSession().getAttribute("user");
-		if (user != null) {
+		if (user.getType().equals("directeur")) {
 			request.setAttribute("user", user);
 			ArrayList<Building> Buildings = null;
 			DAO dao = new DAO();
@@ -62,7 +62,7 @@ public class ViewAgencyDepots extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		User user = (User) request.getSession().getAttribute("user");
-		if (user != null) {
+		if (user.getType().equals("directeur")) {
 			request.setAttribute("user", user);
 			String depot = request.getParameter("depot");
 			String agency = request.getParameter("agency");

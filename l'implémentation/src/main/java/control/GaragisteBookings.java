@@ -11,21 +11,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.DAO;
-import model.Depot;
-import model.Employee;
+import model.Reservation;
 import model.User;
+import model.Vehicule;
 
 /**
- * Servlet implementation class ViewAgencyPersonal
+ * Servlet implementation class GaragisteBookings
  */
-@WebServlet("/ViewAgencyPersonal")
-public class ViewAgencyPersonal extends HttpServlet {
+@WebServlet("/GaragisteBookings")
+public class GaragisteBookings extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ViewAgencyPersonal() {
+    public GaragisteBookings() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,15 +35,14 @@ public class ViewAgencyPersonal extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) request.getSession().getAttribute("user");
-		if (user.getType().equals("directeur")) {
-			request.setAttribute("user", user);
-			ArrayList<Employee> employees = null;
+		if (user.getType().equals("garagiste")) {
 			DAO dao = new DAO();
-			employees = dao.getAgencyPersonals(user.getNom());
-
-			request.setAttribute("employees", employees);
+			ArrayList<Reservation> reservations = null;
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/AgencyPersonal.jsp");
+			reservations = dao.getDepotReservations(user.getGaragisteInfo().getWorkingLocation());
+			request.setAttribute("reservations", reservations);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/GaragisteBookings.jsp");
 			dispatcher.forward(request, response);
 		} else {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/login.jsp");

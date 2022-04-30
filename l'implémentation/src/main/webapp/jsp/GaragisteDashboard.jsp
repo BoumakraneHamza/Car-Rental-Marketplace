@@ -43,10 +43,10 @@
 		</div>
 		<div id="dropdownlist">
 			<img src="${pageContext.request.contextPath}/assets/angle-down-solid.svg">
-			</div>
-			
 		</div>
+			
 	</div>
+</div>
 <div class="content">
 	<div class="menu">
 		<button class="dashboard" style="background: #F6AA1C;"><a href="${pageContext.request.contextPath}/Dashboard"><img src="${pageContext.request.contextPath}/assets/dashboard-icon-white.svg"></a></button>
@@ -71,32 +71,35 @@
 						<p id="title">This Month</p>
 					</div>
 				</div>
-				<button onclick="window.location.href='${pageContext.request.contextPath}/jsp/GaragisteBookings.jsp'" id="cta">Full List</button>
+				<button onclick="window.location.href='${pageContext.request.contextPath}/GaragisteBookings'" id="cta">Full List</button>
 			</div>
 		</div>
 		<div class="tab_slider">
-			<div class="booking_card">
-				<div class="date">
-					<div id="pick_up"><p id="main_date">Dec 10, 10:00</p><p>AM</p></div>
-					<p id="remaining_time">2 hours</p>
-				</div>
-				<div id="vehicule">
-					<p id="card_tab_title">vehicule</p>
-					<p id="car_name">Mini Cooper Modele S</p>
-				</div>
-				<div id="renter">
-					<p id="card_tab_title">Renter</p>
-					<div id="renter_tile" onclick="showProfile(this)">
-					<input id="client_email" type="hidden" value="Hamza@gmail.com">
-						<div id="renter_image">
-							<img style="width:40px;" src="${pageContext.request.contextPath}/assets/profile_pics/hamzagmail.jpg">
+				
+			<c:forEach items="${reservations}" var="reservation">
+				<div class="booking_card">
+					<div class="date">
+						<div id="pick_up"><p id="main_date">${reservation.pick_up_date }, ${reservation.pick_up_hour }</p></div>
+						<p id="remaining_time">${reservation.timeLeft }</p>
+					</div>
+					<div id="vehicule">
+						<p id="card_tab_title">vehicule</p>
+						<p id="car_name">${reservation.carName }</p>
+					</div>
+					<div id="renter">
+						<p id="card_tab_title">Renter</p>
+						<div id="renter_tile" onclick="showProfile(this)">
+						<input id="client_email" type="hidden" value="${reservation.email }">
+							<div id="renter_image">
+								<img style="width:40px;" src="${pageContext.request.contextPath}${reservation.renterImage }">
+							</div>
+							<p id="renter_name">${reservation.renterName }</p>
 						</div>
-						<p id="renter_name">Nathanial Olson</p>
 					</div>
 				</div>
-			</div>
+			</c:forEach>
 			
-			<div class="booking_card">
+			<div class="booking_card" style="background-color:blue">this is a template
 				<div class="date">
 					<div id="pick_up"><p id="main_date">Dec 10, 10:00</p><p>AM</p></div>
 					<p id="remaining_time">2 hours</p>
@@ -116,67 +119,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="booking_card">
-				<div class="date">
-					<div id="pick_up"><p id="main_date">Dec 10, 10:00</p><p>AM</p></div>
-					<p id="remaining_time">2 hours</p>
-				</div>
-				<div id="vehicule">
-					<p id="card_tab_title">vehicule</p>
-					<p id="car_name">Mini Cooper Modele S</p>
-				</div>
-				<div id="renter">
-					<p id="card_tab_title">Renter</p>
-					<div id="renter_tile" onclick="showProfile(this)">
-					<input id="client_email" type="hidden" value="Hamza@gmail.com">
-						<div id="renter_image">
-							<img style="width:40px;" src="${pageContext.request.contextPath}/assets/profile_pics/hamzagmail.jpg">
-						</div>
-						<p id="renter_name">Nathanial Olson</p>
-					</div>
-				</div>
-			</div>
-			<div class="booking_card">
-				<div class="date">
-					<div id="pick_up"><p id="main_date">Dec 10, 10:00</p><p>AM</p></div>
-					<p id="remaining_time">2 hours</p>
-				</div>
-				<div id="vehicule">
-					<p id="card_tab_title">vehicule</p>
-					<p id="car_name">Mini Cooper Modele S</p>
-				</div>
-				<div id="renter">
-					<p id="card_tab_title">Renter</p>
-					<div id="renter_tile"  onclick="showProfile(this)">
-					<input id="client_email" type="hidden" value="Hamza@gmail.com">
-						<div id="renter_image">
-							<img style="width:40px;" src="${pageContext.request.contextPath}/assets/profile_pics/hamzagmail.jpg">
-						</div>
-						<p id="renter_name">Nathanial Olson</p>
-					</div>
-				</div>
-			</div>
-			<div class="booking_card">
-				<div class="date">
-					<div id="pick_up"><p id="main_date">Dec 10, 10:00</p><p>AM</p></div>
-					<p id="remaining_time">2 hours</p>
-				</div>
-				<div id="vehicule">
-					<p id="card_tab_title">vehicule</p>
-					<p id="car_name">Mini Cooper Modele S</p>
-				</div>
-				<div id="renter">
-					<p id="card_tab_title">Renter</p>
-					<div id="renter_tile" onclick="showProfile(this)">
-					<input id="client_email" type="hidden" value="Hamza@gmail.com">
-						<div id="renter_image">
-							<img style="width:40px;" src="${pageContext.request.contextPath}/assets/profile_pics/hamzagmail.jpg">
-						</div>
-						<p id="renter_name">Nathanial Olson</p>
-					</div>
-				</div>
-			</div>
-			</div>
+		</div>
 	</div>
 	<div class="performance_card">
 		<div class="card_header">
@@ -192,7 +135,7 @@
 		</p>
 		<button onclick="location.href='GaragisteCars'" id="SeeReviews">View Statistics</button>
 	</div>
-</div>
+	</div>
 	<div class="bottom_main_frame">
 		<div class="stats">
 			<div class="tab_header">
@@ -201,7 +144,7 @@
 			</div>
 			<div class="stats_wrapper">
 				<div class="stat">
-					<p id="stat_header">By the Car model</p>
+					<p id="stat_header">By the Car brand</p>
 					<div id="canvas_wrapper">
 						<canvas id="stat1"></canvas>
 					</div>
@@ -239,10 +182,14 @@
 				</div>
 			</div>
 			<button onclick="window.location.href='${pageContext.request.contextPath}/jsp/GaragisteProblems.jsp'" id="SeeReviews">View All</button>
-			</div>
 		</div>
 	</div>
 </div>
+</div>
+<script type="text/javascript">
+	var stat1Data = ${stat1}
+	var stat3Data = ${stat3}
+</script>
 <script src="${pageContext.request.contextPath}/js/GaragisteDashboard.js"></script>
 <%@include file="/jsp/dropdownList.jsp"%>
 <%@include file="/jsp/UserBanner.jsp"%>

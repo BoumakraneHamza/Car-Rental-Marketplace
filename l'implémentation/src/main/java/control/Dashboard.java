@@ -1,6 +1,8 @@
 package control;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import javax.servlet.RequestDispatcher;
@@ -10,9 +12,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import model.CreditCards;
 import model.DAO;
 import model.InboxReturn;
+import model.Reservation;
 import model.User;
 
 /**
@@ -69,6 +74,18 @@ public class Dashboard extends HttpServlet {
 				url = url + "jsp/ServiceClientDashboard.jsp";
 			} else if(user.getType().equals("garagiste")) {
 				url = url + "jsp/GaragisteDashboard.jsp";
+				ObjectMapper mapper = new ObjectMapper();
+				HashMap<String, Integer> stat = null;
+				ArrayList<Reservation> reservations = dao.getDepotReservations(user.getGaragisteInfo().getWorkingLocation(), true, 5);
+				request.setAttribute("reservations", reservations);
+				
+				stat = dao.depotCarStatByMarque(user.getGaragisteInfo().getWorkingLocation());
+				String stat1 = mapper.writeValueAsString(stat);
+				request.setAttribute("stat1", stat1);
+				
+				stat = dao.depotCarStatByRating(user.getGaragisteInfo().getWorkingLocation());
+				String stat3 = mapper.writeValueAsString(stat);
+				request.setAttribute("stat3", stat3);
 			} else if(user.getType().equals("secretaire")) {
 				url = url + "SecretaryDashboard";
 			}

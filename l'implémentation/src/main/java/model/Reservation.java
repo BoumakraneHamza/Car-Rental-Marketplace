@@ -20,6 +20,9 @@ public class Reservation {
 	private String contrat;
 	private String facture;
 	private String carName;
+	private String timeLeft;
+	private String renterName;
+	private String renterImage;
 	
 	public String getCarName() {
 		return carName;
@@ -135,5 +138,22 @@ public class Reservation {
 	public void setVehicule(String vehicule) {
 		Vehicule = vehicule;
 	}
-
+	public String getTimeLeft() {
+		return timeLeft;
+	}
+	public void setTimeLeft(String timeLeft) {
+		this.timeLeft = timeLeft;
+	}
+	public String getRenterName() {
+		return renterName;
+	}
+	public void setRenterName(String renterName) {
+		this.renterName = renterName;
+	}
+	public String getRenterImage() {
+		return renterImage;
+	}
+	public void setRenterImage(String renterImage) {
+		this.renterImage = renterImage;
+	}
 }
