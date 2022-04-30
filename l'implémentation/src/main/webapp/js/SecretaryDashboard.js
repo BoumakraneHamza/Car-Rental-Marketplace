@@ -130,6 +130,12 @@ function create_Upcoming_Acts(){
 			let EndTime = (MTD2.getHours() < 10 ? '0' : '') + MTD2.getHours()+":"+(MTD2.getMinutes() < 10 ? '0' : '') + (MTD2.getMinutes()-1);
 			const appt = document.createElement('div');
 			appt.setAttribute("id","appt");
+			appt.setAttribute("onclick","showProfile(this)");
+			const email = document.createElement("input");
+			email.setAttribute("type","hidden");
+			email.setAttribute("id","client_email");
+			email.setAttribute("value",ApptArray[0].email);
+			appt.append(email);
 			const apptTime = document.createElement('div');
 			apptTime.setAttribute("id","time");
 			const starttime = document.createElement('p');
@@ -221,9 +227,3 @@ function getData(){
 	xhr.send();
 }
 getData();
-function showProfile(){
-	const User_Banner = document.querySelector(".User_Banner");
-	const banner_wrapper = document.querySelector(".banner_wrapper");
-	banner_wrapper.style.display="block";
-	User_Banner.classList.toggle("active");
-}

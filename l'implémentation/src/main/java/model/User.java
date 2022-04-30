@@ -16,7 +16,36 @@ public class User {
 	private String password;
 	private Garagiste garagisteInfo;
 	private Secretaire SecretaireInfo;
+	private String lat;
+	private String lon;
+	private String Address;
+	private String AccountCreated;
 	
+	
+	public String getAccountCreated() {
+		return AccountCreated;
+	}
+	public String getAddress() {
+		return Address;
+	}
+	public String getLat() {
+		return lat;
+	}
+	public String getLon() {
+		return lon;
+	}
+	public void setAccountCreated(String accountCreated) {
+		AccountCreated = accountCreated;
+	}
+	public void setAddress(String address) {
+		Address = address;
+	}
+	public void setLat(String lat) {
+		this.lat = lat;
+	}
+	public void setLon(String lon) {
+		this.lon = lon;
+	}
 	public void setSecretaireInfo(Secretaire secretaireInfo) {
 		SecretaireInfo = secretaireInfo;
 	}

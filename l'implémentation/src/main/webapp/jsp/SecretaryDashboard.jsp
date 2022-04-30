@@ -94,7 +94,7 @@
 					<div id="content_header">
 						<div id="left">
 							<div id="renter_name_status">
-								<p id="Renter_name" onclick="showProfile()">${map.get(key).nom} ${map.get(key).prenom}</p>
+								<div id="Renter_name" onclick="showProfile(this)"><p>${map.get(key).nom} ${map.get(key).prenom}</p><input id="client_email" type="hidden" value="${map.get(key).email}"></div>
 								<div id="status"><img style="width:20px;" src="${pageContext.request.contextPath}/assets/check-circle-not-fill.svg"><p id="value">Active</p></div>
 							</div>
 							<div id="renter_age_gender">

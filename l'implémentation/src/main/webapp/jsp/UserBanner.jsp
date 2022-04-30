@@ -17,7 +17,6 @@
 <div class="User_Banner">
 	<div class="profile_Banner">
 		<div id="map">
-			<div id="map_canvas" class="gmap_canvas"></div>
 		</div>
 		<button id="exit"><img src="${pageContext.request.contextPath}/assets/cancel-black.svg"></button>
 	</div>
@@ -40,15 +39,15 @@
 				<div id="tiles">
 					<div id="tile">
 						<p id="title">Joined In</p>
-						<p id="subtitle">10 Dec, 2022</p>
+						<p id="subtitle" class="account_created">10 Dec, 2022</p>
 					</div>
 					<div id="tile" class="middle">
 						<p id="title">N° Bookings</p>
-						<p id="subtitle">10</p>
+						<p id="subtitle" class="booking_count">10</p>
 					</div>
 					<div id="tile">
 						<p id="title">N° Warnings</p>
-						<p id="subtitle">0</p>
+						<p id="subtitle" class="warning_count">0</p>
 					</div>
 				</div>
 				<div id="options">

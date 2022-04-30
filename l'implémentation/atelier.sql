@@ -69,7 +69,9 @@ CREATE TABLE `client` (
   `user_name` varchar(45) NOT NULL,
   `defaultPaymentMethod` varchar(45) DEFAULT NULL,
   `currentLat` varchar(45) NOT NULL,
-  `CurrentLong` varchar(45) NOT NULL,
+  `currentLong` varchar(45) NOT NULL,
+  `Account_created` date NOT NULL,
+  `Address` varchar(45) NOT NULL,
   PRIMARY KEY (`email`),
   UNIQUE KEY `num_carte_UNIQUE` (`num_carte`),
   KEY `CreditCard_idx` (`defaultPaymentMethod`),
@@ -83,7 +85,7 @@ CREATE TABLE `client` (
 
 LOCK TABLES `client` WRITE;
 /*!40000 ALTER TABLE `client` DISABLE KEYS */;
-INSERT INTO `client` VALUES ('Nathanial ','Olson',549837,'1@email.com','111111111111','2001-01-01','male','regulier',0,'/assets/profile_pics/1email.png','@olson','1122 3344 5566 7788','',''),('Hamza','Boumakrane',123131,'Hamza@gmail.com','12312310','2001-04-02','male','regulier',0,'/assets/profile_pics/hamzagmail.jpg','@Hamza','9879 2041 7230 1275','','');
+INSERT INTO `client` VALUES ('Nathanial ','Olson',549837,'1@email.com','111111111111','2001-01-01','male','regulier',0,'/assets/profile_pics/1email.png','@olson','1122 3344 5566 7788','36.1889','5.4039','2022-02-10','setif-algeria'),('Hamza','Boumakrane',123131,'Hamza@gmail.com','12312310','2001-04-02','male','regulier',0,'/assets/profile_pics/hamzagmail.jpg','@Hamza','9879 2041 7230 1275','35.5468','6.162','2022-04-20','batna-algeria');
 /*!40000 ALTER TABLE `client` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -143,7 +145,7 @@ CREATE TABLE `conversation` (
   KEY `reciever` (`destination`),
   CONSTRAINT `initiator` FOREIGN KEY (`source`) REFERENCES `users` (`email`),
   CONSTRAINT `reciever` FOREIGN KEY (`destination`) REFERENCES `users` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -152,7 +154,7 @@ CREATE TABLE `conversation` (
 
 LOCK TABLES `conversation` WRITE;
 /*!40000 ALTER TABLE `conversation` DISABLE KEYS */;
-INSERT INTO `conversation` VALUES (23,'Problem with the contract signature','1@email.com','serviceClient@email.com','2022-04-22 19:04:05','Problem Report',0),(24,'New Problem ','1@email.com','serviceClient@email.com','2022-04-22 19:04:11','Reclamation',0),(25,'Hello world ','serviceClient@email.com','1@email.com','2022-04-20 19:46:37','Reclamation',0),(32,'Bug with Pdf files','1@email.com','serviceClient@email.com','2022-04-23 01:09:28','Bug Report',0);
+INSERT INTO `conversation` VALUES (23,'Problem with the contract signature','1@email.com','serviceClient@email.com','2022-04-22 19:04:05','Problem Report',0),(24,'New Problem ','1@email.com','serviceClient@email.com','2022-04-22 19:04:11','Reclamation',0),(25,'Hello world ','serviceClient@email.com','1@email.com','2022-04-20 19:46:37','Reclamation',0),(32,'Bug with Pdf files','1@email.com','serviceClient@email.com','2022-04-23 01:09:28','Bug Report',0),(33,'First request from a secretary ','s01@email.com','serviceClient@email.com','2022-04-30 01:05:54','Miss conduct',1),(34,'','s01@email.com','serviceClient@email.com','2022-04-30 01:37:14','Miss conduct',1),(35,'','s01@email.com','serviceClient@email.com','2022-04-30 01:37:16','Miss conduct',1),(36,'','s01@email.com','serviceClient@email.com','2022-04-30 01:37:17','Miss conduct',1),(37,'','s01@email.com','serviceClient@email.com','2022-04-30 01:37:17','Miss conduct',1),(38,'','s01@email.com','serviceClient@email.com','2022-04-30 01:37:18','Miss conduct',1),(39,'','s01@email.com','serviceClient@email.com','2022-04-30 01:37:18','Miss conduct',1),(40,'','s01@email.com','serviceClient@email.com','2022-04-30 01:37:26','Miss conduct',1),(41,'','s01@email.com','serviceClient@email.com','2022-04-30 01:37:27','Miss conduct',1),(42,'','s01@email.com','serviceClient@email.com','2022-04-30 01:37:27','Miss conduct',1),(43,'','s01@email.com','serviceClient@email.com','2022-04-30 01:37:28','Miss conduct',1),(44,'','s01@email.com','serviceClient@email.com','2022-04-30 01:37:37','Miss conduct',1),(45,'','s01@email.com','serviceClient@email.com','2022-04-30 01:37:37','Miss conduct',1),(46,'','s01@email.com','serviceClient@email.com','2022-04-30 01:37:38','Miss conduct',1),(47,'','s01@email.com','serviceClient@email.com','2022-04-30 01:37:38','Miss conduct',1),(48,'','s01@email.com','serviceClient@email.com','2022-04-30 01:38:20','Miss conduct',1),(49,'','s01@email.com','serviceClient@email.com','2022-04-30 01:38:22','Miss conduct',1),(50,'','s01@email.com','serviceClient@email.com','2022-04-30 01:38:22','Miss conduct',1);
 /*!40000 ALTER TABLE `conversation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -359,7 +361,7 @@ CREATE TABLE `messages` (
   PRIMARY KEY (`id`,`id_conversation`),
   KEY `conversation_idx` (`id_conversation`),
   CONSTRAINT `conversation` FOREIGN KEY (`id_conversation`) REFERENCES `conversation` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=108 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -368,7 +370,7 @@ CREATE TABLE `messages` (
 
 LOCK TABLES `messages` WRITE;
 /*!40000 ALTER TABLE `messages` DISABLE KEYS */;
-INSERT INTO `messages` VALUES (32,23,'1@email.com','serviceClient@email.com','Hello I have a problem with the pdf signature not showing even though I signed the contract thank you ','2022-04-17 13:05:59','read'),(33,24,'1@email.com','serviceClient@email.com','Hello Bye','2022-04-17 18:50:19','read'),(34,24,'1@email.com','serviceClient@email.com','Hello again bye','2022-04-17 19:10:52','read'),(104,23,'serviceClient@email.com','1@email.com','ff','2022-04-22 19:04:05','read'),(105,24,'serviceClient@email.com','1@email.com','ff','2022-04-22 19:04:11','read'),(106,32,'1@email.com','serviceClient@email.com','I found a bug with the pdf system Bye ','2022-04-23 01:08:58','read'),(107,32,'serviceClient@email.com','1@email.com','Fixing it','2022-04-23 01:09:28','read');
+INSERT INTO `messages` VALUES (32,23,'1@email.com','serviceClient@email.com','Hello I have a problem with the pdf signature not showing even though I signed the contract thank you ','2022-04-17 13:05:59','read'),(33,24,'1@email.com','serviceClient@email.com','Hello Bye','2022-04-17 18:50:19','read'),(34,24,'1@email.com','serviceClient@email.com','Hello again bye','2022-04-17 19:10:52','read'),(104,23,'serviceClient@email.com','1@email.com','ff','2022-04-22 19:04:05','read'),(105,24,'serviceClient@email.com','1@email.com','ff','2022-04-22 19:04:11','read'),(106,32,'1@email.com','serviceClient@email.com','I found a bug with the pdf system Bye ','2022-04-23 01:08:58','read'),(107,32,'serviceClient@email.com','1@email.com','Fixing it','2022-04-23 01:09:28','read'),(108,33,'s01@email.com','serviceClient@email.com','Heeloo','2022-04-30 01:05:54','not read'),(109,34,'s01@email.com','serviceClient@email.com','','2022-04-30 01:37:14','not read'),(110,35,'s01@email.com','serviceClient@email.com','','2022-04-30 01:37:16','not read'),(111,36,'s01@email.com','serviceClient@email.com','','2022-04-30 01:37:17','not read'),(112,37,'s01@email.com','serviceClient@email.com','','2022-04-30 01:37:17','not read'),(113,38,'s01@email.com','serviceClient@email.com','','2022-04-30 01:37:18','not read'),(114,39,'s01@email.com','serviceClient@email.com','','2022-04-30 01:37:18','not read'),(115,40,'s01@email.com','serviceClient@email.com','','2022-04-30 01:37:26','not read'),(116,41,'s01@email.com','serviceClient@email.com','','2022-04-30 01:37:27','not read'),(117,42,'s01@email.com','serviceClient@email.com','','2022-04-30 01:37:27','not read'),(118,43,'s01@email.com','serviceClient@email.com','','2022-04-30 01:37:28','not read'),(119,44,'s01@email.com','serviceClient@email.com','','2022-04-30 01:37:37','not read'),(120,45,'s01@email.com','serviceClient@email.com','','2022-04-30 01:37:37','not read'),(121,46,'s01@email.com','serviceClient@email.com','','2022-04-30 01:37:38','not read'),(122,47,'s01@email.com','serviceClient@email.com','','2022-04-30 01:37:38','not read'),(123,48,'s01@email.com','serviceClient@email.com','','2022-04-30 01:38:20','not read'),(124,49,'s01@email.com','serviceClient@email.com','','2022-04-30 01:38:22','not read'),(125,50,'s01@email.com','serviceClient@email.com','','2022-04-30 01:38:22','not read');
 /*!40000 ALTER TABLE `messages` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -436,7 +438,7 @@ CREATE TABLE `requests` (
   `conversation_id` int NOT NULL,
   `status` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -445,7 +447,7 @@ CREATE TABLE `requests` (
 
 LOCK TABLES `requests` WRITE;
 /*!40000 ALTER TABLE `requests` DISABLE KEYS */;
-INSERT INTO `requests` VALUES (1,23,'not_available'),(2,24,'not_available'),(4,32,'not_available');
+INSERT INTO `requests` VALUES (1,23,'not_available'),(2,24,'not_available'),(4,32,'not_available'),(5,33,'available'),(6,34,'available'),(7,35,'available'),(8,36,'available'),(9,37,'available'),(10,38,'available'),(11,39,'available'),(12,40,'available'),(13,41,'available'),(14,42,'available'),(15,43,'available'),(16,44,'available'),(17,45,'available'),(18,46,'available'),(19,47,'available'),(20,48,'available'),(21,49,'available'),(22,50,'available');
 /*!40000 ALTER TABLE `requests` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -854,4 +856,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-29 17:54:29
+-- Dump completed on 2022-04-30  3:50:21

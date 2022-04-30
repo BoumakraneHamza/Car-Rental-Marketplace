@@ -189,9 +189,10 @@ public class DAO {
 		return user;
 	}
 	
-	private User getClientInfo(String email) throws SQLException {
+	public User getClientInfo(String email) throws SQLException, InstantiationException, IllegalAccessException {
 		User user = null ;
 		String query = "SELECT * FROM client WHERE email = ?";
+		connectDB();
     	PreparedStatement statement = connection.prepareStatement(query);
     	statement.setString(1, email);
     	ResultSet result = statement.executeQuery();
@@ -208,6 +209,10 @@ public class DAO {
             user.setAlert(result.getInt("alert"));
             user.setImage(result.getString("image"));
             user.setType("client");
+            user.setAccountCreated(result.getString("Account_created"));
+            user.setLat(result.getString("currentlat"));
+            user.setLon(result.getString("currentlong"));
+            user.setAddress(result.getString("Address"));
             user.setUser_name(result.getString("user_name"));
     	}
     	statement.close();
