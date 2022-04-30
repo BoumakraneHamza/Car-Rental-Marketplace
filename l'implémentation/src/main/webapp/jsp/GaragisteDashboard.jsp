@@ -241,5 +241,6 @@
 	<script src="${pageContext.request.contextPath}/js/GaragisteDashboard.js"></script>
 	<%@include file="/jsp/dropdownList.jsp"%>
 <%@include file="/jsp/UserBanner.jsp"%>
+<%@include file="/jsp/ReportClient.jsp"%>
 </body>
 </html>

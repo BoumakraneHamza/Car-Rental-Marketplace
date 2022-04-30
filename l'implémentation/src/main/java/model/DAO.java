@@ -1206,6 +1206,26 @@ public class DAO {
 						message.setSourceName(result3.getString("user_name"));
 						message.setSourceImage(result3.getString("image"));
 					}
+				}else if(usertype.equals("secretaire")) {
+					Query = "select nom, prenom , photo from secretary where email=? limit 1";
+					
+					statement = connection.prepareStatement(Query);
+					statement.setString(1, message.getSource());
+					ResultSet result3 = statement.executeQuery();
+					if(result3.next()) {
+						message.setSourceName(result3.getString("nom")+" "+result3.getString("prenom"));
+						message.setSourceImage(result3.getString("photo"));
+					}
+				}else if(usertype.equals("garagiste")) {
+					Query = "select nom, prenom , photo from garagiste where email=? limit 1";
+					
+					statement = connection.prepareStatement(Query);
+					statement.setString(1, message.getSource());
+					ResultSet result3 = statement.executeQuery();
+					if(result3.next()) {
+						message.setSourceName(result3.getString("nom")+" "+result3.getString("prenom"));
+						message.setSourceImage(result3.getString("photo"));
+					}
 				}
 				messages.add(message);
 			}
