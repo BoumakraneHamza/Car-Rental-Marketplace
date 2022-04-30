@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ClientMain.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/circleProgressBar.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/SecretaryDashboard.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
 <title>Dashboard</title>
 <style>

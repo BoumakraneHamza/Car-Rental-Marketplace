@@ -1240,7 +1240,7 @@ public class DAO {
 		return messages;
 	}
 	
-	public void SendMessage(Message message , Conversation conversation) throws SQLException {
+	public void SendMessage(Message message , Conversation conversation,String Uploadedpath) throws SQLException {
 		String query ; 
 		PreparedStatement statement = null ;
 		try {
@@ -1270,10 +1270,11 @@ public class DAO {
 				statement.executeUpdate();
 				String userType = getUserType(conversation.getDestination());
 				if (userType.equals("service_client")) {
-					query ="Insert into requests(conversation_id,status) values(?,?)";
+					query ="Insert into requests(conversation_id,status,additional_info) values(?,?,?)";
 					statement = connection.prepareStatement(query);
 					statement.setLong(1, conversation_id);
 					statement.setString(2, "available");
+					statement.setString(3,Uploadedpath);
 					statement.executeUpdate();
 				}
 			}
@@ -1559,6 +1560,7 @@ public class DAO {
 			while(result.next()) {
 				req = new request();
 				req.setId(result.getString("id"));
+				req.setImages(result.getString("additional_info"));
 				req.setStatus(result.getString("status"));
 				Query = "Select * from conversation where id=? limit 1";
 				statement = connection.prepareStatement(Query);

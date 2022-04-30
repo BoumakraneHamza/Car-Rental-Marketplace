@@ -37,16 +37,35 @@ function selectMeeting(element){
 	meeting.push(element.querySelector("#Client_email").value);
 	
 }
+document.getElementById('uploaded').onchange = function () {
+	let add_files =document.querySelector("#add_files");
+	let title = add_files.querySelector("#title");
+	title.innerHTML = this.files[0].name;
+	if(add_files.querySelector("#uploaded")!==null){
+		add_files.querySelector("#uploaded").remove();
+	}
+	let clone = this.cloneNode();
+	add_files.append(clone);
+};
 const submit_btn_pages= document.querySelector("#submit_btn_pages");
 submit_btn_pages.addEventListener("click",()=>{
 	const client_report = document.querySelector(".report_client");
 	client_report.style.display="flex";
 	document.querySelector("#Upload_refrences").style.display="none";
 	let add_files =document.querySelector("#add_files");
-	if(Selected_Meetingdate != null){
-		add_files.querySelector("#title").innerHTML = "Meeting On " + Selected_Meetingdate;	
+	let uploaded = document.querySelector("#uploaded");
+	if(uploaded.files.length>0){
+		
+		let form = document.querySelector("#file_form");
+		form.reset();
+		add_files.querySelector("#delete").style.display="block";
 	}else{
-		add_files.querySelector("#title").innerHTML = "Add References";
+		if(Selected_Meetingdate != null){
+			add_files.querySelector("#title").innerHTML = "Meeting On " + Selected_Meetingdate;	
+			add_files.querySelector("#delete").style.display="block";
+		}else{
+			add_files.querySelector("#title").innerHTML = "Add References";
+		}	
 	}		
 });
 let json;
@@ -126,19 +145,27 @@ function selectUpload(){
 	xhr.send()
 }
 
-document.querySelector(".report_client").addEventListener("submit",(e)=>{
+document.querySelector(".report_client").querySelector("#send_btn").addEventListener("click",(e)=>{
 	e.preventDefault();
 	let report_client = document.querySelector(".report_client"); 
 	let xhr = new XMLHttpRequest();
+	let formData = new FormData();
 	let destination = report_client.querySelector("#destination").value;
+	formData.append("destination",destination);
 	let title = report_client.querySelector("#Request_title").value;
+	formData.append("title",title);
 	let tag = report_client.querySelector("#filter").value;
+	formData.append("tag",tag);
 	let content = report_client.querySelector("#content").value;
+	formData.append("content",content);
+	let file = report_client.querySelector("#uploaded").files[0];
+	console.log(file);
+	formData.append("file",file);
 	xhr.onreadystatechange = ()=>{
-		if(this.status == 200){
+		if(xhr.status == 200 && xhr.readyState == 4){
 			report_client.style.display="none";
 		}
 	}
-	xhr.open("POST","SendMessage?destination="+destination+"&title="+title+"&content="+content+"&tag="+tag);
-	xhr.send();
+	xhr.open("POST","SendMessage");
+	xhr.send(formData);
 });

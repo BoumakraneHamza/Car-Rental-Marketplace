@@ -32,6 +32,7 @@
 	<div id="add_files" onclick="selectUpload()">
 		<img src="${pageContext.request.contextPath}/assets/add-blue.svg">
 		<p id="title">Add References</p>
+		<img id="delete" src="${pageContext.request.contextPath}/assets/cancel-blue.svg">
 	</div>
 	<button id="send_btn" type="submit"><img src="${pageContext.request.contextPath}/assets/check.svg"><p>Submit</p></button>
 </form>
@@ -50,7 +51,9 @@
 	</div>
 	<div id="pages">
 		<div id="file_page" style="display:none;">
-			<input type="file">
+			<form id="file_form">
+				<input name="file" type="file" id="uploaded" accept="image/*">
+			</form>
 		</div>
 		<div id="meeting_page" style="display:flex;">
 			<div id="appt" onclick="selectMeeting(this)">

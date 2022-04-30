@@ -117,6 +117,9 @@ input::placeholder {
     padding: 0px 12px;
     cursor:pointer;
 }
+.report_client #add_files  #uploaded {
+    display: none;
+}
 .report_client #add_files img{
 	margin-right:10px;
 }
@@ -124,6 +127,11 @@ input::placeholder {
     color: #0071FF;
     font-size: 14px;
     font-weight: 500;
+}
+.report_client #add_files #delete {
+    position: absolute;
+    right: 5%;
+    display: none;
 }
 .report_client #send_btn {
 	background: #0071FF;

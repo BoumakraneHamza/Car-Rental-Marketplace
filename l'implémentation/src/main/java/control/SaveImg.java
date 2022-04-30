@@ -47,7 +47,6 @@ public class SaveImg extends HttpServlet {
 	    try {
 			CreatePaperWork.FinishContract(path, reservationId , bImg);
 			status = "success";
-			System.out.println("status is set");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
