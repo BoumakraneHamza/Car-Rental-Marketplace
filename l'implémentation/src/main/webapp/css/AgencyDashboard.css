@@ -1,121 +1,466 @@
-#title {
-    font-size: 17px;
-    font-weight: 600;
+.main-frame {
+    display: flex;
+    width: calc( 75vw - 50px);
+    flex-direction: column;
+    flex-wrap: nowrap;
+    height: calc(100vh - 75Px);
+    background: #fff;
+    margin: 10px;
+    border: 1px solid #E4E4E4;
+    border-radius: 5px;
+}
+.main-frame #main-frame-header {
+	width: calc(75vw - 50px);
+	padding: 10px 10Px 0px;
+}
+.main-frame #main-frame-header #main_header {
     width: fit-content;
-}
-.content .main-frame {
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-    width: calc(100vw - 50px);
-    height: calc(100vh - 55px);
-}
-.content .main-frame .main {
     display: flex;
     flex-direction: column;
-    width: auto;
     flex-wrap: nowrap;
-    height: calc(100vh - 55px);
 }
-.content .main-frame .main .team_Performance {
-    background: #fff;
-    width: auto;
-    height: 50%;
-    margin: 20px 10px 10px 20px;
-    border: 2px solid #E4E4E4;
-    padding: 15px;
+.main-frame #main-frame-header #main_header #title {
+    font-size: 20Px;
+    font-weight: 500;
 }
-.content .main-frame .main .team_Performance #chart {
-    height: calc(100% - 25px);
-    width: 100%;
+.main-frame #main-frame-header #main_header #subtitle {
+    font-size: 14px;
+    font-weight: 400;
+    color: #616161;
 }
-.content .main-frame .main .secondary_charts {
-    display: flex;
-    height: 50%;
-    width: auto;
-    margin: 10px 10px 20px 20px;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: space-between;
-}
-.content .main-frame .main .secondary_charts .Week_bookings {
-    background: #fff;
-    height: 100%;
-    border: 2px solid #E4E4E4;
-    width: 48%;
-	padding: 15px 0px 0px 15px;
-}
-.content .main-frame .main .secondary_charts .Week_bookings #chart {
-    height: calc(100% - 44px);
-    width: 100%;
-}
-.content .main-frame .main .secondary_charts .Clients_reviews {
-    background: #fff;
-    height: 100%;
-    border: 2px solid #E4E4E4;
-    width: 47%;
-	padding: 15px 0px 0px 15px;
-}
-.content .main-frame .main .secondary_charts .Clients_reviews #tab_header {
-    display: flex;
-    flex-direction: row;
-	padding-right: 20px;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: space-between;
-}
-.content .main-frame .side_bar {
-	height: calc(100vh - 55px);
-	width: auto;
-}
-.content .main-frame .side_bar .tab{
-    background: #fff;
-    margin: 20px 20px 10px 10px;
-    border: 2px solid #E4E4E4;
-    padding: 15px;
+.main-frame #main-frame-content {
     height: -webkit-fill-available;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
 }
-.content .main-frame .side_bar #tab_header{
+.main-frame #main-frame-content #summary_Cards {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr;
+    gap: 25px;
+    padding: 10px 20px;
+}
+.main-frame #main-frame-content #summary_Cards .card {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    border: 1px solid #E4E4E4;
+    padding: 10px;
+    border-radius: 10px;
+    justify-content: space-between;
+}
+.main-frame #main-frame-content #summary_Cards .card #card_description {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding: 0px 10px;
+}
+.main-frame #main-frame-content #summary_Cards .card #card_description #card_title {
+    font-size: 16px;
+    font-weight: 500;
+}
+.main-frame #main-frame-content #summary_Cards .card #card_description #review_count {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    font-size: 13px;
+    font-weight: 500;
+}
+.main-frame #main-frame-content #summary_Cards .card #card_description #review_count  #review_counter_title {
+	width: fit-content;
+    font-size: 62px;
+    font-weight: 700;
+    color: #6A0F49;
+}
+.main-frame #main-frame-content #summary_Cards .card #card_graph {
+	width: fit-content;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-self: flex-end;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+.main-frame #main-frame-content #summary_Cards .card #card_graph #stats {
+    width: fit-content;
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 0px 8px;
+}
+.main-frame #main-frame-content #summary_Cards .card #card_graph #stats #stat {
+    font-size: 15px;
+    color: #8fc73e;
+}
+.main-frame #main-frame-content #summary_Cards .card #card_graph #percentile {
+	width: fit-content;
+    font-size: 25px;
+    font-weight: 600;
+    align-self: center;
+    margin-top: -35px;
+    line-height: 21px;
+}
+.main-frame #main-frame-content #summary_Cards .Best_selling{
+	border: 1px solid #E4E4E4;
+    border-radius: 10px;
+    width: 250px;
+    padding: 10px;
+}
+.main-frame #main-frame-content #summary_Cards .Best_selling #card_title {
+    font-size: 15px;
+    font-weight: 500;
+    padding: 0px 0px 10px;
+    color: #616161;
+}
+.main-frame #main-frame-content #summary_Cards .Best_selling #list {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.main-frame #main-frame-content #summary_Cards .Best_selling #list #tile {
+    display: flex;
+    flex-direction: row;
+    padding: 5px 0px;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    border-bottom: 1px solid #E4E4E4;
+    font-size: 16px;
+    font-weight: 500;
+}
+.main-frame #main-frame-content #Main_content {
+    height: -webkit-fill-available;
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+.main-frame #main-frame-content #Main_content #main_content_frame{
+	border: 1px solid #E4E4E4;
+    width: 71%;
+    margin: 10px 20px;
+    border-radius: 10px;
+    height: 56vh;
+}
+.main-frame #main-frame-content #Main_content #main_content_frame #frame_header {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 600;
+}
+.main-frame #main-frame-content #Main_content #main_content_frame #chart_wrapper {
+	height: 26vh;
+    padding: 0px 15px;
+}
+.main-frame #main-frame-content #performance_metrics #tab_header {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 600;
+}
+.main-frame #main-frame-content #performance_metrics #performance_content {
+    width: auto;
+    height: 19vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+.main-frame #main-frame-content #performance_metrics #performance_content .col {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.main-frame #main-frame-content #performance_metrics #performance_content #left{
+	padding:0px 0px 0px 20px;
+}
+.main-frame #main-frame-content #performance_metrics #performance_content #right{
+	padding:0px 20px 0px 0px;
+}
+.main-frame #main-frame-content #performance_metrics #performance_content .col #tile {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+}
+.main-frame #main-frame-content #performance_metrics #performance_content .col #tile #title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #000;
+}
+.main-frame #main-frame-content #performance_metrics #performance_content .col #tile #value {
+    font-size: 15px;
+    font-weight: 500;
+    color: #969696;
+    cursor:pointer;
+}
+.main-frame #main-frame-content #Main_content #main_content_sidebar {
+    border: 1px solid #E4E4E4;
+    width: 23%;
+    margin: 10px;
+    height: 56vh;
+    border-radius: 10Px;
+}
+.main-frame #main-frame-content #Main_content #main_content_sidebar #tab_title {
+    padding: 10px 10px 5px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #616161;
+}
+.main-frame #main-frame-content #Main_content #main_content_sidebar #list {
+	height: calc(100% - 44px);
+    overflow-y: overlay;
+    padding: 0px 10px;
+}
+.main-frame #main-frame-content #Main_content #main_content_sidebar #list #deal {
 	display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-between;
-    margin-bottom: 25px;
-}
-.content .main-frame .side_bar #list #employee {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    border: 2px solid #E4E4E4;
-    padding: 10px;
-    border-radius: 5px;
     align-items: center;
-    justify-content: space-between;
+    margin: 4px 0px;
+    padding: 5px 0px;
+    border-bottom: 1px solid #E4E4E4;
 }
-.content .main-frame .side_bar #list #employee #info {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: center;
-}
-.content .main-frame .side_bar #list #employee #info #employee_info {
-    margin-left: 10px;
-}
-.content .main-frame .side_bar #list #employee #info #employee_info #full_name {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
+.main-frame #main-frame-content #Main_content #main_content_sidebar #list #deal #car_name {
     font-size: 15px;
     font-weight: 600;
 }
-.content .main-frame .side_bar #list #employee #info #employee_info #employement {
+.main-frame #main-frame-content #Main_content #main_content_sidebar #list #deal #deal_date {
     font-size: 15px;
+    color: #999898;
+    width: fit-content;
+    line-height: 14px;
+    margin-top: 4px;
+    font-weight: 500;
+}
+.main-frame #main-frame-content #Main_content #main_content_sidebar #list #deal #price {
+    font-size: 18px;
+    margin-right: 5px;
+}
+.sidebar {
+	width: 25vw;
+    height: calc(100vh - 75px);
+    background: #fff;
+    margin: 10px 0px;
+    border: 1px solid #E4E4E4;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.sidebar .activities {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    height: 41vh;
+}
+.sidebar .activities #tab_header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding: 10px 20px;
+    justify-content: space-between;
+}
+.sidebar .activities #tab_header #title {
+    font-size: 15px;
+    font-weight: 500;
+}
+.sidebar .activities #tab_header #image_wrapper {
+    height: 33px;
+    width: 33px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    background: #eeeeee;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.sidebar .activities #tab_list {
+	display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding: 5px 25px;
+    overflow-y: overlay;
+}
+.sidebar .activities #tab_list #activity {
+	display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding-bottom: 8px;
+}
+.sidebar .activities #tab_list #activity #team_image {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    height: 100%;
+    justify-content: space-between;
+}
+.sidebar .activities #tab_list #activity #team_image #member_image {
+    display: flex;
+    height: 48px;
+    width: 48px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 50%;
+    justify-content: center;
+    border: 3px solid #C5DCFA;
+}
+.sidebar .activities #tab_list #activity #team_image #vertical_line {
+	border: none;
+    border-left: 2px dotted #71c050;
+    color: #fff;
+    background-color: #fff;
+    width: 1px;
+    height: calc(100% - 48px);
+}
+.sidebar .activities #tab_list #activity #activity_info {
+    width: -webkit-fill-available;
+    margin-left: 10px;
+}
+.sidebar .activities #tab_list #activity #activity_info #info_header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+}
+.sidebar .activities #tab_list #activity #activity_info #info_header #tag {
+    display: flex;
+    color: #fff;
+    background: #8fc73e;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 15px;
+    font-weight: 500;
+}
+.sidebar .activities #tab_list #activity #activity_info #info_header #date {
+    font-size: 16px;
+    font-weight: 500;
     color: #C4C4C4;
 }
-.content .main-frame .side_bar #list #employee #status {
-    border: 2px solid #FAD286;
-    background: #FAD286;
-    width: 10px;
-    height: 10px;
+.sidebar .activities #tab_list #activity #activity_info #info_text {
+    font-size: 15px;
+    padding: 5px;
+}
+.sidebar .activities #tab_list #activity #activity_info #task {
+    border: 2px solid #E4E4E4;
+    padding: 10px;
+    border-radius: 10px;
+}
+.sidebar .activities #tab_list #activity #activity_info #task #title {
+    font-size: 16px;
+    font-weight: 600;
+    width: fit-content;
+}
+.sidebar .activities #tab_list #activity #activity_info #task #tag {
+    font-size: 15px;
+    color: #8fc73e;
+    font-weight: 600;
+    width: fit-content;
+    background: #e0eecc;
+    padding: 4px 15px;
+    border-radius: 11px;
+    margin-top: 10px;
+}
+.sidebar .team {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    height: 50vh;
+}
+.sidebar .team #tab_header {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding: 10px 20px;
+}
+.sidebar .team #tab_header #tab_header_title {
+    font-size: 15px;
+    font-weight: 500;
+    color: #000000;
+}
+.sidebar .team #tab_header #image_wrapper {
+    height: 33px;
+    width: 33px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    background: #eeeeee;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.sidebar .team #list_header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding: 5Px 30px;
+    border-bottom: 1px solid #E4E4E4;
+    font-size: 15px;
+    font-weight: 500;
+}
+.sidebar .team #team_list {
+    overflow: overlay;
+}
+.sidebar #team_list #employee {
+    display: grid;
+    padding: 10px 20px;
+    grid-template-columns: 1fr 3fr 1fr;
+    align-items: center;
+}
+.sidebar #team_list #employee #employee_image {
+	display: flex;
+    height: 60px;
+    width: 60px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    overflow: hidden;
     border-radius: 50%;
+    justify-content: center;
+    margin-right: 10px;
+    border: 3px solid #C5DCFA;
+}
+.sidebar #team_list #employee #employee_info {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.sidebar #team_list #employee #employee_info #employee_name {
+    font-size: 16px;
+    font-weight: 600;
+}
+.sidebar #team_list #employee #employee_info #employement {
+    width: fit-content;
+    font-size: 12px;
+    font-weight: 500;
+    background: #C5DCFA;
+    padding: 3px 10px;
+    border-radius: 5px;
+}
+.sidebar #team_list #employee #employee_status {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+.sidebar #team_list #employee #employee_status #status {
+    font-size: 16px;
+    font-weight: 600;
+    color: #8fc73e;
 }
