@@ -7,253 +7,254 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ClientMain.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/table.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/AgencyPersonal.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/toggle.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ViewProfile.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
 <meta charset="UTF-8">
 <title>Personal</title>
 </head>
 <body>
-	<div class="header">
-			<div id="logo">
-				<a href="${pageContext.request.contextPath}/Dashboard"><img src="${pageContext.request.contextPath}/assets/logoBlack.svg"></a>
+<div class="header">
+	<div id="logo">
+		<a href="${pageContext.request.contextPath}/Dashboard"><img src="${pageContext.request.contextPath}/assets/logoBlack.svg"></a>
+	</div>
+	<div class="user">
+	<img id="notification" src="${pageContext.request.contextPath}/assets/notification.svg">
+	<div id="user-image">
+		<img style="width: 40px;" src="${pageContext.request.contextPath}${user.image}">
+	</div>
+		<div id="user-info">
+			<p id="full-name">${user.nom} ${user.prenom}</p>
+			<p id="user-name">${user.user_name}</p>
+		</div>
+		<div id="dropdownlist">
+			<img src="${pageContext.request.contextPath}/assets/angle-down-solid.svg">
+		</div>
+		
+	</div>
+</div>
+<div class="content">
+	<div class="menu">
+		<button class="dashboard"><a href="${pageContext.request.contextPath}/Dashboard"><img src="${pageContext.request.contextPath}/assets/dashboard-icon.svg"></a></button>
+		<button class="Personal" style="background: #F6AA1C;"><a href="${pageContext.request.contextPath}/ViewAgencyPersonal"><img src="${pageContext.request.contextPath}/assets/personal-icon-white.svg"></a></button>
+		<button class="Personal"><a href="${pageContext.request.contextPath}/ViewAgencyDepots"><img src="${pageContext.request.contextPath}/assets/building-icon-grey.svg"></a></button>
+	</div>
+	<div class="main-frame active">
+		<div id="frame_header">
+			<p id="title">Agency Team</p>
+			<button id="add">
+				<img src="${pageContext.request.contextPath}/assets/add.svg">
+				<p>add</p>
+			</button>
+		</div>
+		<div id="filter_header">
+			<div id="left">
+				<select class="filter">
+					<option>Position</option>
+					<option>All</option>
+					<option>Depot Manager</option>
+					<option>Secretary</option>
+				</select>
+				<select class="filter">
+					<option>Status</option>
+					<option>Online</option>
+					<option>Offline</option>
+				</select>
 			</div>
-			<div class="user">
-			<img id="notification" src="${pageContext.request.contextPath}/assets/notification.svg">
-			<div id="user-image">
-				<img style="width: 40px;" src="${pageContext.request.contextPath}${user.image}">
-			</div>
-				<div id="user-info">
-					<p id="full-name">${user.nom} ${user.prenom}</p>
-					<p id="user-name">${user.user_name}</p>
-				</div>
-				<div id="dropdownlist">
+			<div id="right">
+				<div id="sort">
+					<p id="tite">Sort by :</p>
+					<p id="value">All</p>
 					<img src="${pageContext.request.contextPath}/assets/angle-down-solid.svg">
 				</div>
-				
+				<div id="toggle"></div>
 			</div>
 		</div>
-	<div class="content">
-			<div class="menu">
-				<button class="dashboard"><a href="${pageContext.request.contextPath}/Dashboard"><img src="${pageContext.request.contextPath}/assets/dashboard-icon.svg"></a></button>
-				<button class="Personal" style="background: #F6AA1C;"><a href="${pageContext.request.contextPath}/ViewAgencyPersonal"><img src="${pageContext.request.contextPath}/assets/personal-icon-white.svg"></a></button>
-				<button class="Personal"><a href="${pageContext.request.contextPath}/ViewAgencyDepots"><img src="${pageContext.request.contextPath}/assets/building-icon-grey.svg"></a></button>
-			</div>
-			<div class="main-frame">
-				<div class="main-content">
-					<div id="DataBase" class="employee">
-					<div id="options">
-						<div class="toggles">
-							<div class="option" id="show_active">
-								<div class='toggle-check'>
-								  <input type='checkbox'/>
-								  <span class='toggle-b'></span>
-								  <span class='toggle-bg'></span>
+		<div id="main_content">
+			<c:choose>
+				<c:when test="${not empty employees}">
+					<c:forEach items="${employees}" var="employee">
+						<div id="employee_card">
+							<div id="card_header">
+								<div id="image_wrapper">
+									<img style="width:15px" src="${pageContext.request.contextPath}/assets/3-point-option.svg">
 								</div>
-								<p>Show non active</p>
 							</div>
-							<div class="option" id="show_depots">
-								<div class='toggle-check'>
-								  <input type='checkbox'/>
-								  <span class='toggle-b'></span>
-								  <span class='toggle-bg'></span>
+							<div id="client_image" onclick="showDetails()">
+								<div id="client_image_wrapper">
+									<img style="width:100Px" src="${pageContext.request.contextPath}${employee.image}">
 								</div>
-								<p>Show depots</p>
+								<div id="status"></div>
 							</div>
-							<div class="option" id="show_offices">
-								<div class='toggle-check'>
-								  <input type='checkbox'/>
-								  <span class='toggle-b'></span>
-								  <span class='toggle-bg'></span>
+							<div id="client_info" onclick="showDetails()">
+								<div id="client_name">${employee.firstName} ${employee.lastName}</div>
+								<div id="client_email">${employee.email}</div>
+							</div>
+							<div id="score_line">
+								<img style="height:20px;" src="${pageContext.request.contextPath}/assets/hour_icon_grey.svg">
+								<div class="hor_line" id="line_1">
+									<div class="line_value" id="value_1"></div>
 								</div>
-								<p>Show offices</p>
+								<div class="hor_line" id="line_2">
+									<div class="line_value" id="value_2"></div>
+								</div>
+								<div class="hor_line" id="line_3">
+									<div class="line_value" id="value_3"></div>
+								</div>
+								<p id="text_value">80%</p>
 							</div>
+							<div id="position"><p>${employee.type}</p></div>
 						</div>
-						<div class="cta">
-							<div id="searchBar">
-								<img src="${pageContext.request.contextPath}/assets/search-icon.svg">
-								<input type="text" placeholder="Search">
-							</div>
-							<div id="add" onclick="document.getElementById('tempFormForAddingEmployees').style.visibility='visible'"><button><img style="margin-right: 11px;" src="${pageContext.request.contextPath}/assets/add.svg"><p>Add Personal</p></button></div>
+					</c:forEach>
+				</c:when>
+				<c:otherwise></c:otherwise>
+			</c:choose>
+		</div>
+	</div>
+	<div class="side_bar">
+		<div id="tab_header">
+			<p id="title">Member</p>
+			<div id="image_wrapper" onclick="hideDetails()">
+				<img style="width:11px" src="${pageContext.request.contextPath}/assets/cancel-black.svg">
+			</div>
+		</div>
+		<div id="member_info">
+			<div id="member_image">
+				<div id="client_image_wrapper">
+					<img style="width:100Px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
+				</div>
+				<div id="status"></div>
+			</div>
+			<div id="member_details">
+				<p id="member_name">Nathanial Olson</p>
+				<div id="sec_info">
+					<p id="member_image">NathanialOlson@email.com</p>
+					<div id="options">
+						<p id="member_location">Depot 01</p>
+						<div id="image_wrapper">
+							<img style="width:15px" src="${pageContext.request.contextPath}/assets/3-point-option.svg">
 						</div>
 					</div>
-				      <div id="table_header">
-				        <table cellpadding="0" cellspacing="0" style="width: 100%">
-				          <thead>
-				            <tr>
-				              <th style="width: 20%">Location</th>
-				              <th style="width: 20%">user</th>
-				              <th style="width: 20%">status</th>
-				              <th style="width: 20%">session time</th>
-				              <th style="width: 20%">total time</th>
-				            </tr>
-				          </thead>
-				        </table>
-				      </div>
-				      <div class="table-content">
-				      	<table cellpadding="0" cellspacing="0">
-				      		<tbody id="employees-list">
-					      		<c:choose>
-									<c:when test="${not empty employees}">
-										<c:forEach items="${employees}" var="employee">
-								      		<tr id="employee" onclick="employeeDetails(this)">
-								      			<td hidden="true" id="employeetype">${employee.type}</td>
-								      			<td hidden="true" id="employeeEmail">${employee.email}</td>
-								      			<td hidden="true" id="employeeImage">${employee.image}</td>
-						      					<td id="employeeId" style="width: 20%">${employee.type eq "garagiste" ? "Depot" : "Office"} N° ${employee.workingLocation}</td>
-						              			<td id="employeeName" style="width: 20%">${employee.firstName} ${employee.lastName}</td>
-						              			<td id="employeePhone" style="width: 20%"><div id="wrapper"><div id="status"></div><p id="time">since 20:00</p></div></td>
-						              			<td id="employeeGender" style="width: 20%">6h 30min</td>
-						              			<td id="employeeMail" style="width: 20%">169h 55min</td>
-						              			<td><button onclick="confirmDelete('${employee.email}', '${employee.type}')">delete employee</button></td>
-								      		</tr>
-							      		</c:forEach>
-						      		</c:when>
-						      		<c:otherwise>
-										<tr id="employee"><td>No Employees <td></tr>
-									</c:otherwise>
-								</c:choose>
-				      		</tbody>
-				      	</table>
-				      </div>
-				    </div>
-				    <div class="viewDetails">
-				    	<div class="info">
-				    		<div id="header">
-				    		<div id="employee_info">
-				    			<div id="info_header">
-				    				<p class="employeeName" id="employeeName">${employees[0].firstName } ${employees[0].lastName }</p>
-				    				<div id="cta">
-				    					<img style="width:21px;" src="${pageContext.request.contextPath}/assets/sent-icon-black.svg">
-				    				</div>
-				    			</div>
-				    			<div id="employement"><p>Employement :</p><p class="employeeType" id="value">${employees[0].type }</p></div>
-				    		</div>
-				    		<img id="employeeDetailsImage" style="width:70px;" src="${pageContext.request.contextPath}${employees[0].image}">
-				    	</div>
-				    	<div id="time">
-				    		<div id="monthly_time">
-				    			<div id="header_text">
-				    				<p>Monthly Report</p>
-				    			</div>
-				    			<div id="total">
-				    				<p>total time</p>
-				    				<p id="timer">169h 55min</p>
-				    			</div>
-				    		</div>
-				    		<div id="daily_time">
-				    			<div id="report_header">
-				    				<div id="header_text">
-				    				<p>daily Report</p>
-				    			</div>
-				    			<div id="total">
-				    				<p>daily time</p>
-				    				<p id="timer">6h 25min</p>
-				    			</div>
-				    			</div>
-				    			<div id="details">
-				    				<div id="started">
-				    					<p>started</p>
-				    					<p id="value">08:00</p>
-				    				</div>
-				    				<div id="ended">
-				    					<p>ended</p>
-				    					<p id="value">-</p>
-				    				</div>
-				    			</div>
-				    		</div>
-				    	</div>
-				    	<div id="body">
-				    		<div id="location">
-				    			<p>Working Location :</p>
-				    			<p id="value" class="employeeBuilding" >${employee.type eq "garagiste" ? "Depot" : "Office"} N° ${employee.workingLocation}</p>
-				    		</div>
-				    	</div>
-				    	</div>
-				    	<form class="details" onsubmit="viewProfile(event, this)">
-				    		<input id="employeeEmailInput" type="hidden" name="employeeEmail" value="${employees[0].email }">
-				    		<input id="employeeTypeInput" type="hidden" name="employeeType" value="${employees[0].type }">
-				    		<button>View Profile</button>
-				    	</form>
-				    </div>
+				</div>
+			</div>
+		</div>
+		<div id="tab_header">
+			<p id="title">Member Stats</p>
+		</div>
+		<div id="stat_wrapper">
+			<canvas id="member_stat"></canvas>
+		</div>
+		<div id="tab_header">
+			<p id="title">Reviews</p>
+		</div>
+		<div id="review_list">
+				<div id="review">
+					<div id="renter">
+						<div id="renter_image">
+							<img style="width:40px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
+						</div>
+						<div id="verticatl_line"></div>
+					</div>
+					<div id="content">
+						<p id="renter_name">Nathanial</p>
+						<p id="review_content">Great Car , Great Team , awsome cutomer service , I recommend</p>
+						<p id="date">20 Dec , 10:00AM</p>
+					</div>
+				</div>
+				<div id="review">
+					<div id="renter">
+						<div id="renter_image">
+							<img style="width:40px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
+						</div>
+						<div id="verticatl_line"></div>
+					</div>
+					<div id="content">
+						<p id="renter_name">Nathanial</p>
+						<p id="review_content">Great Car , Great Team , awsome cutomer service , I recommend</p>
+						<p id="date">20 Dec , 10:00AM</p>
+					</div>
+				</div>
+				<div id="review">
+					<div id="renter">
+						<div id="renter_image">
+							<img style="width:40px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
+						</div>
+						<div id="verticatl_line"></div>
+					</div>
+					<div id="content">
+						<p id="renter_name">Nathanial</p>
+						<p id="review_content">Great Car , Great Team , awsome cutomer service , I recommend</p>
+						<p id="date">20 Dec , 10:00AM</p>
+					</div>
+				</div>
+				<div id="review">
+					<div id="renter">
+						<div id="renter_image">
+							<img style="width:40px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
+						</div>
+						<div id="verticatl_line"></div>
+					</div>
+					<div id="content">
+						<p id="renter_name">Nathanial</p>
+						<p id="review_content">Great Car , Great Team , awsome cutomer service , I recommend</p>
+						<p id="date">20 Dec , 10:00AM</p>
+					</div>
+				</div>
+				<div id="review">
+					<div id="renter">
+						<div id="renter_image">
+							<img style="width:40px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
+						</div>
+						<div id="verticatl_line"></div>
+					</div>
+					<div id="content">
+						<p id="renter_name">Nathanial</p>
+						<p id="review_content">Great Car , Great Team , awsome cutomer service , I recommend</p>
+						<p id="date">20 Dec , 10:00AM</p>
+					</div>
+				</div>
+				<div id="review">
+					<div id="renter">
+						<div id="renter_image">
+							<img style="width:40px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
+						</div>
+						<div id="verticatl_line"></div>
+					</div>
+					<div id="content">
+						<p id="renter_name">Nathanial</p>
+						<p id="review_content">Great Car , Great Team , awsome cutomer service , I recommend</p>
+						<p id="date">20 Dec , 10:00AM</p>
+					</div>
+				</div>
+				<div id="review">
+					<div id="renter">
+						<div id="renter_image">
+							<img style="width:40px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
+						</div>
+						<div id="verticatl_line"></div>
+					</div>
+					<div id="content">
+						<p id="renter_name">Nathanial</p>
+						<p id="review_content">Great Car , Great Team , awsome cutomer service , I recommend</p>
+						<p id="date">20 Dec , 10:00AM</p>
+					</div>
+				</div>
+				<div id="review">
+					<div id="renter">
+						<div id="renter_image">
+							<img style="width:40px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
+						</div>
+						<div id="verticatl_line"></div>
+					</div>
+					<div id="content">
+						<p id="renter_name">Nathanial</p>
+						<p id="review_content">Great Car , Great Team , awsome cutomer service , I recommend</p>
+						<p id="date">20 Dec , 10:00AM</p>
+					</div>
 				</div>
 			</div>
 	</div>
-<%@include file="/jsp/dropdownList.jsp"%>
-
-		<div id="tempFormForAddingEmployees" style="visibility:hidden;background-color:grey;position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);border: 5px solid #000000;padding: 10px;">
-			<div id="addingGaragisteForm"><p>adding garagiste</p>
-				<form id="addingGaragiste" onsubmit="submitEmployee(event, this)">
-					<div>
-						<label>first name</label><br>
-						<input required type="text" name="firstName">
-					</div>
-					<div>
-						<label>last name</label><br>
-						<input required type="text" name="lastName">
-					</div>
-					<div>
-						<label>email</label><br>
-						<input required type="email" name="email">
-					</div>
-					<div>
-						<label>image</label><br>
-						<input required type="text" name="image">
-					</div>
-					<div>
-						<label>working location</label><br>
-						<input required type="text" name="workingLocation">
-					</div>
-						<input required type="hidden" name="agency" value="${user.nom}">
-						<input required type="hidden" name="type" value="garagiste">
-					<input type="reset"><input type="submit">
-				</form>
-			</div>
-			<br><br><br>
-			<div id="addingSercetaryForm"><p>adding secretary</p>
-				<form id="addingSecretary" onsubmit="submitEmployee(event, this)">
-					<div>
-						<label>first name</label><br>
-						<input required type="text" name="firstName">
-					</div>
-					<div>
-						<label>last name</label><br>
-						<input required type="text" name="lastName">
-					</div>
-					<div>
-						<label>email</label><br>
-						<input required type="email" name="email">
-					</div>
-					<div>
-						<label>image</label><br>
-						<input required type="text" name="image">
-					</div>
-					<div>
-						<label>working location</label><br>
-						<input required type="text" name="workingLocation">
-					</div>
-						<input required type="hidden" name="agency" value="${user.nom}">
-						<input required type="hidden" name="type" value="secretary">
-					<input type="reset"><input type="submit">
-				</form>
-			</div>
-		</div>
-		<div id="tempFormForDeletingEmployees" style="visibility:hidden;background-color:grey;position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);border: 5px solid #000000;padding: 10px;">
-			<div id="deleteEmployeeForm"><p>delete employee?</p>
-				<form id="deletingEmployee" onsubmit="deleteEmployee(event, this)">
-					<input type="hidden" name="email">
-					<input type="hidden" name="type">
-					<button type="button" onclick="document.getElementById('tempFormForDeletingEmployees').style.visibility='hidden'">Cancel</button><input type="submit">
-				</form>
-			</div>
-		</div>
-		<form id="editEmployeeForm" class="info" onsubmit="editEmployee(event, this)" style="visibility:hidden;position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);border: 5px solid #000000;padding: 10px;">
-		<div class="wrapper" id="employeeProfileDetails">
-		
-		</div>
-		</form>
-<script type="text/javascript">
-	var contextPath = "${pageContext.request.contextPath}";
-</script>
+</div>
+<div class="add_employee"></div>
 <script src="${pageContext.request.contextPath}/js/agency_personal.js"></script>
 </body>
 </html>

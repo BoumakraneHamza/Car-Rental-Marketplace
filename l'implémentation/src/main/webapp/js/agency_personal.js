@@ -1,4 +1,4 @@
-function employeeDetails(element) {
+/*function employeeDetails(element) {
 	element = element.firstElementChild;
 	document.getElementsByClassName('employeeType')[0].innerHTML = element.innerText;
 	document.getElementById('employeeTypeInput').value = element.innerText;
@@ -172,4 +172,58 @@ function showEmployeeProfile(employee) {
 	const profileContainer = document.getElementById("employeeProfileDetails");
 	
 	profileContainer.appendChild(anEmployeeProfile);
+}
+*/
+const stat_wrapper = document.querySelector("#stat_wrapper")
+const member_stat = stat_wrapper.querySelector("#member_stat");
+function showStat(){
+	let chart1 = new Chart(member_stat ,{
+	type:'radar',
+	data:{
+		labels:['Comfort','Cleanliness','Pick_up&Return'],
+		datasets:[{
+			label:'Reviews',
+			data:[
+				6,7,3,
+			],
+			backgroundColor:'rgba(177, 150, 234, 0.2)',
+			borderColor:'rgb(177, 150, 234)',
+			pointBorderColor: '#fff',
+   			pointHoverBackgroundColor: '#fff',
+    		pointHoverBorderColor: 'rgb(177, 150, 234)',
+		}]
+	},
+	options:{
+		fill:true,
+		responsive:true,
+		maintainAspectRatio: false,
+		plugins:{
+			legend:{
+				display: false,
+			}
+		},
+	}
+});
+}
+
+const main_frame = document.querySelector(".main-frame");
+const side_bar = document.querySelector(".side_bar");
+
+function showDetails(){
+	if (main_frame.classList.contains("active")){
+		main_frame.classList.remove("active");
+	}
+	if (!side_bar.classList.contains("active")){
+		side_bar.classList.add("active");
+	}
+	showStat();
+}
+function hideDetails(){
+	if (!main_frame.classList.contains("active")){
+		main_frame.classList.add("active");
+	}
+	if (side_bar.classList.contains("active")){
+		side_bar.classList.remove("active");
+	}
+	
 }

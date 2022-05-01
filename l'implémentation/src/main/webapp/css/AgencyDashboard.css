@@ -374,10 +374,10 @@
     margin-top: 10px;
 }
 .sidebar .team {
-    display: flex;
+	display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    height: 50vh;
+    height: 49vh;
 }
 .sidebar .team #tab_header {
     display: flex;
