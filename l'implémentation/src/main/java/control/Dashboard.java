@@ -1,8 +1,6 @@
 package control;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
 
 import javax.servlet.RequestDispatcher;
@@ -12,12 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import model.CreditCards;
 import model.DAO;
 import model.InboxReturn;
-import model.Reservation;
 import model.User;
 
 /**
@@ -44,15 +39,14 @@ public class Dashboard extends HttpServlet {
 		if (user != null) {
 			request.setAttribute("user", user);
 			DAO dao = new DAO();
-			String url = "/";
+			String url = "";
 			
 			if (user.getType().equals("client")) {
+				url = url + "/";
 				url = url + "jsp/ClientDashboard.jsp";
 				CreditCards card = null;
 				//this code attribute is used in case of returning from the booking process
 				//trying to extend the status attribute to the jsp page
-				System.out.println(request.getAttribute("status"));
-				System.out.println("status is read");
 				request.setAttribute("status", request.getAttribute("status"));
 				InboxReturn inbox = new InboxReturn();
 				inbox = dao.getRecievedMessages(user.getEmail());
@@ -68,36 +62,26 @@ public class Dashboard extends HttpServlet {
 					e.printStackTrace();
 				}
 				request.setAttribute("card", card);
+				RequestDispatcher dispatcher = request.getRequestDispatcher(url);
+				dispatcher.forward(request, response);
 			} else if (user.getType().equals("directeur")) {
+				url = url + "/Atelier/";
 				url = url + "jsp/AgencyDashboard.jsp"; 
+				response.sendRedirect(url);
 			} else if(user.getType().equals("service_client")){
+				url = url + "/Atelier/";
 				url = url + "jsp/ServiceClientDashboard.jsp";
-			} else if(user.getType().equals("garagiste")) {
-				url = url + "jsp/GaragisteDashboard.jsp";
-				ObjectMapper mapper = new ObjectMapper();
-				HashMap<String, Integer> stat = null;
-				ArrayList<Reservation> reservations = dao.getDepotReservations(user.getGaragisteInfo().getWorkingLocation(), true, 5);
-				request.setAttribute("reservations", reservations);
-				
-				stat = dao.depotCarStatByMarque(user.getGaragisteInfo().getWorkingLocation());
-				String stat1 = mapper.writeValueAsString(stat);
-				request.setAttribute("stat1", stat1);
-				
-				stat = dao.depotCarStatByRating(user.getGaragisteInfo().getWorkingLocation());
-				String stat3 = mapper.writeValueAsString(stat);
-				request.setAttribute("stat3", stat3);
-			} else if(user.getType().equals("secretaire")) {
-				url = url + "SecretaryDashboard";
+				response.sendRedirect(url);
+			} else if(user.getType().equals("depot manager") || user.getType().equals("secretary")) {
+				url = url + "/Atelier/";
+				url = url + "ProfileStateManager";
+				response.sendRedirect(url);
 			}
-			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
-			dispatcher.forward(request, response);
 		} else {
-			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/login.jsp");
 			dispatcher.forward(request, response);
 		}
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

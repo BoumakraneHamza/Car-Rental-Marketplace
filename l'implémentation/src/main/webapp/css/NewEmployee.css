@@ -1,0 +1,232 @@
+.GettingStarted {
+    width: 80vw;
+    height: 90vh;
+    border: 1px solid #E4E4E4;
+    background: #fff;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.GettingStarted #tab_header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    padding: 10px 20px;
+    border-bottom: 2px solid #E4E4E4;
+    align-items: center;
+}
+.GettingStarted #tab_header #title {
+    font-size: 16px;
+    font-weight: 600;
+}
+.GettingStarted #tab_content {
+    padding: 10px 90px;
+    height: calc(80vh - 45px);
+}
+.GettingStarted #tab_content  #tab_content_header {
+    border-bottom: 2px solid #E4E4E4;
+    padding: 25px 0px;
+}
+.GettingStarted #tab_content #content_header_title {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 20px;
+}
+.GettingStarted #tab_content #content_header_title #Welcome {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 35px;
+}
+.GettingStarted #tab_content #content_header_subtitle {
+    font-weight: 500;
+    font-size: 16px;
+    margin-top: 8px;
+    color: #9c9c9c;
+}
+.GettingStarted #tab_content #sec_header {
+    font-size: 16px;
+    font-weight: 500;
+    color: #9ea1a6;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.GettingStarted #tab_content #section_header {
+    width: fit-content;
+    font-size: 18px;
+    font-weight: 600;
+}
+.GettingStarted #tab_content #section_subtitle {
+    font-size: 15px;
+    font-weight: 500;
+    color: #C4C4C4;
+    margin-top: 11px;
+    margin-bottom: 18px;
+}
+.GettingStarted #tab_content #section_list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 40px;
+	margin-bottom: 20px;
+}
+.GettingStarted #tab_content #section_list #card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 1px solid #E4E4E4;
+    padding: 10px 10px 10px 0px;
+    border-radius: 15Px;
+    min-width: 340px;
+}
+.GettingStarted #tab_content #section_list #card #card_image {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+	border-radius: 30%;
+}
+.GettingStarted #tab_content #section_list #card #card_title {
+    font-size: 16px;
+    font-weight: 600;
+}
+.GettingStarted #tab_content #section_list #card #card_subtitle {
+    font-size: 15px;
+    font-weight: 500;
+    color: #C4C4C4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;   
+}
+.GettingStarted #next {
+    border: none;
+    align-self: flex-end;
+    margin-right: 35px;
+    display: flex;
+    width: 110Px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    background: #0071FF;
+    color: #fff;
+    gap: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.complete_registration {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    background: #fff;
+    width: 35vw;
+    border: 1px solid #E4E4E4;
+    border-radius: 5px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+.complete_registration #tab_header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+	padding: 25px 30px 10Px;
+}
+.complete_registration #tab_header #left {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 15px;
+}
+.complete_registration #tab_header #left #text #title {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 15px;
+}
+.complete_registration #tab_header #left #text #subtitle {
+    font-size: 14px;
+    font-weight: 500;
+    color: #939393;
+}
+.complete_registration #tab_header #right #image_wrapper{
+	cursor: pointer;
+    background: #eee;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+.complete_registration #tab_content {
+    padding: 10px 30Px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.complete_registration #tab_content #row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+	margin-bottom: 15px;
+}
+.complete_registration #tab_content #row input[type="text"] {
+    width: 230px;
+    height: 40px;
+    border: 1px solid #E4E4E4;
+    padding: 0px 15px;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+}
+.complete_registration #tab_content #row input[type="text"]:focus{
+	outline: none;
+    border-color: #275efe;
+}
+.complete_registration #tab_content #text_header{
+	font-size:15px;
+	font-weight:500;
+}
+.complete_registration #tab_content input[type="file"] {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 15px 0px;
+    cursor:pointer;
+}
+.complete_registration #tab_content #sub_btn {
+    border: none;
+    align-self: flex-end;
+    display: flex;
+    width: 110Px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    background: #0071FF;
+    color: #fff;
+    gap: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 8px;
+    cursor: pointer;
+}

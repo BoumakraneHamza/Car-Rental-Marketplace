@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Building;
 import model.DAO;
 import model.Depot;
 import model.Employee;
@@ -35,14 +36,13 @@ public class ViewAgencyPersonal extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) request.getSession().getAttribute("user");
-		if (user.getType().equals("directeur")) {
+		if (user != null && user.getType().equals("directeur")) {
 			request.setAttribute("user", user);
 			ArrayList<Employee> employees = null;
 			DAO dao = new DAO();
 			employees = dao.getAgencyPersonals(user.getNom());
-
-			request.setAttribute("employees", employees);
 			
+			request.setAttribute("employees", employees);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/AgencyPersonal.jsp");
 			dispatcher.forward(request, response);
 		} else {

@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import model.Building;
 import model.DAO;
 import model.Depot;
 import model.Employee;
@@ -35,30 +38,18 @@ public class AjaxAddEmployee extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) request.getSession().getAttribute("user");
-		if (user.getType().equals("directeur")) {
-			response.setContentType("application/xml");
-			response.setCharacterEncoding("UTF-8");
-			PrintWriter out = response.getWriter();
-			
-			ArrayList<Employee> employees = null;
+		if(user != null) {
 			DAO dao = new DAO();
-			employees = dao.getAgencyPersonals(user.getNom());
-			
-			out.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-			out.println("<Employees>");
-			for(Employee employee : employees) {
-				out.print("<employee ");
-				out.append("email=\"" + employee.getEmail() + "\" ");
-				out.append("firstName=\"" + employee.getFirstName() + "\" ");
-				out.append("lastName=\"" + employee.getLastName() + "\" ");
-				out.append("image=\"" + employee.getImage() + "\" ");
-				out.append("workingLocation=\"" + employee.getWorkingLocation() + "\" ");
-				out.append("monthlySession=\"" + employee.getMonthlySession() + "\" ");
-				out.append("type=\"" + employee.getType() + "\" ");
-				out.println("/>");
-			}
-			out.print("</Employees>");
-			
+			ArrayList<Building> availableBuildings = null;
+			String type = request.getParameter("type");
+			availableBuildings = dao.getAvailableAgencyBuildings(user.getNom(),type);
+			ObjectMapper mapper = new ObjectMapper();
+			String buildings = mapper.writeValueAsString(availableBuildings).trim();
+			PrintWriter out = response.getWriter();
+			out.write(buildings);
+			response.setStatus(200);
+		}else {
+			response.setStatus(500);
 		}
 	}
 
@@ -67,22 +58,18 @@ public class AjaxAddEmployee extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) request.getSession().getAttribute("user");
-		if (user.getType().equals("directeur")) {
-			DAO dao = new DAO();
-			Employee employee = new Employee();
-			
-			employee.setEmail(request.getParameter("email"));
-			employee.setFirstName(request.getParameter("firstName"));
-			employee.setLastName(request.getParameter("lastName"));
-			employee.setImage(request.getParameter("image"));
-			employee.setWorkingLocation(request.getParameter("workingLocation"));
-			employee.setAgencyName(request.getParameter("agency"));
-			employee.setType(request.getParameter("type"));
-			//employee.set(request.getParameter(""));
-			
-			dao.addEmployee(employee);
-		}
-		doGet(request, response);
+		DAO dao = new DAO();
+		Employee employee = new Employee();
+		String building = request.getParameter("location");
+		building = building.replace("Depot", "");
+		building = building.replace("Office", "");
+		employee.setEmail(request.getParameter("email"));
+		employee.setPassword(request.getParameter("password"));
+		employee.setWorkingLocation(building);
+		employee.setAgencyName(user.getNom());
+		employee.setType(request.getParameter("type"));
+		System.out.println(employee.getType());
+		dao.addEmployee(employee);
+		
 	}
-
 }

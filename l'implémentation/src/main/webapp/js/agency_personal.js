@@ -79,25 +79,6 @@ function deleteEmployee(event, element) {
 	document.getElementById('tempFormForDeletingEmployees').style.visibility='hidden';
 }
 
-function submitEmployee(event, form) {
-	event.preventDefault();
-	var param = new URLSearchParams(new FormData(form)).toString();
-	
-	var xhttp = new XMLHttpRequest();
-	xhttp.onload = function() {
-		var employees = this.responseXML.documentElement.children;
-		
-		document.getElementById("employees-list").innerHTML = '';
-		for(employee of employees){
-			createEmployees(employee);
-		}
-	}
-	xhttp.open("POST","AjaxAddEmployee");
-	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhttp.send(param);
-	
-	document.getElementById('tempFormForAddingEmployees').style.visibility='hidden';
-}
 
 function createEmployees(employee) {
 	const workingLocation = employee.getAttribute('workingLocation');
@@ -174,6 +155,14 @@ function showEmployeeProfile(employee) {
 	profileContainer.appendChild(anEmployeeProfile);
 }
 */
+function clearChild(e){
+	var child = e.lastElementChild; 
+    while (child) {
+        e.removeChild(child);
+        child = e.lastElementChild;
+    }
+}
+
 const stat_wrapper = document.querySelector("#stat_wrapper")
 const member_stat = stat_wrapper.querySelector("#member_stat");
 function showStat(){
@@ -224,6 +213,83 @@ function hideDetails(){
 	}
 	if (side_bar.classList.contains("active")){
 		side_bar.classList.remove("active");
-	}
-	
+	}	
 }
+
+const add_employee = document.querySelector(".add_employee");
+function Add(){
+	if (add_employee.style.display=="none"){
+		add_employee.style.display="flex";
+	}else{
+		add_employee.style.display="none";
+	}
+}
+const location_select = add_employee.querySelector("#location_select");
+location_select.addEventListener("click",function(){
+	let type = document.querySelector("#filter").value;
+	let json;
+	let locations_List = add_employee.querySelector("#locations_List");
+	clearChild(locations_List);
+	if(locations_List.style.display=="none"){
+		let xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = ()=>{
+			if(xhr.status == 200 && xhr.readyState == 4){
+				locations_List.style.display="block";
+				json = JSON.parse(xhr.responseText);
+				for(let key in json){
+					let location_tile = document.createElement("div");
+					location_tile.setAttribute("id","location_tile");
+					location_tile.setAttribute("onclick","selectLocation(this)");
+					let name = document.createElement("p");
+					name.setAttribute("id","name");
+					name.innerHTML = json[key].code;
+					location_tile.append(name);
+					let location = document.createElement("p");
+					location.setAttribute("id","location");
+					location.innerHTML = json[key].adress;
+					location_tile.append(location);
+					locations_List.append(location_tile);
+				}
+			}
+		}
+		xhr.open('GET','AjaxAddEmployee?type='+type);
+		xhr.send();
+	}else{
+		locations_List.style.display="none";
+	}
+});
+function selectLocation(element){
+	location_select.querySelector("#title").value = element.querySelector("#name").innerHTML;
+	let locations_List = add_employee.querySelector("#locations_List");
+	locations_List.style.display="none";
+}
+let sub_btn = add_employee.querySelector("#sub_btn");
+let form = sub_btn.parentNode;
+form.addEventListener("submit",(event)=>{
+	event.preventDefault();
+	let password_field = document.querySelector("#passwords");
+	if(password_field.querySelector("#password").value == password_field.querySelector("#confirmation_password").value){
+		if (location_select.querySelector("#title").value == "Select Working location"){
+			add_employee.querySelector("#error_banner").style.display="flex";
+			add_employee.querySelector("#error_banner").querySelector("#text").innerHTML = "please Select a Working Locations"
+		}else{
+			add_employee.querySelector("#error_banner").style.display="none";
+			let form = sub_btn.parentNode;
+			var param = new URLSearchParams(new FormData(form)).toString();
+			console.log(param);
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = ()=>{
+				if(xhttp.status == 200){
+					add_employee.style.display="none";
+					console.log("message sent");
+				}
+			}
+			xhttp.open("POST","AjaxAddEmployee");
+			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhttp.send(param);
+		}
+	}else{
+		add_employee.querySelector("#error_banner").querySelector("#text").innerHTML = "Please Make sure that passwords match"
+		add_employee.querySelector("#error_banner").style.display="flex";
+	}
+});

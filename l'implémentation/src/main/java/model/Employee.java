@@ -1,6 +1,6 @@
 package model;
 
-public class Employee {
+public class Employee extends User {
 	private String email;
 	private String firstName;
 	private String lastName;

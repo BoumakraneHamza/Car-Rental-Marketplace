@@ -34,7 +34,7 @@ public class GaragisteCars extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) request.getSession().getAttribute("user");
-		if (user.getType().equals("garagiste")) {
+		if (user.getType().equals("depot manager")) {
 			request.setAttribute("user", user);
 			ArrayList<Vehicule> cars = null;
 			DAO dao = new DAO();

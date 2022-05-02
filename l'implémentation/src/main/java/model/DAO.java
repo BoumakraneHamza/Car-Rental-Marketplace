@@ -64,10 +64,10 @@ public class DAO {
 	            else if(result.getString("type").equals("service_client")) {
 	            	user = getServiceClient(result.getString("email"));
 	            }
-	            else if(result.getString("type").equals("garagiste")) {
+	            else if(result.getString("type").equals("depot manager")) {
 	            	user = getGaragiste(result.getString("email"));
 	            }
-	            else if(result.getString("type").equals("secretaire")) {
+	            else if(result.getString("type").equals("secretary")) {
 	            	user = getSecretaire(result.getString("email"));
 	            }
 	        }
@@ -96,6 +96,54 @@ public class DAO {
 			e.printStackTrace();
 		}
 		return userType;
+	}
+	public boolean IsNewAccount(User employee) {
+		String Query ; 
+		PreparedStatement statement ; 
+		boolean newAccount = false;
+		ResultSet result ; 
+		try {
+			if(employee.getType().equals("depot manager")){
+				Query = "Select nom from garagiste where email = ? limit 1 ";
+			}else {
+				Query = "Select nom from secretary where email = ? limit 1 ";
+			}
+			connectDB();
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, employee.getEmail());
+			result = statement.executeQuery();
+			if(result.next()) {
+				if(result.getString("nom") == null) {
+					newAccount = true;
+				}
+			}	
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return newAccount;
+	}
+	public int CompleteEmployeeRegistration(Employee employee) {
+		String Query = null ;
+		PreparedStatement statement; 
+		int result = 0;
+		try {
+			connectDB();
+			if (employee.getType().equals("depot manager")) {
+				Query = "Update garagiste set nom = ?,prenom=?,photo=?  where email = ?";
+			}else {
+				Query = "Update secretary set nom =? ,prenom = ? , photo = ? where email = ?";
+			}
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, employee.getNom());
+			statement.setString(2, employee.getPrenom());
+			statement.setString(3, employee.getImage());
+			statement.setString(4, employee.getEmail());
+			
+			result = statement.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 	private User getAgencyDirecteurInfo(String email) throws SQLException {
 		User user = null ;
@@ -128,7 +176,7 @@ public class DAO {
 				user = new User();
 				garagiste = new Garagiste();
 				user.setEmail(email);
-				user.setType("garagiste");
+				user.setType("depot manager");
 				user.setNom(result.getString("nom"));
 				user.setPrenom(result.getString("prenom"));
 				user.setImage(result.getString("photo"));
@@ -157,7 +205,7 @@ public class DAO {
 				user = new User();
 				secretaire = new Secretaire();
 				user.setEmail(email);
-				user.setType("secretaire");
+				user.setType("secretary");
 				user.setNom(result.getString("nom"));
 				user.setPrenom(result.getString("prenom"));
 				user.setImage(result.getString("photo"));
@@ -667,7 +715,67 @@ public class DAO {
 		}
 		return buildings;
 	}
-	
+	//this method return the building where there is no employee
+	public ArrayList<Building> getAvailableAgencyBuildings(String AgencyName,String Type) {
+		String Query;
+		ArrayList<Building> buildings = new ArrayList<Building>();
+		
+		PreparedStatement statement = null;
+		ResultSet result;
+		try {
+			if(Type.equals("depot manager")) {
+				connectDB();
+				Query = "select * \r\n"
+						+ "from depot \r\n"
+						+ "where agence_nom  = ? and garagiste_email is null";
+				statement = connection.prepareStatement(Query);
+				statement.setString(1, AgencyName);
+				result = statement.executeQuery();
+				
+				while(result.next()) {
+					Depot depot = new Depot();
+					depot.setCode("Depot "+result.getString("code"));
+					depot.setAdress(result.getString("adress"));
+					depot.setCapacite(result.getInt("capacite"));
+					depot.setCapacite_libre(result.getInt("capacite_libre"));
+					depot.setAgence_nom(result.getString("agence_nom"));
+					depot.setLat(result.getString("lat"));
+					depot.setLon(result.getString("lon"));
+					depot.setBookings(result.getInt("Bookings"));
+					depot.setEmployee(getBuildingEmployee(depot));
+					depot.setCapacityPercentile((depot.getCapacite_libre()*100)/depot.getCapacite());
+					
+					buildings.add(depot);
+				}
+			}else if(Type.equals("secretary")) {
+				connectDB();
+				Query = "select * \r\n"
+						+ "from offices \r\n"
+						+ "where agency_name  = ? and email_secretaire is null";
+				statement = connection.prepareStatement(Query);
+				statement.setString(1, AgencyName);
+				result = statement.executeQuery();
+				
+				while(result.next()) {
+					Office office = new Office();
+					office.setCode("Office"+result.getString("code"));
+					office.setAdress(result.getString("address"));
+					office.setAgence_nom(result.getString("agency_name"));
+					office.setLat(result.getString("lat"));
+					office.setLon(result.getString("lon"));
+					office.setBookings(result.getInt("Bookings"));
+					office.setEmployee(getBuildingEmployee(office));
+					
+					buildings.add(office);
+				}
+			}
+			statement.close();
+		} catch (SQLException | InstantiationException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return buildings;
+	}
 	public Employee getBuildingEmployee(Building building) {
 		Employee employee = null;
 		String query;
@@ -715,7 +823,7 @@ public class DAO {
 			connectDB();
 			Query = "SELECT * \r\n"
 					+ "FROM atelier.garagiste \r\n"
-					+ "WHERE agency_name = ?";
+					+ "WHERE agency_name = ? and nom is not null";
 			statement = connection.prepareStatement(Query);
 			statement.setString(1, AgencyName);
 			
@@ -728,14 +836,14 @@ public class DAO {
 				employee.setImage(result.getString("photo"));
 				employee.setWorkingLocation(result.getString("working_location"));
 				employee.setMonthlySession(result.getString("monthly_session"));
-				employee.setType("garagiste");
+				employee.setType("depot manager");
 				
 				employees.add(employee);
 			}
 			
 			Query = "SELECT * \r\n"
 					+ "FROM atelier.secretary \r\n"
-					+ "WHERE agency_name = ?";
+					+ "WHERE agency_name = ? and nom is not null";
 			statement = connection.prepareStatement(Query);
 			statement.setString(1, AgencyName);
 			
@@ -748,7 +856,7 @@ public class DAO {
 				employee.setImage(result.getString("photo"));
 				employee.setWorkingLocation(result.getString("working_location"));
 				//employee.setMonthlySession(result.getString("monthly_session"));
-				employee.setType("secretaire");
+				employee.setType("secretary");
 				
 				employees.add(employee);
 			}
@@ -1210,7 +1318,7 @@ public class DAO {
 						message.setSourceName(result3.getString("user_name"));
 						message.setSourceImage(result3.getString("image"));
 					}
-				}else if(usertype.equals("secretaire")) {
+				}else if(usertype.equals("secretary")) {
 					Query = "select nom, prenom , photo from secretary where email=? limit 1";
 					
 					statement = connection.prepareStatement(Query);
@@ -1220,7 +1328,7 @@ public class DAO {
 						message.setSourceName(result3.getString("nom")+" "+result3.getString("prenom"));
 						message.setSourceImage(result3.getString("photo"));
 					}
-				}else if(usertype.equals("garagiste")) {
+				}else if(usertype.equals("depot manager")) {
 					Query = "select nom, prenom , photo from garagiste where email=? limit 1";
 					
 					statement = connection.prepareStatement(Query);
@@ -1400,7 +1508,7 @@ public class DAO {
 		ResultSet result;
 		try {
 			connectDB();
-			if(type.equals("garagiste")) {
+			if(type.equals("depot manager")) {
 				Query = "SELECT * \r\n"
 						+ "FROM atelier.garagiste \r\n"
 						+ "WHERE email = ?";
@@ -1418,7 +1526,7 @@ public class DAO {
 					employee.setImage(result.getString("photo"));
 					employee.setWorkingLocation(result.getString("working_location"));
 					employee.setMonthlySession(result.getString("monthly_session"));
-					employee.setType("garagiste");
+					employee.setType("depot manager");
 				}
 			} else {
 				Query = "SELECT * \r\n"
@@ -1437,7 +1545,7 @@ public class DAO {
 					employee.setImage(result.getString("photo"));
 					employee.setWorkingLocation(result.getString("working_location"));
 					//employee.setMonthlySession(result.getString("monthly_session"));
-					employee.setType("secretaire");
+					employee.setType("secretary");
 				}
 			}
 			
@@ -1452,27 +1560,39 @@ public class DAO {
 		String Query;
 		PreparedStatement statement;
 		
-		if (employee.getType().equals("garagiste")) {
-			Query = "INSERT INTO `atelier`.`garagiste` (`email`, `nom`, `prenom`, `photo`, `working_location`, `agency_name`) \r\n"
-					+ "VALUES (?, ?, ?, ?, ?, ?)";
-		} else {
-			Query = "INSERT INTO `atelier`.`secretary` (`email`, `nom`, `prenom`, `photo`, `working_location`, `agency_name`) \r\n"
-					+ "VALUES (?, ?, ?, ?, ?, ?)";
-		}
-		
 		try {
+			Query="INSERT INTO users VALUES (? , ? , ?) ";
 			connectDB();
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, employee.getEmail());
+			statement.setString(2, employee.getPassword());
+			statement.setString(3, employee.getType());
+			statement.executeUpdate();
+			if (employee.getType().equals("depot manager")) {
+				Query = "INSERT INTO `atelier`.`garagiste` (`email`, `working_location`, `agency_name`) \r\n"
+						+ "VALUES (?, ?, ?)";
+			} else {
+				Query = "INSERT INTO `atelier`.`secretary` (`email`, `working_location`, `agency_name`) \r\n"
+						+ "VALUES (?, ?, ?)";
+			}
 			statement = connection.prepareStatement(Query);
 			
 			statement.setString(1, employee.getEmail());
-			statement.setString(2, employee.getLastName());
-			statement.setString(3, employee.getFirstName());
-			statement.setString(4, employee.getImage());
-			statement.setString(5, employee.getWorkingLocation());
-			statement.setString(6, employee.getAgencyName());
+			statement.setString(2, employee.getWorkingLocation());
+			statement.setString(3, employee.getAgencyName());
+			statement.executeUpdate();
 			
+			if (employee.getType().equals("depot manager")) {
+				Query = "Update depot set garagiste_email = ? where code=?";
+			} else {
+				Query = "Update offices set email_secretaire = ? where code=?";
+			}
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, employee.getEmail());
+			statement.setString(2, employee.getWorkingLocation());
 			statement.executeUpdate();
 			statement.close();
+			
 		}catch (SQLException | InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();	
 		}
@@ -1484,7 +1604,7 @@ public class DAO {
 		
 		try {
 			connectDB();
-			if (type.equals("garagiste"))
+			if (type.equals("depot manager"))
 				Query = "DELETE FROM `atelier`.`garagiste` WHERE (`email` = ?)";
 			else
 				Query = "DELETE FROM `atelier`.`secretary` WHERE (`email` = ?)";
@@ -1507,7 +1627,7 @@ public class DAO {
 		
 		try {
 			connectDB();
-			if(employee.getType().equals("garagiste")) {
+			if(employee.getType().equals("depot manager")) {
 				Query = "UPDATE `atelier`.`garagiste` \r\n"
 						+ "SET `nom` = ?, `prenom` = ?, `working_location` = ? \r\n"
 						+ "WHERE (`email` = ?);";

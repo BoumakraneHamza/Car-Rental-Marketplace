@@ -41,7 +41,7 @@
 	<div class="main-frame active">
 		<div id="frame_header">
 			<p id="title">Agency Team</p>
-			<button id="add">
+			<button id="add" onclick="Add()">
 				<img src="${pageContext.request.contextPath}/assets/add.svg">
 				<p>add</p>
 			</button>
@@ -254,7 +254,54 @@
 			</div>
 	</div>
 </div>
-<div class="add_employee"></div>
+<form class="add_employee" style="display: none;">
+	<div id="tab_header">
+		<div id="left">
+			<div id="info">
+				<div id="image_wrapper" onclick="hideDetails()">
+					<img style="width:22px;cursor:pointer;" src="${pageContext.request.contextPath}/assets/info.svg">
+				</div>
+			</div>
+			<div id="text">
+				<p id="title">Invite Team member</p>
+				<p id="subtitle">create a team member account with One click</p>
+			</div>
+		</div>
+		<div id="right">
+			<div id="image_wrapper" onclick="Add()">
+				<img style="width:11px" src="${pageContext.request.contextPath}/assets/cancel-black.svg">
+			</div>
+		</div>
+	</div>
+	<div id="error_banner" style="display:none;">
+		<img style="width:11px;" src="${pageContext.request.contextPath}/assets/cancel-red.svg">
+		<p id="text">Please Make sure that passwords match</p>
+	</div>
+	<div id="email_role">
+		<div id="email_field">
+			<div id="at_symbol">
+				<img style="width:18px" src="${pageContext.request.contextPath}/assets/at.svg">
+			</div>
+			<input required="required" name="email" type="email" id="email" placeholder="email address" aria-autocomplete="both" aria-haspopup="false" autocapitalize="off" autocomplete="off" autocorrect="off" autofocus="" role="combobox" spellcheck="false">
+		</div>
+		<select name="type" id="filter">
+			<option value="depot manager">Depot Manager</option>
+			<option value="secretary">Secretary</option>
+		</select>
+	</div>
+	<div id="passwords">
+		<input required="required" name="password" type="password" class="pass" id="password" placeholder="password">
+		<input type="password" class="pass" id="confirmation_password" placeholder="confirm password">
+	</div>
+	<div id="location_select">
+		<input required="required" name="location" type="text" id="title" value="Select Working location" readonly>
+		<img src="${pageContext.request.contextPath}/assets/angle-down-solid.svg">
+	</div>
+	<div id="locations_List" style="display:none;">
+	</div>
+	<button id="sub_btn" type="submit"><img src="${pageContext.request.contextPath}/assets/check.svg"><p>Send Invite</p></button>
+</form>
 <script src="${pageContext.request.contextPath}/js/agency_personal.js"></script>
+<%@include file="/jsp/dropdownList.jsp"%>
 </body>
 </html>
