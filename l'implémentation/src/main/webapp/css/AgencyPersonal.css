@@ -131,6 +131,36 @@
     background: #eeeeee;
     border-radius: 10px;
     cursor: pointer;
+    position:relative;
+}
+.main-frame  #main_content #employee_card #card_header #image_wrapper .employeeTabOptions {
+	background: #fff;
+    position: absolute;
+    border: 1px solid #E4E4E4;
+    top: 100%;
+    z-index: 1;
+    margin-top: 5px;
+    width: 200px;
+    left: 10%;
+    flex-direction: column;
+}
+.main-frame  #main_content #employee_card #card_header #image_wrapper .employeeTabOptions #tile{
+	display: flex;
+    gap: 10px;
+    height: 35px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding: 0px 10px;
+    border-bottom: 1px solid #E4E4E4;
+    cursor: pointer;
+}
+.main-frame  #main_content #employee_card #card_header #image_wrapper .employeeTabOptions #tile:hover{
+	background:#F9F9F9;
+}
+.main-frame  #main_content #employee_card #card_header #image_wrapper .employeeTabOptions #tile #title {
+    font-size: 15px;
+    font-weight: 500;
 }
 .main-frame  #main_content #employee_card #client_image {
     align-self: center;
@@ -435,6 +465,7 @@
     height: auto;
     flex-direction: column;
     flex-wrap: nowrap;
+    z-index: 2;
 }
 .add_employee  #tab_header {
     display: flex;

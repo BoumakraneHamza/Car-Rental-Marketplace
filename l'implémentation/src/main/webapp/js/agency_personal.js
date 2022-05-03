@@ -293,3 +293,22 @@ form.addEventListener("submit",(event)=>{
 		add_employee.querySelector("#error_banner").style.display="flex";
 	}
 });
+function showCardOptions(element){
+	let options = element.querySelector(".employeeTabOptions");
+	if(options.style.display == "none"){
+		//get selected employee email 
+		let employee_Card = element.parentNode.parentNode;
+		let client_email = employee_Card.querySelector("#client_info").querySelector("#client_email").innerHTML;
+		for(let email in element.querySelectorAll("#email")){
+			element.querySelectorAll("#email").item(email).value = client_email;
+		}
+		//always only one option list is active
+		let AllOptions = document.querySelectorAll(".employeeTabOptions");
+		for (option in AllOptions){
+			AllOptions.item(option).style.display="none";
+		}
+		options.style.display="flex";
+	}else{
+		options.style.display="none";
+	}
+}

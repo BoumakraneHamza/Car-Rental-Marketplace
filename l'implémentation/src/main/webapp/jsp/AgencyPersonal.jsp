@@ -75,13 +75,25 @@
 					<c:forEach items="${employees}" var="employee">
 						<div id="employee_card">
 							<div id="card_header">
-								<div id="image_wrapper">
+								<div id="image_wrapper"  onclick="showCardOptions(this)">
 									<img style="width:15px" src="${pageContext.request.contextPath}/assets/3-point-option.svg">
+									<div class="employeeTabOptions" style="display:none;">
+										<div id="tile">
+											<input id="email" type="hidden">
+											<img style="width: 15px;" id="image" src="${pageContext.request.contextPath}/assets/gear-black.svg">
+											<p id="title">Edit Member</p>
+										</div>
+										<div id="tile">
+											<input id="email" type="hidden">
+											<img style="width: 13px;margin-left: 1px;" id="image" src="${pageContext.request.contextPath}/assets/delete-icon-black.svg">
+											<p id="title">Delete Member</p>
+										</div>
+									</div>
 								</div>
 							</div>
 							<div id="client_image" onclick="showDetails()">
 								<div id="client_image_wrapper">
-									<img style="width:100Px" src="${pageContext.request.contextPath}${employee.image}">
+									<img style="width:100Px;object-fit: fill;border-radius: 50%;height: 100px;" src="${pageContext.request.contextPath}${employee.image}">
 								</div>
 								<div id="status"></div>
 							</div>
