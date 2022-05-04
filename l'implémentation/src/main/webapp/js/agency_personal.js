@@ -252,7 +252,7 @@ location_select.addEventListener("click",function(){
 				}
 			}
 		}
-		xhr.open('GET','AjaxAddEmployee?type='+type);
+		xhr.open('GET','EmployeeManagement?type='+type);
 		xhr.send();
 	}else{
 		locations_List.style.display="none";
@@ -276,15 +276,13 @@ form.addEventListener("submit",(event)=>{
 			add_employee.querySelector("#error_banner").style.display="none";
 			let form = sub_btn.parentNode;
 			var param = new URLSearchParams(new FormData(form)).toString();
-			console.log(param);
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = ()=>{
 				if(xhttp.status == 200){
 					add_employee.style.display="none";
-					console.log("message sent");
 				}
 			}
-			xhttp.open("POST","AjaxAddEmployee");
+			xhttp.open("POST","EmployeeManagement");
 			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xhttp.send(param);
 		}
@@ -312,3 +310,39 @@ function showCardOptions(element){
 		options.style.display="none";
 	}
 }
+let delete_confirmation = document.querySelector(".delete_confirmation");
+function DeletePopUp(element){
+	let json;
+	if(delete_confirmation.style.display=="none"){
+		let email = element.querySelector("#email").value;
+		delete_confirmation.querySelector("#delete_email").value = email;
+		let xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = ()=>{
+			if(xhr.status == 200 && xhr.readyState == 4){
+				json = JSON.parse(xhr.responseText);
+				delete_confirmation.querySelector("#team_member_name").innerHTML = json["nom"] +" "+ json["prenom"];	
+				delete_confirmation.style.display="flex";
+				
+			}
+		}
+		xhr.open("GET","GetProfile?client_email="+email);
+		xhr.send()
+	}else{
+		delete_confirmation.style.display="none"
+	}
+}
+let main_content = document.querySelector("#main_content");
+delete_confirmation.addEventListener("submit",(event)=>{
+	event.preventDefault();
+	var param = new URLSearchParams(new FormData(delete_confirmation)).toString();
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = ()=>{
+		if(xhttp.status == 200){
+			delete_confirmation.style.display="none";
+			$("#main_content").load("ViewAgencyPersonal #main_content #employee_card");
+		}
+	}
+	xhttp.open("POST","EmployeeManagement");
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhttp.send(param);
+});

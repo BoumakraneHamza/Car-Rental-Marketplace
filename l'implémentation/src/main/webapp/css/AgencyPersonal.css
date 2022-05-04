@@ -112,6 +112,10 @@
     flex-direction: column;
     flex-wrap: nowrap;
 }
+.main-frame  #main_content #employee_card:hover{
+	outline:none;
+	border: 2px solid #0071ff;
+}
 .main-frame  #main_content #employee_card #card_header {
     display: flex;
     flex-direction: row;
@@ -147,7 +151,7 @@
 .main-frame  #main_content #employee_card #card_header #image_wrapper .employeeTabOptions #tile{
 	display: flex;
     gap: 10px;
-    height: 35px;
+    height: 40px;
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: center;
@@ -677,5 +681,302 @@
     align-self: flex-end;
 }
 .add_employee #sub_btn p{
+	margin-left:10px;
+}
+.delete_confirmation {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    border: 1px solid #E4E4E4;
+    border-radius: 5px;
+	padding: 10px 0px 20px;
+}
+.delete_confirmation #tab_header {
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+}
+.delete_confirmation #sec_header {
+    align-self: center;
+    padding: 10px 20px;
+    text-align: center;
+}
+.delete_confirmation #sec_header #title {
+    font-size: 17px;
+    font-weight: 600;
+}
+.delete_confirmation #sec_header #subtitle {
+    font-size: 14px;
+    font-weight: 500;
+    color: #5a5a5a;
+    max-width: 330px;
+    margin-top: 15px;
+}
+.delete_confirmation .warning {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 10px;
+    border: 1px solid #E4E4E4;
+    padding: 10px;
+    background: #ffe8d9;
+    color: #ff5d3d;
+    margin: 10px 20px;
+    width: 400px;
+    height: 100px;
+    border-radius: 0px 5px 5px 0px;
+    align-items: center;
+}
+.delete_confirmation .warning::before{
+	background: #f9703e;
+    content: "";
+    width: 8px;
+    height: 100px;
+    margin-left: -14px;
+    border-radius: 5px 0px 0px 5px;
+}
+.delete_confirmation .warning #warning_info {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 4px;
+}
+.delete_confirmation .warning #warning_info #title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #ff0034;
+}
+.delete_confirmation .warning #warning_info #subtitle{
+	font-weight:500;
+	font-size:14px;
+}
+.delete_confirmation #cta {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 10px;
+    align-self: flex-end;
+    padding: 5px 20px;
+}
+.delete_confirmation #cta #delete {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    width: 175px;
+    justify-content: center;
+    height: 40px;
+    border-radius: 5px;
+    background: #e12d39;
+    color: #fff;
+    cursor:pointer;
+}
+.delete_confirmation #cta #cancel {
+    border: 2px solid #000;
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    background: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+}
+.edit_employee {
+	position: absolute;
+    top: 50%;
+    display: flex;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #E4E4E4;
+    border-radius: 10px;
+    width: auto;
+    height: auto;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    z-index: 2;
+}
+.edit_employee  #tab_header {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+	margin-bottom: 15px;
+}
+.edit_employee  #tab_header #left {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 10px;
+}
+.edit_employee  #tab_header #left #text {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.edit_employee  #tab_header #left #text #title {
+    font-size: 17px;
+    font-weight: 600;
+    line-height:16px;
+}
+.edit_employee  #tab_header #left #text #subtitle {
+    font-weight: 400;
+    font-size: 14px;
+    color: #C4C4C4;
+}
+.edit_employee  #tab_header #right #image_wrapper {
+    height: 33px;
+    width: 33px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    background: #eeeeee;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.edit_employee #error_banner {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    border: 2px solid #F5413D;
+    padding: 5px 20px;
+    border-radius: 5px;
+    margin: 0px 10px;
+    height: 40px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.edit_employee #error_banner #text {
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: 10px;
+    color: #F5413D;
+}
+.edit_employee #email_role {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+}
+.edit_employee #email_role #email {
+	height: 40px;
+    width: 250px;
+    border: 1px solid #E4E4E4;
+    border-radius: 0px 5px 5px 0px;
+    background: #F9F9F9;
+    padding: 0px 15px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    border-left: none;
+}
+.edit_employee #email_field {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+.edit_employee #email_field #at_symbol {
+	height: 40px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    background: #F9F9F9;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #E4E4E4;
+    border-radius: 5px 0px 0px 5px;
+    border-right: none;
+    padding-left: 10px;
+}
+.edit_employee #email_role #email::placeholder{
+	font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 500;	
+}
+#at_symbol + #email:focus{
+	outline:none;
+	border-color: #0071ff;
+}
+.edit_employee #email_role #filter {
+    height: 40px;
+    border: 1px solid #E4E4E4;
+    border-radius: 5px;
+    width: 145px;
+    padding: 0px 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    cursor:pointer;
+    font-weight: 500;
+}
+.edit_employee #email_role #filter:focus{
+	outline:none;
+	border-color: #0071ff;
+}
+.edit_employee #passwords {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding: 10px;
+    gap: 30px;
+}
+.edit_employee #passwords .pass{
+	height: 40px;
+    width: 202px;
+    border: 1px solid #E4E4E4;
+    border-radius: 5px;
+    background: #F9F9F9;
+    padding: 0px 15px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+}
+.edit_employee #passwords .pass::placeholder{
+	font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 500;	
+}
+.edit_employee #passwords .pass:focus{
+	outline:none;
+	border-color: #0071ff;
+}
+.edit_employee #sub_btn {
+	width: 120Px;
+	margin-top: 15Px;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    background: #0071FF;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    align-self: flex-end;
+}
+.edit_employee #sub_btn p{
 	margin-left:10px;
 }

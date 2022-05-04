@@ -218,7 +218,7 @@ CREATE TABLE `depot` (
 
 LOCK TABLES `depot` WRITE;
 /*!40000 ALTER TABLE `depot` DISABLE KEYS */;
-INSERT INTO `depot` VALUES (1,'constantine',12,11,'Hertz','g01@email.com','36.25023','6.57394',22),(2,'batna',15,14,'Hertz','Hamza12@email.com','35.55216','6.17968',12),(3,'constantine',15,15,'agence02',NULL,'36.2650','6.5833',0),(4,'constantine',20,3,'Hertz',NULL,'36.2536','6.5546',0),(5,'constantine',10,5,'Hertz',NULL,'36.2493','6.5921',0),(6,'constantine',12,6,'agence02',NULL,'36.2333','6.5604',0),(7,'alger',100,48,'Hertz','g02@email.com',NULL,NULL,0);
+INSERT INTO `depot` VALUES (1,'constantine',12,11,'Hertz','g01@email.com','36.25023','6.57394',22),(2,'batna',15,14,'Hertz','Garagiste01@email.com','35.55216','6.17968',12),(3,'constantine',15,15,'agence02',NULL,'36.2650','6.5833',0),(4,'constantine',20,3,'Hertz',NULL,'36.2536','6.5546',0),(5,'constantine',10,5,'Hertz',NULL,'36.2493','6.5921',0),(6,'constantine',12,6,'agence02',NULL,'36.2333','6.5604',0),(7,'alger',100,48,'Hertz',NULL,NULL,NULL,0);
 /*!40000 ALTER TABLE `depot` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -278,7 +278,7 @@ CREATE TABLE `garagiste` (
 
 LOCK TABLES `garagiste` WRITE;
 /*!40000 ALTER TABLE `garagiste` DISABLE KEYS */;
-INSERT INTO `garagiste` VALUES ('aaaa@aaa.aa','aaaa','aaaa','/assets/profile_pics/1email.png',2,NULL,'Hertz'),('g01@email.com','Boumakrane','Hamza','/assets/profile_pics/1email.png',1,'0000-00-00','Hertz'),('g02@email.com','gara','garagiste','/assets/profile_pics/1email.png',7,'0000-00-00','Hertz'),('Hamza12@email.com','Hamza','Boumakrane','/assets/profile_pics/Hamza12email.jpeg',2,NULL,'Hertz');
+INSERT INTO `garagiste` VALUES ('g01@email.com','Boumakrane','Hamza','/assets/profile_pics/1email.png',1,'0000-00-00','Hertz'),('Garagiste01@email.com','Boumakrane','Hamza','/assets/profile_pics/Garagiste01email.jpeg',2,NULL,'Hertz');
 /*!40000 ALTER TABLE `garagiste` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -407,7 +407,7 @@ CREATE TABLE `offices` (
 
 LOCK TABLES `offices` WRITE;
 /*!40000 ALTER TABLE `offices` DISABLE KEYS */;
-INSERT INTO `offices` VALUES (1,'Hertz','constantine',0,'s01@email.com',NULL,NULL),(2,'Hertz','constantine',0,'s02@email.com',NULL,NULL),(3,'Hertz','Setif',0,'Secretary@email.com',NULL,NULL);
+INSERT INTO `offices` VALUES (1,'Hertz','constantine',0,'s01@email.com',NULL,NULL),(2,'Hertz','constantine',0,'s02@email.com',NULL,NULL),(3,'Hertz','Setif',0,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `offices` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -564,7 +564,7 @@ CREATE TABLE `secretary` (
 
 LOCK TABLES `secretary` WRITE;
 /*!40000 ALTER TABLE `secretary` DISABLE KEYS */;
-INSERT INTO `secretary` VALUES ('s01@email.com','secr','secretary','/assets/profile_pics/1email.png',1,'Hertz'),('s02@email.com','secretary','secr','/assets/profile_pics/1email.png',2,'Hertz'),('Secretary@email.com','Secretary','New','/assets/profile_pics/Secretaryemail.jpeg',3,'Hertz');
+INSERT INTO `secretary` VALUES ('s01@email.com','secr','secretary','/assets/profile_pics/1email.png',1,'Hertz'),('s02@email.com','secretary','secr','/assets/profile_pics/1email.png',2,'Hertz');
 /*!40000 ALTER TABLE `secretary` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -576,7 +576,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `secretary_AFTER_DELETE` AFTER DELETE ON `secretary` FOR EACH ROW BEGIN
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `secretary_BEFORE_DELETE` BEFORE DELETE ON `secretary` FOR EACH ROW BEGIN
 DELETE FROM `atelier`.`users` WHERE (`email` = OLD.email);
 END */;;
 DELIMITER ;
@@ -666,7 +666,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('1@email.com','12345678','client'),('d01@email.com','12345678','directeur'),('d02@gmail.com','12345678','directeur'),('g01@email.com','test','depot manager'),('g02@email.com','12345678','depot manager'),('g03@email.com','12345678','depot manager'),('Hamza@gmail.com','test','client'),('Hamza12@email.com','Hamza','depot manager'),('s01@email.com','12345678','secretary'),('s02@email.com','12345678','secretary'),('Secretary@email.com','Hamza','secretary'),('serviceClient@email.com','test','service_client');
+INSERT INTO `users` VALUES ('1@email.com','12345678','client'),('d01@email.com','12345678','directeur'),('d02@gmail.com','12345678','directeur'),('g01@email.com','test','depot manager'),('g03@email.com','12345678','depot manager'),('Garagiste01@email.com','Hamza','depot manager'),('Hamza@gmail.com','test','client'),('s01@email.com','12345678','secretary'),('s02@email.com','12345678','secretary'),('serviceClient@email.com','test','service_client');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -825,4 +825,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-02 23:52:26
+-- Dump completed on 2022-05-03 23:59:47

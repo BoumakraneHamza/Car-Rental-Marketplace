@@ -161,7 +161,7 @@ public class DAO {
 		return user;
 	}
 	
-	private User getGaragiste(String email) {
+	public User getGaragiste(String email) {
 		User user = null ;
 		Garagiste garagiste = null;
 		String Query = "Select * from garagiste where email = ? limit 1";
@@ -190,7 +190,7 @@ public class DAO {
 		}
 		return user;
 	}
-	private User getSecretaire(String email) {
+	public User getSecretaire(String email) {
 		User user = null ;
 		Secretaire secretaire = null;
 		String Query = "Select * from secretary where email = ? limit 1";
@@ -1598,27 +1598,41 @@ public class DAO {
 		}
 	}
 	
-	public void deleteEmployee(String email, String type) {
+	public int deleteEmployee(String email) {
 		String Query;
 		PreparedStatement statement;
+		int result = 0;
 		
 		try {
 			connectDB();
-			if (type.equals("depot manager"))
+
+			String AccountType = getUserType(email);
+			Query = "Delete from users where email = ? limit 1";
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, email);
+			statement.executeUpdate();
+			if (AccountType.equals("depot manager")) {
+				Query = "Update depot set garagiste_email = NULL where garagiste_email = ? limit 1";
+			}else {
+				Query = "Update offices set email_secretaire = NULL where email_secretaire = ? limit 1";
+			}
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, email);
+			statement.executeUpdate();
+			if (AccountType.equals("depot manager"))
 				Query = "DELETE FROM `atelier`.`garagiste` WHERE (`email` = ?)";
 			else
 				Query = "DELETE FROM `atelier`.`secretary` WHERE (`email` = ?)";
 			
 			statement = connection.prepareStatement(Query);
-			
 			statement.setString(1, email);
-			
-			statement.executeUpdate();
+			result = statement.executeUpdate();
 			
 			statement.close();
 		}catch (SQLException | InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();	
 		}
+		return result;
 	}
 	
 	public void editEmployee(Employee employee) {

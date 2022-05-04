@@ -37,17 +37,24 @@ public class GetProfile extends HttpServlet {
 		User user = (User) request.getSession().getAttribute("user");
 		if (user != null) {
 			DAO dao = new DAO();
-			User client = new User();
-			try {
-				client = dao.getClientInfo(request.getParameter("client_email"));
-			} catch (SQLException | InstantiationException | IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			String AccountType = dao.getUserType(request.getParameter("client_email"));
+			User Profile = new User();
+			if(AccountType.equals("client")) {
+				try {
+					Profile = dao.getClientInfo(request.getParameter("client_email"));
+				} catch (SQLException | InstantiationException | IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}else if(AccountType.equals("depot manager")) {
+				Profile = dao.getGaragiste(request.getParameter("client_email"));
+			}else if(AccountType.equals("secretary")){
+				Profile = dao.getSecretaire(request.getParameter("client_email"));
 			}
 			ObjectMapper mapper = new ObjectMapper();
-			String clientInfo = mapper.writeValueAsString(client);
+			String ProfileInfo = mapper.writeValueAsString(Profile);
 			PrintWriter out = response.getWriter();
-			out.write(clientInfo);
+			out.write(ProfileInfo);
 		}
 	}
 

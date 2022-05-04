@@ -49,6 +49,7 @@ public class ProfileStateManager extends HttpServlet {
 			}else {
 				String url = "/";
 				if(user.getType().equals("depot manager")) {
+					user = dao.getGaragiste(user.getEmail());
 					request.setAttribute("user", user);
 					ObjectMapper mapper = new ObjectMapper();
 					HashMap<String, Integer> stat = null;
@@ -64,10 +65,12 @@ public class ProfileStateManager extends HttpServlet {
 					request.setAttribute("stat3", stat3);
 					url = url + "jsp/GaragisteDashboard.jsp";
 				}else {
+					user = dao.getSecretaire(user.getEmail());
+					request.setAttribute("user", user);
 					url = url + "SecretaryDashboard";
 				}
 				RequestDispatcher dispatcher = request.getRequestDispatcher(url);
-				dispatcher.include(request, response);
+				dispatcher.forward(request, response);
 			}
 		}else {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/Login");
@@ -82,15 +85,16 @@ public class ProfileStateManager extends HttpServlet {
 		User user = (User) request.getSession().getAttribute("user");
 		if (user != null) {
 			DAO dao = new DAO();
+			request.setAttribute("user", user);
 			Employee employee = new Employee();
 			employee.setNom(request.getParameter("nom"));
 			employee.setPrenom(request.getParameter("prenom"));
 			employee.setType(user.getType());
 			employee.setEmail(user.getEmail());
-			
+			String directoryPath = getServletContext().getRealPath("/assets/profile_pics/");
 			String path = getServletContext().getRealPath("/assets/profile_pics/")+ user.getEmail().replace(".com", "").replace("@", "");
 			UploadImage uploader = new UploadImage(request);
-			String uploadedImagePath = uploader.UploadProfilePicture(path);
+			String uploadedImagePath = uploader.UploadProfilePicture(path , directoryPath);
 			String databasePath = uploadedImagePath.substring(path.indexOf("\\assets")).replace("\\", "/");
 		    employee.setImage(databasePath);
 		    int result = dao.CompleteEmployeeRegistration(employee);
