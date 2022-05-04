@@ -1,4 +1,4 @@
-const Bookings_chart = document.querySelector("#booking_chart").getContext("2d");
+/*const Bookings_chart = document.querySelector("#booking_chart").getContext("2d");
 
 let char2 = new Chart(Bookings_chart ,{
 	type:'line',
@@ -279,4 +279,44 @@ function BuildingInformation(build) {
 			document.getElementById('modifyBuildLat').value = e.latlng.lat
 			document.getElementById('modifyBuildLon').value = e.latlng.lng
 		});
+}*/
+let main_content = document.querySelector(".main-content");
+function add_asset_card(){
+	const add_asset = document.createElement("div");
+	add_asset.setAttribute("id","add_asset");
+	add_asset.setAttribute("class","asset_card");
+	const add_square = document.createElement("div");
+	add_square.setAttribute("id","add_square");
+	const add_image = document.createElement("img");
+	add_image.src="/Atelier/assets/add-black.svg";
+	add_square.append(add_image);
+	add_asset.append(add_square);
+	const text_content = document.createElement("div");
+	text_content.setAttribute("id","text_content");
+	const title = document.createElement("p");
+	title.setAttribute("id","title");
+	title.innerHTML = "New Asset";
+	const subtitle = document.createElement("p");
+	subtitle.setAttribute("id","subtitle");
+	subtitle.innerHTML = "Define a new asset easily.";
+	text_content.append(title);
+	text_content.append(subtitle);
+	add_asset.append(text_content);
+	const add_btn = document.createElement("div");
+	add_btn.setAttribute("id","add_btn");
+	const btn_content = document.createElement("p");
+	btn_content.innerHTML = "Create new";
+	add_btn.append(btn_content);
+	add_asset.append(add_btn);
+	main_content.insertBefore(add_asset,main_content.firstChild);
+}
+add_asset_card();
+function selectFilter(element){
+	let filters = document.querySelector(".filter").querySelectorAll(".filter_tab");
+	for(let key =0 ; key < filters.length;key++){
+		if(filters[key].classList.contains("active")){
+			filters[key].classList.remove("active");
+		}
+	}
+	element.classList.toggle("active");
 }

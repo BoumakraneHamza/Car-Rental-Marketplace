@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -40,14 +41,19 @@ public class ViewAgencyDepots extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) request.getSession().getAttribute("user");
-		if (user.getType().equals("directeur")) {
+		if (user != null && user.getType().equals("directeur")) {
+			Random random = new Random();
 			request.setAttribute("user", user);
 			ArrayList<Building> Buildings = null;
 			DAO dao = new DAO();
 			Buildings = dao.getAgencyBuildings(user.getNom());
-
-			request.setAttribute("Buildings", Buildings);
+			int[] randInt = new int[Buildings.size()];
+			for(int i=0;i<Buildings.size();i++) {
+				randInt[i] = random.nextInt(7)+1;
+			}
 			
+			request.setAttribute("Buildings", Buildings);
+			request.setAttribute("random", randInt);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/AgencyBuildings.jsp");
 			dispatcher.forward(request, response);
 		} else {

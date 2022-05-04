@@ -17,233 +17,96 @@
 </head>
 <body>
 <div class="header">
-			<div id="logo">
-				<a href="${pageContext.request.contextPath}/Dashboard"><img src="${pageContext.request.contextPath}/assets/logoBlack.svg"></a>
-			</div>
-			<div class="user">
-			<img id="notification" src="${pageContext.request.contextPath}/assets/notification.svg">
-			<div id="user-image">
-				<img style="width: 40px;" src="${pageContext.request.contextPath}${user.image}">
-			</div>
-				<div id="user-info">
-					<p id="full-name">${user.nom} ${user.prenom}</p>
-					<p id="user-name">${user.user_name}</p>
-				</div>
-				<div id="dropdownlist">
-					<img src="${pageContext.request.contextPath}/assets/angle-down-solid.svg">
-				</div>
-				
-			</div>
-		</div>
-	<div class="content">
-			<div class="menu">
-				<button class="dashboard"><a href="${pageContext.request.contextPath}/Dashboard"><img src="${pageContext.request.contextPath}/assets/dashboard-icon.svg"></a></button>
-				<button class="Personal" ><a href="${pageContext.request.contextPath}/ViewAgencyPersonal"><img src="${pageContext.request.contextPath}/assets/personal-icon.svg"></a></button>
-				<button class="Personal" style="background: #F6AA1C;"><a href="${pageContext.request.contextPath}/ViewAgencyDepots"><img src="${pageContext.request.contextPath}/assets/building-icon-white.svg"></a></button>
-				
-			</div>
-			<div class="main-frame">
-			<div class="main-content">
-					<div id="DataBase" class="employee">
-					<div id="options">
-						<div class="toggles">
-							<div class="option" id="show_active">
-								<div class='toggle-check'>
-								  <input type='checkbox'/>
-								  <span class='toggle-b'></span>
-								  <span class='toggle-bg'></span>
-								</div>
-								<p>Show non active</p>
-							</div>
-							<div class="option" id="show_depots">
-								<div class='toggle-check'>
-								  <input type='checkbox'/>
-								  <span class='toggle-b'></span>
-								  <span class='toggle-bg'></span>
-								</div>
-								<p>Show depots</p>
-							</div>
-							<div class="option" id="show_offices">
-								<div class='toggle-check'>
-								  <input type='checkbox'/>
-								  <span class='toggle-b'></span>
-								  <span class='toggle-bg'></span>
-								</div>
-								<p>Show offices</p>
-							</div>
-						</div>
-						<div class="cta">
-							<div id="searchBar">
-								<img src="${pageContext.request.contextPath}/assets/search-icon.svg">
-								<input type="text" placeholder="Search">
-							</div>
-							<div id="add" onclick="addingBuilding()"><button><img style="margin-right: 11px;" src="${pageContext.request.contextPath}/assets/add.svg"><p>Add Building</p></button></div>
-						</div>
-					</div>
-				      <div id="table_header">
-				        <table cellpadding="0" cellspacing="0" style="width: 100%">
-				          <thead>
-				            <tr>
-				              <th style="width: 10%">Code</th>
-				              <th style="width: 15%">Type</th>
-				              <th style="width: 15%">status</th>
-				              <th style="width: 25%">Address</th>
-				              <th style="width: 15%">Bookings</th>
-				              <th style="width: 20%">capacity</th>
-				            </tr>
-				          </thead>
-				        </table>
-				      </div>
-				      <div class="table-content">
-				      	<table cellpadding="0" cellspacing="0">
-				      		<tbody id="BuildingList">
-				      		<c:forEach items="${Buildings}" var="Building">
-			      				<tr id="Building" onclick="depotDetails(this)">
-			      					<td id="BuildingCode" style="width: 10%">${Building.code}</td>
-			              			<td id="BuildingType" style="width: 15%">
-			              			<c:choose><c:when test="${Building.type.equals('depot')}">
-			              				<p id="value">${Building.type}</p>
-			              			</c:when>
-			              			<c:otherwise>
-			              				<p id="value2">${Building.type}</p>
-			              			</c:otherwise>
-			              			</c:choose>
-			              			</td>
-			              			<td id="BuildingStatus" style="width: 15%"><div id="wrapper"><div id="status"></div><p>Active</p></div></td>
-			              			<td id="BuildingLocation" style="width: 25%">${Building.adress}</td>
-			              			<td id="BuildingBookings" style="width: 15%"><p id="value">+${Building.bookings}</p></td>
-			              			<td id="BuildingCapacity" style="width: 20%"><div class="battery"><div class="level" style="width:${Building.type eq 'depot' ? Building.getCapacityPercentile() : 0}%;"></div></div>${Building.type eq 'depot' ? Building.getCapacityPercentile() : 0}%</td>
-			              			<td hidden="true" id="BuildingTotalCapacity">${Building.type eq 'depot' ? Building.capacite : 0}</td>
-			              			<td hidden="true" >${Building.employee.firstName}</td>
-			              			<td hidden="true" >${Building.employee.type}</td>
-			              			<td hidden="true" >${Building.employee.image}</td>
-			              			<td><button onclick="confirmDelete(${Building.code}, '${Building.type}')">delete building</button></td>
-			              			<td><button onclick="viewBuilding(${Building.code}, '${Building.type}')">edit building</button></td>
-					      		</tr>
-					      	</c:forEach>
-				      		</tbody>
-				      	</table>
-				      </div>
-				    </div>
-				    <div class="viewDetails">
-				    	<div class="data">
-				    		<div class="details_header">
-					    		<div id="BuildingName">
-					    			<div id="type">${Buildings[0].type}:</div>
-					    			<div id="code">${Buildings[0].code}</div>
-					    		</div>
-					    		<div id="Capacity">
-					    			<div class="battery"><div id="batteryLevel" class="level" style="width:${Buildings[0].type eq 'depot' ? Buildings[0].getCapacityPercentile() : 0}%;"></div></div><p class="batteryValue" id="value">${Buildings[0].type eq 'depot' ? Buildings[0].getCapacityPercentile() : 0}%</p>
-					    		</div>
-					    	</div>
-					    	<div class="responsable_personal">
-					    		<div id="employee_info">
-					    			<div id="info_header">
-					    				<p id="employeeName">${Buildings[0].employee.firstName}</p>
-					    				<div id="cta">
-					    					<img style="width:21px;" src="${pageContext.request.contextPath}/assets/sent-icon-black.svg">
-					    				</div>
-					    			</div>
-					    			<div id="employement"><p>Employement :</p><p class="employeeType" id="value">${Buildings[0].employee.type}</p></div>
-					    		</div>
-					    		<img id="employeeImage" style="width:70px;" src="${pageContext.request.contextPath}${Buildings[0].employee.image}">
-					    	</div>
-					    	<div class="stats">
-					    		<div id="detailed_capacity">
-					    		<p id="stat_header">Total Capacity :</p>
-					    		<p class="capaciteValue" id="value">${Buildings[0].type eq 'depot' ? Buildings[0].capacite : 0}</p>
-					    		</div>
-					    		<p id="stat_header">Weekly Bookings</p>
-					    		<canvas id="booking_chart"></canvas>
-					    	</div>
-				    	</div>
-				    	<div class="cta">
-				    		<form action="ViewAgencyDepots" method="post">
-				    			<input type="hidden" value="${user.nom}" name="agency">
-				    			<input type="hidden" value="${Buildings[0].code}" name="depot">
-				    			<input type="submit" value="View Stored Cars">
-				    		</form>
-				    	</div>
-				    </div>
-				</div>
-			</div>
+	<div class="logo" onclick="location.href='${pageContext.request.contextPath}/Dashboard'">
+		<img src="${pageContext.request.contextPath}/assets/logoBlack.svg">
+		<p id="logo_title">Unique</p>
 	</div>
-		<script src="${pageContext.request.contextPath}/js/AgencyBuildings.js"></script>
-<%@include file="/jsp/dropdownList.jsp"%>
-
-		<div id="tempFormForAddingBuilding" style="visibility:hidden;background-color:grey;position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);border: 5px solid #000000;padding: 10px;display: flex;">
-			<div id="addingFepotForm"><p>adding depot</p>
-				<form id="addingDepot" onsubmit="submitBuilding(event, this)">
-					<div style="padding: 10px;">
-						<label>adress</label><br>
-						<input type="text" name="adress">
-					</div>
-					<div>
-						<label>capacity</label><br>
-						<input type="number" name="capacity">
-					</div>
-					<div>
-						<label>free capacity</label><br>
-						<input type="number" name="freeCapacity">
-					</div>
-					<div>
-						<label>garagiste email</label><br>
-						<input type="email" name="garagisteEmail">
-					</div>
-					<div>
-						<label>location</label><br>
-						<div id="depotLocationInputMap" style="width:200px;height:200px;margin: 10px;"></div>
-					</div>
-						<input id="depotLat" type="hidden" name="lat">
-						<input id="depotLon" type="hidden" name="lon">
-						<input type="hidden" name="agencyName" value="${user.nom}">
-						<input type="hidden" name="type" value="depot">
-					<input type="reset"><input type="submit">
-				</form>
-			</div>
-			<br>
-			<div id="addingFepotForm"><p>adding office</p>
-				<form id="addingOffice" onsubmit="submitBuilding(event, this)">
-					<div style="padding: 10px;">
-						<label>adress</label><br>
-						<input type="text" name="adress">
-					</div>
-					<div>
-						<label>secretary email</label><br>
-						<input type="email" name="secretaryEmail">
-					</div>
-					<div>
-					<label>location</label><br>
-						<div id="officeLocationInputMap" style="width:200px;height:200px;margin: 10px;"></div>
-					</div>
-						<input id="officeLat" type="hidden" name="lat">
-						<input id="officeLon" type="hidden" name="lon">
-						<input type="hidden" name="agencyName" value="${user.nom}">
-						<input type="hidden" name="type" value="office">
-					
-					<input type="reset"><input type="submit">
-				</form>
-			</div>
+	<div class="user">
+	<img id="notification" src="${pageContext.request.contextPath}/assets/notification.svg">
+	<div id="user-image">
+		<img style="width: 40px;" src="${pageContext.request.contextPath}${user.image}">
+	</div>
+		<div id="user-info">
+			<p id="full-name">${user.nom} ${user.prenom}</p>
+			<p id="user-name">${user.user_name}</p>
 		</div>
-		<div id="tempFormForDeletingBuildings" style="visibility:hidden;background-color:grey;position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);border: 5px solid #000000;padding: 10px;">
-			<div id="deleteBuildingForm"><p>delete building?</p>
-				<form id="deletingBuilding" onsubmit="deleteBuilding(event, this)">
-					<input type="hidden" name="code">
-					<input type="hidden" name="type">
-					<button type="button" onclick="document.getElementById('tempFormForDeletingBuildings').style.visibility='hidden'">Cancel</button><input type="submit">
-				</form>
-			</div>
+		<div id="dropdownlist">
+			<img src="${pageContext.request.contextPath}/assets/angle-down-solid.svg">
 		</div>
-		<div id="tempFormForeditingBuildings" style="visibility:hidden;background-color:grey;position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);border: 5px solid #000000;padding: 10px;">
-			<div id="editBuildingForm"><p>edit building</p>
-				<form id="editingBuilding" onsubmit="editBuilding(event, this)">
-					
-				</form>
-			</div>
+		
+	</div>
+</div>
+<div class="content">
+	<div class="menu">
+		<div class="menu-tab" onclick="location.href='${pageContext.request.contextPath}/Dashboard'">
+			<img style="width:24px;" src="${pageContext.request.contextPath}/assets/dashboard2-icon.svg">
+			<p id="title">Dashboard</p>
 		</div>
-<script type="text/javascript">
-	var contextPath = "${pageContext.request.contextPath}";
-</script>
+		<div class="menu-tab" onclick="location.href='${pageContext.request.contextPath}/ViewAgencyPersonal'">
+			<img style="width:24px;" src="${pageContext.request.contextPath}/assets/account-grey.svg">
+			<p id="title">Team Accounts</p>
+		</div>
+		<div class="menu-tab" style="background: #C5DCFA;" onclick="location.href='${pageContext.request.contextPath}/ViewAgencyDepots'">
+			<img style="width:24px;" src="${pageContext.request.contextPath}/assets/building-icon-purple.svg">
+			<p style="color:#0F56B3;" id="title">Assets</p>
+		</div>
+	</div>
+	<div class="main-frame">
+		<div class="tab_header">
+			<p id="title">Assets</p>
+			<p id="subtitle">Manage your assets or create a new one with one Click !</p>
+		</div>
+		<div class="filter">
+			<div class="filter_tab active" onclick="selectFilter(this)"><p>All</p></div>
+			<div class="filter_tab" onclick="selectFilter(this)"><p>Depots</p></div>
+			<div class="filter_tab" onclick="selectFilter(this)"><p>Offices</p></div>
+		</div>
+		<div class="main-content">
+		<c:forEach begin="0" end="${Buildings.size()-1}" var="i" step="1">
+			<div class="asset_card">
+				<div id="card_banner">
+					<img src="${pageContext.request.contextPath}/assets/PolyBackground/${random[i]}.svg">
+				</div>
+				<div id="card_content">
+					<div id="tile">
+						<div id="left">
+							<p id="title">Name :</p>
+							<p id="value">${Buildings.get(i).type} ${Buildings.get(i).code}</p>
+						</div>
+						<c:choose>
+							<c:when test="${Buildings.get(i).type eq 'depot'}">
+								<div id="right">
+									<div class="battery">
+										<div class="level" style="width:${Buildings.get(i).getCapacityPercentile()}%;">
+										</div>
+									</div>
+									<p id="percentile">${Buildings.get(i).getCapacityPercentile()}%</p>
+								</div>
+							</c:when>
+						</c:choose>
+					</div>
+					<div id="tile">
+						<div id="left">
+							<p id="title">Address :</p>
+							<p id="value">${Buildings.get(i).adress}</p>
+						</div>
+					</div>
+				</div>
+				<div id="card_tag">
+					<div id=tag>
+						<img style="width: 20px;" src="${pageContext.request.contextPath}/assets/steering-wheel.svg">
+						<p id="text">5</p>
+					</div>
+				</div>
+			</div>
+		</c:forEach>
+		</div>
+	</div>
+	<div class="sidebar">
+	</div>
+</div>
+<script src="${pageContext.request.contextPath}/js/ClientMain.js"></script>
+<script src="${pageContext.request.contextPath}/js/AgencyBuildings.js"></script>
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
    crossorigin=""></script>

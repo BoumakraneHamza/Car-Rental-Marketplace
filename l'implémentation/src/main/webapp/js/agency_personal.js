@@ -322,7 +322,6 @@ function DeletePopUp(element){
 				json = JSON.parse(xhr.responseText);
 				delete_confirmation.querySelector("#team_member_name").innerHTML = json["nom"] +" "+ json["prenom"];	
 				delete_confirmation.style.display="flex";
-				
 			}
 		}
 		xhr.open("GET","GetProfile?client_email="+email);
@@ -331,8 +330,18 @@ function DeletePopUp(element){
 		delete_confirmation.style.display="none"
 	}
 }
+let cancels = delete_confirmation.querySelectorAll("#cancel");
+function addEventListenerList(list) {
+    for (var i = 0, len = list.length; i < len; i++) {
+        list[i].addEventListener("click",(event)=>{
+			event.preventDefault();
+			delete_confirmation.style.display="none";
+		});
+    }
+}
+addEventListenerList(cancels);
 let main_content = document.querySelector("#main_content");
-delete_confirmation.addEventListener("submit",(event)=>{
+delete_confirmation.querySelector("#delete").addEventListener("click",(event)=>{
 	event.preventDefault();
 	var param = new URLSearchParams(new FormData(delete_confirmation)).toString();
 	var xhttp = new XMLHttpRequest();

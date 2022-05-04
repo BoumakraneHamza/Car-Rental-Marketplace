@@ -36,29 +36,39 @@
 </head>
 <body>
 <div class="header">
-		<div id="logo">
-			<a href="${pageContext.request.contextPath}/Dashboard"><img src="${pageContext.request.contextPath}/assets/logoBlack.svg"></a>
-		</div>
-		<div class="user">
-		<img id="notification" src="${pageContext.request.contextPath}/assets/notification.svg">
-		<div id="user-image">
-			<img style="width: 40px;" src="${pageContext.request.contextPath}${user.image}">
-		</div>
-			<div id="user-info">
-				<p id="full-name">${user.nom} ${user.prenom}</p>
-				<p id="user-name">${user.user_name}</p>
-			</div>
-			<div id="dropdownlist">
-				<img src="${pageContext.request.contextPath}/assets/angle-down-solid.svg">
-			</div>
-			
-		</div>
+	<div class="logo" onclick="location.href='${pageContext.request.contextPath}/Dashboard'">
+		<img src="${pageContext.request.contextPath}/assets/logoBlack.svg">
+		<p id="logo_title">Unique</p>
 	</div>
+	<div class="user">
+	<img id="notification" src="${pageContext.request.contextPath}/assets/notification.svg">
+	<div id="user-image">
+		<img style="width: 40px;" src="${pageContext.request.contextPath}${user.image}">
+	</div>
+		<div id="user-info">
+			<p id="full-name">${user.nom} ${user.prenom}</p>
+			<p id="user-name">${user.user_name}</p>
+		</div>
+		<div id="dropdownlist">
+			<img src="${pageContext.request.contextPath}/assets/angle-down-solid.svg">
+		</div>
+		
+	</div>
+</div>
 <div class="content">
 	<div class="menu">
-		<button class="dashboard" style="background: #F6AA1C;"><a href="${pageContext.request.contextPath}/Dashboard"><img src="${pageContext.request.contextPath}/assets/dashboard-icon-white.svg"></a></button>
-		<button class="dashboard"><a href="${pageContext.request.contextPath}/ViewAgencyPersonal"><img src="${pageContext.request.contextPath}/assets/personal-icon.svg"></a></button>
-		<button class="Personal"><a href="${pageContext.request.contextPath}/ViewAgencyDepots"><img src="${pageContext.request.contextPath}/assets/building-icon-grey.svg"></a></button>
+		<div class="menu-tab" style="background: #C5DCFA;" onclick="location.href='${pageContext.request.contextPath}/Dashboard'">
+			<img style="width:24px;" src="${pageContext.request.contextPath}/assets/dashboard2-icon-purple.svg">
+			<p style="color:#0F56B3;" id="title">Dashboard</p>
+		</div>
+		<div class="menu-tab" onclick="location.href='${pageContext.request.contextPath}/ViewAgencyPersonal'">
+			<img style="width:24px;" src="${pageContext.request.contextPath}/assets/account-grey.svg">
+			<p id="title">Team Accounts</p>
+		</div>
+		<div class="menu-tab" onclick="location.href='${pageContext.request.contextPath}/ViewAgencyDepots'">
+			<img style="width:24px;" src="${pageContext.request.contextPath}/assets/building-icon-grey.svg">
+			<p id="title">Assets</p>
+		</div>
 	</div>
 	<div class="main-frame">
 	<div id="main-frame-header">
@@ -456,6 +466,7 @@
 	</div>
 </div>
 <script src="${pageContext.request.contextPath}/js/AgencyDashboard.js"></script>
+<script src="${pageContext.request.contextPath}/js/ClientMain.js"></script>
 <%@include file="/jsp/dropdownList.jsp"%>
 </body>
 </html>

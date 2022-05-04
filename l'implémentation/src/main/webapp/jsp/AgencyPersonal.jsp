@@ -15,8 +15,9 @@
 </head>
 <body>
 <div class="header">
-	<div id="logo">
-		<a href="${pageContext.request.contextPath}/Dashboard"><img src="${pageContext.request.contextPath}/assets/logoBlack.svg"></a>
+	<div class="logo" onclick="location.href='${pageContext.request.contextPath}/Dashboard'">
+		<img src="${pageContext.request.contextPath}/assets/logoBlack.svg">
+		<p id="logo_title">Unique</p>
 	</div>
 	<div class="user">
 	<img id="notification" src="${pageContext.request.contextPath}/assets/notification.svg">
@@ -35,9 +36,18 @@
 </div>
 <div class="content">
 	<div class="menu">
-		<button class="dashboard"><a href="${pageContext.request.contextPath}/Dashboard"><img src="${pageContext.request.contextPath}/assets/dashboard-icon.svg"></a></button>
-		<button class="Personal" style="background: #F6AA1C;"><a href="${pageContext.request.contextPath}/ViewAgencyPersonal"><img src="${pageContext.request.contextPath}/assets/personal-icon-white.svg"></a></button>
-		<button class="Personal"><a href="${pageContext.request.contextPath}/ViewAgencyDepots"><img src="${pageContext.request.contextPath}/assets/building-icon-grey.svg"></a></button>
+		<div class="menu-tab" onclick="location.href='${pageContext.request.contextPath}/Dashboard'">
+			<img style="width:24px;" src="${pageContext.request.contextPath}/assets/dashboard2-icon.svg">
+			<p id="title">Dashboard</p>
+		</div>
+		<div class="menu-tab" style="background: #C5DCFA;" onclick="location.href='${pageContext.request.contextPath}/ViewAgencyPersonal'">
+			<img style="width:24px;" src="${pageContext.request.contextPath}/assets/account-purple.svg">
+			<p style="color:#0F56B3;" id="title">Team Accounts</p>
+		</div>
+		<div class="menu-tab" onclick="location.href='${pageContext.request.contextPath}/ViewAgencyDepots'">
+			<img style="width:24px;" src="${pageContext.request.contextPath}/assets/building-icon-grey.svg">
+			<p id="title">Assets</p>
+		</div>
 	</div>
 	<div class="main-frame active">
 		<div id="frame_header">
@@ -319,7 +329,7 @@
 	<input type="hidden" name="required_action" value="delete">
 	<input id="delete_email" type="hidden" name="email">
 	<div id="tab_header">
-		<img onclick="DeletePopUp()" style="width:13px;cursor:pointer;" src="${pageContext.request.contextPath}/assets/cancel-black.svg">
+		<img id="cancel" style="width:13px;cursor:pointer;" src="${pageContext.request.contextPath}/assets/cancel-black.svg">
 	</div>
 	<div id="sec_header">
 		<p id="title">Delete member ?</p>
@@ -333,54 +343,12 @@
 		</div>
 	</div>
 	<div id="cta">
-		<button id="cancel" onclick="DeletePopUp()"><p>cancel</p></button>
+		<button id="cancel"><p>cancel</p></button>
 		<button type="submit" id="delete"><img style="width:15px;" src="${pageContext.request.contextPath}/assets/delete-icon-white.svg"><p>Delete Account</p></button>
 	</div>
 </form>
-<form class="edit_employee" style="display:none">
-	<input type="hidden" name="required_action" value="edit">
-	<div id="tab_header">
-		<div id="left">
-			<div id="info">
-				<div id="image_wrapper" onclick="hideDetails()">
-					<img style="width:22px;cursor:pointer;" src="${pageContext.request.contextPath}/assets/info.svg">
-				</div>
-			</div>
-			<div id="text">
-				<p id="title">Edit Team member</p>
-				<p id="subtitle">Edit Team member authentications with One click</p>
-			</div>
-		</div>
-		<div id="right">
-			<div id="image_wrapper" onclick="Add()">
-				<img style="width:11px" src="${pageContext.request.contextPath}/assets/cancel-black.svg">
-			</div>
-		</div>
-	</div>
-	<div id="error_banner" style="display:none;">
-		<img style="width:11px;" src="${pageContext.request.contextPath}/assets/cancel-red.svg">
-		<p id="text">Please Make sure that passwords match</p>
-	</div>
-	<div id="email_role">
-		<div id="email_field">
-			<div id="at_symbol">
-				<img style="width:18px" src="${pageContext.request.contextPath}/assets/at.svg">
-			</div>
-			<input required="required" name="email" type="email" id="email" placeholder="email address" aria-autocomplete="both" aria-haspopup="false" autocapitalize="off" autocomplete="off" autocorrect="off" autofocus="" role="combobox" spellcheck="false">
-		</div>
-		<select name="type" id="filter">
-			<option value="depot manager">Depot Manager</option>
-			<option value="secretary">Secretary</option>
-		</select>
-	</div>
-	<div id="passwords">
-		<input required="required" name="password" type="password" class="pass" id="password" placeholder="password">
-		<input type="password" class="pass" id="confirmation_password" placeholder="confirm password">
-	</div>
-	</div>
-	<button id="sub_btn" type="submit"><img src="${pageContext.request.contextPath}/assets/check.svg"><p>Send Invite</p></button>
-</form>
 <script src="${pageContext.request.contextPath}/js/agency_personal.js"></script>
+<script src="${pageContext.request.contextPath}/js/ClientMain.js"></script>
 <%@include file="/jsp/dropdownList.jsp"%>
 </body>
 </html>
