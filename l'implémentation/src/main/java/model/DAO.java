@@ -1225,27 +1225,28 @@ public class DAO {
 		}
 	}
 	
-	public void deleteBuilding(String code, String type) {
+	public int deleteBuilding(String code, String type , String agence_Name) {
 		String Query;
 		PreparedStatement statement;
-		
+		int result = 0 ;
 		try {
 			connectDB();
 			if (type.equals("depot"))
-				Query = "DELETE FROM `atelier`.`depot` WHERE (`code` = ?)";
+				Query = "DELETE FROM `atelier`.`depot` WHERE (`code` = ? and agence_nom = ?) limit 1";
 			else
-				Query = "DELETE FROM `atelier`.`offices` WHERE (`code` = ?)";
+				Query = "DELETE FROM `atelier`.`offices` WHERE (`code` = ? and agency_name = ?) limit 1";
 			
 			statement = connection.prepareStatement(Query);
 			
 			statement.setString(1, code);
-			
-			statement.executeUpdate();
+			statement.setString(2, agence_Name);			
+			result = statement.executeUpdate();
 			
 			statement.close();
 		}catch (SQLException | InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();	
 		}
+		return result;
 	}
 	
 	public Building getBuilding(String code, String type) {

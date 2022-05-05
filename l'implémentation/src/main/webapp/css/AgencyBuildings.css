@@ -224,20 +224,20 @@
     margin: 10px 10px 10px 5px;
     border: 1px solid #E4E4E4;
 	margin-right: -25vw;
-	transition:all 0.25s linear; 
-	-o-transition:all 0.25s linear;
-	-moz-transition:all 0.25s linear; 
-	-webkit-transition:all 0.25s linear;
+	transition:all 0.15s linear; 
+	-o-transition:all 0.15s linear;
+	-moz-transition:all 0.15s linear; 
+	-webkit-transition:all 0.15s linear;
 	flex-direction: column;
     flex-wrap: nowrap;
     flex: 0 0 auto;
 }
 .sidebar.active{
 	margin-right: 0px;
-	transition:all 0.25s linear; 
-	-o-transition:all 0.25s linear;
-	-moz-transition:all 0.25s linear; 
-	-webkit-transition:all 0.25s linear;
+	transition:all 0.15s linear; 
+	-o-transition:all 0.15s linear;
+	-moz-transition:all 0.15s linear; 
+	-webkit-transition:all 0.15s linear;
 }
 .sidebar .map_banner{
 	height:20vh;
@@ -624,4 +624,119 @@
     font-size: 14px;
     font-weight: 600;
     color: #C4C4C4;
+}
+.delete_confirmation {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    border: 1px solid #E4E4E4;
+    border-radius: 5px;
+	padding: 10px 0px 20px;
+}
+.delete_confirmation #tab_header {
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+}
+.delete_confirmation #sec_header {
+    align-self: center;
+    padding: 10px 20px;
+    text-align: center;
+}
+.delete_confirmation #sec_header #title {
+    font-size: 17px;
+    font-weight: 600;
+}
+.delete_confirmation #sec_header #subtitle {
+    font-size: 14px;
+    font-weight: 500;
+    color: #5a5a5a;
+    max-width: 330px;
+    margin-top: 15px;
+}
+.delete_confirmation .warning {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 10px;
+    border: 1px solid #E4E4E4;
+    padding: 10px;
+    background: #ffe8d9;
+    color: #ff5d3d;
+    margin: 10px 20px;
+    width: 400px;
+    height: 100px;
+    border-radius: 0px 5px 5px 0px;
+    align-items: center;
+}
+.delete_confirmation .warning::before{
+	background: #f9703e;
+    content: "";
+    width: 8px;
+    height: 100px;
+    margin-left: -14px;
+    border-radius: 5px 0px 0px 5px;
+}
+.delete_confirmation .warning #warning_info {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 4px;
+}
+.delete_confirmation .warning #warning_info #title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #ff0034;
+}
+.delete_confirmation .warning #warning_info #subtitle{
+	font-weight:500;
+	font-size:14px;
+}
+.delete_confirmation #cta {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 10px;
+    align-self: flex-end;
+    padding: 5px 20px;
+}
+.delete_confirmation #cta #delete {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    width: 175px;
+    justify-content: center;
+    height: 40px;
+    border-radius: 5px;
+    background: #e12d39;
+    color: #fff;
+    cursor:pointer;
+}
+.delete_confirmation #cta #delete:disabled,
+.delete_confirmation #cta #delete[disabled]{
+  background-color: #C4C4C4;
+}
+.delete_confirmation #cta #cancel {
+    border: 2px solid #000;
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    background: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
 }

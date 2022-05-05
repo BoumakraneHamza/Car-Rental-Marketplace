@@ -280,37 +280,6 @@ function BuildingInformation(build) {
 			document.getElementById('modifyBuildLon').value = e.latlng.lng
 		});
 }*/
-let main_content = document.querySelector(".main-content");
-function add_asset_card(){
-	const add_asset = document.createElement("div");
-	add_asset.setAttribute("id","add_asset");
-	add_asset.setAttribute("class","asset_card");
-	const add_square = document.createElement("div");
-	add_square.setAttribute("id","add_square");
-	const add_image = document.createElement("img");
-	add_image.src="/Atelier/assets/add-black.svg";
-	add_square.append(add_image);
-	add_asset.append(add_square);
-	const text_content = document.createElement("div");
-	text_content.setAttribute("id","text_content");
-	const title = document.createElement("p");
-	title.setAttribute("id","title");
-	title.innerHTML = "New Asset";
-	const subtitle = document.createElement("p");
-	subtitle.setAttribute("id","subtitle");
-	subtitle.innerHTML = "Define a new asset easily.";
-	text_content.append(title);
-	text_content.append(subtitle);
-	add_asset.append(text_content);
-	const add_btn = document.createElement("div");
-	add_btn.setAttribute("id","add_btn");
-	const btn_content = document.createElement("p");
-	btn_content.innerHTML = "Create new";
-	add_btn.append(btn_content);
-	add_asset.append(add_btn);
-	main_content.insertBefore(add_asset,main_content.firstChild);
-}
-add_asset_card();
 function selectFilter(element){
 	let filters = document.querySelector(".filter").querySelectorAll(".filter_tab");
 	for(let key =0 ; key < filters.length;key++){
@@ -341,6 +310,7 @@ function showDetails(element){
 				}
 				json = JSON.parse(xhr.responseText);
 				console.log(json);
+				
 				if(sidebar.querySelector(".map_banner")){
 					sidebar.querySelector(".map_banner").remove();
 					let map_banner = document.createElement("div");
@@ -353,6 +323,9 @@ function showDetails(element){
 				createMap(json.lat,json.lon);
 				let sidebar_header = sidebar.querySelector(".sidebar_header");
 				sidebar_header.querySelector("#image_wrapepr").querySelector("img").src=back_image;
+				let option_list = sidebar_header.querySelector("#option_list");
+				option_list.querySelector("#code").value = depot_code;
+				option_list.querySelector("#type").value = building_type;
 				let info = sidebar_header.querySelector("#info");
 				let info_header = info.querySelector("#info_header");
 				info_header.querySelector("#value").innerHTML = json.type + " "+json.code;
@@ -408,7 +381,7 @@ function showDetails(element){
 					profile_info.setAttribute("id","profile_info");
 					let name = document.createElement("p");
 					name.setAttribute("id","name");
-					name.innerHTML = json.employee.lastName + json.employee.firstName;
+					name.innerHTML = json.employee.lastName +" "+ json.employee.firstName;
 					let email = document.createElement("p");
 					email.setAttribute("id","email");
 					email.innerHTML = json.employee.email;
@@ -529,3 +502,65 @@ function showBuilding_Options(element){
 		options.style.display="none";
 	}
 }
+let delete_confirmation = document.querySelector(".delete_confirmation");
+let cancels = delete_confirmation.querySelectorAll("#cancel");
+function addEventListenerList(list) {
+    for (var i = 0, len = list.length; i < len; i++) {
+        list[i].addEventListener("click",(event)=>{
+			event.preventDefault();
+			delete_confirmation.style.display="none";
+		});
+    }
+}
+addEventListenerList(cancels);
+function deletePopUp(element){
+	let code = element.querySelector("#code").value;
+	let type = element.querySelector("#type").value;
+	let xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = ()=>{
+		if(xhr.status == 200 && xhr.readyState == 4){
+			if(delete_confirmation.style.display == "none"){
+				delete_confirmation.style.display = "flex";
+				let options = document.querySelector(".sidebar").querySelector("#option_list");
+				options.style.display = "none";
+			}
+			let json = JSON.parse(xhr.responseText);
+			if(json.storedCars.length > 0){
+				delete_confirmation.querySelector("#delete").setAttribute("disabled","disabled");
+			}else{
+				if(delete_confirmation.querySelector("#delete").hasAttribute("disabled")){
+					delete_confirmation.querySelector("#delete").removeAttribute("disabled");
+				}
+			}
+			delete_confirmation.querySelector("#delete_code").value = code;
+			delete_confirmation.querySelector("#delete_type").value = type;
+			delete_confirmation.querySelector("#selected_building").innerHTML = type + " " +code;
+			if(json.employee){
+				delete_confirmation.querySelector(".warning").style.display = "flex";
+				delete_confirmation.querySelector("#employee_name").innerHTML = json.employee.firstName + " "+ json.employee.lastName;
+			}else{
+				delete_confirmation.querySelector(".warning").style.display = "none";
+			}
+			
+		}	
+	}
+	xhr.open("POST","ViewAgencyDepots");
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.send("code="+code+"&type="+type);
+}
+delete_confirmation.querySelector("#delete").addEventListener("click",(event)=>{
+	event.preventDefault();
+	var param = new URLSearchParams(new FormData(delete_confirmation)).toString();
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = ()=>{
+		if(xhttp.status == 200 && xhttp.readyState == 4){
+			delete_confirmation.style.display="none";
+			clearChild($(".main-content"));
+			$(".main-content").load("ViewAgencyDepots .main-content .asset_card");
+			document.querySelector(".sidebar").classList.toggle("active");
+		}
+	}
+	xhttp.open("POST","BuildingManagement");
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhttp.send(param);
+});

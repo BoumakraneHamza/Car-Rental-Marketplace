@@ -218,7 +218,7 @@ CREATE TABLE `depot` (
 
 LOCK TABLES `depot` WRITE;
 /*!40000 ALTER TABLE `depot` DISABLE KEYS */;
-INSERT INTO `depot` VALUES (1,'constantine',20,19,'Hertz','g01@email.com','36.25023','6.57394',22),(2,'batna',15,13,'Hertz',NULL,'35.55216','6.17968',12),(3,'constantine',15,15,'agence02',NULL,'36.2650','6.5833',0),(4,'constantine',20,20,'Hertz',NULL,'36.2536','6.5546',0),(5,'constantine',10,10,'Hertz',NULL,'36.2493','6.5921',0),(6,'constantine',12,12,'agence02',NULL,'36.2333','6.5604',0),(7,'alger',20,18,'Hertz',NULL,'36.7734','3.0587',0);
+INSERT INTO `depot` VALUES (1,'constantine',20,19,'Hertz','g01@email.com','36.25023','6.57394',22),(2,'batna',15,13,'Hertz',NULL,'35.55216','6.17968',12),(3,'constantine',15,15,'agence02',NULL,'36.2650','6.5833',0),(6,'constantine',12,12,'agence02',NULL,'36.2333','6.5604',0),(7,'alger',20,18,'Hertz',NULL,'36.7734','3.0587',0);
 /*!40000 ALTER TABLE `depot` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -701,9 +701,9 @@ CREATE TABLE `vehicule` (
   `ValueMoney_rating` double DEFAULT '0',
   PRIMARY KEY (`matricule`),
   KEY `code_depot_idx` (`depot_code`),
-  KEY `Agence_idx` (`Agence`),
+  KEY `Vehicule_agence_idx` (`Agence`),
   CONSTRAINT `depot` FOREIGN KEY (`depot_code`) REFERENCES `depot` (`code`),
-  CONSTRAINT `Vehicule_agence` FOREIGN KEY (`Agence`) REFERENCES `depot` (`agence_nom`)
+  CONSTRAINT `Vehicule_agence` FOREIGN KEY (`Agence`) REFERENCES `agence` (`nom`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -828,4 +828,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-05 17:21:16
+-- Dump completed on 2022-05-05 23:38:41

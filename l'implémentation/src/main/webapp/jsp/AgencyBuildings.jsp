@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/table.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/AgencyBuildings.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <meta charset="UTF-8">
 <title>Buildings</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -61,6 +62,16 @@
 			<div class="filter_tab" onclick="selectFilter(this)"><p>Offices</p></div>
 		</div>
 		<div class="main-content">
+		<div class="asset_card" id="add_asset">
+			<div id="add_square">
+				<img src="${pageContext.request.contextPath}/assets/add-black.svg">
+			</div>
+			<div id="text_content">
+				<p id="title">New Asset</p>
+				<p id="subtitle">Define a new asset easily.</p>
+			</div>
+			<div id="add_btn">Create new</div>
+		</div>
 		<c:forEach begin="0" end="${Buildings.size()-1}" var="i" step="1">
 			<div class="asset_card" onclick="showDetails(this)">
 				<input type="hidden" id="code" value="${Buildings.get(i).code}">
@@ -153,7 +164,9 @@
 							<img style="width: 15px;margin: 0px 10px;" src="${pageContext.request.contextPath}/assets/pen.svg">
 							<p>Edit Asset</p>
 						</div>
-						<div id="tile">
+						<div id="tile" onclick="deletePopUp(this)">
+							<input type="hidden" id="code" value="">
+							<input type="hidden" id="type" value="">
 							<img style="width: 15px;margin: 0px 10px;" src="${pageContext.request.contextPath}/assets/delete-icon-black.svg">
 							<p>Delete Asset</p>
 						</div>
@@ -207,6 +220,30 @@
 		</div>
 	</div>
 </div>
+<form class="delete_confirmation" style="display:none;">
+	<input type="hidden" name="required_action" value="delete">
+	<input id="delete_code" type="hidden" name="code">
+	<input id="delete_type" type="hidden" name="type">
+	<input id="delete_agence" type="hidden" name="agence" value="${user.getNom()}">
+	<div id="tab_header">
+		<img id="cancel" style="width:13px;cursor:pointer;" src="${pageContext.request.contextPath}/assets/cancel-black.svg">
+	</div>
+	<div id="sec_header">
+		<p id="title">Delete Asset ?</p>
+		<p id="subtitle">Are you sure you want to delete the Asset :<strong style="color:#000;" id="selected_building">Depot 01 ?</strong> you can't undo this action</p>
+	</div>
+	<div class="warning">
+		<img style="width: 35px;margin: 5px;" src="${pageContext.request.contextPath}/assets/info-red.svg">
+		<div id="warning_info">
+			<p id="title">Warning</p>
+			<p id="subtitle">By deleting this Asset <Strong id="employee_name">Hamza boumakrane</Strong> will lose all collected statistics</p>
+		</div>
+	</div>
+	<div id="cta">
+		<button id="cancel"><p>cancel</p></button>
+		<button type="submit" id="delete"><img style="width:15px;" src="${pageContext.request.contextPath}/assets/delete-icon-white.svg"><p>Delete Asset</p></button>
+	</div>
+</form>
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
    crossorigin=""></script>
