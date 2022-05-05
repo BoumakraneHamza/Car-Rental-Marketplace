@@ -202,6 +202,7 @@
 .main-frame .main-content .asset_card #card_tag {
     position: absolute;
     bottom: 5%;
+    gap:10px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -214,4 +215,412 @@
     border: 1px solid #E4E4E4;
     padding: 3px 10px;
     border-radius: 10px;
+	width: 75px;
+}
+.sidebar {
+	display:flex;
+    width: 24vw;
+    background: #fff;
+    margin: 10px 10px 10px 5px;
+    border: 1px solid #E4E4E4;
+	margin-right: -25vw;
+	transition:all 0.25s linear; 
+	-o-transition:all 0.25s linear;
+	-moz-transition:all 0.25s linear; 
+	-webkit-transition:all 0.25s linear;
+	flex-direction: column;
+    flex-wrap: nowrap;
+}
+.sidebar.active{
+	margin-right: 0px;
+	transition:all 0.25s linear; 
+	-o-transition:all 0.25s linear;
+	-moz-transition:all 0.25s linear; 
+	-webkit-transition:all 0.25s linear;
+}
+.sidebar .map_banner{
+	height:20vh;
+	z-index:1;
+}
+.sidebar .map_banner #map{
+	height: 100%;
+}
+.sidebar .sidebar_header {
+	display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding: 10px;
+    margin-top: -50px;
+    background-image: linear-gradient(to bottom, rgb(255 255 255 / 71%), rgba(255,255,255, 1) 27%);
+    z-index: 3;
+	border-bottom: 1px solid #E4E4E4;
+}
+.sidebar .sidebar_header #first_row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.sidebar .sidebar_header #first_row #left {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 10px;
+    align-items: center;
+}
+.sidebar .sidebar_header #first_row #left #image_wrapepr {
+    width: 65px;
+    height: 65px;
+    overflow: hidden;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+}
+.sidebar .sidebar_header #first_row #left #info {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.sidebar .sidebar_header #first_row #left #info #info_header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 10px;
+	margin-bottom: 8px;
+}
+.sidebar .sidebar_header #first_row #left #info #info_header #title {
+    font-size: 15px;
+    font-weight: 500;
+    color: #818181;
+}
+.sidebar .sidebar_header #first_row #left #info #info_header #value {
+    font-size: 17px;
+    font-weight: 600;
+}
+.sidebar .sidebar_header #first_row #left #info #tag_list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap:12px;
+}
+.sidebar .sidebar_header #first_row #left #info #tag_list #tag {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+.sidebar .sidebar_header #first_row #left #info #tag_list #tag #title {
+	font-size: 17px;
+    font-weight: 500;
+    margin-left: 5px;
+}
+.sidebar .sidebar_header #first_row #left #info #tag_list #tag #value {
+    margin-left: 5px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #818181;
+}
+.sidebar .sidebar_header #first_row #right {
+    position: relative;
+}
+.sidebar .sidebar_header #first_row #right #button_wrapper {
+    width: 35px;
+    height: 35px;
+    background: #eee;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.sidebar .sidebar_header #first_row #right #option_list {
+    position: absolute;
+    border: 1px solid #E4E4E4;
+    right: 0%;
+    margin-top: 9px;
+    background:#fff;
+    width: 150px;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.sidebar .sidebar_header #first_row #right #option_list #tile {
+    display: flex;
+    height: 45px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    border-bottom: 1px solid #E4E4E4;
+    font-size: 15px;
+    font-weight: 500;
+    cursor:pointer;
+}
+.sidebar .sidebar_header #first_row #right #option_list #tile:hover{
+	background:#F9F9F9;
+}
+.sidebar .employee {
+    padding: 10px;
+    border-bottom: 3px dashed #c4c4c4;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap:10px;
+}
+.sidebar .employee #image_wrapper {
+    width: 70px;
+    height: 70px;
+    overflow: hidden;
+    border: 3px solid #E4E4E4;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+.sidebar .employee #info {
+    width: calc(100% - 80px);
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.sidebar .employee #info #profile_name {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.sidebar .employee #info #profile_name #profile_info {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.sidebar .employee #info #profile_name #profile_info #name {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 19px;
+}
+.sidebar .employee #info #profile_name #profile_info #email {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    color: #818181;
+}
+.sidebar .employee #info #profile_name #button_wrapper {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background: #EEE;
+    border-radius: 10px;
+}
+.sidebar .employee #info #score_line {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    width: 80%;
+    gap: 5px;
+    margin-top: 8px;
+}
+.sidebar .employee #info #score_line .hor_line {
+    height: 8px;
+    background: #eee;
+    width: -webkit-fill-available;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding: 1px;
+}
+.sidebar .employee #info #score_line .hor_line .line_value {
+    height: 6px;
+    border-radius: 5px;
+}
+.sidebar .employee #info #score_line .hor_line #value_1{
+	background:#0166d6;
+	width:100%;
+}
+.sidebar .employee #info #score_line .hor_line #value_2{
+	background:#0071ff;
+	width:100%;
+}
+.sidebar .employee #info #score_line .hor_line #value_3{
+	background:#cdc9ff;
+	width:40%;
+}
+.sidebar .employee #info #score_line  #text_value {
+    font-size: 14px;
+    font-weight: 600;
+    color: #C4C4C4;
+}
+.sidebar .car_list {
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.sidebar .car_list #tab_header {
+    padding: 5px 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-top:10px;
+}
+.sidebar .car_list #tab_header #title {
+    font-size: 17px;
+    font-weight: 600;
+    margin-left: 10px;
+}
+.sidebar .car_list #tab_header #filter {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 5px;
+    cursor:pointer;
+}
+.sidebar .car_list #tab_header #filter  #text {
+    font-size: 15px;
+    font-weight: 500;
+    color: #818181;
+}
+.sidebar .car_list #add_car {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    border: 1px solid #E4E4E4;
+    height: 40px;
+    margin: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #818181;
+}
+.sidebar .car_list #cars_list {
+	height: 41vh;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 10px;
+    overflow-y: overlay;
+}
+.sidebar .car_list #cars_list #car {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    border: 1px solid #E4E4E4;
+    padding: 5px;
+    border-radius: 5px;
+    cursor:pointer;
+}
+.sidebar .car_list #cars_list #car #car_info {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding: 0px 5px;
+}
+.sidebar .car_list #cars_list #car #car_info #info {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.sidebar .car_list #cars_list #car #car_info #info #car_name {
+    font-size: 17px;
+    font-weight: 600;
+}
+.sidebar .car_list #cars_list #car #car_info #info #details {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #818181;
+}
+.sidebar .car_list #cars_list #car #car_info #bookings {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 4px;
+}
+.sidebar .car_list #cars_list #car #car_info #bookings #text {
+    font-size: 15px;
+    font-weight: 500;
+}
+.sidebar .car_list #cars_list #car #car_info #bookings #tag {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 5px;
+    font-size: 19px;
+    font-weight: 500;
+    color: #8fc73e;
+}
+.sidebar .car_list #cars_list #car #score_line {
+	display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    width: 90%;
+    gap: 5px;
+    margin-top: 8px;
+    align-self: center;
+}
+.sidebar .car_list #cars_list #car #score_line .hor_line {
+    height: 8px;
+    background: #eee;
+    width: -webkit-fill-available;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding: 1px;
+}
+.sidebar .car_list #cars_list #car #score_line .hor_line .line_value {
+    height: 6px;
+    border-radius: 5px;
+}
+.sidebar .car_list #cars_list #car #score_line .hor_line #value_1{
+	background:#0166d6;
+	width:100%;
+}
+.sidebar .car_list #cars_list #car #score_line .hor_line #value_2{
+	background:#0166d6;
+	width:100%;
+}
+.sidebar .car_list #cars_list #car #score_line .hor_line #value_3{
+	background:#cdc9ff;
+	width:40%;
+}
+.sidebar .car_list #cars_list #car #score_line  #text_value {
+    font-size: 14px;
+    font-weight: 600;
+    color: #C4C4C4;
 }

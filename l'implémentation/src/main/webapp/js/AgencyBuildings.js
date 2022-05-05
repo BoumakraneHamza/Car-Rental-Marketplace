@@ -320,3 +320,16 @@ function selectFilter(element){
 	}
 	element.classList.toggle("active");
 }
+function showDetails(){
+	let sidebar = document.querySelector(".sidebar");
+	sidebar.classList.toggle("active");
+}
+function showBuilding_Options(element){
+	let options = element.parentNode.querySelector("#option_list");
+	if(options.style.display=="none"){
+		options.style.display="flex";
+	}else{
+		options.style.display="none";
+	}
+}
+createMap(lat,lon);
