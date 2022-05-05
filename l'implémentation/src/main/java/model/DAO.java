@@ -367,7 +367,7 @@ public class DAO {
 		return vehicules;
 	}
 	
-	public ArrayList<Vehicule> getAgencyCars(String depotCode){
+	public ArrayList<Vehicule> getAgencyCars(String depotCode ,String AgencyName){
 		String Query ; 
 		PreparedStatement statement; 
 		ResultSet result ; 
@@ -375,9 +375,10 @@ public class DAO {
 		Vehicule vehicule = null ;
 		try {
 			connectDB();
-			Query = "Select * from vehicule where depot_code= ?";
+			Query = "Select * from vehicule where depot_code= ? and agence = ?";
 			statement = connection.prepareStatement(Query);
 			statement.setString(1, depotCode);
+			statement.setString(2, AgencyName);
 			result = statement.executeQuery();
 			while(result.next()) {
 				vehicule = new Vehicule();
@@ -406,10 +407,6 @@ public class DAO {
 				e.printStackTrace();
 			}
 		return cars;
-	}
-	
-	public ArrayList<Vehicule> getDepotCars(String depotCode){
-		return getAgencyCars(depotCode);
 	}
 	
 	public ArrayList<Reservation> getReservation(String email) throws InstantiationException, IllegalAccessException{
@@ -714,6 +711,81 @@ public class DAO {
 			e.printStackTrace();
 		}
 		return buildings;
+	}
+	public Office getOfficeInfo(String AgencyName , String code) {
+		String Query; 
+		Office Office = new Office();
+		PreparedStatement statement; 
+		ResultSet result; 
+		try {
+			connectDB();
+			Query = "select * from offices where agency_name = ? and code = ? limit 1";
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, AgencyName);
+			statement.setString(2, code);
+			result = statement.executeQuery();
+			if(result.next()) {
+				Office.setCode(result.getString("code"));
+				Office.setAdress(result.getString("address"));
+				Office.setAgence_nom(result.getString("agency_name"));
+				Office.setEmployee_email(result.getString("email_secretaire"));
+				Office.setLat(result.getString("lat"));
+				Office.setLon(result.getString("lon"));
+				Office.setBookings(result.getInt("Bookings"));
+				Office.setType("Office");
+				Query = "Select * from secretary where email = ? limit 1";
+				statement = connection.prepareStatement(Query);
+				statement.setString(1, Office.getEmployee_email());
+				result = statement.executeQuery();
+				if(result.next()) {
+					Employee employee = new Employee();
+					employee = getBuildingEmployee(Office);
+					Office.setEmployee(employee);
+				}
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return Office ;
+	}
+	public Depot getDepotInfo(String AgencyName , String depot_code) {
+		String Query; 
+		Depot depot = new Depot();
+		PreparedStatement statement; 
+		ResultSet result; 
+		try {
+			connectDB();
+			Query = "select * from depot where agence_nom = ? and code = ? limit 1";
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, AgencyName);
+			statement.setString(2, depot_code);
+			result = statement.executeQuery();
+			if(result.next()) {
+				depot.setCode(result.getString("code"));
+				depot.setAdress(result.getString("adress"));
+				depot.setCapacite(result.getInt("capacite"));
+				depot.setCapacite_libre(result.getInt("capacite_libre"));
+				depot.setAgence_nom(result.getString("agence_nom"));
+				depot.setEmployee_email(result.getString("garagiste_email"));
+				depot.setLat(result.getString("lat"));
+				depot.setLon(result.getString("lon"));
+				depot.setBookings(result.getInt("Bookings"));
+				depot.setType("depot");
+				depot.setStoredCars(getAgencyCars(depot_code, AgencyName));
+				Query = "Select * from garagiste where email = ? limit 1";
+				statement = connection.prepareStatement(Query);
+				statement.setString(1, depot.getEmployee_email());
+				result = statement.executeQuery();
+				if(result.next()) {
+					Employee employee = new Employee();
+					employee = getBuildingEmployee(depot);
+					depot.setEmployee(employee);
+				}
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return depot ;
 	}
 	//this method return the building where there is no employee
 	public ArrayList<Building> getAvailableAgencyBuildings(String AgencyName,String Type) {

@@ -218,7 +218,7 @@ CREATE TABLE `depot` (
 
 LOCK TABLES `depot` WRITE;
 /*!40000 ALTER TABLE `depot` DISABLE KEYS */;
-INSERT INTO `depot` VALUES (1,'constantine',12,11,'Hertz','g01@email.com','36.25023','6.57394',22),(2,'batna',15,14,'Hertz','Garagiste01@email.com','35.55216','6.17968',12),(3,'constantine',15,15,'agence02',NULL,'36.2650','6.5833',0),(4,'constantine',20,3,'Hertz',NULL,'36.2536','6.5546',0),(5,'constantine',10,5,'Hertz',NULL,'36.2493','6.5921',0),(6,'constantine',12,6,'agence02',NULL,'36.2333','6.5604',0),(7,'alger',100,48,'Hertz',NULL,NULL,NULL,0);
+INSERT INTO `depot` VALUES (1,'constantine',20,19,'Hertz','g01@email.com','36.25023','6.57394',22),(2,'batna',15,13,'Hertz',NULL,'35.55216','6.17968',12),(3,'constantine',15,15,'agence02',NULL,'36.2650','6.5833',0),(4,'constantine',20,20,'Hertz',NULL,'36.2536','6.5546',0),(5,'constantine',10,10,'Hertz',NULL,'36.2493','6.5921',0),(6,'constantine',12,12,'agence02',NULL,'36.2333','6.5604',0),(7,'alger',20,18,'Hertz',NULL,'36.7734','3.0587',0);
 /*!40000 ALTER TABLE `depot` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -278,7 +278,7 @@ CREATE TABLE `garagiste` (
 
 LOCK TABLES `garagiste` WRITE;
 /*!40000 ALTER TABLE `garagiste` DISABLE KEYS */;
-INSERT INTO `garagiste` VALUES ('g01@email.com','Boumakrane','Hamza','/assets/profile_pics/1email.png',1,'0000-00-00','Hertz'),('Garagiste01@email.com','Boumakrane','Hamza','/assets/profile_pics/Garagiste01email.jpeg',2,NULL,'Hertz');
+INSERT INTO `garagiste` VALUES ('g01@email.com','Boumakrane','Hamza','/assets/profile_pics/1email.png',1,'0000-00-00','Hertz');
 /*!40000 ALTER TABLE `garagiste` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -407,7 +407,7 @@ CREATE TABLE `offices` (
 
 LOCK TABLES `offices` WRITE;
 /*!40000 ALTER TABLE `offices` DISABLE KEYS */;
-INSERT INTO `offices` VALUES (1,'Hertz','constantine',0,'s01@email.com',NULL,NULL),(2,'Hertz','constantine',0,'s02@email.com',NULL,NULL),(3,'Hertz','Setif',0,NULL,NULL,NULL);
+INSERT INTO `offices` VALUES (1,'Hertz','constantine',0,'s01@email.com','36.3664','6.6093'),(2,'Hertz','constantine',0,'s02@email.com','36.3664','6.6093'),(3,'Hertz','Setif',0,'Secretary@email.com','36.191','5.407');
 /*!40000 ALTER TABLE `offices` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -564,7 +564,7 @@ CREATE TABLE `secretary` (
 
 LOCK TABLES `secretary` WRITE;
 /*!40000 ALTER TABLE `secretary` DISABLE KEYS */;
-INSERT INTO `secretary` VALUES ('s01@email.com','secr','secretary','/assets/profile_pics/1email.png',1,'Hertz'),('s02@email.com','secretary','secr','/assets/profile_pics/1email.png',2,'Hertz');
+INSERT INTO `secretary` VALUES ('s01@email.com','secr','secretary','/assets/profile_pics/1email.png',1,'Hertz'),('s02@email.com','secretary','secr','/assets/profile_pics/1email.png',2,'Hertz'),('Secretary@email.com','2','Hamza','/assets/profile_pics/Secretaryemail.jpeg',3,'Hertz');
 /*!40000 ALTER TABLE `secretary` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -666,7 +666,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('1@email.com','12345678','client'),('d01@email.com','12345678','directeur'),('d02@gmail.com','12345678','directeur'),('g01@email.com','test','depot manager'),('g03@email.com','12345678','depot manager'),('Garagiste01@email.com','Hamza','depot manager'),('Hamza@gmail.com','test','client'),('s01@email.com','12345678','secretary'),('s02@email.com','12345678','secretary'),('serviceClient@email.com','test','service_client');
+INSERT INTO `users` VALUES ('1@email.com','12345678','client'),('d01@email.com','12345678','directeur'),('d02@gmail.com','12345678','directeur'),('g01@email.com','test','depot manager'),('g03@email.com','12345678','depot manager'),('Hamza@gmail.com','test','client'),('s01@email.com','12345678','secretary'),('s02@email.com','12345678','secretary'),('Secretary@email.com','Hamza','secretary'),('serviceClient@email.com','test','service_client');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -685,6 +685,7 @@ CREATE TABLE `vehicule` (
   `PLH` double NOT NULL,
   `type` varchar(45) NOT NULL,
   `image` varchar(50) DEFAULT '/assets/car_pics/default.jpg',
+  `Agence` varchar(45) NOT NULL,
   `depot_code` int NOT NULL,
   `year` int NOT NULL,
   `color` varchar(45) NOT NULL,
@@ -700,7 +701,9 @@ CREATE TABLE `vehicule` (
   `ValueMoney_rating` double DEFAULT '0',
   PRIMARY KEY (`matricule`),
   KEY `code_depot_idx` (`depot_code`),
-  CONSTRAINT `depot` FOREIGN KEY (`depot_code`) REFERENCES `depot` (`code`)
+  KEY `Agence_idx` (`Agence`),
+  CONSTRAINT `depot` FOREIGN KEY (`depot_code`) REFERENCES `depot` (`code`),
+  CONSTRAINT `Vehicule_agence` FOREIGN KEY (`Agence`) REFERENCES `depot` (`agence_nom`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -710,7 +713,7 @@ CREATE TABLE `vehicule` (
 
 LOCK TABLES `vehicule` WRITE;
 /*!40000 ALTER TABLE `vehicule` DISABLE KEYS */;
-INSERT INTO `vehicule` VALUES ('202212401','Peugot','e-208GT',120,20,'Premium','/assets/car_pics/car02.jpg',2,2022,'Yellow',2.8,NULL,5,4,0,0,0,0,0,0),('202212519','porsche','macan',210,55,'premium','/assets/car_pics/default.jpg',7,2019,'black',0,NULL,4,4,0,0,0,0,0,0),('202212520','mercedes','c-class',200,50,'coupe','/assets/car_pics/default.jpg',7,2020,'white',0,NULL,4,4,0,0,0,0,0,0),('202212521','renault','captur',190,35,'suv','/assets/car_pics/default.jpg',2,2021,'blue',0,NULL,4,4,0,0,0,0,0,0),('202212522','Mini','cooper Sl',100,15,'Compact','/assets/car_pics/default01.jpg',1,2021,'Red',3.2,NULL,4,2,0,0,0,0,0,0);
+INSERT INTO `vehicule` VALUES ('202212401','Peugot','e-208GT',120,20,'Premium','/assets/car_pics/car02.jpg','Hertz',2,2022,'Yellow',2.8,NULL,5,4,0,0,0,0,0,0),('202212519','porsche','macan',210,55,'premium','/assets/car_pics/default.jpg','Hertz',7,2019,'black',0,NULL,4,4,0,0,0,0,0,0),('202212520','mercedes','c-class',200,50,'coupe','/assets/car_pics/default.jpg','Hertz',7,2020,'white',0,NULL,4,4,0,0,0,0,0,0),('202212521','renault','captur',190,35,'suv','/assets/car_pics/default.jpg','Hertz',2,2021,'blue',0,NULL,4,4,0,0,0,0,0,0),('202212522','Mini','cooper Sl',100,15,'Compact','/assets/car_pics/default01.jpg','Hertz',1,2021,'Red',3.2,NULL,4,2,0,0,0,0,0,0);
 /*!40000 ALTER TABLE `vehicule` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -723,7 +726,7 @@ UNLOCK TABLES;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `vehicule_AFTER_INSERT` AFTER INSERT ON `vehicule` FOR EACH ROW BEGIN
-UPDATE `atelier`.`depot` SET `capacite_libre` = `capacite_libre` - 1 WHERE (`code` = `NEW`.`depot_code`);
+UPDATE `atelier`.`depot` SET `capacite_libre` = `capacite_libre` - 1 WHERE (`code` = `NEW`.`depot_code` and agence_nom = NEW.agence);
 END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -741,8 +744,8 @@ DELIMITER ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `vehicule_AFTER_UPDATE` AFTER UPDATE ON `vehicule` FOR EACH ROW BEGIN
 IF (`OLD`.`depot_code` != `NEW`.`depot_code`) THEN
-UPDATE `atelier`.`depot` SET `capacite_libre` = `capacite_libre` + 1 WHERE (`code` = `OLD`.`depot_code`);
-UPDATE `atelier`.`depot` SET `capacite_libre` = `capacite_libre` - 1 WHERE (`code` = `NEW`.`depot_code`);
+UPDATE `atelier`.`depot` SET `capacite_libre` = `capacite_libre` + 1 WHERE (`code` = `OLD`.`depot_code` and agence_nom = OLD.agence);
+UPDATE `atelier`.`depot` SET `capacite_libre` = `capacite_libre` - 1 WHERE (`code` = `NEW`.`depot_code` and agence_nom = NEW.agence);
 END IF;
 END */;;
 DELIMITER ;
@@ -760,7 +763,7 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `vehicule_AFTER_DELETE` AFTER DELETE ON `vehicule` FOR EACH ROW BEGIN
-UPDATE `atelier`.`depot` SET `capacite_libre` = `capacite_libre` + 1 WHERE (`code` = `OLD`.`depot_code`);
+UPDATE `atelier`.`depot` SET `capacite_libre` = `capacite_libre` + 1 WHERE (`code` = `OLD`.`depot_code`and agence_nom = OLD.agence);
 END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -825,4 +828,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-03 23:59:47
+-- Dump completed on 2022-05-05 17:21:16

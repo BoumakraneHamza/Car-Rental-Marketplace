@@ -230,6 +230,7 @@
 	-webkit-transition:all 0.25s linear;
 	flex-direction: column;
     flex-wrap: nowrap;
+    flex: 0 0 auto;
 }
 .sidebar.active{
 	margin-right: 0px;

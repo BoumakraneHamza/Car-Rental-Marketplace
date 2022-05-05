@@ -62,7 +62,9 @@
 		</div>
 		<div class="main-content">
 		<c:forEach begin="0" end="${Buildings.size()-1}" var="i" step="1">
-			<div class="asset_card" onclick="showDetails()">
+			<div class="asset_card" onclick="showDetails(this)">
+				<input type="hidden" id="code" value="${Buildings.get(i).code}">
+				<input type="hidden" id="building_type" value="${Buildings.get(i).type}">
 				<div id="card_banner">
 					<img src="${pageContext.request.contextPath}/assets/PolyBackground/${random[i]}.svg">
 				</div>
@@ -96,7 +98,7 @@
 					<c:when test="${Buildings.get(i).type eq 'depot'}">
 						<div id=tag>
 							<img style="width: 20px;" src="${pageContext.request.contextPath}/assets/steering-wheel.svg">
-							<p id="text">${Buildings.get(i).capacite}</p>
+							<p id="text">${Buildings.get(i).capacite - Buildings.get(i).capacite_libre}</p>
 						</div>
 					</c:when>
 				</c:choose>
@@ -127,14 +129,14 @@
 						<div id="tag_list">
 							<c:choose>
 								<c:when test="${Buildings.get(0).type eq 'depot'}">
-									<div id=tag>
+									<div id="tag" class="cars">
 										<img style="width: 20px;margin-right:5px;" src="${pageContext.request.contextPath}/assets/steering-wheel.svg">
 										<p id="value">${Buildings.get(0).capacite}</p>
 										<p id="title">Cars</p>
 									</div>
 								</c:when>
 							</c:choose>
-							<div id="tag">
+							<div id="tag" class="bookings">
 								<img style="width: 10px;margin-right:5px;" src="${pageContext.request.contextPath}/assets/activity-black.svg">
 								<p id="value">${Buildings.get(0).bookings}</p>
 								<p id="title">Bookings</p>
@@ -161,7 +163,7 @@
 		</div>
 		<div class="employee">
 			<div id="image_wrapper">
-				<img style="width:60px" src="${pageContext.request.contextPath}${Buildings.get(i).employee.image}">
+				<img style="width:60px;height: 60px;object-fit: cover;border-radius: 50%;" src="${pageContext.request.contextPath}${Buildings.get(i).employee.image}">
 			</div>
 			<div id="info">
 				<div id="profile_name">
@@ -175,13 +177,13 @@
 				</div>
 				<div id="score_line">
 					<img style="height:20px;" src="/Atelier/assets/hour_icon_grey.svg">
-					<div class="hor_line" id="line_1">
+					<div class="hor_line">
 						<div class="line_value" id="value_1"></div>
 					</div>
-					<div class="hor_line" id="line_2">
-						<div class="line_value" id="value_2"></div>
+					<div class="hor_line">
+						<div class="line_value" id="value_1"></div>
 					</div>
-					<div class="hor_line" id="line_3">
+					<div class="hor_line">
 						<div class="line_value" id="value_3"></div>
 					</div>
 					<p id="text_value">80%</p>
@@ -201,448 +203,6 @@
 				<p>Add new car</p>
 			</div>
 			<div id="cars_list">
-				<div id="car">
-					<div id="car_info">
-						<div id="info">
-							<p id="car_name">Mini Cooper S</p>
-							<div id="details">
-								<p id="year">2022</p>
-							</div>
-						</div>
-						<div id="bookings">
-							<p id="text">This week :</p>
-							<div id="tag">
-								<img style="width:9px;" src="${pageContext.request.contextPath}/assets/activity-orange.svg">
-								<p>8</p>
-							</div>
-						</div>
-					</div>
-					<div id="score_line">
-						<div class="hor_line" id="line_1">
-							<div class="line_value" id="value_1"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_3">
-							<div class="line_value" id="value_3"></div>
-						</div>
-					</div>
-				</div>
-				<div id="car">
-					<div id="car_info">
-						<div id="info">
-							<p id="car_name">Mini Cooper S</p>
-							<div id="details">
-								<p id="year">2022</p>
-							</div>
-						</div>
-						<div id="bookings">
-							<p id="text">This week :</p>
-							<div id="tag">
-								<img style="width:9px;" src="${pageContext.request.contextPath}/assets/activity-orange.svg">
-								<p>8</p>
-							</div>
-						</div>
-					</div>
-					<div id="score_line">
-						<div class="hor_line" id="line_1">
-							<div class="line_value" id="value_1"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_3">
-							<div class="line_value" id="value_3"></div>
-						</div>
-					</div>
-				</div>
-				<div id="car">
-					<div id="car_info">
-						<div id="info">
-							<p id="car_name">Mini Cooper S</p>
-							<div id="details">
-								<p id="year">2022</p>
-							</div>
-						</div>
-						<div id="bookings">
-							<p id="text">This week :</p>
-							<div id="tag">
-								<img style="width:9px;" src="${pageContext.request.contextPath}/assets/activity-orange.svg">
-								<p>8</p>
-							</div>
-						</div>
-					</div>
-					<div id="score_line">
-						<div class="hor_line" id="line_1">
-							<div class="line_value" id="value_1"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_3">
-							<div class="line_value" id="value_3"></div>
-						</div>
-					</div>
-				</div>
-				<div id="car">
-					<div id="car_info">
-						<div id="info">
-							<p id="car_name">Mini Cooper S</p>
-							<div id="details">
-								<p id="year">2022</p>
-							</div>
-						</div>
-						<div id="bookings">
-							<p id="text">This week :</p>
-							<div id="tag">
-								<img style="width:9px;" src="${pageContext.request.contextPath}/assets/activity-orange.svg">
-								<p>8</p>
-							</div>
-						</div>
-					</div>
-					<div id="score_line">
-						<div class="hor_line" id="line_1">
-							<div class="line_value" id="value_1"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_3">
-							<div class="line_value" id="value_3"></div>
-						</div>
-					</div>
-				</div>
-				<div id="car">
-					<div id="car_info">
-						<div id="info">
-							<p id="car_name">Mini Cooper S</p>
-							<div id="details">
-								<p id="year">2022</p>
-							</div>
-						</div>
-						<div id="bookings">
-							<p id="text">This week :</p>
-							<div id="tag">
-								<img style="width:9px;" src="${pageContext.request.contextPath}/assets/activity-orange.svg">
-								<p>8</p>
-							</div>
-						</div>
-					</div>
-					<div id="score_line">
-						<div class="hor_line" id="line_1">
-							<div class="line_value" id="value_1"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_3">
-							<div class="line_value" id="value_3"></div>
-						</div>
-					</div>
-				</div>
-				<div id="car">
-					<div id="car_info">
-						<div id="info">
-							<p id="car_name">Mini Cooper S</p>
-							<div id="details">
-								<p id="year">2022</p>
-							</div>
-						</div>
-						<div id="bookings">
-							<p id="text">This week :</p>
-							<div id="tag">
-								<img style="width:9px;" src="${pageContext.request.contextPath}/assets/activity-orange.svg">
-								<p>8</p>
-							</div>
-						</div>
-					</div>
-					<div id="score_line">
-						<div class="hor_line" id="line_1">
-							<div class="line_value" id="value_1"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_3">
-							<div class="line_value" id="value_3"></div>
-						</div>
-					</div>
-				</div>
-				<div id="car">
-					<div id="car_info">
-						<div id="info">
-							<p id="car_name">Mini Cooper S</p>
-							<div id="details">
-								<p id="year">2022</p>
-							</div>
-						</div>
-						<div id="bookings">
-							<p id="text">This week :</p>
-							<div id="tag">
-								<img style="width:9px;" src="${pageContext.request.contextPath}/assets/activity-orange.svg">
-								<p>8</p>
-							</div>
-						</div>
-					</div>
-					<div id="score_line">
-						<div class="hor_line" id="line_1">
-							<div class="line_value" id="value_1"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_3">
-							<div class="line_value" id="value_3"></div>
-						</div>
-					</div>
-				</div>
-				<div id="car">
-					<div id="car_info">
-						<div id="info">
-							<p id="car_name">Mini Cooper S</p>
-							<div id="details">
-								<p id="year">2022</p>
-							</div>
-						</div>
-						<div id="bookings">
-							<p id="text">This week :</p>
-							<div id="tag">
-								<img style="width:9px;" src="${pageContext.request.contextPath}/assets/activity-orange.svg">
-								<p>8</p>
-							</div>
-						</div>
-					</div>
-					<div id="score_line">
-						<div class="hor_line" id="line_1">
-							<div class="line_value" id="value_1"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_3">
-							<div class="line_value" id="value_3"></div>
-						</div>
-					</div>
-				</div>
-				<div id="car">
-					<div id="car_info">
-						<div id="info">
-							<p id="car_name">Mini Cooper S</p>
-							<div id="details">
-								<p id="year">2022</p>
-							</div>
-						</div>
-						<div id="bookings">
-							<p id="text">This week :</p>
-							<div id="tag">
-								<img style="width:9px;" src="${pageContext.request.contextPath}/assets/activity-orange.svg">
-								<p>8</p>
-							</div>
-						</div>
-					</div>
-					<div id="score_line">
-						<div class="hor_line" id="line_1">
-							<div class="line_value" id="value_1"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_3">
-							<div class="line_value" id="value_3"></div>
-						</div>
-					</div>
-				</div>
-				<div id="car">
-					<div id="car_info">
-						<div id="info">
-							<p id="car_name">Mini Cooper S</p>
-							<div id="details">
-								<p id="year">2022</p>
-							</div>
-						</div>
-						<div id="bookings">
-							<p id="text">This week :</p>
-							<div id="tag">
-								<img style="width:9px;" src="${pageContext.request.contextPath}/assets/activity-orange.svg">
-								<p>8</p>
-							</div>
-						</div>
-					</div>
-					<div id="score_line">
-						<div class="hor_line" id="line_1">
-							<div class="line_value" id="value_1"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_3">
-							<div class="line_value" id="value_3"></div>
-						</div>
-					</div>
-				</div>
-				<div id="car">
-					<div id="car_info">
-						<div id="info">
-							<p id="car_name">Mini Cooper S</p>
-							<div id="details">
-								<p id="year">2022</p>
-							</div>
-						</div>
-						<div id="bookings">
-							<p id="text">This week :</p>
-							<div id="tag">
-								<img style="width:9px;" src="${pageContext.request.contextPath}/assets/activity-orange.svg">
-								<p>8</p>
-							</div>
-						</div>
-					</div>
-					<div id="score_line">
-						<div class="hor_line" id="line_1">
-							<div class="line_value" id="value_1"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_3">
-							<div class="line_value" id="value_3"></div>
-						</div>
-					</div>
-				</div>
-				<div id="car">
-					<div id="car_info">
-						<div id="info">
-							<p id="car_name">Mini Cooper S</p>
-							<div id="details">
-								<p id="year">2022</p>
-							</div>
-						</div>
-						<div id="bookings">
-							<p id="text">This week :</p>
-							<div id="tag">
-								<img style="width:9px;" src="${pageContext.request.contextPath}/assets/activity-orange.svg">
-								<p>8</p>
-							</div>
-						</div>
-					</div>
-					<div id="score_line">
-						<div class="hor_line" id="line_1">
-							<div class="line_value" id="value_1"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_3">
-							<div class="line_value" id="value_3"></div>
-						</div>
-					</div>
-				</div>
-				<div id="car">
-					<div id="car_info">
-						<div id="info">
-							<p id="car_name">Mini Cooper S</p>
-							<div id="details">
-								<p id="year">2022</p>
-							</div>
-						</div>
-						<div id="bookings">
-							<p id="text">This week :</p>
-							<div id="tag">
-								<img style="width:9px;" src="${pageContext.request.contextPath}/assets/activity-orange.svg">
-								<p>8</p>
-							</div>
-						</div>
-					</div>
-					<div id="score_line">
-						<div class="hor_line" id="line_1">
-							<div class="line_value" id="value_1"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_2">
-							<div class="line_value" id="value_2"></div>
-						</div>
-						<div class="hor_line" id="line_3">
-							<div class="line_value" id="value_3"></div>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>
@@ -658,6 +218,7 @@ var lon = ${Buildings.get(0).lon};
 <script src="${pageContext.request.contextPath}/js/ClientMain.js"></script>
 <script src="${pageContext.request.contextPath}/js/Map.js"></script>
 <script src="${pageContext.request.contextPath}/js/AgencyBuildings.js"></script>
+<%@include file="/jsp/dropdownList.jsp"%>
 </body>
 </html>
 </body>

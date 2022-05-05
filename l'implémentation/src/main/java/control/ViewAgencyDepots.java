@@ -1,6 +1,7 @@
 package control;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -14,9 +15,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import model.Building;
 import model.DAO;
 import model.Depot;
+import model.Office;
 import model.Reservation;
 import model.User;
 import model.Vehicule;
@@ -68,22 +72,28 @@ public class ViewAgencyDepots extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		User user = (User) request.getSession().getAttribute("user");
-		if (user.getType().equals("directeur")) {
+		if (user != null && user.getType().equals("directeur")) {
 			request.setAttribute("user", user);
-			String depot = request.getParameter("depot");
-			String agency = request.getParameter("agency");
-			ArrayList<Vehicule> cars = null;
+			String code = request.getParameter("code");
+			String type = request.getParameter("type");
+			String responseString = null ;
 			DAO dao = new DAO();
-			cars = dao.getAgencyCars(depot);
-			request.setAttribute("cars", cars);
-			request.setAttribute("depotcode", depot);
-			request.setAttribute("agency", agency);
-			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/AgencyCars.jsp");
-			dispatcher.forward(request, response);
+			Depot depot = null ;
+			Office office = null ;
+			if(type.equals("depot")) {
+				depot = dao.getDepotInfo(user.getNom(),code );
+				ObjectMapper mapper = new ObjectMapper();
+				responseString = mapper.writeValueAsString(depot);
+			}else {
+				office = dao.getOfficeInfo(user.getNom(), code);
+				ObjectMapper mapper = new ObjectMapper();
+				responseString = mapper.writeValueAsString(office);
+			}
+			PrintWriter out = response.getWriter();
+			out.write(responseString);
+			response.setStatus(200);
 		} else {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/login.jsp");
-			dispatcher.forward(request, response);
+			response.setStatus(500);
 		}
 	}
 

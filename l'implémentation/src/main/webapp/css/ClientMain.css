@@ -146,6 +146,7 @@ a, a:visited{
 	-o-transition:all 0.15s linear;
 	-moz-transition:all 0.15s linear; 
 	-webkit-transition:all 0.15s linear;
+	flex: 0 0 auto;
 }
 .content .menu.active{
 	height: calc(100vh - 55px);

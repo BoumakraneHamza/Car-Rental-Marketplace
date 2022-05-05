@@ -36,7 +36,7 @@ public class AjaxAddCar extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) request.getSession().getAttribute("user");
-		if (user.getType().equals("directeur")) {
+		if (user != null && user.getType().equals("directeur")) {
 			response.setContentType("application/xml");
 			response.setCharacterEncoding("UTF-8");
 			PrintWriter out = response.getWriter();
@@ -44,7 +44,7 @@ public class AjaxAddCar extends HttpServlet {
 			String depot = request.getParameter("depot");
 			ArrayList<Vehicule> vehicules = null;
 			DAO dao = new DAO();
-			vehicules = dao.getAgencyCars(depot);
+			vehicules = dao.getAgencyCars(depot , user.getNom());
 			
 			out.print("<cars>\n");
 			for(Vehicule car : vehicules) {

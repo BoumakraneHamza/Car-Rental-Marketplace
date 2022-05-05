@@ -1,9 +1,12 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Depot extends Building{
 	private int capacite;
 	private int capacite_libre;
 	private int CapacityPercentile;
+	private ArrayList<Vehicule> storedCars = new ArrayList<Vehicule>();
 	
 	public Depot() {
 		super();
@@ -39,5 +42,11 @@ public class Depot extends Building{
 	}
 	public void setGaragiste_email(String garagiste_email) {
 		super.setEmployee_email(garagiste_email);
+	}
+	public void setStoredCars(ArrayList<Vehicule> storedCars) {
+		this.storedCars = storedCars;
+	}
+	public ArrayList<Vehicule> getStoredCars() {
+		return storedCars;
 	}
 }
