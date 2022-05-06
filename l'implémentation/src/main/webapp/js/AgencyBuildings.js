@@ -564,3 +564,72 @@ delete_confirmation.querySelector("#delete").addEventListener("click",(event)=>{
 	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xhttp.send(param);
 });
+var map;
+function createSelectMap(mapWrapper,lat,lon){
+	map = L.map(mapWrapper, {
+	    center: [lat, lon],
+		zoom: 8,
+		attributionControl:false,
+	});
+	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+	}).addTo(map);
+	var marker = L.icon({
+	    iconUrl: contextPath+'/assets/map-marker.svg',
+	    iconSize: [17, 40],
+	});
+	L.marker([lat, lon],{icon: marker}).addTo(map);
+	map.on('click', function(e) {
+		map.eachLayer((layer) => {
+		     if(layer['_latlng']!=undefined)
+		         layer.remove();
+		 });
+		L.marker([e.latlng.lat, e.latlng.lng],{icon: marker}).addTo(map);
+		$.getJSON("https://nominatim.openstreetmap.org/reverse?format=json&lat="+e.latlng.lat+"&lon="+e.latlng.lng,(data)=>{
+			let add_asset = document.querySelector(".add_asset");
+			let inputs_wrapper = add_asset.querySelector("#inputs_wrapper");
+			let location = data.address.state + " "+ data.address.country
+			if(data.address.county != undefined){
+				location = data.address.county +" "+ location; 
+			};
+			inputs_wrapper.value = location;
+		});
+	});
+}
+let add_asset = document.querySelector(".add_asset");
+let inputs_wrapper = add_asset.querySelector("#inputs_wrapper");
+let search = add_asset.querySelector("#search_address");
+search.addEventListener("click",(e)=>{
+	let address = inputs_wrapper.value;
+	e.preventDefault();
+	let xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = ()=>{
+		if(xhr.status == 200 && xhr.readyState == 4){
+			let json = JSON.parse(xhr.responseText);
+			console.log(json);
+			var marker = L.icon({
+			    iconUrl: contextPath+'/assets/map-marker.svg',
+			    iconSize: [17, 40],
+			});
+			map.setView(new L.LatLng(json[0].lat, json[0].lon), 10);
+			map.eachLayer((layer) => {
+		     if(layer['_latlng']!=undefined)
+		         layer.remove();
+			 });
+			L.marker([json[0].lat, json[0].lon],{icon: marker}).addTo(map);
+		}	
+	}
+	xhr.open("GET","https://nominatim.openstreetmap.org/search/"+address+"?format=json&accept-language=fr&limit=1");
+	xhr.send();
+});
+function closeAddMap(){
+	add_asset.style.display="none";
+}
+function showAddMap(){
+	add_asset.querySelector("#map_wrapper").remove();
+	let map_wrapper = document.createElement("div");
+	map_wrapper.setAttribute("id","map_wrapper");
+	add_asset.insertBefore(map_wrapper,add_asset.querySelector("#inputs"));
+	add_asset.style.display="block";
+	createSelectMap("map_wrapper",30,6);
+}

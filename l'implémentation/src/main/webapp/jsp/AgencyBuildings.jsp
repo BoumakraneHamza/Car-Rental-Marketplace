@@ -63,14 +63,14 @@
 		</div>
 		<div class="main-content">
 		<div class="asset_card" id="add_asset">
-			<div id="add_square">
+			<div id="add_square" onclick="showAddMap()">
 				<img src="${pageContext.request.contextPath}/assets/add-black.svg">
 			</div>
 			<div id="text_content">
 				<p id="title">New Asset</p>
 				<p id="subtitle">Define a new asset easily.</p>
 			</div>
-			<div id="add_btn">Create new</div>
+			<div id="add_btn" onclick="showAddMap()">Create new</div>
 		</div>
 		<c:forEach begin="0" end="${Buildings.size()-1}" var="i" step="1">
 			<div class="asset_card" onclick="showDetails(this)">
@@ -242,6 +242,20 @@
 	<div id="cta">
 		<button id="cancel"><p>cancel</p></button>
 		<button type="submit" id="delete"><img style="width:15px;" src="${pageContext.request.contextPath}/assets/delete-icon-white.svg"><p>Delete Asset</p></button>
+	</div>
+</form>
+<form class="add_asset" style="display:none;">
+	<div id="map_wrapper"></div>
+	<div id="inputs">
+		<div id="left">
+			<input required="required" type="number" min="0" max="40" id="capacite" placeholder="capacity">
+			<input required="required" type="text" id="inputs_wrapper" placeholder="Address">
+			<button id="search_address"><p>Search</p></button>
+		</div>
+		<div id="right">
+			<button id="sb_btn" type="submit"><img src="${pageContext.request.contextPath}/assets/check.svg"><p>Add asset</p></button>
+			<img onclick="closeAddMap()" style="cursor:pointer;" src="${pageContext.request.contextPath}/assets/cancel-black.svg">
+		</div>
 	</div>
 </form>
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
