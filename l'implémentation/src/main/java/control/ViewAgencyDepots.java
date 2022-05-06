@@ -93,7 +93,8 @@ public class ViewAgencyDepots extends HttpServlet {
 			out.write(responseString);
 			response.setStatus(200);
 		} else {
-			response.setStatus(500);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/login.jsp");
+			dispatcher.forward(request, response);
 		}
 	}
 

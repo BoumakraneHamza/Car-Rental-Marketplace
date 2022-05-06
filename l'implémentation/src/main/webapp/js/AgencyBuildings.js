@@ -309,7 +309,6 @@ function showDetails(element){
 					sidebar.classList.add("active");	
 				}
 				json = JSON.parse(xhr.responseText);
-				console.log(json);
 				
 				if(sidebar.querySelector(".map_banner")){
 					sidebar.querySelector(".map_banner").remove();
@@ -514,8 +513,8 @@ function addEventListenerList(list) {
 }
 addEventListenerList(cancels);
 function deletePopUp(element){
-	let code = element.querySelector("#code").value;
-	let type = element.querySelector("#type").value;
+	let code = element.parentNode.querySelector("#code").value;
+	let type = element.parentNode.querySelector("#type").value;
 	let xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = ()=>{
 		if(xhr.status == 200 && xhr.readyState == 4){
@@ -564,7 +563,11 @@ delete_confirmation.querySelector("#delete").addEventListener("click",(event)=>{
 	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xhttp.send(param);
 });
+let add_asset = document.querySelector(".add_asset");
+let lat_input = add_asset.querySelector("#inputs").querySelector("#lat");
+let lon_input = add_asset.querySelector("#inputs").querySelector("#lon");
 var map;
+let edit_asset= document.querySelector(".edit_asset");
 function createSelectMap(mapWrapper,lat,lon){
 	map = L.map(mapWrapper, {
 	    center: [lat, lon],
@@ -586,17 +589,33 @@ function createSelectMap(mapWrapper,lat,lon){
 		 });
 		L.marker([e.latlng.lat, e.latlng.lng],{icon: marker}).addTo(map);
 		$.getJSON("https://nominatim.openstreetmap.org/reverse?format=json&lat="+e.latlng.lat+"&lon="+e.latlng.lng,(data)=>{
-			let add_asset = document.querySelector(".add_asset");
-			let inputs_wrapper = add_asset.querySelector("#inputs_wrapper");
-			let location = data.address.state + " "+ data.address.country
+			let inputs_wrapper = mapWrapper.parentNode.querySelector("#inputs_wrapper");
+			let location ;
+			if (data.address.state != undefined){
+				location = data.address.state + " "+ data.address.country;
+			}else{
+				location = data.address.state_district + " "+ data.address.country;
+			}
+			
+			var arabic = /[\u0600-\u06FF]/;
 			if(data.address.county != undefined){
-				location = data.address.county +" "+ location; 
-			};
+				if (arabic.test(data.address.county)){
+					inputs_wrapper.value = location;
+				}else{
+					location = data.address.county +" "+ location; 
+				}
+			}
 			inputs_wrapper.value = location;
+			if(mapWrapper == document.querySelector(".view_Location").querySelector("#select_map_wrapper")){
+				edit_asset.querySelector("#lat").value = data.lat;
+				edit_asset.querySelector("#lon").value = data.lon;
+			}else{
+				lat_input.value = data.lat;
+				lon_input.value = data.lon;
+			}
 		});
 	});
 }
-let add_asset = document.querySelector(".add_asset");
 let inputs_wrapper = add_asset.querySelector("#inputs_wrapper");
 let search = add_asset.querySelector("#search_address");
 search.addEventListener("click",(e)=>{
@@ -617,6 +636,8 @@ search.addEventListener("click",(e)=>{
 		         layer.remove();
 			 });
 			L.marker([json[0].lat, json[0].lon],{icon: marker}).addTo(map);
+			lat_input.value = json[0].lat;
+			lon_input.value = json[0].lon;
 		}	
 	}
 	xhr.open("GET","https://nominatim.openstreetmap.org/search/"+address+"?format=json&accept-language=fr&limit=1");
@@ -631,5 +652,151 @@ function showAddMap(){
 	map_wrapper.setAttribute("id","map_wrapper");
 	add_asset.insertBefore(map_wrapper,add_asset.querySelector("#inputs"));
 	add_asset.style.display="block";
-	createSelectMap("map_wrapper",30,6);
+	createSelectMap(add_asset.querySelector("#map_wrapper"),35,5);
 }
+function selectType(element){
+	let inputs = add_asset.querySelector("#inputs");
+	let types = inputs.querySelector("#type").querySelectorAll("p");
+	let building_type = inputs.querySelector("#building_type");
+	for(let key in types){
+		types.item(key).style.background = "#fff";
+		types.item(key).style.color = "#000";
+	}
+	if(element.innerHTML == "Office"){
+		if(inputs.querySelector("#capacite")){
+			inputs.querySelector("#capacite").remove();
+		}
+	}else{
+		if(inputs.querySelector("#capacite")){
+			
+		}else{
+			let capacity = document.createElement("input");
+			capacity.setAttribute("required","required");
+			capacity.setAttribute("type","number");
+			capacity.setAttribute("min","0");
+			capacity.setAttribute("max","40");
+			capacity.setAttribute("id","capacite");
+			capacity.setAttribute("placeholder","capacity");
+			capacity.setAttribute("name","capacity");
+			inputs.querySelector("#left").insertBefore(capacity,inputs.querySelector("#left").querySelector("#inputs_wrapper"));	
+		}
+	}
+	element.style.background="#C5DCFA";
+	element.style.color="#0F56B3";
+	building_type.value = element.innerHTML;
+}
+add_asset.querySelector("#sb_btn").addEventListener("click",(event)=>{
+	event.preventDefault();
+	var param = new URLSearchParams(new FormData(add_asset)).toString();
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = ()=>{
+		if(xhttp.status == 200 && xhttp.readyState == 4){
+			add_asset.style.display="none";
+			clearChild($(".main-content"));
+			$(".main-content").load("ViewAgencyDepots .main-content .asset_card");
+		}
+	}
+	xhttp.open("POST","BuildingManagement");
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhttp.send(param);
+});
+function EditAsset(element){
+	let building_code = element.parentNode.querySelector("#code").value;
+	let building_type = element.parentNode.querySelector("#type").value;
+	edit_asset.querySelector("#Building_type").value = building_type;
+	edit_asset.querySelector("#building_code").value = building_code;
+	edit_asset.querySelector(".edit_header").querySelector("#title").innerHTML = "Edit "+building_type +" "+building_code;
+	if(building_type == "office"){
+		edit_asset.querySelector(".capacity").style.display="none";
+	}else{
+		edit_asset.querySelector(".capacity").style.display="grid";
+	}
+	edit_asset.style.display="flex";
+	let options = document.querySelector(".sidebar").querySelector("#option_list");
+	options.style.display = "none";
+}
+function show_select_location(){
+	document.querySelector(".view_Location").style.display="block";
+	createSelectMap(document.querySelector(".view_Location").querySelector("#select_map_wrapper"),35,5);
+}
+function closeSelectMap(){
+	document.querySelector(".view_Location").style.display="none";
+}
+function closeEditAsset(){
+	edit_asset.style.display = "none";
+}
+edit_asset.querySelector(".footer").querySelector("#cancel").addEventListener("click",(e)=>{
+	e.preventDefault();
+	edit_asset.style.display = "none";
+})
+function submitSelectedLocation(){
+	edit_asset.querySelector(".address").value = document.querySelector(".view_Location").querySelector("#inputs_wrapper").value;
+	document.querySelector(".view_Location").style.display="none";
+}
+function showAvailableWorkers(element){
+	let select_list = element.parentNode.querySelector("#select_list");
+	if(select_list.style.display=="none"){
+		select_list.style.display="flex";
+	}else{
+		select_list.style.display="none"
+	}
+	let type = edit_asset.querySelector("#Building_type").value;
+	let xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = ()=>{
+		if(xhr.status == 200 && xhr.readyState == 4){
+			let json = JSON.parse(xhr.responseText);
+			console.log(json);
+			for (let key in json){
+				clearChild(select_list);
+				let tile = document.createElement("div");
+				tile.setAttribute("id","tile");
+				tile.setAttribute("onclick","SelectEmployee(this)");
+				let employee_email = document.createElement("input");
+				employee_email.setAttribute("type","hidden");
+				employee_email.setAttribute("id","employee_Email");
+				employee_email.value = json[key].email;
+				tile.append(employee_email);
+				let employee_image = document.createElement("div");
+				employee_image.setAttribute("id","employee_image");
+				let image = document.createElement("img");
+				image.setAttribute("style","width: 40px;height: 40px;object-fit: cover;");
+				image.src="/Atelier"+ json[key].image;
+				employee_image.append(image);
+				tile.append(employee_image);
+				let name = document.createElement("p");
+				name.innerHTML = json[key].nom + " "+json[key].prenom;
+				name.setAttribute("id","name");
+				tile.append(name);
+				select_list.append(tile);
+			}
+			
+		}
+	}
+	xhr.open("GET","BuildingManagement?type="+type);
+	xhr.send();
+}
+function SelectEmployee(element){
+	let email = element.querySelector("#employee_Email").value;
+	edit_asset.querySelector("#employee").value = email;
+	let select_list = edit_asset.querySelector("#select_list");
+	select_list.style.display="none";
+	let select_header = edit_asset.querySelector("#select_header");
+	clearChild(select_header);
+	select_header.append(element);
+}
+edit_asset.querySelector("#sbt_btn").addEventListener("click",(e)=>{
+	e.preventDefault();
+	var param = new URLSearchParams(new FormData(edit_asset)).toString();
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = ()=>{
+		if(xhttp.status == 200 && xhttp.readyState == 4){
+			edit_asset.style.display="none";
+			clearChild($(".main-content"));
+			$(".main-content").load("ViewAgencyDepots .main-content .asset_card");
+			document.querySelector(".sidebar").classList.toggle("active");
+		}
+	}
+	xhttp.open("POST","BuildingManagement");
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhttp.send(param);
+});

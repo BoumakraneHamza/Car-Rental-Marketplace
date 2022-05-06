@@ -10,10 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import model.Building;
 import model.DAO;
 import model.Depot;
 import model.Employee;
+import model.Office;
 import model.User;
 
 /**
@@ -36,43 +39,14 @@ public class BuildingManagement extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) request.getSession().getAttribute("user");
-		if (user.getType().equals("directeur")) {
-			response.setContentType("application/xml");
-			response.setCharacterEncoding("UTF-8");
-			PrintWriter out = response.getWriter();
-			
-			ArrayList<Building> buildings = null;
+		if (user != null && user.getType().equals("directeur")) {
 			DAO dao = new DAO();
-			buildings = dao.getAgencyBuildings(user.getNom());
-			
-			out.println("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
-			out.println("<buildings>");
-			for(Building build : buildings) {
-				out.print("<" + build.getType() + " ");
-				out.append("code=\"" + build.getCode() + "\" ");
-				out.append("adress=\"" + build.getAdress() + "\" ");
-				out.append("agence_nom=\"" + build.getAgence_nom() + "\" ");
-				out.append("garagiste_email=\"" + build.getEmployee_email() + "\" ");
-				out.append("lat=\"" + build.getLat() + "\" ");
-				out.append("lon=\"" + build.getLon() + "\" ");
-				out.append("bookings=\"" + build.getBookings() + "\" ");
-				if (build.getType().equals("depot")) {
-					out.append("capacite=\"" + ((Depot) build).getCapacite() + "\" ");
-					out.append("capacite_libre=\"" + ((Depot) build).getCapacite_libre() + "\" ");
-					out.append("capacityPercentile=\"" + ((Depot) build).getCapacityPercentile() + "\" ");
-				}
-				try {
-					out.append("employeeFirstName=\"" + build.getEmployee().getFirstName() + "\" ");
-					out.append("employeeType=\"" + build.getEmployee().getType() + "\" ");
-					out.append("employeeImage=\"" + build.getEmployee().getImage() + "\" ");
-				} catch (Exception e) {
-					out.append("employeeFirstName=\"" + "\" ");
-					out.append("employeeType=\"" + "\" ");
-					out.append("employeeImage=\"" + "\" ");
-				}
-				out.println("/>");
-			}
-			out.print("</buildings>");
+			ArrayList<Employee> Employees = new ArrayList<Employee>();
+			Employees = dao.getAvailableEmployees(user.getNom(),request.getParameter("type"));
+			ObjectMapper mapper = new ObjectMapper();
+			String EmployeeList = mapper.writeValueAsString(Employees);
+			PrintWriter out = response.getWriter();
+			out.write(EmployeeList);
 		}
 	}
 
@@ -87,7 +61,48 @@ public class BuildingManagement extends HttpServlet {
 			if(request.getParameter("required_action").equals("delete")) {
 				result = dao.deleteBuilding(request.getParameter("code"), request.getParameter("type"),request.getParameter("agence"));
 			}
-			
+			else if(request.getParameter("required_action").equals("add")) {
+				if (request.getParameter("type").equals("Depot")) {
+					Depot depot = new Depot();
+					
+					depot.setAdress(request.getParameter("address"));
+					depot.setCapacite(Integer.parseInt(request.getParameter("capacity")));
+					depot.setCapacite_libre(Integer.parseInt(request.getParameter("capacity")));
+					depot.setAgence_nom(user.getNom());
+					depot.setLat(request.getParameter("lat"));
+					depot.setLon(request.getParameter("lon"));
+					
+					result = dao.addDepot(depot);
+				} else {
+					Office office = new Office();
+					
+					office.setAdress(request.getParameter("address"));
+					office.setAgence_nom(user.getNom());
+					office.setLat(request.getParameter("lat"));
+					office.setLon(request.getParameter("lon"));
+					
+					result = dao.addOffice(office);
+				}
+			}else if(request.getParameter("required_action").equals("edit")) {
+				Building building;
+				if (request.getParameter("type").equals("depot")) {
+					building = new Depot();
+					
+					((Depot)building).setCapacite(Integer.parseInt(request.getParameter("capacity")));
+					((Depot)building).setCapacite_libre(Integer.parseInt(request.getParameter("capacity")));
+				} else {
+					building = new Office();
+				}
+				building.setAgence_nom(user.getNom());
+				building.setCode(request.getParameter("code"));
+				building.setType(request.getParameter("type"));
+				building.setAdress(request.getParameter("address"));
+				building.setEmployee_email(request.getParameter("employeeEmail"));
+				building.setLat(request.getParameter("lat"));
+				building.setLon(request.getParameter("lon"));
+								
+				result = dao.editBuilding(building);
+			}
 			if(result == 1) {
 				response.setStatus(200);
 			}else {

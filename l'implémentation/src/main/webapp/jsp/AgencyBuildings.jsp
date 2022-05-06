@@ -5,9 +5,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ClientMain.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/table.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/AgencyBuildings.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <meta charset="UTF-8">
 <title>Buildings</title>
@@ -160,13 +158,13 @@
 						<img style="width:16px" src="${pageContext.request.contextPath}/assets/3-point-option.svg">
 					</div>
 					<div id="option_list" style="display:none">
-						<div id="tile">
+						<input type="hidden" id="code" value="">
+						<input type="hidden" id="type" value="">
+						<div id="tile" onclick="EditAsset(this)">
 							<img style="width: 15px;margin: 0px 10px;" src="${pageContext.request.contextPath}/assets/pen.svg">
 							<p>Edit Asset</p>
 						</div>
 						<div id="tile" onclick="deletePopUp(this)">
-							<input type="hidden" id="code" value="">
-							<input type="hidden" id="type" value="">
 							<img style="width: 15px;margin: 0px 10px;" src="${pageContext.request.contextPath}/assets/delete-icon-black.svg">
 							<p>Delete Asset</p>
 						</div>
@@ -245,11 +243,19 @@
 	</div>
 </form>
 <form class="add_asset" style="display:none;">
+	<input type="hidden" name="required_action" value="add">
 	<div id="map_wrapper"></div>
 	<div id="inputs">
 		<div id="left">
-			<input required="required" type="number" min="0" max="40" id="capacite" placeholder="capacity">
-			<input required="required" type="text" id="inputs_wrapper" placeholder="Address">
+			<input type="hidden" name="type" id="building_type">
+			<input type="hidden" name="lat" id="lat">
+			<input type="hidden" name="lon" id="lon">
+			<div id="type">
+				<p onclick="selectType(this)" id="depot">Depot</p>
+				<p onclick="selectType(this)" id="office">Office</p>
+			</div>
+			<input required="required" type="number" min="0" max="40" id="capacite" placeholder="capacity" name="capacity">
+			<input required="required" type="text" id="inputs_wrapper" placeholder="Address" name="address">
 			<button id="search_address"><p>Search</p></button>
 		</div>
 		<div id="right">
@@ -258,6 +264,65 @@
 		</div>
 	</div>
 </form>
+<form class="edit_asset" style="display:none">
+	<input type="hidden" id="Building_type" name="type">
+	<input type="hidden" id="building_code" name="code">
+	<input type="hidden" name="lat" id="lat">
+	<input type="hidden" name="lon" id="lon">
+	<input type="hidden" name="required_action" value="edit">
+	<div class="edit_header">
+		<div id="left">
+			<img style="width: 24px;cursor:pointer;" src="${pageContext.request.contextPath}/assets/info.svg">
+			<div id="text_content">
+				<p id="title">Edit Depot 01</p>
+				<p id="subtitle">Edit assets easily !</p>
+			</div>
+		</div>
+		<div id="right">
+			<img onclick="closeEditAsset()" style="width: 12px;cursor: pointer;" src="${pageContext.request.contextPath}/assets/cancel-black.svg">
+		</div>
+	</div>
+	<div id="edit_content">
+		<div id="row">
+			<p id="title">Address</p>
+			<div id="value">
+				<input required style="width: calc(100% - 50px);" type="text" id="input_field" class="address" placeholder="address" name="address">
+				<div id="icon_wrapper" onclick="show_select_location()">
+					<img src="${pageContext.request.contextPath}/assets/location.svg">
+				</div>
+			</div>
+		</div>
+		<div id="row" class="capacity">
+			<p id="title">Total Capacity</p>
+			<input required min="0" max="40" type="number" id="input_field" placeholder="capacity" name="capacity">
+		</div>
+		<div id="row">
+			<p id="title">Responsible member</p>
+			<input type="hidden" name="employeeEmail" id="employee">
+			<div class="select_member">
+				<div id="select_header" onclick="showAvailableWorkers(this)">
+					<p>Select Team Member</p>
+				</div>
+				<div id="select_list" style="display:none;">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer">
+		<button id="cancel">Cancel</button>
+		<button id="sbt_btn">Save</button>
+	</div>
+</form>
+<div class="view_Location" style="display:none;">
+	<div id="select_map_wrapper"></div>
+	<div id="inputs">
+		<input type="text" id="inputs_wrapper" placeholder="address">
+		<div id="right">
+			<button onclick="submitSelectedLocation()" id="select_location"><img src="${pageContext.request.contextPath}/assets/check.svg"><p>Select</p></button>
+			<img onclick="closeSelectMap()" style="cursor:pointer;" src="${pageContext.request.contextPath}/assets/cancel-black.svg">
+		</div>
+	</div>
+</div>
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
    crossorigin=""></script>

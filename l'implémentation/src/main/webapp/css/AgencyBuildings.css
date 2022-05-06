@@ -193,11 +193,18 @@
 .main-frame .main-content .asset_card #card_content #tile #left #title {
     font-size: 16px;
     font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .main-frame .main-content .asset_card #card_content #tile #left #value {
-    font-size: 15px;
+	font-size: 15px;
     font-weight: 500;
     color: #818181;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 190px;
 }
 .main-frame .main-content .asset_card #card_tag {
     position: absolute;
@@ -253,7 +260,7 @@
     padding: 10px;
     margin-top: -50px;
     background-image: linear-gradient(to bottom, rgb(255 255 255 / 71%), rgba(255,255,255, 1) 27%);
-    z-index: 3;
+    z-index: 1;
 	border-bottom: 1px solid #E4E4E4;
 }
 .sidebar .sidebar_header #first_row {
@@ -750,11 +757,12 @@
     border: 1px solid #E4E4E4;
     border-radius: 10px;
     background: #fff;
+    z-index:1;
 }
 .add_asset #map_wrapper {
     width: 80vw;
     height: 80vh;
-	z-index: 1;
+	z-index: 2;
 }
 .add_asset #inputs {
     position: absolute;
@@ -774,13 +782,35 @@
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: center;
-    width: 50%;
     gap: 10px;
+}
+.add_asset #inputs #left #type {
+    display: flex;
+    background: #fff;
+    border: 1px solid #E4E4E4;
+    border-radius: 5px;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow: hidden;
+}
+.add_asset #inputs #left #type #depot {
+	border-right: 1px solid #E4E4E4;
+    padding: 12px 13px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.add_asset #inputs #left #type #office{
+	padding: 12px 13px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
 }
 .add_asset #inputs #left #capacite {
 	    background: #fff;
     height: 50px;
-    width: 150px;
+    width: 120px;
     font-family: 'Poppins', sans-serif;
     border: 1px solid #E4E4E4;
     padding: 20px;
@@ -793,9 +823,9 @@
 	border-color:#0071ff;
 }
 .add_asset #inputs #left #inputs_wrapper {
-	    background: #fff;
+	background: #fff;
     height: 50px;
-    width: 400px;
+    width: 320px;
     font-family: 'Poppins', sans-serif;
     border: 1px solid #E4E4E4;
     padding: 20px;
@@ -848,4 +878,268 @@
 }
 .add_asset #inputs #right #sb_btn p {
 	margin-left:10px;
+}
+.edit_asset {
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    flex-wrap: nowrap;
+    border: 1px solid #E4E4E4;
+    border-radius: 5px;
+}
+.edit_asset .edit_header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    padding:20px;
+}
+.edit_asset .edit_header #left {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 10px;
+}
+.edit_asset .edit_header #left #text_content {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.edit_asset .edit_header #left #text_content #title {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 19px;
+}
+.edit_asset .edit_header #left #text_content #subtitle {
+    font-size: 15px;
+    font-weight: 400;
+    color: #C4C4C4;
+    line-height: 18px;
+}
+.edit_asset #edit_content {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 15px;
+    padding: 20px 0px;
+}
+.edit_asset #edit_content #row {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    height: 50px;
+    align-items: center;
+	padding: 0px 20px;
+}
+.edit_asset #edit_content #row #title {
+    font-size: 15px;
+    font-weight: 500;
+}
+.edit_asset #edit_content #row #value {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 10px;
+    align-items: center;
+}
+.edit_asset #edit_content #row #value #icon_wrapper {
+    width: 40px;
+    height: 40px;
+    background: #EEE;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.edit_asset #edit_content #row #input_field {
+	border: 1px solid #E4E4E4;
+    height: 40px;
+    border-radius: 5px;
+    padding: 0px 15px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+}
+.edit_asset #edit_content #row #input_field::placeholder{
+	color:#C4C4C4;
+}
+.edit_asset #edit_content #row #input_field:focus{
+	outline:none;
+	border-color:#0071ff;
+}
+.edit_asset #edit_content #row .select_member {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+	position: relative;
+}
+.edit_asset #edit_content #row .select_member #select_header {
+    border: 1px solid #E4E4E4;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.edit_asset #edit_content #row .select_member #select_list {
+	display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    border: 1px solid #e4E4E4;
+    position: absolute;
+    top: 41px;
+    width: 100%;
+    background:#fff;
+}
+.edit_asset #edit_content #row .select_member #tile {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 5px;
+    border-bottom: 1px solid #E4E4E4;
+    cursor: pointer;
+}
+.edit_asset #edit_content #row .select_member #select_list #tile:hover{
+	background:#F9F9F9;
+}
+.edit_asset #edit_content #row .select_member #select_list #tile #employee_image {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow:hidden;
+}
+.edit_asset #edit_content #row .select_member #select_header #tile #employee_image {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    overflow:hidden;
+}
+.edit_asset #edit_content #row .select_member #select_header #tile #employee_image img{
+	width: 30px;
+	height: 30px;
+	object-fit: cover;
+}
+.edit_asset .footer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 10px 20px;
+    gap: 15px;
+}
+.edit_asset .footer button {
+    width: 100px;
+    height: 35px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    background: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.edit_asset .footer #sbt_btn {
+    background: #0071FF;
+    color: #fff;
+    border: none;
+}
+.view_Location {
+    width: 80vw;
+    height: 80vh;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffff;
+    border: 1px solid #E4E4E4;
+    border-radius: 10px;
+    overflow: hidden;
+	z-index: 1;
+}
+.view_Location #select_map_wrapper {
+    width: 80vw;
+    height: 80vh;
+    z-index: 1;
+}
+.view_Location #inputs {
+    position: absolute;
+    top: 10px;
+    width: -webkit-fill-available;
+    height: 8vh;
+    z-index: 2;
+    margin: 0px 45px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+}
+.view_Location #inputs #inputs_wrapper {
+    background: #fff;
+    height: 50px;
+    width: 320px;
+    font-family: 'Poppins', sans-serif;
+    border: 1px solid #E4E4E4;
+    padding: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 5px;
+    margin-left: 15px;
+}
+.view_Location #inputs #inputs_wrapper:focus{
+	outline:none;
+	border-color:#0071FF;
+}
+.view_Location #inputs #select_location{
+	width: 120Px;
+    height: 40px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    background: #0071FF;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 5px;
+    cursor: pointer;
+    display:flex;
+    border: none;
+}
+.view_Location #inputs #select_location p{
+	margin-left:10px;
+}
+.view_Location #inputs #right {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 25px;
 }

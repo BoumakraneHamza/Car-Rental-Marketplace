@@ -209,7 +209,7 @@ CREATE TABLE `depot` (
   CONSTRAINT `agency_name` FOREIGN KEY (`agence_nom`) REFERENCES `agence` (`nom`),
   CONSTRAINT `fk_garagiste` FOREIGN KEY (`garagiste_email`) REFERENCES `garagiste` (`email`),
   CONSTRAINT `check_storage` CHECK (((`capacite` >= 0) and (`capacite_libre` >= 0) and (`capacite_libre` <= `capacite`)))
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -218,9 +218,31 @@ CREATE TABLE `depot` (
 
 LOCK TABLES `depot` WRITE;
 /*!40000 ALTER TABLE `depot` DISABLE KEYS */;
-INSERT INTO `depot` VALUES (1,'constantine',20,19,'Hertz','g01@email.com','36.25023','6.57394',22),(2,'batna',15,13,'Hertz',NULL,'35.55216','6.17968',12),(3,'constantine',15,15,'agence02',NULL,'36.2650','6.5833',0),(6,'constantine',12,12,'agence02',NULL,'36.2333','6.5604',0),(7,'alger',20,18,'Hertz',NULL,'36.7734','3.0587',0);
+INSERT INTO `depot` VALUES (1,'constantine',20,19,'Hertz','g01@email.com','36.25023','6.57394',22),(2,'batna',15,13,'Hertz',NULL,'35.55216','6.17968',12),(3,'constantine',15,15,'agence02',NULL,'36.2650','6.5833',0),(6,'constantine',12,12,'agence02',NULL,'36.2333','6.5604',0),(7,'alger',20,18,'Hertz',NULL,'36.7734','3.0587',0),(8,'Khenchela District Khenchela Algeria',10,10,'Hertz','g02@email.com','35.474073','7.1419173',0),(9,'Tiaret District Tiaret Algeria',5,5,'Hertz','g03@email.com','35.37219933670565','1.3403168907512075',0);
 /*!40000 ALTER TABLE `depot` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `depot_BEFORE_UPDATE` BEFORE UPDATE ON `depot` FOR EACH ROW BEGIN
+if(old.garagiste_email != new.garagiste_email)THEN
+update garagiste set working_location = old.code where email = new.garagiste_email;
+if(old.garagiste_email != null )then
+update garagiste set working_location = null where email = old.garagiste_email;
+end if;
+end if;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `employees`
@@ -262,7 +284,7 @@ CREATE TABLE `garagiste` (
   `nom` varchar(45) DEFAULT NULL,
   `prenom` varchar(45) DEFAULT NULL,
   `photo` varchar(45) DEFAULT '/assets/profile_pics/default.png',
-  `working_location` int NOT NULL,
+  `working_location` int DEFAULT NULL,
   `monthly_session` date DEFAULT NULL,
   `agency_name` varchar(45) NOT NULL,
   PRIMARY KEY (`email`),
@@ -278,7 +300,7 @@ CREATE TABLE `garagiste` (
 
 LOCK TABLES `garagiste` WRITE;
 /*!40000 ALTER TABLE `garagiste` DISABLE KEYS */;
-INSERT INTO `garagiste` VALUES ('g01@email.com','Boumakrane','Hamza','/assets/profile_pics/1email.png',1,'0000-00-00','Hertz');
+INSERT INTO `garagiste` VALUES ('g01@email.com','Boumakrane','Hamza','/assets/profile_pics/1email.png',1,'0000-00-00','Hertz'),('g02@email.com','Hamza','2','/assets/profile_pics/1email.png',8,NULL,'Hertz'),('g03@email.com','Hamza','3','/assets/profile_pics/1email.png',NULL,NULL,'Hertz');
 /*!40000 ALTER TABLE `garagiste` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -398,7 +420,7 @@ CREATE TABLE `offices` (
   KEY `fk_secretary_idx` (`email_secretaire`),
   CONSTRAINT `fk_agency` FOREIGN KEY (`agency_name`) REFERENCES `agence` (`nom`),
   CONSTRAINT `fk_secretary` FOREIGN KEY (`email_secretaire`) REFERENCES `secretary` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -407,7 +429,7 @@ CREATE TABLE `offices` (
 
 LOCK TABLES `offices` WRITE;
 /*!40000 ALTER TABLE `offices` DISABLE KEYS */;
-INSERT INTO `offices` VALUES (1,'Hertz','constantine',0,'s01@email.com','36.3664','6.6093'),(2,'Hertz','constantine',0,'s02@email.com','36.3664','6.6093'),(3,'Hertz','Setif',0,'Secretary@email.com','36.191','5.407');
+INSERT INTO `offices` VALUES (1,'Hertz','constantine',0,'s01@email.com','36.3664','6.6093'),(2,'Hertz','Djelfa District Djelfa Algeria',0,'s03@email.com','34.6510735267218','3.248866793118921'),(3,'Hertz','Setif',0,'Secretary@email.com','36.191','5.407'),(4,'Hertz','M\'Sila District M\'Sila Algeria',0,'s02@email.com','35.698119264003076','4.556631683459123');
 /*!40000 ALTER TABLE `offices` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -549,7 +571,7 @@ CREATE TABLE `secretary` (
   `nom` varchar(45) DEFAULT NULL,
   `prenom` varchar(45) DEFAULT NULL,
   `photo` varchar(45) DEFAULT '/assets/profile_pics/default.png',
-  `working_location` int NOT NULL,
+  `working_location` int DEFAULT NULL,
   `agency_name` varchar(45) NOT NULL,
   PRIMARY KEY (`email`),
   UNIQUE KEY `email_UNIQUE` (`email`),
@@ -564,7 +586,7 @@ CREATE TABLE `secretary` (
 
 LOCK TABLES `secretary` WRITE;
 /*!40000 ALTER TABLE `secretary` DISABLE KEYS */;
-INSERT INTO `secretary` VALUES ('s01@email.com','secr','secretary','/assets/profile_pics/1email.png',1,'Hertz'),('s02@email.com','secretary','secr','/assets/profile_pics/1email.png',2,'Hertz'),('Secretary@email.com','2','Hamza','/assets/profile_pics/Secretaryemail.jpeg',3,'Hertz');
+INSERT INTO `secretary` VALUES ('s01@email.com','secr','secretary','/assets/profile_pics/1email.png',1,'Hertz'),('s02@email.com','secretary','secr','/assets/profile_pics/1email.png',2,'Hertz'),('s03@email.com','Nathanial','Olson','/assets/profile_pics/Secretaryemail.jpeg',NULL,'Hertz'),('Secretary@email.com','2','Hamza','/assets/profile_pics/Secretaryemail.jpeg',3,'Hertz');
 /*!40000 ALTER TABLE `secretary` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -828,4 +850,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-05 23:38:41
+-- Dump completed on 2022-05-06 23:41:55

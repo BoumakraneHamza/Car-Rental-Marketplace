@@ -848,6 +848,36 @@ public class DAO {
 		}
 		return buildings;
 	}
+	public ArrayList<Employee> getAvailableEmployees(String agence , String type ){
+		ArrayList<Employee> Employees = new ArrayList<Employee>();
+		String Query;
+		PreparedStatement statement; 
+		ResultSet result ;
+		try {
+			connectDB();
+			if(type.equals("depot")) {
+				Query = "Select * from garagiste where agency_name = ? and email not in(Select garagiste_email from depot where agence_nom = ? and garagiste_email is not null);";
+			}else {
+				Query = "Select * from secretary where agency_name = ? and email not in(Select email_secretaire from offices where agency_name = ? and email_secretaire is not null);";
+			}
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, agence);
+			statement.setString(2, agence);
+			result = statement.executeQuery();
+			while(result.next()) {
+				Employee employee = new Employee();
+				employee.setEmail(result.getString("email"));
+				employee.setImage(result.getString("photo"));
+				employee.setNom(result.getString("nom"));
+				employee.setPrenom(result.getString("prenom"));
+				Employees.add(employee);
+			}
+			statement.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return Employees;
+	}
 	public Employee getBuildingEmployee(Building building) {
 		Employee employee = null;
 		String query;
@@ -1173,10 +1203,10 @@ public class DAO {
 		return inbox;
 	}
 	
-	public void addDepot(Depot depot) {
+	public int addDepot(Depot depot) {
 		String Query;
 		PreparedStatement statement;
-		
+		int result = 0;
 		try {
 			connectDB();
 			Query = "INSERT INTO `atelier`.`depot` (`adress`, `capacite`, `capacite_libre`, `agence_nom`, `garagiste_email`, `lat`, `lon`) \r\n" 
@@ -1191,7 +1221,7 @@ public class DAO {
 			statement.setString(6, depot.getLat());
 			statement.setString(7, depot.getLon());
 			
-			statement.executeUpdate();
+			result = statement.executeUpdate();
 			
 			
 			statement.close();
@@ -1199,11 +1229,13 @@ public class DAO {
 			e.printStackTrace();
 			
 		}
+		return result ;
 	}
 	
-	public void addOffice(Office office) {
+	public int addOffice(Office office) {
 		String Query;
 		PreparedStatement statement;
+		int result = 0;
 		
 		try {
 			connectDB();
@@ -1217,12 +1249,13 @@ public class DAO {
 			statement.setString(4, office.getLat());
 			statement.setString(5, office.getLon());
 			
-			statement.executeUpdate();
+			result = statement.executeUpdate();
 			
 			statement.close();
 		}catch (SQLException | InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
+		return result ;
 	}
 	
 	public int deleteBuilding(String code, String type , String agence_Name) {
@@ -1310,10 +1343,10 @@ public class DAO {
 		return building;
 	}
 	
-	public void editBuilding(Building building) {
+	public int editBuilding(Building building) {
 		String Query;
 		PreparedStatement statement;
-		
+		int result = 0;
 		try {
 			connectDB();
 			if(building.getType().equals("depot")) {
@@ -1342,12 +1375,13 @@ public class DAO {
 			statement.setString(4, building.getLon());
 			statement.setInt(5, building.getBookings());
 			
-			statement.executeUpdate();
+			result = statement.executeUpdate();
 			
 			statement.close();
 		}catch (SQLException | InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
+		return result;
 	}
 	
 	public ArrayList<Message> ReadConversation(int id) {
