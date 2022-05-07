@@ -50,6 +50,14 @@ public class GetProfile extends HttpServlet {
 				Profile = dao.getGaragiste(request.getParameter("client_email"));
 			}else if(AccountType.equals("secretary")){
 				Profile = dao.getSecretaire(request.getParameter("client_email"));
+			}else if(AccountType.equals("directeur")) {
+				try {
+					Profile = dao.getAgencyDirecteurInfo(request.getParameter("client_email"));
+					Profile.setPassword(user.getPassword());
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			ObjectMapper mapper = new ObjectMapper();
 			String ProfileInfo = mapper.writeValueAsString(Profile);

@@ -76,6 +76,13 @@ public class EmployeeManagement extends HttpServlet {
 			}else {
 				response.setStatus(500);
 			}
+		}else if(request.getParameter("required_action").equals("delete")) {
+			employee.setEmail(request.getParameter("email"));
+			
+			employee.setWorkingLocation(request.getParameter("workingLocation"));
+			employee.setType(request.getParameter("type"));
+			
+			dao.editEmployee(employee);
 		}
 	}
 }

@@ -33,6 +33,7 @@ public class DAO {
 			System.out.println("can not connectt to database...");
 		}
 		return connection;
+		
 	}
 	
 	public User checkLogin(String email, String password)
@@ -70,6 +71,7 @@ public class DAO {
 	            else if(result.getString("type").equals("secretary")) {
 	            	user = getSecretaire(result.getString("email"));
 	            }
+	            user.setPassword(password);
 	        }
 	        statement.close();
 	        System.out.println("Success !");
@@ -145,7 +147,7 @@ public class DAO {
 		}
 		return result;
 	}
-	private User getAgencyDirecteurInfo(String email) throws SQLException {
+	public User getAgencyDirecteurInfo(String email) throws SQLException {
 		User user = null ;
 		String query = "SELECT * FROM agence WHERE email_compte = ?";
     	PreparedStatement statement = connection.prepareStatement(query);
@@ -153,6 +155,7 @@ public class DAO {
     	ResultSet result = statement.executeQuery();
     	 if (result.next()) {
      		 user = new User();
+     		 user.setEmail(email);
     		 user.setNom(result.getString("nom"));
     		 user.setImage(result.getString("photo"));
     		 user.setType("directeur");
@@ -184,6 +187,13 @@ public class DAO {
 				garagiste.setMonthlySession(result.getString("monthly_session"));
 				garagiste.setWorkingLocation(result.getString("working_location"));
 				user.setGaragisteInfo(garagiste);
+				Query = "Select mot_pass from users where email = ? limit 1";
+				statement = connection.prepareStatement(Query);
+				statement.setString(1, user.getEmail());
+				result = statement.executeQuery();
+				if (result.next()) {
+					user.setPassword(result.getString("mot_pass"));
+				}
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -212,6 +222,13 @@ public class DAO {
 				secretaire.setWorkingLocation(result.getString("working_location"));
 				secretaire.setAgencyName(result.getString("agency_name"));
 				user.setSecretaireInfo(secretaire);
+				Query = "Select mot_pass from users where email = ? limit 1";
+				statement = connection.prepareStatement(Query);
+				statement.setString(1, user.getEmail());
+				result = statement.executeQuery();
+				if (result.next()) {
+					user.setPassword(result.getString("mot_pass"));
+				}
 			}
 			}catch(Exception e) {
 				e.printStackTrace();
@@ -886,7 +903,7 @@ public class DAO {
 		
 		if (building.getType() == "depot") {
 			query = "SELECT * FROM atelier.garagiste WHERE email = ?";
-			type = "garagiste";
+			type = "depot manager";
 		} else {
 			query = "SELECT * FROM atelier.secretary WHERE email = ?";
 			type = "secretary";

@@ -386,14 +386,34 @@ function showDetails(element){
 					email.innerHTML = json.employee.email;
 					profile_info.append(name);
 					profile_info.append(email);
-					let button_wrapper = document.createElement("div");
+					let redirect = document.createElement("form");
+					redirect.setAttribute("id","redirect_to_employee");
+					redirect.setAttribute("action","ViewAgencyPersonal");
+					redirect.setAttribute("method","get");
+					let inputredirect = document.createElement("input");
+					inputredirect.setAttribute("type","hidden");
+					inputredirect.setAttribute("name","redirected");
+					redirect.append(inputredirect);
+					let selected_email = document.createElement("input");
+					selected_email.setAttribute("type","hidden");
+					selected_email.setAttribute("name","selected_Employee_email");
+					selected_email.setAttribute("id","selected_Employee_email");
+					let selected_type = document.createElement("input");
+					selected_type.setAttribute("type","hidden");
+					selected_type.setAttribute("name","selected_Employee_type");
+					selected_type.setAttribute("id","selected_Employee_type");
+					redirect.append(selected_email);
+					redirect.append(selected_type);
+					let button_wrapper = document.createElement("button");
 					button_wrapper.setAttribute("id","button_wrapper");
+					button_wrapper.setAttribute("type","submit");
 					let button_image = document.createElement("img");
 					button_image.setAttribute("style","width:19px;");
 					button_image.src="/Atelier/assets/account-black.svg";
 					button_wrapper.append(button_image);
+					redirect.append(button_wrapper);
 					profile_name.append(profile_info);
-					profile_name.append(button_wrapper);
+					profile_name.append(redirect);
 					info.append(profile_name);
 					let score_line = document.createElement("div");
 					score_line.setAttribute("id","score_line");
@@ -424,7 +444,10 @@ function showDetails(element){
 					info.append(score_line);
 					employee.append(info);
 					sidebar.insertBefore(employee,car_list);
+					sidebar.querySelector("#selected_Employee_email").value = json.employee.email;
+					sidebar.querySelector("#selected_Employee_type").value = json.employee.type;
 				}
+				
 				let cars_list = car_list.querySelector("#cars_list");
 				clearChild(cars_list);
 				if(json.type=="depot"){

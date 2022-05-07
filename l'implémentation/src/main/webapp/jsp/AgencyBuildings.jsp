@@ -182,9 +182,14 @@
 						<p id="name">Hamza boumakrane</p>
 						<p id="email">Hamza@email.com</p>
 					</div>
-					<div id="button_wrapper">
-						<img style="width: 19px;" src="${pageContext.request.contextPath}/assets/account-black.svg">
-					</div>
+					<form id="redirect_to_employee" action="ViewAgencyPersonal" method="get">
+						<input type="hidden" name="redirected" value="true">
+						<input type="hidden" name="selected_Employee_email" id="selected_Employee_email">
+						<input type="hidden" name="selected_Employee_type" id="selected_Employee_type">
+						<button id="button_wrapper" type="submit">
+							<img style="width: 19px;" src="${pageContext.request.contextPath}/assets/account-black.svg">
+						</button>
+					</form>
 				</div>
 				<div id="score_line">
 					<img style="height:20px;" src="/Atelier/assets/hour_icon_grey.svg">

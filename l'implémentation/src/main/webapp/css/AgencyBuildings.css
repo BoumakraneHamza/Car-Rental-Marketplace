@@ -434,6 +434,7 @@
     cursor: pointer;
     background: #EEE;
     border-radius: 10px;
+    border:none;
 }
 .sidebar .employee #info #score_line {
     display: flex;

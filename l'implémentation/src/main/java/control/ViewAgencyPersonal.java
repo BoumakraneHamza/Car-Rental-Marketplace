@@ -37,12 +37,17 @@ public class ViewAgencyPersonal extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) request.getSession().getAttribute("user");
 		if (user != null && user.getType().equals("directeur")) {
-			request.setAttribute("user", user);
-			ArrayList<Employee> employees = null;
 			DAO dao = new DAO();
-			employees = dao.getAgencyPersonals(user.getNom());
-			
-			request.setAttribute("employees", employees);
+			if(request.getParameterMap().containsKey("redirected")) {
+				Employee SelectedEmployee = new Employee();
+				SelectedEmployee = dao.getEmployee(request.getParameter("selected_Employee_email"),request.getParameter("selected_Employee_type"));
+				request.setAttribute("SelectedEmployee", SelectedEmployee);
+				request.setAttribute("redirected", true);
+			}
+				request.setAttribute("user", user);
+				ArrayList<Employee> employees = null;
+				employees = dao.getAgencyPersonals(user.getNom());
+				request.setAttribute("employees", employees);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/AgencyPersonal.jsp");
 			dispatcher.forward(request, response);
 		} else {

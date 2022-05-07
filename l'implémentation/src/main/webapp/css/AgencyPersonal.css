@@ -329,7 +329,7 @@
     justify-content: center;
     flex-direction: row;
     flex-wrap: nowrap;
-    overflow:hidde;
+    overflow:hidden;
 }
 .side_bar #member_info #member_image #status {
     width: 16px;
@@ -346,18 +346,22 @@
     flex-direction: column;
     flex-wrap: nowrap;
     justify-content: space-between;
+	width: 100%;
 }
 .side_bar #member_info  #member_details #member_name {
     font-size: 22px;
     font-weight: 600;
     line-height: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 217px;
 }
 .side_bar #member_info #member_details #sec_info {
-    display: flex;
+        display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    gap: 10px;
-    margin-top: 15px;
+    margin-top: 9px;
     font-size: 15px;
     font-weight: 500;
     color: #C4C4C4;
@@ -959,6 +963,48 @@
 	outline:none;
 	border-color: #0071ff;
 }
+.edit_employee #location_select {
+	display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding: 10px 20px;
+    border: 1px solid #E4E4E4;
+    border-radius: 5px;
+    margin: 5px 10px;
+    height: 45px;
+    cursor:pointer;
+}
+.edit_employee #location_select #title {
+    font-size: 15px;
+    font-weight: 500;
+    border:none;
+    cursor:pointer;
+}
+.edit_employee #location_select #title:focus{
+	outline:none;
+}
+.edit_employee #locations_List {
+    margin: 0px 10px;
+    padding: 0px 20px;
+    border: 1px solid #E4E4E4;
+    overflow-y: overlay;
+    height: auto;
+    max-height: 30vh;
+}
+.edit_employee #locations_List #location_tile {
+	display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-bottom: 1px solid #E4E4E4;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+}
 .edit_employee #sub_btn {
 	width: 120Px;
 	margin-top: 15Px;
@@ -978,5 +1024,104 @@
     align-self: flex-end;
 }
 .edit_employee #sub_btn p{
+	margin-left:10px;
+}
+.edit_confirmation {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 4;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: 400px;
+    padding: 20Px;
+    border: 1px solid #E4E4E4;
+    border-radius: 10px;
+    box-shadow: -2px 1px 10px 0px #dcdcdc;
+}
+.edit_confirmation .tab_header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    margin-bottom: 10Px;
+}
+.edit_confirmation .tab_content {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    text-align: center;
+    gap: 15px;
+}
+.edit_confirmation .tab_content #header {
+    font-size: 18px;
+    font-weight: 600;
+}
+.edit_confirmation .tab_content #content {
+    font-size: 14px;
+}
+.edit_confirmation .tab_content #password{
+	height: 40px;
+    width: 202px;
+    border: 1px solid #E4E4E4;
+    border-radius: 5px;
+    background: #F9F9F9;
+    padding: 0px 15px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+}
+.edit_confirmation .tab_content #password::placeholder{
+	font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 500;	
+}
+.edit_confirmation .tab_content #password:focus{
+	outline:none;
+	border-color: #0071ff;
+}
+.edit_confirmation .tab_footer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    margin-top: 10Px;
+    gap:10px;
+}
+.edit_confirmation .tab_footer button{
+	width: 120Px;
+	margin-top: 15Px;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: flex-end;
+}
+.edit_confirmation .tab_footer #cancel{
+	background:none;
+	border: 2px solid #000;
+	font-size:15px;
+	font-weight:600;
+}
+.edit_confirmation .tab_footer #sbt_btn{
+	background: #0071FF;
+    color: #fff;
+    border: none;
+}
+.edit_confirmation .tab_footer #sbt_btn:disabled,
+.edit_confirmation .tab_footer #sbt_btn[disabled]{
+  background-color: #C4C4C4;
+}
+.tab_footer button p{
 	margin-left:10px;
 }
