@@ -309,7 +309,6 @@ function showDetails(element){
 					sidebar.classList.add("active");	
 				}
 				json = JSON.parse(xhr.responseText);
-				
 				if(sidebar.querySelector(".map_banner")){
 					sidebar.querySelector(".map_banner").remove();
 					let map_banner = document.createElement("div");
@@ -380,7 +379,7 @@ function showDetails(element){
 					profile_info.setAttribute("id","profile_info");
 					let name = document.createElement("p");
 					name.setAttribute("id","name");
-					name.innerHTML = json.employee.lastName +" "+ json.employee.firstName;
+					name.innerHTML = json.employee.nom +" "+ json.employee.prenom;
 					let email = document.createElement("p");
 					email.setAttribute("id","email");
 					email.innerHTML = json.employee.email;
@@ -559,7 +558,7 @@ function deletePopUp(element){
 			delete_confirmation.querySelector("#selected_building").innerHTML = type + " " +code;
 			if(json.employee){
 				delete_confirmation.querySelector(".warning").style.display = "flex";
-				delete_confirmation.querySelector("#employee_name").innerHTML = json.employee.firstName + " "+ json.employee.lastName;
+				delete_confirmation.querySelector("#employee_name").innerHTML = json.employee.prenom + " "+ json.employee.nom;
 			}else{
 				delete_confirmation.querySelector(".warning").style.display = "none";
 			}
@@ -724,19 +723,55 @@ add_asset.querySelector("#sb_btn").addEventListener("click",(event)=>{
 	xhttp.send(param);
 });
 function EditAsset(element){
+	let select_header = edit_asset.querySelector("#select_header");
 	let building_code = element.parentNode.querySelector("#code").value;
 	let building_type = element.parentNode.querySelector("#type").value;
 	edit_asset.querySelector("#Building_type").value = building_type;
 	edit_asset.querySelector("#building_code").value = building_code;
 	edit_asset.querySelector(".edit_header").querySelector("#title").innerHTML = "Edit "+building_type +" "+building_code;
-	if(building_type == "office"){
-		edit_asset.querySelector(".capacity").style.display="none";
-	}else{
-		edit_asset.querySelector(".capacity").style.display="grid";
+	let xhr = new XMLHttpRequest()
+	xhr.onreadystatechange = ()=>{
+		if(xhr.status == 200 && xhr.readyState == 4){
+			let json = JSON.parse(xhr.responseText);
+			console.log(json);
+			edit_asset.querySelector(".address").value = json["adress"];
+			if(building_type == "office"){
+				edit_asset.querySelector(".capacity").style.display="none";
+			}else{
+				edit_asset.querySelector(".capacity").style.display="grid";
+				edit_asset.querySelector(".capacity").querySelector("input").value = json["capacite"];
+			}
+			if(json["employee"]){
+				clearChild(select_header);
+				let tile = document.createElement("div");
+				tile.setAttribute("id","tile");
+				tile.setAttribute("onclick","SelectEmployee(this)");
+				let employee_email = document.createElement("input");
+				employee_email.setAttribute("type","hidden");
+				employee_email.setAttribute("id","employee_Email");
+				employee_email.value = json["employee"].email;
+				tile.append(employee_email);
+				let employee_image = document.createElement("div");
+				employee_image.setAttribute("id","employee_image");
+				let image = document.createElement("img");
+				image.setAttribute("style","width: 40px;height: 40px;object-fit: cover;");
+				image.src="/Atelier"+ json["employee"].image;
+				employee_image.append(image);
+				tile.append(employee_image);
+				let name = document.createElement("p");
+				name.innerHTML = json["employee"].nom + " "+json["employee"].prenom;
+				name.setAttribute("id","name");
+				tile.append(name);
+				select_header.append(tile);
+				edit_asset.querySelector("#employee").value = json["employee"].email;
+			}
+			edit_asset.style.display="flex";
+			let options = document.querySelector(".sidebar").querySelector("#option_list");
+			options.style.display = "none";
+		}	
 	}
-	edit_asset.style.display="flex";
-	let options = document.querySelector(".sidebar").querySelector("#option_list");
-	options.style.display = "none";
+	xhr.open("GET","BuildingManagement?required_action=getBuildingInfo&type="+building_type+"&code="+building_code);
+	xhr.send();
 }
 function show_select_location(){
 	document.querySelector(".view_Location").style.display="block";
@@ -795,7 +830,7 @@ function showAvailableWorkers(element){
 			
 		}
 	}
-	xhr.open("GET","BuildingManagement?type="+type);
+	xhr.open("GET","BuildingManagement?required_action=getAvailableEmployees&type="+type);
 	xhr.send();
 }
 function SelectEmployee(element){

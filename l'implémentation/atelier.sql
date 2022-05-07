@@ -218,7 +218,7 @@ CREATE TABLE `depot` (
 
 LOCK TABLES `depot` WRITE;
 /*!40000 ALTER TABLE `depot` DISABLE KEYS */;
-INSERT INTO `depot` VALUES (1,'constantine',20,19,'Hertz','g01@email.com','36.25023','6.57394',22),(2,'batna',15,13,'Hertz',NULL,'35.55216','6.17968',12),(3,'constantine',15,15,'agence02',NULL,'36.2650','6.5833',0),(6,'constantine',12,12,'agence02',NULL,'36.2333','6.5604',0),(7,'alger',20,18,'Hertz',NULL,'36.7734','3.0587',0),(8,'Khenchela District Khenchela Algeria',10,10,'Hertz','g02@email.com','35.474073','7.1419173',0),(9,'Tiaret District Tiaret Algeria',5,5,'Hertz','g03@email.com','35.37219933670565','1.3403168907512075',0);
+INSERT INTO `depot` VALUES (1,'constantine',20,19,'Hertz','g01@email.com','36.25023','6.57394',22),(2,'batna',15,13,'Hertz',NULL,'35.55216','6.17968',12),(3,'constantine',15,15,'agence02',NULL,'36.2650','6.5833',0),(6,'constantine',12,12,'agence02',NULL,'36.2333','6.5604',0),(7,'alger',20,18,'Hertz',NULL,'36.7734','3.0587',0),(8,'Khenchela District Khenchela Algeria',10,10,'Hertz','g02@email.com','35.474073','7.1419173',0),(9,'de Mascara District Mascara Algeria',10,10,'Hertz','g03@email.com','35.41229593023381','0.2316626583949343',0);
 /*!40000 ALTER TABLE `depot` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -230,13 +230,11 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `depot_BEFORE_UPDATE` BEFORE UPDATE ON `depot` FOR EACH ROW BEGIN
-if(old.garagiste_email != new.garagiste_email)THEN
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `depot_AFTER_UPDATE` AFTER UPDATE ON `depot` FOR EACH ROW BEGIN
+if(old.garagiste_email != null && old.garagiste_email != new.garagiste_email)THEN
+	update garagiste set working_location = null where email = old.garagiste_email;
+end if;
 update garagiste set working_location = old.code where email = new.garagiste_email;
-if(old.garagiste_email != null )then
-update garagiste set working_location = null where email = old.garagiste_email;
-end if;
-end if;
 END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -300,9 +298,29 @@ CREATE TABLE `garagiste` (
 
 LOCK TABLES `garagiste` WRITE;
 /*!40000 ALTER TABLE `garagiste` DISABLE KEYS */;
-INSERT INTO `garagiste` VALUES ('g01@email.com','Boumakrane','Hamza','/assets/profile_pics/1email.png',1,'0000-00-00','Hertz'),('g02@email.com','Hamza','2','/assets/profile_pics/1email.png',8,NULL,'Hertz'),('g03@email.com','Hamza','3','/assets/profile_pics/1email.png',NULL,NULL,'Hertz');
+INSERT INTO `garagiste` VALUES ('g01@email.com','Boumakrane','Hamza','/assets/profile_pics/1email.png',1,'0000-00-00','Hertz'),('g02@email.com','Hamza','2','/assets/profile_pics/1email.png',8,NULL,'Hertz'),('g03@email.com','Hamza','3','/assets/profile_pics/1email.png',9,NULL,'Hertz');
 /*!40000 ALTER TABLE `garagiste` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `garagiste_BEFORE_UPDATE` BEFORE UPDATE ON `garagiste` FOR EACH ROW BEGIN
+if(old.working_location != new.working_location)then
+update depot set garagiste_email = null where depot.code = old.working_location;
+update depot set garagiste_email = new.email where depot.code = new.working_location;
+end if;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -850,4 +868,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-07 16:55:51
+-- Dump completed on 2022-05-07 19:16:08

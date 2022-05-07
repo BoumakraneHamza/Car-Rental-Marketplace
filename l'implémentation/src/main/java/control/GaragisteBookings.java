@@ -42,7 +42,7 @@ public class GaragisteBookings extends HttpServlet {
 			DAO dao = new DAO();
 			ArrayList<Reservation> reservations = null;
 			
-			reservations = dao.getDepotReservations(user.getGaragisteInfo().getWorkingLocation());
+			reservations = dao.getDepotReservations(user.getEmployement().getWorkingLocation());
 			request.setAttribute("reservations", reservations);
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/GaragisteBookings.jsp");

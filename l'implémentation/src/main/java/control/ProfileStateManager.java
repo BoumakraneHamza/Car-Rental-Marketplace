@@ -54,13 +54,14 @@ public class ProfileStateManager extends HttpServlet {
 					ObjectMapper mapper = new ObjectMapper();
 					HashMap<String, Integer> stat = null;
 					ArrayList<Reservation> reservations = dao.getDepotReservations(user.getGaragisteInfo().getWorkingLocation(), 5);
+					ArrayList<Reservation> reservations = dao.getDepotReservations(user.getEmployement().getWorkingLocation(), true, 5);
 					request.setAttribute("reservations", reservations);
 					
-					stat = dao.depotCarStatByMarque(user.getGaragisteInfo().getWorkingLocation());
+					stat = dao.depotCarStatByMarque(user.getEmployement().getWorkingLocation());
 					String stat1 = mapper.writeValueAsString(stat);
 					request.setAttribute("stat1", stat1);
 					
-					stat = dao.depotCarStatByRating(user.getGaragisteInfo().getWorkingLocation());
+					stat = dao.depotCarStatByRating(user.getEmployement().getWorkingLocation());
 					String stat3 = mapper.writeValueAsString(stat);
 					request.setAttribute("stat3", stat3);
 					url = url + "jsp/GaragisteDashboard.jsp";

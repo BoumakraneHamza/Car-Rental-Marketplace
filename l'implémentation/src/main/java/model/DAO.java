@@ -185,7 +185,7 @@ public class DAO {
 				garagiste.setAgencyName(result.getString("agency_name"));
 				garagiste.setMonthlySession(result.getString("monthly_session"));
 				garagiste.setWorkingLocation(result.getString("working_location"));
-				user.setGaragisteInfo(garagiste);
+				user.setEmployement(garagiste);
 				Query = "Select mot_pass from users where email = ? limit 1";
 				statement = connection.prepareStatement(Query);
 				statement.setString(1, user.getEmail());
@@ -220,7 +220,7 @@ public class DAO {
 				user.setImage(result.getString("photo"));
 				secretaire.setWorkingLocation(result.getString("working_location"));
 				secretaire.setAgencyName(result.getString("agency_name"));
-				user.setSecretaireInfo(secretaire);
+				user.setEmployement(secretaire);
 				Query = "Select mot_pass from users where email = ? limit 1";
 				statement = connection.prepareStatement(Query);
 				statement.setString(1, user.getEmail());
@@ -914,8 +914,8 @@ public class DAO {
 			ResultSet result = statement.executeQuery();
 			if(result.next()) {
 				employee = new Employee();
-				employee.setLastName(result.getString("nom"));
-				employee.setFirstName(result.getString("prenom"));
+				employee.setNom(result.getString("nom"));
+				employee.setPrenom(result.getString("prenom"));
 				employee.setImage(result.getString("photo"));
 				employee.setEmail(result.getString("email"));
 				employee.setWorkingLocation(result.getString("working_location"));
@@ -949,8 +949,8 @@ public class DAO {
 			while(result.next()) {
 				employee = new Garagiste();
 				employee.setEmail(result.getString("email"));
-				employee.setFirstName(result.getString("prenom"));
-				employee.setLastName(result.getString("nom"));
+				employee.setPrenom(result.getString("prenom"));
+				employee.setNom(result.getString("nom"));
 				employee.setImage(result.getString("photo"));
 				employee.setWorkingLocation(result.getString("working_location"));
 				employee.setMonthlySession(result.getString("monthly_session"));
@@ -969,8 +969,8 @@ public class DAO {
 			while(result.next()) {
 				employee = new Employee();
 				employee.setEmail(result.getString("email"));
-				employee.setFirstName(result.getString("prenom"));
-				employee.setLastName(result.getString("nom"));
+				employee.setPrenom(result.getString("prenom"));
+				employee.setNom(result.getString("nom"));
 				employee.setImage(result.getString("photo"));
 				employee.setWorkingLocation(result.getString("working_location"));
 				//employee.setMonthlySession(result.getString("monthly_session"));
@@ -1298,7 +1298,7 @@ public class DAO {
 		return result;
 	}
 	
-	public Building getBuilding(String code, String type) {
+	public Building getBuilding(String code, String type , String agence) {
 		String Query;
 		PreparedStatement statement;
 		Building building = null;
@@ -1306,13 +1306,15 @@ public class DAO {
 		ResultSet result;
 		try {
 			connectDB();
+			System.out.println(type);
 			if(type.equals("depot")) {
 				Query = "SELECT * \r\n"
 						+ "FROM atelier.depot \r\n"
-						+ "WHERE code = ?";
+						+ "WHERE code = ? and agence_nom = ?";
 				
 				statement = connection.prepareStatement(Query);
 				statement.setString(1, code);
+				statement.setString(2, agence);
 				
 				result = statement.executeQuery();
 				
@@ -1333,10 +1335,11 @@ public class DAO {
 			} else {
 				Query = "SELECT * \r\n"
 						+ "FROM atelier.offices \r\n"
-						+ "WHERE code = ?";
+						+ "WHERE code = ? and agency_name = ?";
 				
 				statement = connection.prepareStatement(Query);
 				statement.setString(1, code);
+				statement.setString(2, agence);
 				
 				result = statement.executeQuery();
 				
@@ -1644,8 +1647,8 @@ public class DAO {
 				if(result.next()) {
 					employee = new Garagiste();
 					employee.setEmail(result.getString("email"));
-					employee.setFirstName(result.getString("prenom"));
-					employee.setLastName(result.getString("nom"));
+					employee.setPrenom(result.getString("prenom"));
+					employee.setNom(result.getString("nom"));
 					employee.setImage(result.getString("photo"));
 					employee.setWorkingLocation(result.getString("working_location"));
 					employee.setMonthlySession(result.getString("monthly_session"));
@@ -1663,8 +1666,8 @@ public class DAO {
 				if(result.next()) {
 					employee = new Employee();
 					employee.setEmail(result.getString("email"));
-					employee.setFirstName(result.getString("prenom"));
-					employee.setLastName(result.getString("nom"));
+					employee.setPrenom(result.getString("prenom"));
+					employee.setNom(result.getString("nom"));
 					employee.setImage(result.getString("photo"));
 					employee.setWorkingLocation(result.getString("working_location"));
 					//employee.setMonthlySession(result.getString("monthly_session"));
@@ -1679,10 +1682,10 @@ public class DAO {
 		return employee;
 	}
 		
-	public void addEmployee(Employee employee) {
+	public int addEmployee(Employee employee) {
 		String Query;
 		PreparedStatement statement;
-		
+		int result = 0;
 		try {
 			Query="INSERT INTO users VALUES (? , ? , ?) ";
 			connectDB();
@@ -1690,35 +1693,39 @@ public class DAO {
 			statement.setString(1, employee.getEmail());
 			statement.setString(2, employee.getPassword());
 			statement.setString(3, employee.getType());
-			statement.executeUpdate();
-			if (employee.getType().equals("depot manager")) {
-				Query = "INSERT INTO `atelier`.`garagiste` (`email`, `working_location`, `agency_name`) \r\n"
-						+ "VALUES (?, ?, ?)";
-			} else {
-				Query = "INSERT INTO `atelier`.`secretary` (`email`, `working_location`, `agency_name`) \r\n"
-						+ "VALUES (?, ?, ?)";
+			result = statement.executeUpdate();
+			if(result == 1) {
+				
+				if (employee.getType().equals("depot manager")) {
+					Query = "INSERT INTO `atelier`.`garagiste` (`email`, `working_location`, `agency_name`) \r\n"
+							+ "VALUES (?, ?, ?)";
+				} else {
+					Query = "INSERT INTO `atelier`.`secretary` (`email`, `working_location`, `agency_name`) \r\n"
+							+ "VALUES (?, ?, ?)";
+				}
+				statement = connection.prepareStatement(Query);
+				
+				statement.setString(1, employee.getEmail());
+				statement.setString(2, employee.getWorkingLocation());
+				statement.setString(3, employee.getAgencyName());
+				result = statement.executeUpdate();	
+				if(result == 1) {
+					if (employee.getType().equals("depot manager")) {
+					Query = "Update depot set garagiste_email = ? where code=?";
+					} else {
+					Query = "Update offices set email_secretaire = ? where code=?";
+					}
+					statement = connection.prepareStatement(Query);
+					statement.setString(1, employee.getEmail());
+					statement.setString(2, employee.getWorkingLocation());
+					result = statement.executeUpdate();
+					statement.close();	
+				}	
 			}
-			statement = connection.prepareStatement(Query);
-			
-			statement.setString(1, employee.getEmail());
-			statement.setString(2, employee.getWorkingLocation());
-			statement.setString(3, employee.getAgencyName());
-			statement.executeUpdate();
-			
-			if (employee.getType().equals("depot manager")) {
-				Query = "Update depot set garagiste_email = ? where code=?";
-			} else {
-				Query = "Update offices set email_secretaire = ? where code=?";
-			}
-			statement = connection.prepareStatement(Query);
-			statement.setString(1, employee.getEmail());
-			statement.setString(2, employee.getWorkingLocation());
-			statement.executeUpdate();
-			statement.close();
-			
 		}catch (SQLException | InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();	
 		}
+		return result ;
 	}
 	
 	public int deleteEmployee(String email) {
@@ -1758,35 +1765,42 @@ public class DAO {
 		return result;
 	}
 	
-	public void editEmployee(Employee employee) {
+	public int editEmployee(Employee employee) {
 		String Query;
 		PreparedStatement statement;
-		
+		int result = 0;
 		try {
 			connectDB();
 			if(employee.getType().equals("depot manager")) {
 				Query = "UPDATE `atelier`.`garagiste` \r\n"
-						+ "SET `nom` = ?, `prenom` = ?, `working_location` = ? \r\n"
+						+ "SET email=? ,`working_location` = ? \r\n"
 						+ "WHERE (`email` = ?);";
 			} else {
 				Query = "UPDATE `atelier`.`secretary` \r\n"
-						+ "SET `nom` = ?, `prenom` = ?, `working_location` = ? \r\n"
+						+ "SET email=? ,`working_location` = ? \r\n"
 						+ "WHERE (`email` = ?);";
 			}
 			
 			statement = connection.prepareStatement(Query);
 			
-			statement.setString(1, employee.getLastName());
-			statement.setString(2, employee.getFirstName());
-			statement.setString(3, employee.getWorkingLocation());
-			statement.setString(4, employee.getEmail());
+			statement.setString(1, employee.getEmail());
+			statement.setString(2, employee.getWorkingLocation());
+			statement.setString(3, employee.getEmail());
 			
-			statement.executeUpdate();
+			result = statement.executeUpdate();
+			if(result == 1) {
+				Query = "Update users set mot_pass = ? where email = ? limit 1";
+				statement = connection.prepareStatement(Query);
+				statement.setString(1, employee.getPassword());
+				statement.setString(2, employee.getEmail());
+				result = statement.executeUpdate();
+			}
 			
 			statement.close();
 		}catch (SQLException | InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
+		return result ;
 	}
 	
 	public void RespondToRequest(String requestId) {

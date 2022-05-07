@@ -14,14 +14,18 @@ public class User {
 	private String type;
 	private String user_name;
 	private String password;
-	private Garagiste garagisteInfo;
-	private Secretaire SecretaireInfo;
+	private Employee employement;
 	private String lat;
 	private String lon;
 	private String Address;
 	private String AccountCreated;
 	
-	
+	public Employee getEmployement() {
+		return employement;
+	}
+	public void setEmployement(Employee employement) {
+		this.employement = employement;
+	}
 	public String getAccountCreated() {
 		return AccountCreated;
 	}
@@ -45,12 +49,6 @@ public class User {
 	}
 	public void setLon(String lon) {
 		this.lon = lon;
-	}
-	public void setSecretaireInfo(Secretaire secretaireInfo) {
-		SecretaireInfo = secretaireInfo;
-	}
-	public Secretaire getSecretaireInfo() {
-		return SecretaireInfo;
 	}
 	public void setPassword(String password) {
 		this.password = password;
@@ -129,11 +127,5 @@ public class User {
 	}
 	public void setType(String type) {
 		this.type = type;
-	}
-	public Garagiste getGaragisteInfo() {
-		return garagisteInfo;
-	}
-	public void setGaragisteInfo(Garagiste garagisteInfo) {
-		this.garagisteInfo = garagisteInfo;
 	}
 }

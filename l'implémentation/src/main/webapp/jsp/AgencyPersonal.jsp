@@ -109,7 +109,7 @@
 								<div id="status"></div>
 							</div>
 							<div id="client_info" onclick="showDetails(this)">
-								<p id="client_name">${employee.firstName} ${employee.lastName}</p>
+								<p id="client_name">${employee.prenom} ${employee.nom}</p>
 								<p id="client_email">${employee.email}</p>
 							</div>
 							<div id="score_line">
@@ -376,7 +376,7 @@
 	</div>
 	<div id="passwords">
 		<input required="required" name="password" type="password" class="pass" id="password" placeholder="Current password">
-		<input required type="password" class="pass" id="new_password" placeholder="New password">
+		<input required type="password" class="pass" id="new_password" placeholder="New password" name="new_password">
 	</div>
 	<div id="location_select">
 		<input required="required" name="location" type="text" id="title" value="Select Working location" readonly>
@@ -430,7 +430,7 @@
 	<c:when test="${redirected eq true}">
 		<div id="redirected" style="display:none">
 			<input type="hidden" id="redirected_employee_email" value="${SelectedEmployee.email}">
-			<input type="hidden" id="redirected_employee_name" value="${SelectedEmployee.firstName} ${SelectedEmployee.lastName}">
+			<input type="hidden" id="redirected_employee_name" value="${SelectedEmployee.prenom} ${SelectedEmployee.nom}">
 			<input type="hidden" id="redirected_employee_type" value="${SelectedEmployee.type}">
 			<input type="hidden" id="redirected_employee_location" value="${SelectedEmployee.workingLocation}"> 
 			<input type="hidden" id="redirected_employee_image" value="${SelectedEmployee.image}">

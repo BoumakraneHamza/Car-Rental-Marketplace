@@ -499,14 +499,14 @@ function ShowEdit(element){
 			edit_employee.querySelector("#filter").value = json["type"];
 			console.log(json);
 			if(json["type"]=="depot manager"){
-				if(json["garagisteInfo"]["workingLocation"]){
-					edit_employee.querySelector("#location_select").querySelector("#title").value = "Depot " + json["garagisteInfo"]["workingLocation"];
+				if(json["employement"]["workingLocation"]){
+					edit_employee.querySelector("#location_select").querySelector("#title").value = "Depot " + json["employement"]["workingLocation"];
 				}else{
 					edit_employee.querySelector("#location_select").querySelector("#title").value = "Not Assigned";
 				}
 			}else{
-				if(json["secretaireInfo"]["workingLocation"]){
-					edit_employee.querySelector("#location_select").querySelector("#title").value = "Office " + json["secretaireInfo"]["workingLocation"];
+				if(json["employement"]["workingLocation"]){
+					edit_employee.querySelector("#location_select").querySelector("#title").value = "Office " + json["employement"]["workingLocation"];
 				}else{
 					edit_employee.querySelector("#location_select").querySelector("#title").value = "Not Assigned";
 				}
@@ -571,3 +571,20 @@ function show_confirm_edit(name){
 	edit_confirmation.querySelector("#team_member_name").innerHTML = name;
 	edit_confirmation.style.display="flex";
 }
+let edit_confirmation_btn = edit_confirmation.querySelector("#sbt_btn");
+edit_confirmation_btn.addEventListener("click",()=>{
+	var param = new URLSearchParams(new FormData(edit_employee)).toString();
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = ()=>{
+		if(xhttp.status == 200 && xhttp.readyState == 4){
+			cancelEdit();
+			if (side_bar.classList.contains("active")){
+				side_bar.classList.remove("active");
+			}
+			$("#main_content").load("ViewAgencyPersonal #main_content #employee_card");
+		}
+	}
+	xhttp.open("post","EmployeeManagement");
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhttp.send(param);
+})

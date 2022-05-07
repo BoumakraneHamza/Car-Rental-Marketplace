@@ -41,12 +41,22 @@ public class BuildingManagement extends HttpServlet {
 		User user = (User) request.getSession().getAttribute("user");
 		if (user != null && user.getType().equals("directeur")) {
 			DAO dao = new DAO();
-			ArrayList<Employee> Employees = new ArrayList<Employee>();
-			Employees = dao.getAvailableEmployees(user.getNom(),request.getParameter("type"));
-			ObjectMapper mapper = new ObjectMapper();
-			String EmployeeList = mapper.writeValueAsString(Employees);
-			PrintWriter out = response.getWriter();
-			out.write(EmployeeList);
+			if(request.getParameter("required_action").equals("getAvailableEmployees")) {
+				ArrayList<Employee> Employees = new ArrayList<Employee>();
+				Employees = dao.getAvailableEmployees(user.getNom(),request.getParameter("type"));
+				ObjectMapper mapper = new ObjectMapper();
+				String EmployeeList = mapper.writeValueAsString(Employees);
+				PrintWriter out = response.getWriter();
+				out.write(EmployeeList);
+			}else if(request.getParameter("required_action").equals("getBuildingInfo")) {
+				System.out.println("entered");
+				Building building = new Building();
+				building = dao.getBuilding(request.getParameter("code"),request.getParameter("type"),user.getNom());
+				ObjectMapper mapper = new ObjectMapper();
+				String RequestedBuilding = mapper.writeValueAsString(building);
+				PrintWriter out = response.getWriter();
+				out.write(RequestedBuilding);
+			}
 		}
 	}
 

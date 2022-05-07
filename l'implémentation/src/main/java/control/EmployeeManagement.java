@@ -59,6 +59,7 @@ public class EmployeeManagement extends HttpServlet {
 		User user = (User) request.getSession().getAttribute("user");
 		DAO dao = new DAO();
 		Employee employee = new Employee();
+		int result = 0;
 		if (request.getParameter("required_action").equals("add")) {
 			String building = request.getParameter("location");
 			building = building.replace("Depot", "");
@@ -68,21 +69,25 @@ public class EmployeeManagement extends HttpServlet {
 			employee.setWorkingLocation(building);
 			employee.setAgencyName(user.getNom());
 			employee.setType(request.getParameter("type"));
-			dao.addEmployee(employee);
+			result = dao.addEmployee(employee);
 		}else if(request.getParameter("required_action").equals("delete")) {
-			int result = dao.deleteEmployee(request.getParameter("email"));
-			if (result == 1) {
-				response.setStatus(200);
-			}else {
-				response.setStatus(500);
-			}
-		}else if(request.getParameter("required_action").equals("delete")) {
-			employee.setEmail(request.getParameter("email"));
+			result = dao.deleteEmployee(request.getParameter("email"));
+		}else if(request.getParameter("required_action").equals("edit")) {
 			
-			employee.setWorkingLocation(request.getParameter("workingLocation"));
+			employee.setEmail(request.getParameter("email"));
+			employee.setPassword(request.getParameter("new_password"));
+			String building = request.getParameter("location");
+			building = building.replace("Depot", "");
+			building = building.replace("Office", "");
+			employee.setWorkingLocation(building);
 			employee.setType(request.getParameter("type"));
 			
-			dao.editEmployee(employee);
+			result = dao.editEmployee(employee);
+		}
+		if (result == 1) {
+			response.setStatus(200);
+		}else {
+			response.setStatus(500);
 		}
 	}
 }
