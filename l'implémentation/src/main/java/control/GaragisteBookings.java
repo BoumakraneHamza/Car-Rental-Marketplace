@@ -67,7 +67,7 @@ public class GaragisteBookings extends HttpServlet {
 			ObjectMapper mapper = new ObjectMapper();
 			ArrayList<Reservation> reservationList = null;
 			
-			reservationList = dao.getDepotReservations(user.getGaragisteInfo().getWorkingLocation(), request.getParameter("rangeStart"), request.getParameter("rangeEnd"));
+			reservationList = dao.getDepotReservations(user.getEmployement().getWorkingLocation(), request.getParameter("rangeStart"), request.getParameter("rangeEnd"));
 			String reservations = mapper.writeValueAsString(reservationList);
 			
 			out.print(reservations);
