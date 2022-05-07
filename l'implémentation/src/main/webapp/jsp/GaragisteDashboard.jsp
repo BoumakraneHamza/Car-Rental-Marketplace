@@ -54,20 +54,27 @@
 			<img style="width:24px;" src="${pageContext.request.contextPath}/assets/dashboard2-icon-purple.svg">
 			<p style="color:#0F56B3;" id="title">Dashboard</p>
 		</div>
-		<div class="menu-tab" onclick="location.href='${pageContext.request.contextPath}/ViewAgencyPersonal'">
-			<img style="width:24px;" src="${pageContext.request.contextPath}/assets/account-grey.svg">
-			<p id="title">Team Accounts</p>
+		<div class="menu-tab" onclick="location.href='${pageContext.request.contextPath}/GaragisteBookings'">
+			<img style="width:24px;" src="${pageContext.request.contextPath}/assets/ledger.svg">
+			<p id="title">Bookings</p>
 		</div>
-		<div class="menu-tab" onclick="location.href='${pageContext.request.contextPath}/ViewAgencyDepots'">
-			<img style="width:24px;" src="${pageContext.request.contextPath}/assets/building-icon-grey.svg">
-			<p id="title">Assets</p>
+		<div class="menu-tab" onclick="location.href='${pageContext.request.contextPath}/GaragisteCars'">
+			<img style="width:24px;" src="${pageContext.request.contextPath}/assets/coffee_cup.svg">
+			<p id="title">Reviews</p>
+		</div>
+		<div class="menu-tab" onclick="location.href='${pageContext.request.contextPath}/jsp/GaragisteProblems.jsp'">
+			<img style="width:13px;" src="${pageContext.request.contextPath}/assets/activity.svg">
+			<p id="title">Problems</p>
 		</div>
 	</div>
 	<div class="main-frame">
 	<div class="top_main_frame">
 	<div class="reservations">
 		<div id="tab_header">
-			<div id="tab_header_title">Bookings</div>
+			<div id="tab_header_title">
+				<img style="width:23px;" src="${pageContext.request.contextPath}/assets/ledger-black.svg">
+				<p>Bookings</p>
+			</div>
 			<div id="tab_right_corner">
 				<div id="summary">
 					<div id="tile">
@@ -113,6 +120,7 @@
 	</div>
 	<div class="performance_card">
 		<div class="card_header">
+			<img style="width:23px;" src="${pageContext.request.contextPath}/assets/coffee_cup_black.svg">
 			<p id="title">Reviews Target</p>
 		</div>
 		<div class="multigraph">
@@ -155,6 +163,7 @@
 		</div>
 		<div class="Reported_problems">
 			<div class="reported_tab_header">
+				<img style="width: 10px;" src="${pageContext.request.contextPath}/assets/activity-black.svg">
 				<p id="title">Recent Problems</p>
 			</div>
 			<div class="Report_list">

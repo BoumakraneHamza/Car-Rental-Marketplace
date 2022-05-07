@@ -6,13 +6,17 @@ menu.addEventListener("mouseenter",()=>{
 	menu.classList.toggle("active");
 	for(let key= 0; key < menuBtns.length ; key++){
 		menuBtns.item(key).classList.toggle("active");
-		logo.classList.toggle("active");
+		if(!logo.classList.contains("active")){
+			logo.classList.toggle("active");
+		}
 	}
 });
 menu.addEventListener("mouseleave",()=>{
 	menu.classList.toggle("active");
 	for(let key= 0; key < menuBtns.length ; key++){
 		menuBtns.item(key).classList.toggle("active");
-		logo.classList.toggle("active");
+		if(logo.classList.contains("active")){
+			logo.classList.toggle("active");
+		}
 	}
 });

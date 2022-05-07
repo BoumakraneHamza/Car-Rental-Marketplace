@@ -30,8 +30,9 @@
 </head>
 <body>
 <div class="header">
-	<div id="logo">
-		<a href="${pageContext.request.contextPath}/Dashboard"><img src="${pageContext.request.contextPath}/assets/logoBlack.svg"></a>
+	<div class="logo" onclick="location.href='${pageContext.request.contextPath}/Dashboard'">
+		<img src="${pageContext.request.contextPath}/assets/logoBlack.svg">
+		<p id="logo_title">Unique</p>
 	</div>
 	<div class="user">
 	<img id="notification" src="${pageContext.request.contextPath}/assets/notification.svg">
@@ -44,14 +45,29 @@
 		</div>
 		<div id="dropdownlist">
 			<img src="${pageContext.request.contextPath}/assets/angle-down-solid.svg">
-			</div>
-			
+		</div>
+		
+	</div>
+</div>
+<div class="content">
+	<div class="menu">
+		<div class="menu-tab" onclick="location.href='${pageContext.request.contextPath}/Dashboard'">
+			<img style="width:24px;" src="${pageContext.request.contextPath}/assets/dashboard2-icon.svg">
+			<p id="title">Dashboard</p>
+		</div>
+		<div class="menu-tab" onclick="location.href='${pageContext.request.contextPath}/GaragisteBookings'">
+			<img style="width:24px;" src="${pageContext.request.contextPath}/assets/ledger.svg">
+			<p id="title">Bookings</p>
+		</div>
+		<div class="menu-tab" onclick="location.href='${pageContext.request.contextPath}/GaragisteCars'">
+			<img style="width:24px;" src="${pageContext.request.contextPath}/assets/coffee_cup.svg">
+			<p id="title">Reviews</p>
+		</div>
+		<div class="menu-tab" style="background: #C5DCFA;" onclick="location.href='${pageContext.request.contextPath}/jsp/GaragisteProblems.jsp'">
+			<img style="width:13px;" src="${pageContext.request.contextPath}/assets/activity-purple.svg">
+			<p style="color:#0F56B3;" id="title">Problems</p>
 		</div>
 	</div>
-<div class="content">
-		<div class="menu">
-			<button class="dashboard"><a href="${pageContext.request.contextPath}/Dashboard"><img src="${pageContext.request.contextPath}/assets/dashboard-icon.svg"></a></button>
-		</div>
 	<div class="main-frame">
 		<div class="main-frame-header">
 			<p id="main-frame-title">Reported Problems</p>
@@ -130,6 +146,7 @@
 		</div>
 	</div>
 </div>
+<script src="${pageContext.request.contextPath}/js/ClientMain.js"></script>
 <script src="${pageContext.request.contextPath}/js/GaragisteProblems.js"></script>
 <%@include file="/jsp/dropdownList.jsp"%>
 </body>

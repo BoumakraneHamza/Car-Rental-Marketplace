@@ -26,8 +26,9 @@
 </head>
 <body>
 <div class="header">
-	<div id="logo">
-		<a href="${pageContext.request.contextPath}/Dashboard"><img src="${pageContext.request.contextPath}/assets/logoBlack.svg"></a>
+	<div class="logo" onclick="location.href='${pageContext.request.contextPath}/Dashboard'">
+		<img src="${pageContext.request.contextPath}/assets/logoBlack.svg">
+		<p id="logo_title">Unique</p>
 	</div>
 	<div class="user">
 	<img id="notification" src="${pageContext.request.contextPath}/assets/notification.svg">
@@ -40,13 +41,20 @@
 		</div>
 		<div id="dropdownlist">
 			<img src="${pageContext.request.contextPath}/assets/angle-down-solid.svg">
-			</div>
-			
 		</div>
+		
 	</div>
+</div>
 <div class="content">
 	<div class="menu">
-		<button class="dashboard" style="background: #F6AA1C;"><a href="${pageContext.request.contextPath}/Dashboard"><img src="${pageContext.request.contextPath}/assets/dashboard-icon-white.svg"></a></button>	
+		<div class="menu-tab" style="background: #C5DCFA;" onclick="location.href='${pageContext.request.contextPath}/Dashboard'">
+			<img style="width:24px;" src="${pageContext.request.contextPath}/assets/dashboard2-icon-purple.svg">
+			<p style="color:#0F56B3;" id="title">Dashboard</p>
+		</div>
+		<div class="menu-tab" onclick="location.href='${pageContext.request.contextPath}/SecretarySchedule'">
+			<img style="width:24px;" src="${pageContext.request.contextPath}/assets/application.svg">
+			<p id="title">Schedule</p>
+		</div>
 	</div>
 	<div class="main-frame">
 		<div class="next_Appointment">
@@ -316,6 +324,7 @@
 			</div>
 		</c:when>
 	</c:choose>
+<script src="${pageContext.request.contextPath}/js/ClientMain.js"></script>
 <script src="${pageContext.request.contextPath}/js/SecretaryDashboard.js"></script>
 <%@include file="/jsp/dropdownList.jsp"%>
 <%@include file="/jsp/UserBanner.jsp"%>

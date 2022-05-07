@@ -1,5 +1,5 @@
 .main-frame{
-    width: calc(100vw - 50px);
+	width: calc(100vw - 60px);
     height: calc(100vh - 55px);
     display: flex;
     flex-direction: column;
@@ -35,6 +35,11 @@
     font-size: 20px;
     font-weight: 600;
     margin-left: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 10px;
 }
 .main-frame .top_main_frame .reservations #tab_header #tab_right_corner {
     display: flex;
@@ -188,12 +193,18 @@
     flex-wrap: nowrap;
 }
 .main-frame .top_main_frame .performance_card .card_header {
-    padding: 0px 10px 10px;
-	border-bottom: 2px solid #E4E4E4;
+	padding: 0px 10px 10px;
+    border-bottom: 2px solid #E4E4E4;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 10px;
 }
 .main-frame .top_main_frame .performance_card .card_header #title {
     font-size: 17px;
     font-weight: 500;
+	line-height: 14px;
 }
 .main-frame .top_main_frame .performance_card #percentile {
     font-size: 25px;
@@ -307,10 +318,15 @@
     justify-content: space-between;
 }
 .main-frame .bottom_main_frame .Reported_problems .reported_tab_header {
-    padding: 10px;
+	padding: 10px;
     font-size: 16px;
     font-weight: 500;
     border-bottom: 2px solid #E4E4E4;
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
 }
 .main-frame .bottom_main_frame .Reported_problems .Report_list {
 	display: flex;

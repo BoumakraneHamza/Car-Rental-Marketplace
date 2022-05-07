@@ -11,32 +11,41 @@
 </head>
 <body>
 <div class="header">
-		<div id="logo">
-			<a href="${pageContext.request.contextPath}/Dashboard"><img src="${pageContext.request.contextPath}/assets/logoBlack.svg"></a>
+	<div class="logo" onclick="location.href='${pageContext.request.contextPath}/Dashboard'">
+		<img src="${pageContext.request.contextPath}/assets/logoBlack.svg">
+		<p id="logo_title">Unique</p>
+	</div>
+	<div class="user">
+	<img id="notification" src="${pageContext.request.contextPath}/assets/notification.svg">
+	<div id="user-image">
+		<img style="width: 40px;" src="${pageContext.request.contextPath}${user.image}">
+	</div>
+		<div id="user-info">
+			<p id="full-name">${user.nom} ${user.prenom}</p>
+			<p id="user-name">${user.user_name}</p>
 		</div>
-		<div class="user">
-		<img id="notification" src="${pageContext.request.contextPath}/assets/notification.svg">
-		<div id="user-image">
-			<img style="width: 40px;" src="${pageContext.request.contextPath}${user.image}">
+		<div id="dropdownlist">
+			<img src="${pageContext.request.contextPath}/assets/angle-down-solid.svg">
 		</div>
-			<div id="user-info">
-				<p id="full-name">${user.nom} ${user.prenom}</p>
-				<p id="user-name">${user.user_name}</p>
-			</div>
-			<div id="dropdownlist">
-				<img src="${pageContext.request.contextPath}/assets/angle-down-solid.svg">
-			</div>
-			
+		
+	</div>
+</div>
+<div class="content">
+	<div class="menu">
+		<div class="menu-tab" onclick="location.href='${pageContext.request.contextPath}/CarSearch'">
+			<img style="width:20px;" src="${pageContext.request.contextPath}/assets/home.svg">
+			<p id="title">Explore</p>
+		</div>
+		<div class="menu-tab" onclick="location.href='${pageContext.request.contextPath}/ReservationList'">
+			<img style="width:21px;" src="${pageContext.request.contextPath}/assets/ledger.svg">
+			<p id="title">Bookings</p>
+		</div>
+		<div class="menu-tab" style="background: #C5DCFA;" onclick="location.href='${pageContext.request.contextPath}/ClientPayment'">
+			<img style="width:21px;" src="${pageContext.request.contextPath}/assets/payment-icon-purple.svg">
+			<p style="color:#0F56B3;" id="title">Payment</p>
 		</div>
 	</div>
-<div class="content">
-		<div class="menu">
-			<button class="search"><a href="${pageContext.request.contextPath}/CarSearch"><img src="${pageContext.request.contextPath}/assets/search-icon.svg"></a></button>
-			<button class="dashboard"><a href="${pageContext.request.contextPath}/Dashboard"><img src="${pageContext.request.contextPath}/assets/dashboard-icon.svg"></a></button>
-			<button class="inbox"><a href="${pageContext.request.contextPath}/Inbox"><img src="${pageContext.request.contextPath}/assets/inbox.svg"></a></button>
-			<button class="payment" style="background: #F6AA1C;"><a href="${pageContext.request.contextPath}/ClientPayment"><img src="${pageContext.request.contextPath}/assets/Wallet-white.svg"></a></button>
-		</div>
-		<div class="main-frame">
+	<div class="main-frame">
 			<div class="payment-content">
 				<div id="payment_details">
 						<p id="main-title">Personal Cards</p>
@@ -179,6 +188,7 @@
 			</div>
 		</div>
 	</div>
+<script src="${pageContext.request.contextPath}/js/ClientMain.js"></script>
 <script src="${pageContext.request.contextPath}/js/ClientPayment.js"></script>
 	<%@include file="/jsp/dropdownList.jsp"%>
 	<%@include file="/jsp/addCard.jsp"%>

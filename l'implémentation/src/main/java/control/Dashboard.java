@@ -43,27 +43,8 @@ public class Dashboard extends HttpServlet {
 			
 			if (user.getType().equals("client")) {
 				url = url + "/";
-				url = url + "jsp/ClientDashboard.jsp";
-				CreditCards card = null;
-				//this code attribute is used in case of returning from the booking process
-				//trying to extend the status attribute to the jsp page
-				request.setAttribute("status", request.getAttribute("status"));
-				InboxReturn inbox = new InboxReturn();
-				inbox = dao.getRecievedMessages(user.getEmail());
-				request.setAttribute("conversation", inbox.conversation);
-				request.setAttribute("counter", inbox.NotReadMessages);
-				Random rand = new Random();
-				Integer random = rand.nextInt(25);
-				request.setAttribute("random", random);
-				try {
-					card = dao.getDefaultCard(user.getEmail());
-				} catch (InstantiationException | IllegalAccessException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				request.setAttribute("card", card);
-				RequestDispatcher dispatcher = request.getRequestDispatcher(url);
-				dispatcher.forward(request, response);
+				url = url + "Atelier/CarSearch";
+				response.sendRedirect(url);
 			} else if (user.getType().equals("directeur")) {
 				url = url + "/Atelier/";
 				url = url + "jsp/AgencyDashboard.jsp"; 
