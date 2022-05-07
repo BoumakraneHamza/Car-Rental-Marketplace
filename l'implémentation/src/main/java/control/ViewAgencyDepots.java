@@ -61,7 +61,7 @@ public class ViewAgencyDepots extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/AgencyBuildings.jsp");
 			dispatcher.forward(request, response);
 		} else {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/login.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/Login");
 			dispatcher.forward(request, response);
 		}
 	}

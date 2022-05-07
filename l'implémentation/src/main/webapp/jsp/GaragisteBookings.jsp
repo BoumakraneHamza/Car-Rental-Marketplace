@@ -52,7 +52,7 @@
 							<p>Export CSV</p>
 						</button>
 					</div>
-					<input id="range_picker" type="text" name="range_picker">
+					<input id="range_picker" type="text" name="range_picker" onchange="filterByDate(this.value)">
 				</div>
 			</div>
 			<div class="main-frame-content">
@@ -62,22 +62,15 @@
 					<span>Pick_up date</span>
 					<span>Return date</span>
 				</div>
-				<div class="database-content">
+				<div id="reservationsContainer" class="database-content">
 					<c:forEach items="${reservations}" var="reservation">
 						<div id="booking">
-							<span>${reservation.id }${reservation.renterName }</span>
+							<span>${reservation.renterName }</span>
 							<span>${reservation.carName }</span>
 							<span>${reservation.pick_up_date }, ${reservation.pick_up_hour }</span>
 							<span>${reservation.return_date }, ${reservation.return_hour }</span>
 						</div>
 					</c:forEach>
-					<div id="booking" style="background-color:blue">this is a template
-						<span>Nathanial Olson</span>
-						<span>Mini cooper S</span>
-						<span>20 Dec , 10:00 AM</span>
-						<span>25 Dec , 12:00 AM</span>
-					</div>
-					
 				</div>
 			</div>
 		</div>

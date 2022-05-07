@@ -53,7 +53,7 @@ public class ProfileStateManager extends HttpServlet {
 					request.setAttribute("user", user);
 					ObjectMapper mapper = new ObjectMapper();
 					HashMap<String, Integer> stat = null;
-					ArrayList<Reservation> reservations = dao.getDepotReservations(user.getGaragisteInfo().getWorkingLocation(), true, 5);
+					ArrayList<Reservation> reservations = dao.getDepotReservations(user.getGaragisteInfo().getWorkingLocation(), 5);
 					request.setAttribute("reservations", reservations);
 					
 					stat = dao.depotCarStatByMarque(user.getGaragisteInfo().getWorkingLocation());

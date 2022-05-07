@@ -33,7 +33,6 @@ public class DAO {
 			System.out.println("can not connectt to database...");
 		}
 		return connection;
-		
 	}
 	
 	public User checkLogin(String email, String password)
@@ -1967,10 +1966,18 @@ public class DAO {
 		return counter;
 	}
 	public ArrayList<Reservation> getDepotReservations(String depotCode) {
-		return getDepotReservations(depotCode, false, 0);
+		return getDepotReservations(depotCode, null, null, 0);
 	}
 	
-	public ArrayList<Reservation> getDepotReservations(String depotCode, boolean upComing, int limit) {
+	public ArrayList<Reservation> getDepotReservations(String depotCode, int limit) {
+		return getDepotReservations(depotCode, null, null, limit);
+	}
+	
+	public ArrayList<Reservation> getDepotReservations(String depotCode, String begin, String end) {
+		return getDepotReservations(depotCode, begin, end, 0);
+	}
+	
+	public ArrayList<Reservation> getDepotReservations(String depotCode, String begin, String end, int limit) {
 		String query;
 		ArrayList<Reservation> reservations = new ArrayList<Reservation>();
 		PreparedStatement statement;
@@ -1978,7 +1985,7 @@ public class DAO {
 		ResultSet result;
 		try {
 			connectDB();
-			if (upComing) {
+			if (begin == null && end == null) {
 				query = "SELECT *, TIMEDIFF(CONCAT(date_1, \" \", hour_1), NOW()) AS `timeLeft`\r\n"
 						+ "FROM reservation AS r\r\n"
 						+ "JOIN vehicule AS v ON r.vehicule_matricule = v.matricule\r\n"
@@ -1992,14 +1999,20 @@ public class DAO {
 						+ "JOIN vehicule AS v ON r.vehicule_matricule = v.matricule\r\n"
 						+ "JOIN client AS c ON r.locataire_email = c.email\r\n"
 						+ "WHERE depot_code = ?\r\n"
+						+ "AND timediff(CONCAT(date_1, \" \", hour_1), ?) >= 0\r\n"
+						+ "AND timediff(?, CONCAT(date_1, \" \", hour_1)) > 0\r\n"
 						+ "ORDER BY CONCAT(date_1, \" \", hour_1) ASC";
 			}
 			if (limit != 0) {
-				query = query + " limit " + limit;//start from here TODO
+				query = query + " limit " + limit;
 			}
 			
 			statement = connection.prepareStatement(query);
 			statement.setString(1, depotCode);
+			if (begin != null && end != null) {
+				statement.setString(2, begin);
+				statement.setString(3, end);
+			}
 			result = statement.executeQuery();
 			
 			
@@ -2024,7 +2037,7 @@ public class DAO {
 				reservation.setCarImage(result.getString("v.image"));
 				reservation.setRenterName(result.getString("nom") + " " + result.getString("prenom"));
 				reservation.setRenterImage(result.getString("c.image"));
-				if (upComing) {
+				if (begin == null && end == null) {
 					reservation.setTimeLeft(result.getString("timeLeft"));
 				}
 				

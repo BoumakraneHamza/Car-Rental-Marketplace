@@ -67,11 +67,12 @@ let char3 = new Chart(stat3 ,{
 			label:'active hours',
 			data:Object.values(stat3Data),
 			backgroundColor: [
-		      '#8fc73e',
-		      '#527c85',
-		      '#9cb5ba',
-			  '#B56576',
-			  '#E56B6F',
+				'#85836f',
+				'#8fc73e',
+				'#527c85',
+				'#9cb5ba',
+				'#B56576',
+				'#E56B6F'
 		    ],
 			hoverOffset: 6,
 		}]

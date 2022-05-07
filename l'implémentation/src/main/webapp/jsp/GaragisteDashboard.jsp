@@ -87,7 +87,6 @@
 			</div>
 		</div>
 		<div class="tab_slider">
-				
 			<c:forEach items="${reservations}" var="reservation">
 				<div class="booking_card">
 					<div class="date">
@@ -110,27 +109,6 @@
 					</div>
 				</div>
 			</c:forEach>
-			
-			<div class="booking_card" style="background-color:blue">this is a template
-				<div class="date">
-					<div id="pick_up"><p id="main_date">Dec 10, 10:00</p><p>AM</p></div>
-					<p id="remaining_time">2 hours</p>
-				</div>
-				<div id="vehicule">
-					<p id="card_tab_title">vehicule</p>
-					<p id="car_name">Mini Cooper Modele S</p>
-				</div>
-				<div id="renter">
-					<p id="card_tab_title">Renter</p>
-					<div id="renter_tile" onclick="showProfile(this)">
-					<input id="client_email" type="hidden" value="Hamza@gmail.com">
-						<div id="renter_image">
-							<img style="width:40px;" src="${pageContext.request.contextPath}/assets/profile_pics/hamzagmail.jpg">
-						</div>
-						<p id="renter_name">Nathanial Olson</p>
-					</div>
-				</div>
-			</div>
 		</div>
 	</div>
 	<div class="performance_card">
