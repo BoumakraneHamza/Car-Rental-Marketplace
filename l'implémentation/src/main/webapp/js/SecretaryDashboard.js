@@ -104,6 +104,12 @@ let activities_list = document.querySelector("#schedule_list");
 function create_Upcoming_Acts(){
 	clearChild(activities_list);
 	let keys = Array.from( map.keys());
+	if(keys[0]=="Invalid Date"){
+		let info_warning = document.querySelector("p");
+		info_warning.setAttribute("id","info_warning");
+		info_warning.innerHTML = "No Upcoming Activities";
+		activities_list.append(info_warning);
+	}else{
 	for (let i=0;i<keys.length;i++){
 		const activity_date = document.createElement("div");
 		activity_date.setAttribute("id","activity_date");
@@ -171,6 +177,7 @@ function create_Upcoming_Acts(){
 			activity_list.append(appt);
 		}
 		activities_list.append(activity_list);
+	}
 	}
 }
 function getData(){

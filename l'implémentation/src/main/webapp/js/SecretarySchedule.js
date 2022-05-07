@@ -17,6 +17,7 @@ function load(){
 	let month;
 	let year;
 	for(let i=nav;i<5+nav;i++){
+		console.log(nav);
 		let day_count = document.createElement('div');
 		day_count.setAttribute('id','day_count');
 		let weekday = new Date(currentYear,dt.getMonth(),dt.getDate()+i).toLocaleDateString('en-GB',{
@@ -171,7 +172,13 @@ function initButtons(){
 const activities_list = document.querySelector("#activities_list");
 function create_Upcoming_Acts(){
 	clearChild(activities_list);
-	let keys = Array.from( map.keys());
+	let keys = Array.from(map.keys());
+	if(keys[0]=="Invalid Date"){
+		let info_warning = document.querySelector("p");
+		info_warning.setAttribute("id","info_warning");
+		info_warning.innerHTML = "No Upcoming Activities";
+		activities_list.append(info_warning);
+	}else{
 	for (let i=0;i<keys.length;i++){
 		const activity_date = document.createElement("div");
 		activity_date.setAttribute("id","activity_date");
@@ -234,12 +241,13 @@ function create_Upcoming_Acts(){
 		}
 		activities_list.append(activity_list);
 	}
+	}
 }
 function getData(){
 	let xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function(){
 		if (this.readyState == 4 && this.status == 200) {
-			let data = JSON.parse(this.responseText);  
+			let data = JSON.parse(this.responseText);
 			json = data[0];
 			let Upcoming = data[1];
 			let firstIndex;

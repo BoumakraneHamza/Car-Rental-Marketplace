@@ -23,6 +23,15 @@
 		border-top:none;
 	}
 </style>
+<c:choose>
+	<c:when test="${map.size() == 0}">
+	<style type="text/css">
+		.main-frame .next_Appointment #tab_content {
+	    	filter: blur(4px);
+		}
+	</style>
+	</c:when>
+</c:choose>
 </head>
 <body>
 <div class="header">
@@ -82,76 +91,153 @@
 					</div>
 			</div>
 			</div>
-			<c:forEach items="${map.keySet()}" var="key">
-				<div id="tab_content">
-				<div id="main_content">
-					<div id="client_image">
-						<img style="width:185px;" src="${pageContext.request.contextPath}${map.get(key).image}">
+			<c:choose>
+				<c:when test="${map.size() > 0}">
+					<c:forEach items="${map.keySet()}" var="key">
+						<div id="tab_content">
+						<div id="main_content">
+							<div id="client_image">
+								<img style="width:185px;" src="${pageContext.request.contextPath}${map.get(key).image}">
+							</div>
+							<div id="client_main_info">
+								<div id="tile">
+									<p id="title">N° Reservations :</p>
+									<p id="value">${counter}</p>
+								</div>
+								<div id="tile">
+									<p id="title">N° warnings :</p>
+									<p id="value">${map.get(key).alert}</p>
+								</div>
+							</div>
+						</div>
+						<div id="secondary_content">
+							<div id="content_header">
+								<div id="left">
+									<div id="renter_name_status">
+										<div id="Renter_name" onclick="showProfile(this)"><p>${map.get(key).nom} ${map.get(key).prenom}</p><input id="client_email" type="hidden" value="${map.get(key).email}"></div>
+										<div id="status"><img style="width:20px;" src="${pageContext.request.contextPath}/assets/check-circle-not-fill.svg"><p id="value">Active</p></div>
+									</div>
+									<div id="renter_age_gender">
+										<p id="Age">${age} Yrs,</p>
+										<p id="gender"> ${map.get(key).sexe}</p>
+									</div>
+								</div>
+								<div id="right">
+									<button id="start_appt"><img style="width:25px;" src="${pageContext.request.contextPath}/assets/open-circle.svg"><p id="title">Start Appointment</p></button>	
+								</div>
+							</div>
+							<div id="content_middle">
+								<div id="left">
+									<div id="tile">
+										<p id="title">Scheduled Appt</p>
+										<p id="value">${key}</p>
+									</div>
+								</div>
+								<div id="middle">
+									<div id="tile">
+										<p id="title">Expiry Date (DD/MM/YY)</p>
+										<p id="value">11 Dec 2022</p>
+									</div>
+								</div>
+								<div id="right">
+									<div id="tile">
+										<p id="title">Referring Booking</p>
+										<p id="value" class="booking">Booking N° 203</p>
+									</div>
+								</div>
+							</div>
+							<div id="content-bottom">
+								<div id="left">
+									<div id="tile">
+										<p id="title">Customer Phone</p>
+										<p id="value">${map.get(key).telephone}</p>
+									</div>
+								</div>
+								<div id="right">
+									<div id="tile">
+										<p id="title">Customer Email</p>
+										<p id="value">${map.get(key).email}</p>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div id="client_main_info">
-						<div id="tile">
-							<p id="title">N° Reservations :</p>
-							<p id="value">${counter}</p>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
+						<div id="tab_content">
+						<div id="main_content">
+							<div id="client_image">
+								<img style="width:185px;" src="${pageContext.request.contextPath}/assets/profile_pics/hamzagmail.jpg">
+							</div>
+							<div id="client_main_info">
+								<div id="tile">
+									<p id="title">N° Reservations :</p>
+									<p id="value">${counter}</p>
+								</div>
+								<div id="tile">
+									<p id="title">N° warnings :</p>
+									<p id="value">${map.get(key).alert}</p>
+								</div>
+							</div>
 						</div>
-						<div id="tile">
-							<p id="title">N° warnings :</p>
-							<p id="value">${map.get(key).alert}</p>
+						<div id="secondary_content">
+							<div id="content_header">
+								<div id="left">
+									<div id="renter_name_status">
+										<div id="Renter_name" onclick="showProfile(this)"><p>${map.get(key).nom} ${map.get(key).prenom}</p><input id="client_email" type="hidden" value="${map.get(key).email}"></div>
+										<div id="status"><img style="width:20px;" src="${pageContext.request.contextPath}/assets/check-circle-not-fill.svg"><p id="value">Active</p></div>
+									</div>
+									<div id="renter_age_gender">
+										<p id="Age">${age} Yrs,</p>
+										<p id="gender"> ${map.get(key).sexe}</p>
+									</div>
+								</div>
+								<div id="right">
+									<button id="start_appt"><img style="width:25px;" src="${pageContext.request.contextPath}/assets/open-circle.svg"><p id="title">Start Appointment</p></button>	
+								</div>
+							</div>
+							<div id="content_middle">
+								<div id="left">
+									<div id="tile">
+										<p id="title">Scheduled Appt</p>
+										<p id="value">${key}</p>
+									</div>
+								</div>
+								<div id="middle">
+									<div id="tile">
+										<p id="title">Expiry Date (DD/MM/YY)</p>
+										<p id="value">11 Dec 2022</p>
+									</div>
+								</div>
+								<div id="right">
+									<div id="tile">
+										<p id="title">Referring Booking</p>
+										<p id="value" class="booking">Booking N° 203</p>
+									</div>
+								</div>
+							</div>
+							<div id="content-bottom">
+								<div id="left">
+									<div id="tile">
+										<p id="title">Customer Phone</p>
+										<p id="value">${map.get(key).telephone}</p>
+									</div>
+								</div>
+								<div id="right">
+									<div id="tile">
+										<p id="title">Customer Email</p>
+										<p id="value">${map.get(key).email}</p>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div id="secondary_content">
-					<div id="content_header">
-						<div id="left">
-							<div id="renter_name_status">
-								<div id="Renter_name" onclick="showProfile(this)"><p>${map.get(key).nom} ${map.get(key).prenom}</p><input id="client_email" type="hidden" value="${map.get(key).email}"></div>
-								<div id="status"><img style="width:20px;" src="${pageContext.request.contextPath}/assets/check-circle-not-fill.svg"><p id="value">Active</p></div>
-							</div>
-							<div id="renter_age_gender">
-								<p id="Age">${age} Yrs,</p>
-								<p id="gender"> ${map.get(key).sexe}</p>
-							</div>
-						</div>
-						<div id="right">
-							<button id="start_appt"><img style="width:25px;" src="${pageContext.request.contextPath}/assets/open-circle.svg"><p id="title">Start Appointment</p></button>	
-						</div>
+					<div id="no_content">
+						<p id="text">No Meetings</p>
 					</div>
-					<div id="content_middle">
-						<div id="left">
-							<div id="tile">
-								<p id="title">Scheduled Appt</p>
-								<p id="value">${key}</p>
-							</div>
-						</div>
-						<div id="middle">
-							<div id="tile">
-								<p id="title">Expiry Date (DD/MM/YY)</p>
-								<p id="value">11 Dec 2022</p>
-							</div>
-						</div>
-						<div id="right">
-							<div id="tile">
-								<p id="title">Referring Booking</p>
-								<p id="value" class="booking">Booking N° 203</p>
-							</div>
-						</div>
-					</div>
-					<div id="content-bottom">
-						<div id="left">
-							<div id="tile">
-								<p id="title">Customer Phone</p>
-								<p id="value">${map.get(key).telephone}</p>
-							</div>
-						</div>
-						<div id="right">
-							<div id="tile">
-								<p id="title">Customer Email</p>
-								<p id="value">${map.get(key).email}</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			</c:forEach>
+				</c:otherwise>
+			</c:choose>
 		</div>
 		<div class="Summary_Cards">
 			<div class="Schedule">
