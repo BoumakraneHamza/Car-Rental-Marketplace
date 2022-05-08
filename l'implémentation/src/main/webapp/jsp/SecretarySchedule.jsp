@@ -47,7 +47,6 @@
 		</div>
 		<div class="calendar_frame">
 			<div id="calendar_header">
-				
 				<div id="left">
 					<p id="calendar_month"></p>
 				</div>
@@ -249,6 +248,7 @@
 		<p id="subtitle">Don't miss scheduled activities</p>
 	</div>
 	<div id="activities_list">
+		<p id="info_warning">No Upcoming Activities</p>
 	</div>
 	</div>
 </div>

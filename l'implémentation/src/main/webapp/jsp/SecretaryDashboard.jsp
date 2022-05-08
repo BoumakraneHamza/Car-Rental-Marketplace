@@ -245,6 +245,7 @@
 					<p id="header_title">Upcoming_Schedule</p>
 				</div>
 				<div id="schedule_list">
+					<p id="info_warning">No Upcoming Activities</p>
 				</div>
 				<button id="View_Details" onclick="location.href='${pageContext.request.contextPath}/SecretarySchedule'">See All Activity</button>
 			</div>

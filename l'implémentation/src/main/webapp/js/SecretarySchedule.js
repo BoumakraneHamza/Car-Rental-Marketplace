@@ -17,7 +17,6 @@ function load(){
 	let month;
 	let year;
 	for(let i=nav;i<5+nav;i++){
-		console.log(nav);
 		let day_count = document.createElement('div');
 		day_count.setAttribute('id','day_count');
 		let weekday = new Date(currentYear,dt.getMonth(),dt.getDate()+i).toLocaleDateString('en-GB',{
@@ -39,9 +38,9 @@ function load(){
 		year = new Date(currentYear,dt.getMonth(),dt.getDate()+i).toLocaleDateString('en-GB',{
 			year:'numeric',
 		});
-		if(i == nav){
+		if(i == nav){	
 			let CurrDate = month +", "+ year;
-			const month_year = document.querySelector("#calendar_month");
+			let month_year = document.querySelector("#calendar_month");
 			month_year.innerHTML = CurrDate;	
 		}
 		let weektext = document.createElement("p");
@@ -171,14 +170,8 @@ function initButtons(){
 }
 const activities_list = document.querySelector("#activities_list");
 function create_Upcoming_Acts(){
-	clearChild(activities_list);
 	let keys = Array.from(map.keys());
-	if(keys[0]=="Invalid Date"){
-		let info_warning = document.querySelector("p");
-		info_warning.setAttribute("id","info_warning");
-		info_warning.innerHTML = "No Upcoming Activities";
-		activities_list.append(info_warning);
-	}else{
+	clearChild(activities_list);
 	for (let i=0;i<keys.length;i++){
 		const activity_date = document.createElement("div");
 		activity_date.setAttribute("id","activity_date");
@@ -241,7 +234,6 @@ function create_Upcoming_Acts(){
 		}
 		activities_list.append(activity_list);
 	}
-	}
 }
 function getData(){
 	let xhr = new XMLHttpRequest();
@@ -290,7 +282,9 @@ function getData(){
 				}
 				n++;
 			}
-			create_Upcoming_Acts();
+			if(map.keys.length>0){
+				create_Upcoming_Acts();
+			}
 			load();
 		}
 	};
