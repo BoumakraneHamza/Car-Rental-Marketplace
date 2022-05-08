@@ -6,6 +6,7 @@
 <head>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ClientMain.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reservationList.css">
+<script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <meta charset="UTF-8">
 <title>Bookings</title>
 </head>
@@ -46,92 +47,172 @@
 		</div>
 	</div>
 	<div class="main-frame">
-			<div class="header">
-				<div class="left">
-				<h4 style="font-size: 25px;font-weight: 500;">Bookings</h4>
-					<div id="filters">
-						<button id="All">All</button>
-						<button id="progress">In Progress</button>
-						<button id="Completed">Completed</button>
-					</div>
+		<div class="main_header">
+			<div id="section">
+				<div id="image_wrapper">
+					<img style="width:21px;" src="${pageContext.request.contextPath}/assets/arrow-icon-left-black.svg">
 				</div>
-				<div class="right">
-					<div id="searchBar">
-						<img src="${pageContext.request.contextPath}/assets/search-icon.svg">
-						<input type="text" placeholder="Search">
-					</div>
-				</div>
+				<p id="title">Your Bookings</p>
 			</div>
-			<div class="bookings">
-				<div class="table-header">
-					<p>Booking No</p>
-					<p>Status</p>
-					<p>Agency</p>
-					<p>Car</p>
-					<p>Dates</p>
-					<p>Hours</p>
-					<p>Total</p>
-				</div>
-				<div class="table-content">
-					<c:choose>
-						<c:when test="${reservationList.size() >0}">
-							<c:forEach var="i" begin="0" end="${reservationList.size()-1 < 0 ? 0 : reservationList.size()-1}" step="1">
-								<div class="full" >
-									<div class="Booking" id="${reservationList[i].getStatus()}" onclick="show_details(this)">
-										<p>${reservationList[i].getId()}</p>
-										<p>${reservationList[i].getStatus()}</p>
-										<p>${reservationList[i].getAgence()}</p>
-										<p>${reservationList[i].getVehicule()}</p>
-										<p>${reservationList[i].getPick_up_date()} - ${reservationList[i].getReturn_date()}</p>
-										<p>${reservationList[i].getPick_up_hour()} - ${reservationList[i].getReturn_hour()}</p>
-										<p>$ ${reservationList[i].getTotalAmount()}</p>
-									</div>
-									<div class="details">
-										<div id="car-image">
-											<img style="width:200px;height:134px;border-radius:10px;"src="${pageContext.request.contextPath}${reservationList[i].getCarImage()}">
-										</div>
-										<div id="info">
-											<div id="field">
-														<h4>Payment ID</h4>
-														<p>${reservationList[i].getPaymentId()}</p>
-											</div>
-											<div id="field">
-														<h4>Reservation Date</h4>
-														<p>${reservationList[i].getReservation_date()}</p>
-											</div>
-											<div id="field">
-														<h4>Pick-up depot</h4>
-														<p>depot #13</p>
-											</div>
-											<div id="field">
-														<h4>Pick-up address</h4>
-														<p>${reservationList[i].getLocation()}</p>
-											</div>
-										</div>
-										<div id="bill">
-													<h4>Contract</h4>
-													<a target="_blank" href="${pageContext.request.contextPath}${reservationList[i].contrat}">
-														<img src="${pageContext.request.contextPath}/assets/pdfFile.png">
-													</a>
-										</div>
-										<div id="amount">
-											<h4>Daily Price</h4>
-											<p>${reservationList[i].getPLJ()}</p>
-										</div>
-									</div>
-									</div>
-						</c:forEach>
-						</c:when>
-						<c:otherwise>
-							<p id="message">you have no Bookings history</p>
-						</c:otherwise>
-					</c:choose>
+			<div id="section">
+				<div id="search_bar">
+					<div id="search_icon_wrapper">
+						<img style="width: 19px;" src="${pageContext.request.contextPath}/assets/search-icon.svg">
+					</div>
+					<input type="text" placeholder="search" id="search_field">
 				</div>
 			</div>
 		</div>
+		<div class="filters">
+			<div class="tile">
+				<div id="tile_header">
+					<label>Status</label>
+					<div id="filter_header">
+						<div id="section">
+							<img src="${pageContext.request.contextPath}/assets/ledger.svg" style="width: 17px;">
+							<p>Show All</p>
+						</div>
+						<img style="width: 10px;" src="${pageContext.request.contextPath}/assets/up&down-grey.svg">
+					</div>
+				</div>
+			</div>
+			<div class="tile">
+				<div id="tile_header">
+					<label>Show Dates</label>
+					<div id="filter_header">
+						<div id="section">
+							<img style="width: 15px;" src="${pageContext.request.contextPath}/assets/date-icon-grey.svg">
+							<p>Show All</p>
+						</div>
+						<img style="width: 10px;" src="${pageContext.request.contextPath}/assets/up&down-grey.svg">
+					</div>
+				</div>
+			</div>
+			<div class="tile">
+				<div id="tile_header">
+					<label>Filter By Locations</label>
+					<div id="filter_header">
+						<div id="section">
+							<img style="width: 12px;" src="${pageContext.request.contextPath}/assets/location-grey.svg">
+							<p>All Locations</p>
+						</div>
+						<img style="width: 10px;" src="${pageContext.request.contextPath}/assets/up&down-grey.svg">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="tags_list">
+			<div class="add_tag_list" style="display:none;">
+				<div id="tab_header" style="display:none;">
+					<p id="title">Available tags</p>
+					<img style="width:11px;" src="${pageContext.request.contextPath}/assets/cancel-black.svg">
+				</div>
+				<div id="tag_list" style="display:none;">
+					<div id="tag_select">Premium</div>
+					<div id="tag_select">Compact</div>
+					<div id="tag_select">Suv</div>
+					<div id="tag_select">Coupe</div>
+					<div id="tag_select">Sedan</div>
+				</div>
+			</div>
+			<div class="new_tag" id="tag" onclick="showTags()">
+				<p>Add Tag</p>
+				<img style="width:10px;" src="${pageContext.request.contextPath}/assets/add-black.svg">
+			</div>
+			<div id="tag" >
+				<p id="text">Premium</p>
+				<img onclick="deleteTag(this)" id="cancel" style="width:9px;" src="${pageContext.request.contextPath}/assets/cancel-black.svg">
+			</div>
+			<div id="tag" >
+				<p id="text">Compact</p>
+				<img onclick="deleteTag(this)" id="cancel" style="width:9px" src="${pageContext.request.contextPath}/assets/cancel-black.svg">
+			</div>
+			<div id="tag" >
+				<p id="text">Suv</p>
+				<img onclick="deleteTag(this)" id="cancel" style="width:9px" src="${pageContext.request.contextPath}/assets/cancel-black.svg">
+			</div>
+		</div>
+		<div class="bookings_List">
+			<!--<div id="BookingTile">
+				<p id="header_date">April 10th-17th 2022</p>
+				<div id="booking_tile_content">
+					<div id="booking">
+						<div id="booking_info">
+							<div id="image_wrapper">
+								<img style="width: 110px;height: 70px;object-fit: cover;" src="${pageContext.request.contextPath}/assets/car_pics/car03.jpg">
+							</div>
+							<div id="text_wrapper">
+								<p id="car_name">Porche 911</p>
+								<p id="agency_name">Hertz</p>
+							</div>
+						</div>
+						<p id="type">Premium</p>
+						<div id="location">
+							<img src="${pageContext.request.contextPath}/assets/location-grey.svg">
+							<p id="location">Constantine</p>
+						</div>
+						<div id="date">
+							<img style="width: 22px;" src="${pageContext.request.contextPath}/assets/hour_icon_darkgrey.svg">
+							<div id="date_range">
+								<p>10th -</p>
+								<p>13th</p>
+							</div>
+						</div>
+						<div id="payment">
+							<img style="width: 20px;" src="${pageContext.request.contextPath}/assets/check-round-white.svg">
+							<p>Paid : $200</p>
+						</div>
+					</div>
+				</div>
+			</div> -->
+		</div>
+	</div>
+	<div class="sidebar">
+		<div class="Popular_cars">
+			<p id="tab_header">Popular Cars Nearby</p>
+			<div id="tab_list">
+				<div id="car">
+					<div id="image_wrapper">
+						<img style="width:75px;height:50px;object-fit:cover;" src="${pageContext.request.contextPath}/assets/car_pics/car03.jpg">
+					</div>
+					<div id="car_info">
+						<div id="tile">
+							<p id="car_name">Porche 911</p>
+							<p id="likes">287 likes</p>
+						</div>
+						<p id="address">Constantine - algeria</p>
+					</div>
+				</div>
+				<div id="car">
+					<div id="image_wrapper">
+						<img style="width:75px;height:50px;object-fit:cover;" src="${pageContext.request.contextPath}/assets/car_pics/car02.jpg">
+					</div>
+					<div id="car_info">
+						<div id="tile">
+							<p id="car_name">Peugot e-208GT</p>
+							<p id="likes">263 likes</p>
+						</div>
+						<p id="address">Constantine - algeria</p>
+					</div>
+				</div>
+				<div id="car">
+					<div id="image_wrapper">
+						<img style="width:75px;height:50px;object-fit:cover;" src="${pageContext.request.contextPath}/assets/car_pics/default01.jpg">
+					</div>
+					<div id="car_info">
+						<div id="tile">
+							<p id="car_name">Mini Cooper S</p>
+							<p id="likes">196 likes</p>
+						</div>
+						<p id="address">Constantine - algeria</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <script src="${pageContext.request.contextPath}/js/ClientMain.js"></script>
 <script src="${pageContext.request.contextPath}/js/reservationList.js"></script>
-	<%@include file="/jsp/dropdownList.jsp"%>
+<%@include file="/jsp/dropdownList.jsp"%>
 </body>
 </html>

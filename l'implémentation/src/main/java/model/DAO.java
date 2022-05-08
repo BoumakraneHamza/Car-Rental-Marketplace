@@ -425,15 +425,15 @@ public class DAO {
 		return cars;
 	}
 	
-	public ArrayList<Reservation> getReservation(String email) throws InstantiationException, IllegalAccessException{
+	public HashMap<String , Reservation> getReservation(String email) throws InstantiationException, IllegalAccessException{
 		String Query;
-		ArrayList<Reservation> reservationList = new ArrayList<Reservation>();
+		HashMap<String ,Reservation> reservationList = new HashMap<String , Reservation>();
 		PreparedStatement statement;
 		Reservation reservation = null;
 		ResultSet result;
 		try {
 			connectDB();
-			Query = "SELECT * from reservation where locataire_email = ?";
+			Query = "SELECT * from reservation where locataire_email = ? Order by date_1 asc";
 			statement = connection.prepareStatement(Query);
 			statement.setString(1, email);
 			result =statement.executeQuery();
@@ -451,14 +451,12 @@ public class DAO {
 				reservation.setLocation(result.getString("location"));
 				reservation.setVehicule(result.getString("vehicule_matricule"));
 				reservation.setContrat(result.getString("contrat"));
-				System.out.println(reservation.getVehicule());
 				Query = "SELECT * from vehicule where matricule = ?";
 				PreparedStatement statement2 = connection.prepareStatement(Query);
 				statement2.setString(1, reservation.getVehicule());
 				ResultSet result2 =statement2.executeQuery();
 				while(result2.next()) {
 					reservation.setVehicule(result2.getString("modele"));
-					System.out.println(reservation.getVehicule());
 					reservation.setPLH(result2.getInt("PLH"));
 					reservation.setPLJ(result2.getInt("PLJ"));
 					reservation.setCarImage(result2.getString("image"));
@@ -472,7 +470,7 @@ public class DAO {
 					reservation.setTotalAmount(result3.getInt("montant"));
 					reservation.setAgence(result3.getString("agence_name"));
 				}	
-				reservationList.add(reservation);
+				reservationList.put(reservation.getPick_up_date(), reservation);
 			}
 			statement.close();
 		}catch (SQLException e) {

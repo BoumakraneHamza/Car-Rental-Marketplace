@@ -1,7 +1,9 @@
 package control;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import model.DAO;
 import model.Reservation;
@@ -35,20 +39,27 @@ public class ReservationList extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) request.getSession().getAttribute("user");
 		if (user != null) {
-			request.setAttribute("user", user);
-
-			DAO dao = new DAO();
-			ArrayList<Reservation> reservationList = new ArrayList<Reservation>();
-			try {
-				reservationList = dao.getReservation(user.getEmail());
-				
-			} catch (InstantiationException | IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			if(request.getParameterMap().containsKey("required_action")) {
+				DAO dao = new DAO();
+				HashMap<String , Reservation> reservationMap = new HashMap<String, Reservation>();
+				int map_size = 0 ;
+				try {
+					reservationMap = dao.getReservation(user.getEmail());
+					map_size = reservationMap.size();
+				} catch (InstantiationException | IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				ObjectMapper mapper = new ObjectMapper();
+				String Map = mapper.writeValueAsString(reservationMap);
+				String output = "["+map_size+","+Map+"]";
+				PrintWriter out = response.getWriter();
+				out.write(output);
+			}else {
+				request.setAttribute("user", user);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/reservationList.jsp");
+				dispatcher.forward(request, response);
 			}
-			request.setAttribute("reservationList", reservationList);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/reservationList.jsp");
-			dispatcher.forward(request, response);
 		}else {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/login.jsp");
 			dispatcher.forward(request, response);
