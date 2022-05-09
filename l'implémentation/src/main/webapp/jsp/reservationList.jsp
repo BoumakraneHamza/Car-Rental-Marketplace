@@ -168,6 +168,55 @@
 		</div>
 	</div>
 	<div class="sidebar">
+		<div class="upcoming_bookings">
+			<div id="tab_header">
+				<p id="title">Upcoming bookings</p>
+				<div id="filter">
+					<div id="filter_header">
+						<div id="section">
+							<img src="${pageContext.request.contextPath}/assets/ledger.svg" style="width: 15px;">
+							<p>This Week</p>
+						</div>
+						<img style="width: 8px;" src="${pageContext.request.contextPath}/assets/up&down-grey.svg">
+					</div>
+				</div>
+			</div>
+			<div id="tab_content">
+				<div id="booking">
+					<div id="image_wrapper">
+						<img style="width:75px;height:50px;object-fit:cover;" src="${pageContext.request.contextPath}/assets/car_pics/car02.jpg">
+					</div>
+					<div id="text_wrapper">
+						<div id="row">
+							<p id="car_name">Porch 911</p>
+							<div id="payment">
+								<img style="width: 16px;" src="${pageContext.request.contextPath}/assets/check-round-white.svg">
+								<p>$200</p>
+							</div>
+						</div>
+						<p id="agency_name">Hertz</p>
+					</div>
+				</div>
+			</div>
+			<div id="tab_content">
+				<div id="booking">
+					<div id="image_wrapper">
+						<img style="width:75px;height:50px;object-fit:cover;" src="${pageContext.request.contextPath}/assets/car_pics/car02.jpg">
+					</div>
+					<div id="text_wrapper">
+						<div id="row">
+							<p id="car_name">Porch 911</p>
+							<div id="payment">
+								<img style="width: 16px;" src="${pageContext.request.contextPath}/assets/check-round-white.svg">
+								<p>$200</p>
+							</div>
+						</div>
+						<p id="agency_name">Hertz</p>
+					</div>
+				</div>
+			</div>
+			
+		</div>
 		<div class="Popular_cars">
 			<p id="tab_header">Popular Cars Nearby</p>
 			<div id="tab_list">
@@ -205,6 +254,37 @@
 							<p id="likes">196 likes</p>
 						</div>
 						<p id="address">Constantine - algeria</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="follow_agencies">
+			<p id="tab_header">Agencies to Follow</p>
+			<div id="tab_content">
+				<div id="agency">
+					<div id="image_wrapper">
+						<img style="width: 75px;height: 75px;object-fit: cover;" src="${pageContext.request.contextPath}/assets/agency_pics/hertz-logo.png">
+					</div>
+					<div id="text_wrapper">
+						<div id="row">
+							<p id="agency_name">Hertz</p>
+							<p id="follow_count">200 followers</p>
+						</div>
+						<p id="address">Constantine - algeria</p>
+						<button id="follow">Follow</button>
+					</div>
+				</div>
+				<div id="agency">
+					<div id="image_wrapper">
+						<img style="width: 75px;height: 75px;object-fit: cover;" src="${pageContext.request.contextPath}/assets/agency_pics/hertz-logo.png">
+					</div>
+					<div id="text_wrapper">
+						<div id="row">
+							<p id="agency_name">Hertz</p>
+							<p id="follow_count">200 followers</p>
+						</div>
+						<p id="address">Constantine - algeria</p>
+						<button id="follow">Follow</button>
 					</div>
 				</div>
 			</div>

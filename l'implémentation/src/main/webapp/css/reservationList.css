@@ -355,11 +355,116 @@
     flex-direction: column;
     flex-wrap: nowrap;
 }
-.sidebar .Popular_cars {
+.sidebar .upcoming_bookings {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding: 10px 20px;
+	border-bottom: 1px solid #E4E4E4;
+}
+.sidebar .upcoming_bookings #tab_header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+}
+.sidebar .upcoming_bookings #tab_header #title {
+    font-size: 17px;
+    font-weight: 600;
+    color: #2d2d2d;
+}
+.sidebar .upcoming_bookings #tab_header #filter {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
 }
+.sidebar .upcoming_bookings #tab_header #filter #filter_header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 10Px;
+    border: 2px solid #E4E4E4;
+    padding: 7px 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.sidebar .upcoming_bookings #tab_header #filter #filter_header #section {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    font-weight: 500;
+}
+.sidebar .upcoming_bookings #tab_content {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 5px;
+	padding: 10px 0px;
+}
+.sidebar .upcoming_bookings #tab_content #booking {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 10Px;
+}
+.sidebar .upcoming_bookings #tab_content #booking #image_wrapper {
+    width: 75px;
+    height: 50px;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 9px;
+}
+.sidebar .upcoming_bookings #tab_content #booking #text_wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: calc(100% - 75px);
+    gap: 10px;
+}
+.sidebar .upcoming_bookings #tab_content #booking #text_wrapper #row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+}
+.sidebar .upcoming_bookings #tab_content #booking #text_wrapper #row #car_name {
+    font-size: 16px;
+    font-weight: 600;
+}
+.sidebar .upcoming_bookings #tab_content #booking #text_wrapper #agency_name {
+    font-size: 16px;
+    font-weight: 500;
+    color: #C4C4C4;
+    cursor: pointer;
+    line-height: 12px;
+}
+.sidebar .upcoming_bookings #tab_content #booking #text_wrapper #row #payment {
+    background: #d2cf9f;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    padding: 3px 8px;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+}
+.sidebar .Popular_cars {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    border-bottom: 1px solid #E4E4E4;
+    padding-bottom: 10px;
+}
+
 .sidebar .Popular_cars #tab_header {
     padding: 10px 20px;
     font-size: 17px;
@@ -407,4 +512,78 @@
     font-weight: 500;
     color: #C4C4C4;
     width: fit-content;
+}
+.sidebar .follow_agencies {
+    padding: 0px 20px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.sidebar .follow_agencies #tab_header {
+    font-size: 17px;
+    font-weight: 600;
+    color: #2d2d2d;
+    padding: 10px 0px;
+}
+.sidebar .follow_agencies #tab_content {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+	gap: 25px;
+}
+.sidebar .follow_agencies #tab_content #agency {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 10px;
+}
+.sidebar .follow_agencies #tab_content #agency #image_wrapper {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    box-shadow: 0px 4px 20px 0px #efefef;
+    overflow: hidden;
+}
+.sidebar .follow_agencies #tab_content #agency #text_wrapper {
+	display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    width: calc(100% - 85px);
+}
+.sidebar .follow_agencies #tab_content #agency #text_wrapper #row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    width: -webkit-fill-available;
+}
+.sidebar .follow_agencies #tab_content #agency #text_wrapper #row #agency_name {
+    font-size: 16px;
+    font-weight: 600;
+}
+.sidebar .follow_agencies #tab_content #agency #text_wrapper #row #follow_count {
+    font-size: 15px;
+    font-weight: 500;
+    color: #C4C4C4;
+}
+.sidebar .follow_agencies #tab_content #agency #text_wrapper #address {
+    font-size: 14px;
+    font-weight: 500;
+    color: #C4C4C4;
+}
+.sidebar .follow_agencies #tab_content #agency #text_wrapper #follow {
+    background: #fec04d;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    border: none;
+    width: 100px;
+    height: 35px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top:10px;
 }
