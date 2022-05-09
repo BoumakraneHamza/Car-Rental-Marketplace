@@ -1,9 +1,9 @@
 input[type='checkbox'],input[type='radio'] {
-	 --active: #B8B08D;
+	 --active: #0071ff;
 	 --active-inner: #fff;
-	 --focus: 2px #B8B08D;
+	 --focus: 2px #0071ff;
 	 --border: #bbc1e1;
-	 --border-hover: #B8B08D;
+	 --border-hover: #0071ff;
 	 --background: #fff;
 	 --disabled: #f6f8ff;
 	 --disabled-inner: #e1e6f9;

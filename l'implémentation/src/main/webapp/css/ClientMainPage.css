@@ -1,0 +1,353 @@
+.content{
+	background: #fff;
+}
+.main-frame {
+    width: calc(75vw - 50px);
+    height: calc(100vh - 55px);
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    position: relative;
+}
+.main-frame .seach_section {
+    background: #fff;
+    display: flex;
+    height: 70px;
+    flex-direction: row;
+    align-items: center;
+    border-bottom: 1px solid #E4E4E4;
+    padding: 0px 20px;
+	border-right: 1px solid #E4E4E4;
+}
+.main-frame .seach_section #search_bar {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    height: 100%;
+    width: 50%;
+    position:relative;
+}
+.main-frame .seach_section #search_bar #erase_search {
+    position: absolute;
+    right: 3%;
+    width: 18px;
+    cursor: pointer;
+    visibility: hidden;
+}
+.main-frame .seach_section #search_bar:focus-within #erase_search{
+	visibility:visible;
+}
+.main-frame .seach_section #search_bar #image_wrapper {
+    display: flex;
+    width: 50px;
+    height: 100%;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+.main-frame .seach_section #search_bar #location_input {
+	height: 100%;
+    width: calc(100% - 50px);
+    font-family: 'Poppins', sans-serif;
+    font-size: 30px;
+    color: #000;
+    font-weight: 400;
+    padding: 0px 10px;
+    border: none;
+    border-right: 1px solid #E4E4E4;
+}
+.main-frame .seach_section #search_bar #location_input:focus{
+	outline:none;
+}
+.main-frame .seach_section #search_bar #location_input::placeholder{
+	color:#C4C4C4;
+}
+.main-frame .seach_section #range_picker {
+	height: 100%;
+    font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    padding: 10px 20px;
+    width: 40%;
+    border: none;
+    cursor: pointer;
+    border-right: 1px solid #E4E4E4;
+}
+.main-frame .seach_section #range_picker:focus{
+	outline:none;
+}
+.main-frame .seach_section #minimize_wrapper {
+	margin-left: 4%;
+    background: #0071ff;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    transform: rotate(90deg);
+    cursor:pointer;
+}
+.main-frame .main_content {
+    width: 100%;
+    height: calc(100vh - 125px);
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+}
+.main-frame .main_content .filter {
+    background: #fff;
+    padding: 10px 25px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 15px;
+}
+.main-frame .main_content .filter #map_toggle {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+}
+.main-frame .main_content .filter #map_toggle #text {
+    display: flex;
+    gap: 5px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    font-size: 16px;
+}
+.main-frame .main_content .filter #map_toggle #text #title {
+    font-weight: 600;
+    font-size: 20px;
+}
+.main-frame .main_content .filter #car-type #option {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin: 15px 0px;
+    justify-content: space-between;
+}
+.main-frame .main_content .filter  #slider {
+    width: 100%;
+}
+.main-frame .main_content .filter #rating #rating_list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 5px;
+}
+.main-frame .main_content .filter #rating #rating_list #tile {
+    display: flex;
+    border: 1px solid #E4E4E4;
+    width: 45px;
+    height: 40px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    gap: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    position:relative;
+}
+.main-frame .main_content .filter #rating #rating_list #tile img{
+	visibility:hidden;
+}
+.main-frame .main_content .filter #rating #rating_list #tile input[type="radio"]{
+	width:100%;
+	height:100%;
+	position:absolute;
+	z-index:3;
+	opacity:0;
+}
+.main-frame .main_content .filter #rating #rating_list #tile #value{
+	position:absolute;
+}
+.main-frame .main_content .filter #rating #rating_list #tile input[type="radio"]:checked~ img{
+	visibility:visible;	
+}
+.main-frame .main_content .filter #rating #rating_list #tile input[type="radio"]:checked~ #value{
+	position:unset;
+}
+.main-frame .main_content .map {
+    overflow: hidden;
+    border-radius: 20px;
+    margin: 20px 0px;
+}
+.main-frame .main_content .map #map_wrapper {
+    height: 100%;
+    width: 100%;
+}
+.search_result {
+    width: 24vw;
+    height: calc(100vh - 55px);
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.search_result  #tab_header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding: 20px;
+    justify-content: space-between;
+}
+.search_result  #tab_header #title {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 8px;
+    font-size: 20px;
+}
+.search_result  #tab_header #title #counter {
+    font-weight: 600;
+}
+.search_result  #tab_header #section {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 10px;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 14px;
+}
+.search_result #tab_header #section #image_wrapper {
+    width: 25px;
+    border: 1px solid #E4E4E4;
+    height: 25px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.search_result #tab_content {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding: 10px 20px;
+    gap: 20px;
+    height: calc(100vh - 105px);
+    align-items: center;
+	overflow-y: overlay;
+}
+.search_result #tab_content #result {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap:5px;
+}
+.search_result #tab_content #result #image_wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    width: 300px;
+    height: 180px;
+}
+.search_result #tab_content #result #image_wrapper #details {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    height: 40px;
+    width: 115px;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 20px;
+    gap: 10px;
+    cursor: pointer;
+    opacity: 0;
+    box-shadow: -1px 5px 20px 2px #b8b8b8;
+}
+.search_result #tab_content #result:hover{
+	cursor:pointer;
+}
+.search_result #tab_content #result:hover #image_wrapper #details{
+	opacity:1;
+}
+.search_result #tab_content #result #image_wrapper #like {
+    position: absolute;
+    top: 6%;
+    z-index: 2;
+    right: 6%;
+    cursor:pointer;
+}
+.search_result #tab_content #result #result_info {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 10px;
+	width: 300px;
+}
+.search_result #tab_content #result #result_info #row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+	justify-content: space-between;
+}
+.search_result #tab_content #result #result_info #row #car_name {
+    font-size: 17px;
+    font-weight: 600;
+}
+.search_result #tab_content #result #result_info #row #section {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 15px;
+}
+.search_result #tab_content #result #result_info #row #section #agency_name {
+    font-size: 16px;
+    font-weight: 500;
+}
+.search_result #tab_content #result #result_info #row #section #depot_address {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 220px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #C4C4C4;
+}
+.search_result #tab_content #result #result_info #row #rating {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 8px;
+	font-size: 13px;
+    font-weight: 600;
+}
+.search_result #tab_content #result #result_info #row #rating #icon_wrapper {
+	width: 20px;
+    background: #eee;
+    height: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+}
+.search_result #tab_content #result #result_info #row #price {
+    font-size: 26px;
+    font-weight: 600;
+    color: #fec04d;
+}
