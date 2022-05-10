@@ -1,6 +1,7 @@
 package control;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -12,6 +13,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import model.CarFilter;
 import model.DAO;
@@ -41,7 +44,7 @@ public class CarSearch extends HttpServlet {
 		User user = (User) request.getSession().getAttribute("user");
 		if (user != null && user.getType().equals("client")) {
 			request.setAttribute("user", user);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/carSearch.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/ClientMainPage.jsp");
 			dispatcher.forward(request, response);
 		}else if(user != null && user.getType().equals("secretaire")) {
 			request.setAttribute("user", user);
@@ -66,31 +69,30 @@ public class CarSearch extends HttpServlet {
 		ArrayList<Depot> depots;
 		try {
 			filter.setLocation(request.getParameter("location"));
-			filter.setPickUp_date(request.getParameter("pickUp_date"));
-			filter.setReturn_date(request.getParameter("return_date"));
 			filter.setPickUp_hour(request.getParameter("pickUp_hour"));
 			filter.setReturn_hour(request.getParameter("return_hour"));
 			
-			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-			LocalDate date1 = LocalDate.parse(filter.getReturn_date(), dtf);
-		    LocalDate date2 = LocalDate.parse(filter.getPickUp_date(), dtf);
-		    
-		    long daysBetween =ChronoUnit.DAYS.between(date2, date1);
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+			LocalDate date1 = LocalDate.parse(request.getParameter("pickUp_date"), dtf);
+		    LocalDate date2 = LocalDate.parse(request.getParameter("return_date"), dtf);
+		    filter.setPickUp_date(date1.toString());
+		    filter.setReturn_date(date2.toString());
+		    //long daysBetween =ChronoUnit.DAYS.between(date2, date1);
 			
 		    vehicules = dao.carSearch(filter);
+		    int size = vehicules.size();
 		    depots = dao.getDepots(filter.getLocation());
-		    
-		    request.setAttribute("duration", daysBetween);
-			request.setAttribute("searchInput", filter);
-			request.setAttribute("vehicules", vehicules);
-			request.setAttribute("depots", depots);
+		    ObjectMapper mapper = new ObjectMapper();
+		    PrintWriter out = response.getWriter();
+		    String vehiculesString = mapper.writeValueAsString(vehicules);
+		    String depot = mapper.writeValueAsString(depots);
+		    out.write("["+vehiculesString+","+depot+","+size+"]");
+		    //request.setAttribute("duration", daysBetween);
 			
 		} catch (InstantiationException | IllegalAccessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		doGet(request, response);
 	}
 
 }

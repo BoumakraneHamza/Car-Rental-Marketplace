@@ -60,12 +60,24 @@
 				<div id="image_wrapper">
 					<img src="${pageContext.request.contextPath}/assets/search-icon.svg">
 				</div>
-				<input type="text" Placeholder="Search" id="location_input">
+				<input required type="text" Placeholder="Search" id="location_input">
 				<img id="erase_search" src="${pageContext.request.contextPath}/assets/cancel-fill-circle.svg">
 			</div>
+			<form id="search_form" style="display:none">
+				<input id="location" type="hidden" name="location">
+				
+				<input id="pick_up_date" type="hidden" name="pickUp_date">
+				
+				<input id="return_date" type="hidden" name="return_date">
+				
+				<input id="pick_up_hour" type="hidden" name="pickUp_hour">
+				
+				<input id="return_hour" type="hidden" name="return_hour">
+			</form>
 			<input type="text" id="range_picker" name="range_picker">
 			<div id="minimize_wrapper">
-				<img style="width:22px;" id="minimize" src="${pageContext.request.contextPath}/assets/angle-down-white.svg">
+				<img style="width:15px;margin-right:5px;" id="minimize" src="${pageContext.request.contextPath}/assets/check.svg">
+				<p>Search</p>
 			</div>
 		</div>
 		<div class="main_content">
@@ -112,22 +124,22 @@
 				<div id="rating" class="checkbox-style">
 					<h4 style="margin: 15px 0px;font-size: 17px;font-weight: 600;">Car Rating</h4>
 					<div id="rating_list">
-						<div id="tile" onclick="selectRating(this)">
+						<div id="tile" onclick="filterCars(this)">
 							<input type="radio" name="rating">
 							<img src="${pageContext.request.contextPath}/assets/star.svg">
 							<p id="value">1-2</p>
 						</div>
-					 	<div id="tile" onclick="selectRating(this)">
+					 	<div id="tile" onclick="filterCars(this)">
 							<input type="radio" name="rating">
 							<img src="${pageContext.request.contextPath}/assets/star.svg">
 							<p id="value">3</p>
 						</div>
-						<div id="tile" onclick="selectRating(this)">
+						<div id="tile" onclick="filterCars(this)">
 							<input type="radio" name="rating">
 							<img src="${pageContext.request.contextPath}/assets/star.svg">
 							<p id="value">4</p>
 						</div>
-						<div id="tile" onclick="selectRating(this)">
+						<div id="tile" onclick="filterCars(this)">
 							<input type="radio" name="rating">
 							<img src="${pageContext.request.contextPath}/assets/star.svg">
 							<p id="value">5</p>
@@ -154,7 +166,7 @@
 			</div>
 		</div>
 		<div id="tab_content">
-			<div id="result">
+			<!--<div id="result">
 				<div id="image_wrapper">
 					<img id="car_image" style="width: 300px;object-fit: cover;height: 180px;" src="${pageContext.request.contextPath}/assets/car_pics/car02.jpg">
 					<img id="like" src="${pageContext.request.contextPath}/assets/heart-icon.svg">
@@ -304,7 +316,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 </div>
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
