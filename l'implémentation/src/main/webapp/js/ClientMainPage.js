@@ -99,11 +99,26 @@ search_section.querySelector("#minimize_wrapper").addEventListener("click",()=>{
 			let json = JSON.parse(xhttp.responseText);
 			console.log(json);
 			let cars = json[0];
+			let depots= json[1];
+			console.log(depots);
 			let size = json[2];
 			document.querySelector(".search_result #tab_header #counter").innerHTML = size;
 			clearChild(document.querySelector(".search_result #tab_content"));
 			for(car in cars){
 				createCars(cars[car]);
+			}
+			map.eachLayer((layer) => {
+		     if(layer['_latlng']!=undefined)
+		         layer.remove();
+			 });
+			for(depot in depots){
+				if(depots[depot]["lat"]){
+					map.setView(new L.LatLng(depots[depot]["lat"], depots[depot]["lon"]), 13);	
+					break;
+				}
+			}
+			for (depot in depots){
+				createMapIcons(depots[depot]["lat"],depots[depot]["lon"],parseInt(depots[depot]["capacite"])-parseInt(depots[depot]["capacite_libre"]));
 			}
 		}
 	}
@@ -111,20 +126,16 @@ search_section.querySelector("#minimize_wrapper").addEventListener("click",()=>{
 	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xhttp.send(param);
 });
+let map;
 function createSelectMap(mapWrapper,lat,lon){
 	map = L.map(mapWrapper, {
 	    center: [lat, lon],
-		zoom: 8,
+		zoom: 13,
 		attributionControl:false,
 	});
 	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 	}).addTo(map);
-	var marker = L.icon({
-	    iconUrl: contextPath+'/assets/map-marker.svg',
-	    iconSize: [17, 40],
-	});
-	L.marker([lat, lon],{icon: marker}).addTo(map);
 	map.on('click', function(e) {
 		map.eachLayer((layer) => {
 		     if(layer['_latlng']!=undefined)
@@ -133,6 +144,13 @@ function createSelectMap(mapWrapper,lat,lon){
 	});
 }
 
+function createMapIcons(lat,lon){
+	var marker = L.icon({
+	    iconUrl: contextPath+'/assets/marker-icon.svg',
+	    iconSize: [30, 30],
+	});
+	L.marker([lat, lon],{icon: marker}).addTo(map);
+}
 createSelectMap("map_wrapper",35,6);
 function selectRating(element){
 	let ratings = document.querySelector(".filter").querySelector("#rating").querySelectorAll("#tile");
@@ -145,6 +163,28 @@ function selectRating(element){
 	element.style.color="#fff";
 	element.style.width="75px";
 }
+const range_inputs= document.querySelectorAll(".range-input input");
+const progress_bar = document.querySelector("#slider #progress");
+progress_bar.style.right = 100 - (parseInt(range_inputs[1].value) / range_inputs[1].max)*100 + "%";
+range_inputs.forEach(input=>{
+	input.addEventListener("input",(e)=>{
+		let minVal = parseInt(range_inputs[0].value);
+		let maxVal = parseInt(range_inputs[1].value);
+		if(maxVal - minVal < 200){
+			if(e.target.className==="range-min"){
+				range_inputs[0].value  = maxVal-200;
+			}else{
+				range_inputs[1].value  = minVal+200;
+			}
+		}else{
+			progress_bar.style.left = (minVal / range_inputs[0].max)*100 + "%";
+			progress_bar.style.right = 100 - (maxVal / range_inputs[1].max)*100 + "%";
+		}
+		document.querySelector("#price").querySelector("#min_value").value = range_inputs[0].value;
+		document.querySelector("#price").querySelector("#max_value").value = range_inputs[1].value;
+		
+	});
+})
 function filterCars(element){
 	var typeFilters = document.getElementsByName("typeFilter");
 	var typeFilter = [];
@@ -155,13 +195,13 @@ function filterCars(element){
 	}
 	var carRate = 0;
 	if(element.querySelector("input[type=radio]") && element.querySelector("input[type=radio]").checked){
-		carRate = element.querySelector("#value");
+		carRate = element.querySelector("#value").innerHTML;
 		selectRating(element);
 	} else {
 		var carRates = document.querySelector("#rating").querySelectorAll("#tile");
 		for(tile of carRates){
 			if(tile.querySelector("input[type=radio]").checked){
-				carRate = tile.querySelector("#value");
+				carRate = tile.querySelector("#value").innerHTML;;
 			}
 		}
 	}
@@ -172,6 +212,9 @@ function filterCars(element){
 	var pickUp_hour = search_form.querySelector("#pick_up_hour").value;
 	var return_hour = search_form.querySelector("#return_hour").value;
 	
+	var minPrice = document.querySelector(".filter #price .range-min").value;
+	var maxPrice = document.querySelector(".filter #price .range-max").value;
+
 	console.log(typeFilter + "\n" + carRate);
 	var xhttp = new XMLHttpRequest();
 	xhttp.onload = function() {
@@ -184,6 +227,6 @@ function filterCars(element){
 		}
 	}
 	xhttp.open("GET","AjaxCarFilter?location="+location+"&pickUp_date="+pickUp_date+"&return_date="+return_date
-								  +"&pickUp_hour="+pickUp_hour+"&return_hour="+return_hour+"&typeFilter="+typeFilter+"&carRate="+carRate);
+								  +"&pickUp_hour="+pickUp_hour+"&return_hour="+return_hour+"&typeFilter="+typeFilter+"&carRate="+carRate+"&MinPrice="+minPrice+"&MaxPrice="+maxPrice);
 	xhttp.send();
 }

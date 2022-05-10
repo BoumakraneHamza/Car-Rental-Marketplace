@@ -218,7 +218,7 @@ CREATE TABLE `depot` (
 
 LOCK TABLES `depot` WRITE;
 /*!40000 ALTER TABLE `depot` DISABLE KEYS */;
-INSERT INTO `depot` VALUES (1,'constantine',20,19,'Hertz','g01@email.com','36.25023','6.57394',22),(2,'batna',15,13,'Hertz',NULL,'35.55216','6.17968',12),(3,'constantine',15,15,'agence02',NULL,'36.2650','6.5833',0),(6,'constantine',12,12,'agence02',NULL,'36.2333','6.5604',0),(7,'alger',20,18,'Hertz',NULL,'36.7734','3.0587',0),(8,'Khenchela District Khenchela Algeria',10,10,'Hertz','g02@email.com','35.474073','7.1419173',0),(9,'de Mascara District Mascara Algeria',10,10,'Hertz','g03@email.com','35.41229593023381','0.2316626583949343',0);
+INSERT INTO `depot` VALUES (1,'constantine',20,20,'Hertz','g01@email.com','','',0),(2,'batna',15,13,'Hertz',NULL,'35.55216','6.17968',12),(3,'constantine',15,14,'agence02',NULL,'36.2650','6.5833',0),(6,'constantine',12,11,'agence02',NULL,'36.2333','6.5604',0),(7,'alger',20,18,'Hertz',NULL,'36.7734','3.0587',0),(8,'Khenchela District Khenchela Algeria',10,10,'Hertz','g02@email.com','35.474073','7.1419173',0),(9,'de Mascara District Mascara Algeria',10,10,'Hertz','g03@email.com','35.41229593023381','0.2316626583949343',0);
 /*!40000 ALTER TABLE `depot` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -298,7 +298,7 @@ CREATE TABLE `garagiste` (
 
 LOCK TABLES `garagiste` WRITE;
 /*!40000 ALTER TABLE `garagiste` DISABLE KEYS */;
-INSERT INTO `garagiste` VALUES ('g01@email.com','Boumakrane','Hamza','/assets/profile_pics/1email.png',1,'0000-00-00','Hertz'),('g02@email.com','Hamza','2','/assets/profile_pics/1email.png',8,NULL,'Hertz'),('g03@email.com','Hamza','3','/assets/profile_pics/1email.png',9,NULL,'Hertz');
+INSERT INTO `garagiste` VALUES ('g01@email.com','Boumakrane','Hamza','/assets/profile_pics/1email.png',1,'0000-00-00','Hertz'),('g02@email.com','Hamza','2','/assets/profile_pics/1email.png',8,NULL,'Hertz'),('g03@email.com','Hamza','3','/assets/profile_pics/1email.png',9,NULL,'Hertz'),('g04@email.com','Hamza','4','/assets/profile_pics/1email.png',NULL,NULL,'Hertz');
 /*!40000 ALTER TABLE `garagiste` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -511,7 +511,7 @@ CREATE TABLE `reservation` (
 
 LOCK TABLES `reservation` WRITE;
 /*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
-INSERT INTO `reservation` VALUES (1,'1@email.com','202212522','2022-04-05','2022-04-15','payée',NULL,NULL,'00:00:00','00:00:00','2022-04-02','constantine'),(2,'1@email.com','202212401','2022-04-10','2022-04-12','en cours',NULL,NULL,'11:30:00','11:00:00','2022-04-08','Batna'),(14,'Hamza@gmail.com','202212522','2022-04-30','2022-05-07','en cours',NULL,NULL,'23:32:00','23:30:00','2022-04-03','Batna - Algeria'),(15,'Hamza@gmail.com','202212522','2022-04-30','2022-05-07','en cours',NULL,NULL,'23:32:00','23:30:00','2022-04-03','Batna - Algeria'),(16,'Hamza@gmail.com','202212401','2022-05-07','2022-04-30','en cours',NULL,NULL,'23:33:00','23:33:00','2022-04-03','Batna - Algeria'),(17,'Hamza@gmail.com','202212401','2022-05-07','2022-04-30','en cours',NULL,NULL,'23:33:00','23:33:00','2022-04-03','Batna - Algeria'),(18,'Hamza@gmail.com','202212401','2022-11-04','2023-04-16','en cours',NULL,NULL,'23:43:00','23:43:00','2022-04-03','Batna - Algeria'),(19,'Hamza@gmail.com','202212522','2022-04-19','2022-04-20','en cours',NULL,NULL,'00:22:00','00:23:00','2022-04-04','Batna - Algeria'),(20,'Hamza@gmail.com','202212522','2023-07-07','2023-11-04','en cours',NULL,NULL,'00:37:00','00:38:00','2022-04-04','batna'),(21,'Hamza@gmail.com','202212401','2023-07-07','2023-11-04','en cours',NULL,NULL,'00:37:00','00:38:00','2022-04-04','batna'),(23,'1@email.com','202212401','2022-03-01','2022-03-02','en cours','/assets/documents/contracts/23.pdf',NULL,'12:20:00','12:21:00','2022-04-06','constantine'),(24,'1@email.com','202212522','2022-03-03','2022-03-04','en cours','/assets/documents/contracts/24.pdf',NULL,'12:21:00','12:23:00','2022-04-06','constantine'),(45,'1@email.com','202212522','2022-04-01','2022-04-02','en cours','/assets/documents/contracts/31.pdf',NULL,'23:42:00','23:42:00','2022-04-28','Batna - Algeria');
+INSERT INTO `reservation` VALUES (1,'1@email.com','202212522','2022-04-05','2022-04-15','payée',NULL,NULL,'00:00:00','00:00:00','2022-04-02','constantine'),(2,'1@email.com','202212401','2022-04-10','2022-04-12','en cours',NULL,NULL,'11:30:00','11:00:00','2022-04-08','Batna'),(14,'1@email.com','202212522','2022-04-30','2022-05-07','en cours','/assets/documents/contracts/14.pdf',NULL,'23:32:00','23:30:00','2022-04-03','Batna - Algeria'),(15,'Hamza@gmail.com','202212522','2022-04-30','2022-05-07','en cours','/assets/documents/contracts/15.pdf',NULL,'23:32:00','23:30:00','2022-04-03','Batna - Algeria'),(16,'Hamza@gmail.com','202212401','2022-05-07','2022-04-30','en cours',NULL,NULL,'23:33:00','23:33:00','2022-04-03','Batna - Algeria'),(17,'Hamza@gmail.com','202212401','2022-05-07','2022-04-30','en cours',NULL,NULL,'23:33:00','23:33:00','2022-04-03','Batna - Algeria'),(18,'Hamza@gmail.com','202212401','2022-11-04','2023-04-16','en cours',NULL,NULL,'23:43:00','23:43:00','2022-04-03','Batna - Algeria'),(19,'Hamza@gmail.com','202212522','2022-04-19','2022-04-20','en cours','/assets/documents/contracts/19.pdf',NULL,'00:22:00','00:23:00','2022-04-04','Batna - Algeria'),(20,'Hamza@gmail.com','202212522','2023-07-07','2023-11-04','en cours','/assets/documents/contracts/20.pdf',NULL,'00:37:00','00:38:00','2022-04-04','batna'),(21,'Hamza@gmail.com','202212401','2023-07-07','2023-11-04','en cours','/assets/documents/contracts/21.pdf',NULL,'00:37:00','00:38:00','2022-04-04','batna'),(23,'1@email.com','202212401','2022-03-01','2022-03-02','en cours','/assets/documents/contracts/23.pdf',NULL,'12:20:00','12:21:00','2022-04-06','constantine'),(24,'1@email.com','202212522','2022-03-03','2022-03-04','en cours','/assets/documents/contracts/24.pdf',NULL,'12:21:00','12:23:00','2022-04-06','constantine'),(45,'1@email.com','202212522','2022-04-01','2022-04-02','en cours','/assets/documents/contracts/31.pdf',NULL,'23:42:00','23:42:00','2022-04-28','Batna - Algeria');
 /*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -831,7 +831,8 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `car_search`(in pickUp_date date, 
 														 in return_date date,
                                                          in typeFilter varchar(40),
-                                                         in price double,
+                                                         in PriceMinBound int,
+                                                         in PriceMaxBound int,
                                                          in carRate int)
 BEGIN
 set @query = concat("SELECT * FROM vehicule as v join depot as d on v.depot_code = d.code
@@ -842,8 +843,9 @@ if typeFilter is not null then
 set @query = concat(@query, " AND find_in_set(v.type,'", typeFilter, "')");
 end if;
 
-if price != 0 then
-set @query = concat(@query, " AND v.PLJ <=", price);
+if PriceMinBound != 0 or PriceMaxBound!= 0 then
+set @query = concat(@query, " AND v.PLJ <=", PriceMaxBound);
+set @query = concat(@query, " AND v.PLJ >=", PriceMinBound);
 end if;
 
 if carRate != 0 then
@@ -868,4 +870,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-07 19:16:08
+-- Dump completed on 2022-05-10 19:58:39

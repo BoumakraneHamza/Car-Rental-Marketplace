@@ -73,6 +73,8 @@
 				<input id="pick_up_hour" type="hidden" name="pickUp_hour">
 				
 				<input id="return_hour" type="hidden" name="return_hour">
+				
+				
 			</form>
 			<input type="text" id="range_picker" name="range_picker">
 			<div id="minimize_wrapper">
@@ -119,7 +121,23 @@
 				</div>
 				<div id="price">
 					<h4 style="margin: 15px 0px;font-size: 17px;font-weight: 600;">Car Price</h4>
-					<input id="slider" type="range" min="40" max="1000" step="10">
+					<div id="row">
+						<div id="tile">
+							<p>Min</p>
+							<input id="min_value" readonly type="number" value="200">
+						</div>
+						<div id="tile">
+							<p>Max</p>
+							<input id="max_value" readonly type="number" value="700">
+						</div>
+					</div>
+					<div id="slider">
+						<div id="progress"></div>
+					</div>
+					<div class="range-input">
+						<input step="10" type="range" class="range-min" min="0" max="1000" value="200" onchange="filterCars(this)">
+						<input step="10" type="range" class="range-max" min="0" max="1000" value="700" onchange="filterCars(this)">
+					</div>
 				</div>
 				<div id="rating" class="checkbox-style">
 					<h4 style="margin: 15px 0px;font-size: 17px;font-weight: 600;">Car Rating</h4>
@@ -127,7 +145,7 @@
 						<div id="tile" onclick="filterCars(this)">
 							<input type="radio" name="rating">
 							<img src="${pageContext.request.contextPath}/assets/star.svg">
-							<p id="value">1-2</p>
+							<p id="value">2</p>
 						</div>
 					 	<div id="tile" onclick="filterCars(this)">
 							<input type="radio" name="rating">

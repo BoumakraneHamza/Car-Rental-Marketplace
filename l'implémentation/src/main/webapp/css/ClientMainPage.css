@@ -134,9 +134,6 @@
     margin: 15px 0px;
     justify-content: space-between;
 }
-.main-frame .main_content .filter  #slider {
-    width: 100%;
-}
 .main-frame .main_content .filter #rating #rating_list {
     display: flex;
     flex-direction: row;
@@ -176,6 +173,77 @@
 }
 .main-frame .main_content .filter #rating #rating_list #tile input[type="radio"]:checked~ #value{
 	position:unset;
+}
+.main-frame .main_content .filter #price #row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+	margin-bottom: 15px;
+}
+.main-frame .main_content .filter #price #row #tile {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 600;
+}
+.main-frame .main_content .filter #price #row #tile input[type="number"] {
+    width: 70px;
+    border: none;
+    cursor: unset;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    margin-left: 15px;
+}
+.main-frame .main_content .filter #price #row #tile input[type="number"]:focus{
+	outline:none;
+}
+.main-frame .main_content .filter #price #slider {
+    height: 5px;
+    background: #ddd;
+    border-radius: 5px;
+    position: relative;
+}
+.main-frame .main_content .filter #price #slider #progress {
+    background: #0071ff;
+    position: absolute;
+    height: 5px;
+    left: 25%;
+    right: 25%;
+    border-radius: 5px;
+}
+.main-frame .main_content .filter #price .range-input {
+    position: relative;
+}
+.main-frame .main_content .filter #price .range-input input[type="range"]{
+	position: absolute;
+    width: 101%;
+    top: -14px;
+    left: -3px;
+    background: none;
+    -webkit-appearance:none;
+    pointer-events:none;
+}
+.main-frame .main_content .filter #price .range-input input[type="range"]::-moz-range-thumb{
+	height:20px;
+	width:20px;
+	pointer-events:auto;
+	-moz-appearance:none;
+	background:#000;
+	border:none;
+}
+.main-frame .main_content .filter #price .range-input input[type="range"]::-webkit-slider-thumb{
+	height:20px;
+	width:20px;
+	pointer-events:auto;
+	-webkit-appearance:none;
+	border-radius:5px;
+	background:#000;
 }
 .main-frame .main_content .map {
     overflow: hidden;

@@ -346,13 +346,14 @@ public class DAO {
 				}
 			}
 			
-			query = "call car_search(?, ?, ?, ?, ?)";
+			query = "call car_search(?, ?, ?, ?, ?,?)";
 			statement = connection.prepareCall(query);
 			statement.setString(1, filter.getPickUp_date());
 			statement.setString(2, filter.getReturn_date());
 			statement.setString(3, typeFilter);
-			statement.setDouble(4, filter.getPrice());
-			statement.setInt(5, filter.getCarRate());
+			statement.setInt(4, filter.getMinPriceBound());
+			statement.setInt(5, filter.getMaxPriceBound());
+			statement.setInt(6, filter.getCarRate());
 			
 			ResultSet result = statement.executeQuery();			
 			

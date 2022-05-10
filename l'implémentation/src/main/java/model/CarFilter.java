@@ -7,9 +7,23 @@ public class CarFilter {
 	private String pickUp_hour; //HH:MM
 	private String return_hour;
 	private String typeFilter;
-	private double price;
+	private int MaxPriceBound;
+	private int MinPriceBound;
 	private int carRate;
 	
+	
+	public int getMaxPriceBound() {
+		return MaxPriceBound;
+	}
+	public int getMinPriceBound() {
+		return MinPriceBound;
+	}
+	public void setMaxPriceBound(int maxPriceBound) {
+		MaxPriceBound = maxPriceBound;
+	}
+	public void setMinPriceBound(int minPriceBound) {
+		MinPriceBound = minPriceBound;
+	}
 	public String getLocation() {
 		return location;
 	}
@@ -45,12 +59,6 @@ public class CarFilter {
 	}
 	public void setTypeFilter(String typeFilter) {
 		this.typeFilter = typeFilter;
-	}
-	public double getPrice() {
-		return price;
-	}
-	public void setPrice(double price) {
-		this.price = price;
 	}
 	public int getCarRate() {
 		return carRate;
