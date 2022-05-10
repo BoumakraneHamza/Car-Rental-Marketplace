@@ -55,49 +55,63 @@
 		</div>
 	</div>
 	<div class="main-frame">
-		<div class="seach_section">
-			<div id="search_bar">
-				<div id="image_wrapper">
-					<img src="${pageContext.request.contextPath}/assets/search-icon.svg">
+		<div class="main-frame-header">
+			<div class="seach_section">
+				<div id="search_bar">
+					<div id="image_wrapper">
+						<img src="${pageContext.request.contextPath}/assets/search-icon.svg">
+					</div>
+					<input aria-autocomplete="both" aria-haspopup="false" autocapitalize="off" autocomplete="off" autocorrect="off" autofocus="" role="combobox" spellcheck="false" type="text" Placeholder="Search" id="location_input">
+					<img id="erase_search" src="${pageContext.request.contextPath}/assets/cancel-fill-circle.svg">
 				</div>
-				<input required type="text" Placeholder="Search" id="location_input">
-				<img id="erase_search" src="${pageContext.request.contextPath}/assets/cancel-fill-circle.svg">
+				<form id="search_form" style="display:none">
+					<input id="location" type="hidden" name="location">
+					
+					<input id="pick_up_date" type="hidden" name="pickUp_date">
+					
+					<input id="return_date" type="hidden" name="return_date">
+					
+					<input id="pick_up_hour" type="hidden" name="pickUp_hour">
+					
+					<input id="return_hour" type="hidden" name="return_hour">
+				</form>
+				<input type="text" id="range_picker" name="range_picker">
+				<div id="minimize_wrapper">
+					<img style="width:15px;margin-right:5px;" id="minimize" src="${pageContext.request.contextPath}/assets/check.svg">
+					<p>Search</p>
+				</div>
 			</div>
-			<form id="search_form" style="display:none">
-				<input id="location" type="hidden" name="location">
-				
-				<input id="pick_up_date" type="hidden" name="pickUp_date">
-				
-				<input id="return_date" type="hidden" name="return_date">
-				
-				<input id="pick_up_hour" type="hidden" name="pickUp_hour">
-				
-				<input id="return_hour" type="hidden" name="return_hour">
-				
-				
-			</form>
-			<input type="text" id="range_picker" name="range_picker">
-			<div id="minimize_wrapper">
-				<img style="width:15px;margin-right:5px;" id="minimize" src="${pageContext.request.contextPath}/assets/check.svg">
-				<p>Search</p>
+			<div id="tab_header">
+				<div id="title">
+					<p id="counter">16</p>
+					<p> Results</p>
+				</div>
+				<div id="section">
+					<p>Popular</p>
+					<div id="image_wrapper">
+						<img style="width: 10px;" src="${pageContext.request.contextPath}/assets/up&down-grey.svg">
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="main_content">
 			<form class="filter">
 				<div id="map_toggle">
-					<div id="text">
+					<div style="margin:0px;" id="text">
 						<p id="title">Map</p>
 						<p>View</p>
 					</div>
-					<div class='toggle-check'>
+					<div class='toggle-check' onclick="toggleMap()">
 					  <input type='checkbox'/>
 					  <span class='toggle-b'></span>
 					  <span class='toggle-bg'></span>
 					</div>
 				</div>
-				
 				<div id="car-type"class="checkbox-style">
-					<h4 style="margin: 15px 0px;font-size: 17px;font-weight: 600;">Category</h4>
+					<div id="text">
+						<p id="title">Car</p>
+						<p>Category</p>
+					</div>
 					<div id="option">
 					<label>Compact</label>
 					<input type="checkbox" name="typeFilter" value="Compact" onclick="filterCars(this)">
@@ -120,27 +134,39 @@
 					</div>
 				</div>
 				<div id="price">
-					<h4 style="margin: 15px 0px;font-size: 17px;font-weight: 600;">Car Price</h4>
+					<div id="text">
+						<p id="title">Price</p>
+						<p>Range</p>
+					</div>
 					<div id="row">
 						<div id="tile">
-							<p>Min</p>
-							<input id="min_value" readonly type="number" value="200">
+							<p>minimum</p>
+							<div id="display_value">
+								<input id="min_value" readonly type="text" value="0">
+								<p>USD</p>
+							</div>
 						</div>
 						<div id="tile">
-							<p>Max</p>
-							<input id="max_value" readonly type="number" value="700">
+							<p>maximum</p>
+							<div id="display_value">
+								<input id="max_value" readonly type="text" value="1000">
+								<p>USD</p>
+							</div>
 						</div>
 					</div>
 					<div id="slider">
 						<div id="progress"></div>
 					</div>
 					<div class="range-input">
-						<input step="10" type="range" class="range-min" min="0" max="1000" value="200" onchange="filterCars(this)">
-						<input step="10" type="range" class="range-max" min="0" max="1000" value="700" onchange="filterCars(this)">
+						<input step="10" type="range" class="range-min" min="0" max="1000" value="0" onchange="filterCars(this)">
+						<input step="10" type="range" class="range-max" min="0" max="1000" value="1000" onchange="filterCars(this)">
 					</div>
 				</div>
 				<div id="rating" class="checkbox-style">
-					<h4 style="margin: 15px 0px;font-size: 17px;font-weight: 600;">Car Rating</h4>
+					<div id="text">
+						<p id="title">Car</p>
+						<p>Rating</p>
+					</div>
 					<div id="rating_list">
 						<div id="tile" onclick="filterCars(this)">
 							<input type="radio" name="rating">
@@ -168,174 +194,196 @@
 			<div class="map">
 				<div id="map_wrapper"></div>
 			</div>
+			<div id="tab_content">
+				<div id="dashboard">
+					<p id="section_header">Recent searches</p>
+					<div id="recent_tab_content">
+						<div id="result">
+							<div id="image_wrapper">
+								<img id="car_image" style="width: 300px;object-fit: cover;height: 180px;" src="${pageContext.request.contextPath}/assets/car_pics/car02.jpg">
+								<img id="like" src="${pageContext.request.contextPath}/assets/heart-icon.svg">
+								<div id="details">
+									<img style="width:12px;" src="${pageContext.request.contextPath}/assets/activity-purple.svg">
+									<p>Details</p>
+								</div>
+							</div>
+							<div id="result_info">
+								<div id="row">
+									<div id="left">
+										<div id="rating">
+											<div id="icon_wrapper">
+												<img style="width: 12px;" src="${pageContext.request.contextPath}/assets/star-grey.svg">
+											</div>
+											<p id="value">5.0</p>
+										</div>
+										<p id="car_name">Peugot e-208GT</p>
+									</div>
+									<p id="price">$200</p>
+								</div>
+								<div id="row">
+									<div id="section">
+										<p id="agency_name">Hertz</p>
+										<p id="depot_address">Constantine district - constantine -algeria</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>		
+				<!--<div id="result">
+					<div id="image_wrapper">
+						<img id="car_image" style="width: 300px;object-fit: cover;height: 180px;" src="${pageContext.request.contextPath}/assets/car_pics/car02.jpg">
+						<img id="like" src="${pageContext.request.contextPath}/assets/heart-icon.svg">
+						<div id="details">
+							<img style="width:12px;" src="${pageContext.request.contextPath}/assets/activity-purple.svg">
+							<p>Details</p>
+						</div>
+					</div>
+					<div id="result_info">
+						<div id="row">
+							<div id="left">
+								<div id="rating">
+									<div id="icon_wrapper">
+										<img style="width: 12px;" src="${pageContext.request.contextPath}/assets/star-grey.svg">
+									</div>
+									<p id="value">5.0</p>
+								</div>
+								<p id="car_name">Peugot e-208GT</p>
+							</div>
+							<p id="price">$200</p>
+						</div>
+						<div id="row">
+							<div id="section">
+								<p id="agency_name">Hertz</p>
+								<p id="depot_address">Constantine district - constantine -algeria</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="result">
+					<div id="image_wrapper">
+						<img id="car_image" style="width: 300px;object-fit: cover;height: 180px;" src="${pageContext.request.contextPath}/assets/car_pics/car02.jpg">
+						<img id="like" src="${pageContext.request.contextPath}/assets/heart-icon.svg">
+						<div id="details">
+							<img style="width:12px;" src="${pageContext.request.contextPath}/assets/activity-purple.svg">
+							<p>Details</p>
+						</div>
+					</div>
+					<div id="result_info">
+						<div id="row">
+							<div id="left">
+								<div id="rating">
+									<div id="icon_wrapper">
+										<img style="width: 12px;" src="${pageContext.request.contextPath}/assets/star-grey.svg">
+									</div>
+									<p id="value">5.0</p>
+								</div>
+								<p id="car_name">Peugot e-208GT</p>
+							</div>
+							<p id="price">$200</p>
+						</div>
+						<div id="row">
+							<div id="section">
+								<p id="agency_name">Hertz</p>
+								<p id="depot_address">Constantine district - constantine -algeria</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="result">
+					<div id="image_wrapper">
+						<img id="car_image" style="width: 300px;object-fit: cover;height: 180px;" src="${pageContext.request.contextPath}/assets/car_pics/car02.jpg">
+						<img id="like" src="${pageContext.request.contextPath}/assets/heart-icon.svg">
+						<div id="details">
+							<img style="width:12px;" src="${pageContext.request.contextPath}/assets/activity-purple.svg">
+							<p>Details</p>
+						</div>
+					</div>
+					<div id="result_info">
+						<div id="row">
+							<div id="left">
+								<div id="rating">
+									<div id="icon_wrapper">
+										<img style="width: 12px;" src="${pageContext.request.contextPath}/assets/star-grey.svg">
+									</div>
+									<p id="value">5.0</p>
+								</div>
+								<p id="car_name">Peugot e-208GT</p>
+							</div>
+							<p id="price">$200</p>
+						</div>
+						<div id="row">
+							<div id="section">
+								<p id="agency_name">Hertz</p>
+								<p id="depot_address">Constantine district - constantine -algeria</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="result">
+					<div id="image_wrapper">
+						<img id="car_image" style="width: 300px;object-fit: cover;height: 180px;" src="${pageContext.request.contextPath}/assets/car_pics/car02.jpg">
+						<img id="like" src="${pageContext.request.contextPath}/assets/heart-icon.svg">
+						<div id="details">
+							<img style="width:12px;" src="${pageContext.request.contextPath}/assets/activity-purple.svg">
+							<p>Details</p>
+						</div>
+					</div>
+					<div id="result_info">
+						<div id="row">
+							<div id="left">
+								<div id="rating">
+									<div id="icon_wrapper">
+										<img style="width: 12px;" src="${pageContext.request.contextPath}/assets/star-grey.svg">
+									</div>
+									<p id="value">5.0</p>
+								</div>
+								<p id="car_name">Peugot e-208GT</p>
+							</div>
+							<p id="price">$200</p>
+						</div>
+						<div id="row">
+							<div id="section">
+								<p id="agency_name">Hertz</p>
+								<p id="depot_address">Constantine district - constantine -algeria</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="result">
+					<div id="image_wrapper">
+						<img id="car_image" style="width: 300px;object-fit: cover;height: 180px;" src="${pageContext.request.contextPath}/assets/car_pics/car02.jpg">
+						<img id="like" src="${pageContext.request.contextPath}/assets/heart-icon.svg">
+						<div id="details">
+							<img style="width:12px;" src="${pageContext.request.contextPath}/assets/activity-purple.svg">
+							<p>Details</p>
+						</div>
+					</div>
+					<div id="result_info">
+						<div id="row">
+							<div id="left">
+								<div id="rating">
+									<div id="icon_wrapper">
+										<img style="width: 12px;" src="${pageContext.request.contextPath}/assets/star-grey.svg">
+									</div>
+									<p id="value">5.0</p>
+								</div>
+								<p id="car_name">Peugot e-208GT</p>
+							</div>
+							<p id="price">$200</p>
+						</div>
+						<div id="row">
+							<div id="section">
+								<p id="agency_name">Hertz</p>
+								<p id="depot_address">Constantine district - constantine -algeria</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div> -->
 		</div>
 	</div>
-	<div class="search_result">
-		<div id="tab_header">
-			<div id="title">
-				<p id="counter">16</p>
-				<p> Results</p>
-			</div>
-			<div id="section">
-				<p>Popular</p>
-				<div id="image_wrapper">
-					<img style="width: 10px;" src="${pageContext.request.contextPath}/assets/up&down-grey.svg">
-				</div>
-			</div>
-		</div>
-		<div id="tab_content">
-			<!--<div id="result">
-				<div id="image_wrapper">
-					<img id="car_image" style="width: 300px;object-fit: cover;height: 180px;" src="${pageContext.request.contextPath}/assets/car_pics/car02.jpg">
-					<img id="like" src="${pageContext.request.contextPath}/assets/heart-icon.svg">
-					<div id="details">
-						<img style="width:12px;" src="${pageContext.request.contextPath}/assets/activity-purple.svg">
-						<p>Details</p>
-					</div>
-				</div>
-				<div id="result_info">
-					<div id="row">
-						<div id="left">
-							<div id="rating">
-								<div id="icon_wrapper">
-									<img style="width: 12px;" src="${pageContext.request.contextPath}/assets/star-grey.svg">
-								</div>
-								<p id="value">5.0</p>
-							</div>
-							<p id="car_name">Peugot e-208GT</p>
-						</div>
-						<p id="price">$200</p>
-					</div>
-					<div id="row">
-						<div id="section">
-							<p id="agency_name">Hertz</p>
-							<p id="depot_address">Constantine district - constantine -algeria</p>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div id="result">
-				<div id="image_wrapper">
-					<img id="car_image" style="width: 300px;object-fit: cover;height: 180px;" src="${pageContext.request.contextPath}/assets/car_pics/car02.jpg">
-					<img id="like" src="${pageContext.request.contextPath}/assets/heart-icon.svg">
-					<div id="details">
-						<img style="width:12px;" src="${pageContext.request.contextPath}/assets/activity-purple.svg">
-						<p>Details</p>
-					</div>
-				</div>
-				<div id="result_info">
-					<div id="row">
-						<div id="left">
-							<div id="rating">
-								<div id="icon_wrapper">
-									<img style="width: 12px;" src="${pageContext.request.contextPath}/assets/star-grey.svg">
-								</div>
-								<p id="value">5.0</p>
-							</div>
-							<p id="car_name">Peugot e-208GT</p>
-						</div>
-						<p id="price">$200</p>
-					</div>
-					<div id="row">
-						<div id="section">
-							<p id="agency_name">Hertz</p>
-							<p id="depot_address">Constantine district - constantine -algeria</p>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div id="result">
-				<div id="image_wrapper">
-					<img id="car_image" style="width: 300px;object-fit: cover;height: 180px;" src="${pageContext.request.contextPath}/assets/car_pics/car02.jpg">
-					<img id="like" src="${pageContext.request.contextPath}/assets/heart-icon.svg">
-					<div id="details">
-						<img style="width:12px;" src="${pageContext.request.contextPath}/assets/activity-purple.svg">
-						<p>Details</p>
-					</div>
-				</div>
-				<div id="result_info">
-					<div id="row">
-						<div id="left">
-							<div id="rating">
-								<div id="icon_wrapper">
-									<img style="width: 12px;" src="${pageContext.request.contextPath}/assets/star-grey.svg">
-								</div>
-								<p id="value">5.0</p>
-							</div>
-							<p id="car_name">Peugot e-208GT</p>
-						</div>
-						<p id="price">$200</p>
-					</div>
-					<div id="row">
-						<div id="section">
-							<p id="agency_name">Hertz</p>
-							<p id="depot_address">Constantine district - constantine -algeria</p>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div id="result">
-				<div id="image_wrapper">
-					<img id="car_image" style="width: 300px;object-fit: cover;height: 180px;" src="${pageContext.request.contextPath}/assets/car_pics/car02.jpg">
-					<img id="like" src="${pageContext.request.contextPath}/assets/heart-icon.svg">
-					<div id="details">
-						<img style="width:12px;" src="${pageContext.request.contextPath}/assets/activity-purple.svg">
-						<p>Details</p>
-					</div>
-				</div>
-				<div id="result_info">
-					<div id="row">
-						<div id="left">
-							<div id="rating">
-								<div id="icon_wrapper">
-									<img style="width: 12px;" src="${pageContext.request.contextPath}/assets/star-grey.svg">
-								</div>
-								<p id="value">5.0</p>
-							</div>
-							<p id="car_name">Peugot e-208GT</p>
-						</div>
-						<p id="price">$200</p>
-					</div>
-					<div id="row">
-						<div id="section">
-							<p id="agency_name">Hertz</p>
-							<p id="depot_address">Constantine district - constantine -algeria</p>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div id="result">
-				<div id="image_wrapper">
-					<img id="car_image" style="width: 300px;object-fit: cover;height: 180px;" src="${pageContext.request.contextPath}/assets/car_pics/car02.jpg">
-					<img id="like" src="${pageContext.request.contextPath}/assets/heart-icon.svg">
-					<div id="details">
-						<img style="width:12px;" src="${pageContext.request.contextPath}/assets/activity-purple.svg">
-						<p>Details</p>
-					</div>
-				</div>
-				<div id="result_info">
-					<div id="row">
-						<div id="left">
-							<div id="rating">
-								<div id="icon_wrapper">
-									<img style="width: 12px;" src="${pageContext.request.contextPath}/assets/star-grey.svg">
-								</div>
-								<p id="value">5.0</p>
-							</div>
-							<p id="car_name">Peugot e-208GT</p>
-						</div>
-						<p id="price">$200</p>
-					</div>
-					<div id="row">
-						<div id="section">
-							<p id="agency_name">Hertz</p>
-							<p id="depot_address">Constantine district - constantine -algeria</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div> -->
-	</div>
+</div>
 </div>
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="

@@ -48,6 +48,7 @@ public class CarSearch extends HttpServlet {
 			dispatcher.forward(request, response);
 		}else if(user != null && user.getType().equals("secretaire")) {
 			request.setAttribute("user", user);
+			
 			request.setAttribute("client_password", request.getParameter("password"));
 			request.setAttribute("client_email", request.getParameter("email"));
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/carSearch.jsp");

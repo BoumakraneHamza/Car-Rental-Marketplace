@@ -1,3 +1,4 @@
+document.querySelector(".toggle-check").querySelector("input[type=checkbox]").checked = true;
 $(function() {
 	const search_form = document.querySelector("#search_form");
   $('input[name="range_picker"]').daterangepicker({
@@ -38,6 +39,7 @@ $(function() {
   		search_form.querySelector("#location").value = this.value;
 	});
 });
+
 function createCars(car){
 	const image = car["image"];
 	const marque = car["marque"];
@@ -53,7 +55,7 @@ function createCars(car){
 	aCar.innerHTML = "\n<div id=\"image_wrapper\">\n\
 							<img id=\"car_image\" style=\"width: 300px;object-fit: cover;height: 180px;\" src=\""+contextPath+image+"\">\n\
 							<img id=\"like\" src=\""+contextPath+"/assets/heart-icon.svg\">\n\
-							div id=\"details\">\n\
+							<div id=\"details\">\n\
 								<img style=\"width: 12px;\" src=\""+contextPath+"/assets/activity-purple.svg\">\n\
 								<p>Details</p>\n\
 							</div>\n\
@@ -79,7 +81,7 @@ function createCars(car){
 								</div>\n\
 							</div>\n\
 						</div>";
-	const carList = document.querySelector(".search_result #tab_content");
+	const carList = document.querySelector("#tab_content");
 	carList.appendChild(aCar);
 }
 function clearChild(e){
@@ -97,13 +99,22 @@ search_section.querySelector("#minimize_wrapper").addEventListener("click",()=>{
 	xhttp.onreadystatechange = ()=>{
 		if(xhttp.status == 200 && xhttp.readyState == 4){
 			let json = JSON.parse(xhttp.responseText);
+			document.querySelector(".toggle-check").querySelector("input[type=checkbox]").checked = false;
+			toggleMap();
 			console.log(json);
 			let cars = json[0];
 			let depots= json[1];
 			console.log(depots);
 			let size = json[2];
-			document.querySelector(".search_result #tab_header #counter").innerHTML = size;
-			clearChild(document.querySelector(".search_result #tab_content"));
+			let counter = document.createElement("p");
+			counter.setAttribute("id","counter");
+			counter.innerHTML = size;
+			let text = document.createElement("p");
+			text.innerHTML = "Results";
+			clearChild(document.querySelector(".main-frame-header #tab_header #title"));
+			document.querySelector(".main-frame-header #tab_header #title").append(counter);
+			document.querySelector(".main-frame-header #tab_header #title").append(text);
+			clearChild(document.querySelector("#tab_content"));
 			for(car in cars){
 				createCars(cars[car]);
 			}
@@ -128,7 +139,18 @@ search_section.querySelector("#minimize_wrapper").addEventListener("click",()=>{
 });
 let map;
 function createSelectMap(mapWrapper,lat,lon){
-	map = L.map(mapWrapper, {
+	var container = L.DomUtil.get(mapWrapper);
+      if(container != null){
+        container._leaflet_id = null;
+		document.querySelector(".map").remove();
+		let map_banner = document.createElement("div");
+		map_banner.setAttribute("class","map");
+		let map = document.createElement("div");
+		map.setAttribute("id","map_wrapper");
+		map_banner.append(map);
+		document.querySelector(".main_content").insertBefore(map_banner,document.querySelector(".main_content").querySelector("#tab_content"));
+    }
+	map = L.map(document.querySelector("#map_wrapper"), {
 	    center: [lat, lon],
 		zoom: 13,
 		attributionControl:false,
@@ -136,12 +158,13 @@ function createSelectMap(mapWrapper,lat,lon){
 	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 	}).addTo(map);
-	map.on('click', function(e) {
+	/*map.on('click', function(e) {
 		map.eachLayer((layer) => {
 		     if(layer['_latlng']!=undefined)
 		         layer.remove();
 		 });
-	});
+	});*/
+	document.querySelector(".map").style.display="none";
 }
 
 function createMapIcons(lat,lon){
@@ -151,7 +174,6 @@ function createMapIcons(lat,lon){
 	});
 	L.marker([lat, lon],{icon: marker}).addTo(map);
 }
-createSelectMap("map_wrapper",35,6);
 function selectRating(element){
 	let ratings = document.querySelector(".filter").querySelector("#rating").querySelectorAll("#tile");
 	for(let i=0 ;i<ratings.length;i++){
@@ -165,6 +187,7 @@ function selectRating(element){
 }
 const range_inputs= document.querySelectorAll(".range-input input");
 const progress_bar = document.querySelector("#slider #progress");
+progress_bar.style.left = ( parseInt(range_inputs[0].value) / range_inputs[0].max)*100 + "%";
 progress_bar.style.right = 100 - (parseInt(range_inputs[1].value) / range_inputs[1].max)*100 + "%";
 range_inputs.forEach(input=>{
 	input.addEventListener("input",(e)=>{
@@ -220,7 +243,7 @@ function filterCars(element){
 	xhttp.onload = function() {
 		if(xhttp.response){
 			let json = JSON.parse(xhttp.responseText);
-			clearChild(document.querySelector(".search_result #tab_content"));
+			clearChild(document.querySelector("#tab_content"));
 			for(car in json){
 				createCars(json[car]);
 			}
@@ -230,3 +253,23 @@ function filterCars(element){
 								  +"&pickUp_hour="+pickUp_hour+"&return_hour="+return_hour+"&typeFilter="+typeFilter+"&carRate="+carRate+"&MinPrice="+minPrice+"&MaxPrice="+maxPrice);
 	xhttp.send();
 }
+function toggleMap(){
+	let results = document.querySelector("#tab_content");
+	let main_content = document.querySelector(".main-frame .main_content");
+	let map = document.querySelector(".map");
+	if(document.querySelector(".toggle-check").querySelector("input[type=checkbox]").checked == false){
+		createSelectMap(map.querySelector("#map_wrapper"),35,6);
+		main_content.style.gridTemplateColumns = "1fr 3fr 1fr";
+		main_content.style.gridTemplateRows = "1fr";
+		results.style.width="24vw";
+		results.style.justifyContent="center";
+		document.querySelector(".map").style.display = "block";
+	}else{
+		map.style.display = "none";
+		main_content.style.gridTemplateColumns = "277px calc(100% - 277px)";
+		main_content.style.gridTemplateRows = "1fr";
+		results.style.width="calc(100vw - 327px)";
+		results.style.justifyContent="normal";
+	}
+}
+toggleMap();
