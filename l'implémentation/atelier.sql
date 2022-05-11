@@ -49,6 +49,37 @@ INSERT INTO `agence` VALUES ('agence02',52165,'batna','d02@gmail.com','030102301
 UNLOCK TABLES;
 
 --
+-- Table structure for table `carreviews`
+--
+
+DROP TABLE IF EXISTS `carreviews`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `carreviews` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `car_matricule` varchar(45) NOT NULL,
+  `client_email` varchar(45) NOT NULL,
+  `review` varchar(80) DEFAULT NULL,
+  `date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_client_idx` (`client_email`),
+  KEY `fk_car_idx` (`car_matricule`),
+  CONSTRAINT `fk_car` FOREIGN KEY (`car_matricule`) REFERENCES `vehicule` (`matricule`),
+  CONSTRAINT `fk_client` FOREIGN KEY (`client_email`) REFERENCES `client` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `carreviews`
+--
+
+LOCK TABLES `carreviews` WRITE;
+/*!40000 ALTER TABLE `carreviews` DISABLE KEYS */;
+INSERT INTO `carreviews` VALUES (1,'202212522','1@email.com','Great Car , I recommend','2022-05-08 10:00:00'),(2,'202212522','Hamza@gmail.com','Great Car , Great Team , awsome cutomer service , I recommend','2022-05-08 10:00:00'),(3,'202212520','1@email.com','Great Car , Great Team , awsome cutomer service , I recommend','2022-05-08 10:00:00');
+/*!40000 ALTER TABLE `carreviews` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `client`
 --
 
@@ -899,4 +930,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-11 21:43:24
+-- Dump completed on 2022-05-10 19:58:39

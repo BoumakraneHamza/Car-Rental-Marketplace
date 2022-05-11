@@ -1,7 +1,7 @@
 package control;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,21 +10,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import model.CarStat;
 import model.DAO;
 import model.User;
-import model.Vehicule;
 
 /**
- * Servlet implementation class GaragisteCar
+ * Servlet implementation class AjaxCarStat
  */
-@WebServlet("/GaragisteCars")
-public class GaragisteCars extends HttpServlet {
+@WebServlet("/AjaxCarStat")
+public class AjaxCarStat extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GaragisteCars() {
+    public AjaxCarStat() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,20 +36,22 @@ public class GaragisteCars extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) request.getSession().getAttribute("user");
-		if (user != null && user.getType().equals("depot manager")) {
-			request.setAttribute("user", user);
-			ArrayList<Vehicule> cars = null;
-			DAO dao = new DAO();
-			cars = dao.getAgencyCars(user.getEmployement().getWorkingLocation() ,user.getEmployement().getAgencyName());
-			String depot = user.getEmployement().getWorkingLocation();
-			request.setAttribute("cars", cars);
-			request.setAttribute("depotcode", depot);
+		if (user!= null && user.getType().equals("depot manager")) {
+			PrintWriter out = response.getWriter();
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/GaragisteCars.jsp");
-			dispatcher.forward(request, response);
+			DAO dao = new DAO();
+			ObjectMapper mapper = new ObjectMapper();
+			CarStat carStat = null;
+			
+			carStat = dao.getCarReviews(request.getParameter("matricule"));
+			String stat = mapper.writeValueAsString(carStat);
+			System.out.println(stat);
+			out.print(stat);
+			out.flush();
 		} else {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/login.jsp");
-			dispatcher.forward(request, response);
+			response.setStatus(500);
 		}
 	}
 

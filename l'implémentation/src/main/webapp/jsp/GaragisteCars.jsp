@@ -77,7 +77,7 @@
 				<div id="car_image">
 					<div id="cta">
 						<img id="calendar" src="${pageContext.request.contextPath}/assets/date-checked-white.svg">
-						<img onclick="showStat(this)" id="stats"src="${pageContext.request.contextPath}/assets/chart-pie-white.svg">
+						<img onclick="showStat('${car.matricule}')" id="stats"src="${pageContext.request.contextPath}/assets/chart-pie-white.svg">
 					</div>
 					<img style="width:240px;height:151px;border-radius: 10px 10px 0px 0px ;" src="${pageContext.request.contextPath}${car.image}">
 				</div>
@@ -107,114 +107,14 @@
 		<div class="reviews">
 			<p id="reviews_header">Reviews</p>
 			<div id="review_list">
-				<div id="review">
-					<div id="renter">
-						<div id="renter_image">
-							<img style="width:40px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
-						</div>
-						<div id="verticatl_line"></div>
-					</div>
-					<div id="content">
-						<p id="renter_name">Nathanial</p>
-						<p id="review_content">Great Car , Great Team , awsome cutomer service , I recommend</p>
-						<p id="date">20 Dec , 10:00AM</p>
-					</div>
-				</div>
-				<div id="review">
-					<div id="renter">
-						<div id="renter_image">
-							<img style="width:40px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
-						</div>
-						<div id="verticatl_line"></div>
-					</div>
-					<div id="content">
-						<p id="renter_name">Nathanial</p>
-						<p id="review_content">Great Car , Great Team , awsome cutomer service , I recommend</p>
-						<p id="date">20 Dec , 10:00AM</p>
-					</div>
-				</div>
-				<div id="review">
-					<div id="renter">
-						<div id="renter_image">
-							<img style="width:40px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
-						</div>
-						<div id="verticatl_line"></div>
-					</div>
-					<div id="content">
-						<p id="renter_name">Nathanial</p>
-						<p id="review_content">Great Car , Great Team , awsome cutomer service , I recommend</p>
-						<p id="date">20 Dec , 10:00AM</p>
-					</div>
-				</div>
-				<div id="review">
-					<div id="renter">
-						<div id="renter_image">
-							<img style="width:40px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
-						</div>
-						<div id="verticatl_line"></div>
-					</div>
-					<div id="content">
-						<p id="renter_name">Nathanial</p>
-						<p id="review_content">Great Car , Great Team , awsome cutomer service , I recommend</p>
-						<p id="date">20 Dec , 10:00AM</p>
-					</div>
-				</div>
-				<div id="review">
-					<div id="renter">
-						<div id="renter_image">
-							<img style="width:40px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
-						</div>
-						<div id="verticatl_line"></div>
-					</div>
-					<div id="content">
-						<p id="renter_name">Nathanial</p>
-						<p id="review_content">Great Car , Great Team , awsome cutomer service , I recommend</p>
-						<p id="date">20 Dec , 10:00AM</p>
-					</div>
-				</div>
-				<div id="review">
-					<div id="renter">
-						<div id="renter_image">
-							<img style="width:40px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
-						</div>
-						<div id="verticatl_line"></div>
-					</div>
-					<div id="content">
-						<p id="renter_name">Nathanial</p>
-						<p id="review_content">Great Car , Great Team , awsome cutomer service , I recommend</p>
-						<p id="date">20 Dec , 10:00AM</p>
-					</div>
-				</div>
-				<div id="review">
-					<div id="renter">
-						<div id="renter_image">
-							<img style="width:40px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
-						</div>
-						<div id="verticatl_line"></div>
-					</div>
-					<div id="content">
-						<p id="renter_name">Nathanial</p>
-						<p id="review_content">Great Car , Great Team , awsome cutomer service , I recommend</p>
-						<p id="date">20 Dec , 10:00AM</p>
-					</div>
-				</div>
-				<div id="review">
-					<div id="renter">
-						<div id="renter_image">
-							<img style="width:40px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
-						</div>
-						<div id="verticatl_line"></div>
-					</div>
-					<div id="content">
-						<p id="renter_name">Nathanial</p>
-						<p id="review_content">Great Car , Great Team , awsome cutomer service , I recommend</p>
-						<p id="date">20 Dec , 10:00AM</p>
-					</div>
-				</div>
+							
 			</div>
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+	var contextPath = "${pageContext.request.contextPath}";
+</script>
 <script src="${pageContext.request.contextPath}/js/ClientMain.js"></script>
 <script src="${pageContext.request.contextPath}/js/GaragisteCars.js"></script>
 <%@include file="/jsp/dropdownList.jsp"%>

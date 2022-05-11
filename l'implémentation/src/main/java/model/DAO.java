@@ -2182,4 +2182,54 @@ public class DAO {
 		}
 		return carStat;
 	}
+	
+	public CarStat getCarReviews(String matricule) {
+		String query;
+		PreparedStatement statement;
+		ResultSet result;
+		CarStat carReviews = null;
+		
+		try {
+			connectDB();
+			query = "SELECT matricule, comfort_rating, cleanliness_rating, PickReturn_rating\r\n"
+					+ "FROM atelier.vehicule\r\n"
+					+ "WHERE matricule = ?";
+			
+			statement = connection.prepareStatement(query);
+			statement.setString(1, matricule);
+			result = statement.executeQuery();
+			
+			if (result.next()) {
+				carReviews = new CarStat();
+				carReviews.setMatricule(result.getString("matricule"));
+				carReviews.setComfort(result.getInt("comfort_rating"));
+				carReviews.setCleanliness(result.getInt("cleanliness_rating"));
+				carReviews.setPick_upReturn(result.getInt("PickReturn_rating"));
+			}
+			
+			ArrayList<Review> reviews = new ArrayList<Review>();
+			Review review = null;
+			query = "SELECT review, `date`, nom, prenom\r\n"
+					+ "FROM atelier.carreviews JOIN atelier.`client` ON email = client_email\r\n"
+					+ "WHERE car_matricule = ?";
+			statement = connection.prepareStatement(query);
+			statement.setString(1, matricule);
+			result = statement.executeQuery();
+			
+			while (result.next()) {
+				review = new Review();
+				review.setRenterName(result.getString("prenom") + " " + result.getString("nom"));
+				review.setReviewText(result.getString("review"));
+				review.setDate(result.getString("date"));
+				reviews.add(review);
+			}
+			carReviews.setReviews(reviews);
+			
+			statement.close();
+		} catch (SQLException | InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		
+		return carReviews;
+	}
 }

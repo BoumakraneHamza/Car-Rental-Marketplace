@@ -40,7 +40,7 @@ $(function() {
 	});
 });
 
-function createCars(parent , car){
+function createCars(car){
 	const image = car["image"];
 	const marque = car["marque"];
 	const modele = car["modele"];
@@ -81,7 +81,8 @@ function createCars(parent , car){
 								</div>\n\
 							</div>\n\
 						</div>";
-	parent.appendChild(aCar);
+	const carList = document.querySelector("#tab_content");
+	carList.appendChild(aCar);
 }
 function clearChild(e){
 	var child = e.lastElementChild; 
@@ -114,12 +115,9 @@ search_section.querySelector("#minimize_wrapper").addEventListener("click",()=>{
 			document.querySelector(".main-frame-header #tab_header #title").append(counter);
 			document.querySelector(".main-frame-header #tab_header #title").append(text);
 			clearChild(document.querySelector("#tab_content"));
-			let searchResult = document.createElement("div");
-			searchResult.setAttribute("id","search_results");
 			for(car in cars){
-				createCars(searchResult,cars[car]);
+				createCars(cars[car]);
 			}
-			document.querySelector("#tab_content").append(searchResult);
 			map.eachLayer((layer) => {
 		     if(layer['_latlng']!=undefined)
 		         layer.remove();
@@ -174,84 +172,8 @@ function createMapIcons(lat,lon){
 	    iconUrl: contextPath+'/assets/marker-icon.svg',
 	    iconSize: [30, 30],
 	});
-	/*
-	<div id=\"secondary_image\">\n\
-		<img style=\"width:95px\" src=\""+contextPath+"/assets/car_pics/car02.jpg\">\n\
-		<img style=\"width:95px\" src=\""+contextPath+"/assets/car_pics/car02.jpg\">\n\
-	</div>\n\
-	*/
-	L.marker([lat, lon],{icon: marker}).addTo(map).bindPopup("<div id=\"Map_pop_Up\"</div>\n\
-			<div id=\"image_wrapper\">\n\
-			<div id=\"image_slider\">\n\
-				<img style=\"width: 180px;height: 119px;object-fit: cover;\" src=\""+contextPath+"/assets/car_pics/car02.jpg\">\n\
-				<img id=\"last_image\" style=\"width: 180px;height: 119px;object-fit: cover;\" src=\""+contextPath+"/assets/car_pics/default01.jpg\">\n\
-				<img style=\"width: 180px;height: 119px;object-fit: cover;\" src=\""+contextPath+"/assets/car_pics/car03.jpg\">\n\
-				<img style=\"width: 180px;height: 119px;object-fit: cover;\" src=\""+contextPath+"/assets/car_pics/default.jpg\">\n\
-				<img id=\"first_image\" style=\"width: 180px;height: 119px;object-fit: cover;\" src=\""+contextPath+"/assets/car_pics/car02.jpg\">\n\
-				<img style=\"width: 180px;height: 119px;object-fit: cover;\" src=\""+contextPath+"/assets/car_pics/default01.jpg\">\n\
-			</div>\n\
-			</div>\n\
-			<button id=\"back\" onclick=\"ManagePopUpSlider(this)\">back</button>\n\
-			<button id=\"next\" onclick=\"ManagePopUpSlider(this)\">next</button>\n\
-			<div id=\"depot_info\">\n\
-				<div id=\"row\">\n\
-					<p id=\"agency_name\">Hertz</p>\n\
-					<div id=\"rating\">\n\
-						<div id=\"icon_wrapper\">\n\
-							<img style=\"width: 12px;\" src=\""+contextPath+"/assets/star-grey.svg\">\n\
-						</div>\n\
-						<p id=\"value\">5.0</p>\n\
-					</div>\n\
-				</div>\n\
-			</div>\n\
-			</div>"
-	);
+	L.marker([lat, lon],{icon: marker}).addTo(map);
 }
-let counter = 1;
-function ManagePopUpSlider(element){
-	let image_wrapper = document.querySelector("#Map_pop_Up #image_slider");
-	let images = document.querySelectorAll("#Map_pop_Up #image_slider img");
-	let size = image_wrapper.clientWidth;
-	if(images[counter].id=="last_image"){
-			if(element.innerHTML == "next"){
-			image_wrapper.style.transition = "transform 0.4s ease-in-out";
-			image_wrapper.style.transform = "translateX("+(-size * counter)+"px)";
-			counter++;
-			console.log(counter);
-			return;
-		}
-		console.log("last");
-		counter = images.length-1;
-		image_wrapper.style.transform = image_wrapper.style.transform = "translateX("+(-size * counter)+"px)";
-		return;
-	}
-	if(images[counter].id=="first_image"){
-		if(element.innerHTML == "back"){
-			image_wrapper.style.transition = "transform 0.4s ease-in-out";
-			image_wrapper.style.transform = "translateX("+(-size * counter)+"px)";
-			counter--;
-			console.log(counter);
-			return;
-		}
-		console.log("first");
-		counter = 0;
-		image_wrapper.style.transform = image_wrapper.style.transform = "translateX("+(-size * counter)+"px)";
-		return;
-	}
-	if(element.innerHTML == "next"){
-		image_wrapper.style.transition = "transform 0.4s ease-in-out";
-		image_wrapper.style.transform = "translateX("+(-size * counter)+"px)";
-		counter++;
-		console.log(counter);
-	}
-	if(element.innerHTML == "back"){
-		image_wrapper.style.transition = "transform 0.4s ease-in-out";
-		image_wrapper.style.transform = "translateX("+(-size * counter)+"px)";
-		counter--;
-		console.log(counter);
-	}
-}
-
 function selectRating(element){
 	let ratings = document.querySelector(".filter").querySelector("#rating").querySelectorAll("#tile");
 	for(let i=0 ;i<ratings.length;i++){
@@ -317,78 +239,37 @@ function filterCars(element){
 	var maxPrice = document.querySelector(".filter #price .range-max").value;
 
 	console.log(typeFilter + "\n" + carRate);
-	if(document.querySelector("#tab_content #search_results")){
-		var xhttp = new XMLHttpRequest();
-		xhttp.onload = function() {
-			if(xhttp.response){
-				let json = JSON.parse(xhttp.responseText);
-				clearChild(document.querySelector("#tab_content #search_results"));
-				for(car in json){
-					createCars(document.querySelector("#tab_content #search_results"),json[car]);
-				}
+	var xhttp = new XMLHttpRequest();
+	xhttp.onload = function() {
+		if(xhttp.response){
+			let json = JSON.parse(xhttp.responseText);
+			clearChild(document.querySelector("#tab_content"));
+			for(car in json){
+				createCars(json[car]);
 			}
 		}
-		xhttp.open("GET","AjaxCarFilter?location="+location+"&pickUp_date="+pickUp_date+"&return_date="+return_date
-									  +"&pickUp_hour="+pickUp_hour+"&return_hour="+return_hour+"&typeFilter="+typeFilter+"&carRate="+carRate+"&MinPrice="+minPrice+"&MaxPrice="+maxPrice);
-		xhttp.send();
-	}else if(document.querySelector("#tab_content #dashboard")){
-		var xhttp = new XMLHttpRequest();
-		xhttp.onload = function() {
-			if(xhttp.response){
-				let json = JSON.parse(xhttp.responseText);
-				clearChild(document.querySelector("#tab_content #dashboard #recent_tab_content"));
-				for(car in json){
-					createCars(document.querySelector("#tab_content #dashboard #recent_tab_content"),json[car]);
-				}
-			}
-		}
-		xhttp.open("GET","AjaxCarFilter?location="+location+"&pickUp_date="+pickUp_date+"&return_date="+return_date
-									  +"&pickUp_hour="+pickUp_hour+"&return_hour="+return_hour+"&typeFilter="+typeFilter+"&carRate="+carRate+"&MinPrice="+minPrice+"&MaxPrice="+maxPrice);
-		xhttp.send();
 	}
+	xhttp.open("GET","AjaxCarFilter?location="+location+"&pickUp_date="+pickUp_date+"&return_date="+return_date
+								  +"&pickUp_hour="+pickUp_hour+"&return_hour="+return_hour+"&typeFilter="+typeFilter+"&carRate="+carRate+"&MinPrice="+minPrice+"&MaxPrice="+maxPrice);
+	xhttp.send();
 }
 function toggleMap(){
 	let results = document.querySelector("#tab_content");
 	let main_content = document.querySelector(".main-frame .main_content");
 	let map = document.querySelector(".map");
-	let dashboard = document.querySelector("#dashboard");
 	if(document.querySelector(".toggle-check").querySelector("input[type=checkbox]").checked == false){
 		createSelectMap(map.querySelector("#map_wrapper"),35,6);
 		main_content.style.gridTemplateColumns = "1fr 3fr 1fr";
 		main_content.style.gridTemplateRows = "1fr";
 		results.style.width="24vw";
 		results.style.justifyContent="center";
-		if(dashboard){
-			dashboard.style.display="none";
-		}
 		document.querySelector(".map").style.display = "block";
 	}else{
-		if(!document.querySelector("#tab_content").querySelector("#search_results")){
-			dashboard.style.display="flex";
-		}
 		map.style.display = "none";
 		main_content.style.gridTemplateColumns = "277px calc(100% - 277px)";
 		main_content.style.gridTemplateRows = "1fr";
-		results.style.width="calc(100vw - 320px)";
+		results.style.width="calc(100vw - 327px)";
 		results.style.justifyContent="normal";
 	}
 }
 toggleMap();
-// a proof of concept function
-function calculateDistance(latA, latB) {
-        if (latA !== undefined && latB !== undefined) {
-            
-            //How can I make it run distanceTo method here where leaflet Js is being called in another file 
-            let dis = latA.distanceTo(latB);
-            let distanceConversion = ((dis) / 1000).toFixed(0);
-            let distanceKm = distanceConversion;
-            return distanceKm +" km" || 0;
-        }
-        else {
-            return 0;
-        }
-    }
-
-
-distance = calculateDistance(new L.LatLng(35,5), new L.LatLng(30,3));
-console.log(distance);
