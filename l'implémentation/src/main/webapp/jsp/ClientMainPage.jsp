@@ -83,8 +83,7 @@
 			</div>
 			<div id="tab_header">
 				<div id="title">
-					<p id="counter">16</p>
-					<p> Results</p>
+					<p id="nearby">Recommended</p>
 				</div>
 				<div id="section">
 					<p>Popular</p>
@@ -196,7 +195,10 @@
 			</div>
 			<div id="tab_content">
 				<div id="dashboard">
-					<p id="section_header">Recent searches</p>
+					<div id="recent_tab_header">
+						<p id="section_header">Recent searches</p>
+						<div id="subtitle"><p>You were looking for</p><p id="location">Constantine</p></div>
+					</div>
 					<div id="recent_tab_content">
 						<div id="result">
 							<div id="image_wrapper">
@@ -228,8 +230,400 @@
 								</div>
 							</div>
 						</div>
+						<div id="result">
+							<div id="image_wrapper">
+								<img id="car_image" style="width: 300px;object-fit: cover;height: 180px;" src="${pageContext.request.contextPath}/assets/car_pics/car02.jpg">
+								<img id="like" src="${pageContext.request.contextPath}/assets/heart-icon.svg">
+								<div id="details">
+									<img style="width:12px;" src="${pageContext.request.contextPath}/assets/activity-purple.svg">
+									<p>Details</p>
+								</div>
+							</div>
+							<div id="result_info">
+								<div id="row">
+									<div id="left">
+										<div id="rating">
+											<div id="icon_wrapper">
+												<img style="width: 12px;" src="${pageContext.request.contextPath}/assets/star-grey.svg">
+											</div>
+											<p id="value">5.0</p>
+										</div>
+										<p id="car_name">Peugot e-208GT</p>
+									</div>
+									<p id="price">$200</p>
+								</div>
+								<div id="row">
+									<div id="section">
+										<p id="agency_name">Hertz</p>
+										<p id="depot_address">Constantine district - constantine -algeria</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="result">
+							<div id="image_wrapper">
+								<img id="car_image" style="width: 300px;object-fit: cover;height: 180px;" src="${pageContext.request.contextPath}/assets/car_pics/car02.jpg">
+								<img id="like" src="${pageContext.request.contextPath}/assets/heart-icon.svg">
+								<div id="details">
+									<img style="width:12px;" src="${pageContext.request.contextPath}/assets/activity-purple.svg">
+									<p>Details</p>
+								</div>
+							</div>
+							<div id="result_info">
+								<div id="row">
+									<div id="left">
+										<div id="rating">
+											<div id="icon_wrapper">
+												<img style="width: 12px;" src="${pageContext.request.contextPath}/assets/star-grey.svg">
+											</div>
+											<p id="value">5.0</p>
+										</div>
+										<p id="car_name">Peugot e-208GT</p>
+									</div>
+									<p id="price">$200</p>
+								</div>
+								<div id="row">
+									<div id="section">
+										<p id="agency_name">Hertz</p>
+										<p id="depot_address">Constantine district - constantine -algeria</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="result">
+							<div id="image_wrapper">
+								<img id="car_image" style="width: 300px;object-fit: cover;height: 180px;" src="${pageContext.request.contextPath}/assets/car_pics/car02.jpg">
+								<img id="like" src="${pageContext.request.contextPath}/assets/heart-icon.svg">
+								<div id="details">
+									<img style="width:12px;" src="${pageContext.request.contextPath}/assets/activity-purple.svg">
+									<p>Details</p>
+								</div>
+							</div>
+							<div id="result_info">
+								<div id="row">
+									<div id="left">
+										<div id="rating">
+											<div id="icon_wrapper">
+												<img style="width: 12px;" src="${pageContext.request.contextPath}/assets/star-grey.svg">
+											</div>
+											<p id="value">5.0</p>
+										</div>
+										<p id="car_name">Peugot e-208GT</p>
+									</div>
+									<p id="price">$200</p>
+								</div>
+								<div id="row">
+									<div id="section">
+										<p id="agency_name">Hertz</p>
+										<p id="depot_address">Constantine district - constantine -algeria</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="result">
+							<div id="image_wrapper">
+								<img id="car_image" style="width: 300px;object-fit: cover;height: 180px;" src="${pageContext.request.contextPath}/assets/car_pics/car02.jpg">
+								<img id="like" src="${pageContext.request.contextPath}/assets/heart-icon.svg">
+								<div id="details">
+									<img style="width:12px;" src="${pageContext.request.contextPath}/assets/activity-purple.svg">
+									<p>Details</p>
+								</div>
+							</div>
+							<div id="result_info">
+								<div id="row">
+									<div id="left">
+										<div id="rating">
+											<div id="icon_wrapper">
+												<img style="width: 12px;" src="${pageContext.request.contextPath}/assets/star-grey.svg">
+											</div>
+											<p id="value">5.0</p>
+										</div>
+										<p id="car_name">Peugot e-208GT</p>
+									</div>
+									<p id="price">$200</p>
+								</div>
+								<div id="row">
+									<div id="section">
+										<p id="agency_name">Hertz</p>
+										<p id="depot_address">Constantine district - constantine -algeria</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="result">
+							<div id="image_wrapper">
+								<img id="car_image" style="width: 300px;object-fit: cover;height: 180px;" src="${pageContext.request.contextPath}/assets/car_pics/car02.jpg">
+								<img id="like" src="${pageContext.request.contextPath}/assets/heart-icon.svg">
+								<div id="details">
+									<img style="width:12px;" src="${pageContext.request.contextPath}/assets/activity-purple.svg">
+									<p>Details</p>
+								</div>
+							</div>
+							<div id="result_info">
+								<div id="row">
+									<div id="left">
+										<div id="rating">
+											<div id="icon_wrapper">
+												<img style="width: 12px;" src="${pageContext.request.contextPath}/assets/star-grey.svg">
+											</div>
+											<p id="value">5.0</p>
+										</div>
+										<p id="car_name">Peugot e-208GT</p>
+									</div>
+									<p id="price">$200</p>
+								</div>
+								<div id="row">
+									<div id="section">
+										<p id="agency_name">Hertz</p>
+										<p id="depot_address">Constantine district - constantine -algeria</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="result">
+							<div id="image_wrapper">
+								<img id="car_image" style="width: 300px;object-fit: cover;height: 180px;" src="${pageContext.request.contextPath}/assets/car_pics/car02.jpg">
+								<img id="like" src="${pageContext.request.contextPath}/assets/heart-icon.svg">
+								<div id="details">
+									<img style="width:12px;" src="${pageContext.request.contextPath}/assets/activity-purple.svg">
+									<p>Details</p>
+								</div>
+							</div>
+							<div id="result_info">
+								<div id="row">
+									<div id="left">
+										<div id="rating">
+											<div id="icon_wrapper">
+												<img style="width: 12px;" src="${pageContext.request.contextPath}/assets/star-grey.svg">
+											</div>
+											<p id="value">5.0</p>
+										</div>
+										<p id="car_name">Peugot e-208GT</p>
+									</div>
+									<p id="price">$200</p>
+								</div>
+								<div id="row">
+									<div id="section">
+										<p id="agency_name">Hertz</p>
+										<p id="depot_address">Constantine district - constantine -algeria</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="result">
+							<div id="image_wrapper">
+								<img id="car_image" style="width: 300px;object-fit: cover;height: 180px;" src="${pageContext.request.contextPath}/assets/car_pics/car02.jpg">
+								<img id="like" src="${pageContext.request.contextPath}/assets/heart-icon.svg">
+								<div id="details">
+									<img style="width:12px;" src="${pageContext.request.contextPath}/assets/activity-purple.svg">
+									<p>Details</p>
+								</div>
+							</div>
+							<div id="result_info">
+								<div id="row">
+									<div id="left">
+										<div id="rating">
+											<div id="icon_wrapper">
+												<img style="width: 12px;" src="${pageContext.request.contextPath}/assets/star-grey.svg">
+											</div>
+											<p id="value">5.0</p>
+										</div>
+										<p id="car_name">Peugot e-208GT</p>
+									</div>
+									<p id="price">$200</p>
+								</div>
+								<div id="row">
+									<div id="section">
+										<p id="agency_name">Hertz</p>
+										<p id="depot_address">Constantine district - constantine -algeria</p>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-				</div>		
+				</div>
+				<div id="recommended_list">
+					<div id="result">
+						<div id="image_wrapper">
+							<img id="car_image" style="width: 300px;object-fit: cover;height: 180px;" src="${pageContext.request.contextPath}/assets/car_pics/car02.jpg">
+							<img id="like" src="${pageContext.request.contextPath}/assets/heart-icon.svg">
+							<div id="details">
+								<img style="width:12px;" src="${pageContext.request.contextPath}/assets/activity-purple.svg">
+								<p>Details</p>
+							</div>
+						</div>
+						<div id="result_info">
+							<div id="row">
+								<div id="left">
+									<div id="rating">
+										<div id="icon_wrapper">
+											<img style="width: 12px;" src="${pageContext.request.contextPath}/assets/star-grey.svg">
+										</div>
+										<p id="value">5.0</p>
+									</div>
+									<p id="car_name">Peugot e-208GT</p>
+								</div>
+								<p id="price">$200</p>
+							</div>
+							<div id="row">
+								<div id="section">
+									<p id="agency_name">Hertz</p>
+									<p id="depot_address">Constantine district - constantine -algeria</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="result">
+							<div id="image_wrapper">
+								<img id="car_image" style="width: 300px;object-fit: cover;height: 180px;" src="${pageContext.request.contextPath}/assets/car_pics/car02.jpg">
+								<img id="like" src="${pageContext.request.contextPath}/assets/heart-icon.svg">
+								<div id="details">
+									<img style="width:12px;" src="${pageContext.request.contextPath}/assets/activity-purple.svg">
+									<p>Details</p>
+								</div>
+							</div>
+							<div id="result_info">
+								<div id="row">
+									<div id="left">
+										<div id="rating">
+											<div id="icon_wrapper">
+												<img style="width: 12px;" src="${pageContext.request.contextPath}/assets/star-grey.svg">
+											</div>
+											<p id="value">5.0</p>
+										</div>
+										<p id="car_name">Peugot e-208GT</p>
+									</div>
+									<p id="price">$200</p>
+								</div>
+								<div id="row">
+									<div id="section">
+										<p id="agency_name">Hertz</p>
+										<p id="depot_address">Constantine district - constantine -algeria</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="result">
+							<div id="image_wrapper">
+								<img id="car_image" style="width: 300px;object-fit: cover;height: 180px;" src="${pageContext.request.contextPath}/assets/car_pics/car02.jpg">
+								<img id="like" src="${pageContext.request.contextPath}/assets/heart-icon.svg">
+								<div id="details">
+									<img style="width:12px;" src="${pageContext.request.contextPath}/assets/activity-purple.svg">
+									<p>Details</p>
+								</div>
+							</div>
+							<div id="result_info">
+								<div id="row">
+									<div id="left">
+										<div id="rating">
+											<div id="icon_wrapper">
+												<img style="width: 12px;" src="${pageContext.request.contextPath}/assets/star-grey.svg">
+											</div>
+											<p id="value">5.0</p>
+										</div>
+										<p id="car_name">Peugot e-208GT</p>
+									</div>
+									<p id="price">$200</p>
+								</div>
+								<div id="row">
+									<div id="section">
+										<p id="agency_name">Hertz</p>
+										<p id="depot_address">Constantine district - constantine -algeria</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="result">
+							<div id="image_wrapper">
+								<img id="car_image" style="width: 300px;object-fit: cover;height: 180px;" src="${pageContext.request.contextPath}/assets/car_pics/car02.jpg">
+								<img id="like" src="${pageContext.request.contextPath}/assets/heart-icon.svg">
+								<div id="details">
+									<img style="width:12px;" src="${pageContext.request.contextPath}/assets/activity-purple.svg">
+									<p>Details</p>
+								</div>
+							</div>
+							<div id="result_info">
+								<div id="row">
+									<div id="left">
+										<div id="rating">
+											<div id="icon_wrapper">
+												<img style="width: 12px;" src="${pageContext.request.contextPath}/assets/star-grey.svg">
+											</div>
+											<p id="value">5.0</p>
+										</div>
+										<p id="car_name">Peugot e-208GT</p>
+									</div>
+									<p id="price">$200</p>
+								</div>
+								<div id="row">
+									<div id="section">
+										<p id="agency_name">Hertz</p>
+										<p id="depot_address">Constantine district - constantine -algeria</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="result">
+							<div id="image_wrapper">
+								<img id="car_image" style="width: 300px;object-fit: cover;height: 180px;" src="${pageContext.request.contextPath}/assets/car_pics/car02.jpg">
+								<img id="like" src="${pageContext.request.contextPath}/assets/heart-icon.svg">
+								<div id="details">
+									<img style="width:12px;" src="${pageContext.request.contextPath}/assets/activity-purple.svg">
+									<p>Details</p>
+								</div>
+							</div>
+							<div id="result_info">
+								<div id="row">
+									<div id="left">
+										<div id="rating">
+											<div id="icon_wrapper">
+												<img style="width: 12px;" src="${pageContext.request.contextPath}/assets/star-grey.svg">
+											</div>
+											<p id="value">5.0</p>
+										</div>
+										<p id="car_name">Peugot e-208GT</p>
+									</div>
+									<p id="price">$200</p>
+								</div>
+								<div id="row">
+									<div id="section">
+										<p id="agency_name">Hertz</p>
+										<p id="depot_address">Constantine district - constantine -algeria</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="result">
+							<div id="image_wrapper">
+								<img id="car_image" style="width: 300px;object-fit: cover;height: 180px;" src="${pageContext.request.contextPath}/assets/car_pics/car02.jpg">
+								<img id="like" src="${pageContext.request.contextPath}/assets/heart-icon.svg">
+								<div id="details">
+									<img style="width:12px;" src="${pageContext.request.contextPath}/assets/activity-purple.svg">
+									<p>Details</p>
+								</div>
+							</div>
+							<div id="result_info">
+								<div id="row">
+									<div id="left">
+										<div id="rating">
+											<div id="icon_wrapper">
+												<img style="width: 12px;" src="${pageContext.request.contextPath}/assets/star-grey.svg">
+											</div>
+											<p id="value">5.0</p>
+										</div>
+										<p id="car_name">Peugot e-208GT</p>
+									</div>
+									<p id="price">$200</p>
+								</div>
+								<div id="row">
+									<div id="section">
+										<p id="agency_name">Hertz</p>
+										<p id="depot_address">Constantine district - constantine -algeria</p>
+									</div>
+								</div>
+							</div>
+						</div>
+				</div>
 				<!--<div id="result">
 					<div id="image_wrapper">
 						<img id="car_image" style="width: 300px;object-fit: cover;height: 180px;" src="${pageContext.request.contextPath}/assets/car_pics/car02.jpg">

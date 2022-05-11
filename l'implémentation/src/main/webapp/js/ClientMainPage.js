@@ -114,6 +114,9 @@ search_section.querySelector("#minimize_wrapper").addEventListener("click",()=>{
 			clearChild(document.querySelector(".main-frame-header #tab_header #title"));
 			document.querySelector(".main-frame-header #tab_header #title").append(counter);
 			document.querySelector(".main-frame-header #tab_header #title").append(text);
+			if(document.querySelector("#tab_content #dashboard")){
+				document.querySelector("#tab_content #dashboard").remove();
+			}
 			clearChild(document.querySelector("#tab_content"));
 			for(car in cars){
 				createCars(cars[car]);
@@ -243,6 +246,9 @@ function filterCars(element){
 	xhttp.onload = function() {
 		if(xhttp.response){
 			let json = JSON.parse(xhttp.responseText);
+			if(document.querySelector("#tab_content #dashboard")){
+				document.querySelector("#tab_content #dashboard").remove();
+			}
 			clearChild(document.querySelector("#tab_content"));
 			for(car in json){
 				createCars(json[car]);
@@ -257,6 +263,7 @@ function toggleMap(){
 	let results = document.querySelector("#tab_content");
 	let main_content = document.querySelector(".main-frame .main_content");
 	let map = document.querySelector(".map");
+	let dashboard = document.querySelector("#dashboard");
 	if(document.querySelector(".toggle-check").querySelector("input[type=checkbox]").checked == false){
 		createSelectMap(map.querySelector("#map_wrapper"),35,6);
 		main_content.style.gridTemplateColumns = "1fr 3fr 1fr";
@@ -268,8 +275,26 @@ function toggleMap(){
 		map.style.display = "none";
 		main_content.style.gridTemplateColumns = "277px calc(100% - 277px)";
 		main_content.style.gridTemplateRows = "1fr";
-		results.style.width="calc(100vw - 327px)";
+		results.style.width="calc(100vw - 320px)";
 		results.style.justifyContent="normal";
 	}
 }
 toggleMap();
+
+function calculateDistance(latA, latB) {
+        if (latA !== undefined && latB !== undefined) {
+            
+            //How can I make it run distanceTo method here where leaflet Js is being called in another file 
+            let dis = latA.distanceTo(latB);
+            let distanceConversion = ((dis) / 1000).toFixed(0);
+            let distanceKm = distanceConversion;
+            return distanceKm +" km" || 0;
+        }
+        else {
+            return 0;
+        }
+    }
+
+
+distance = calculateDistance(new L.LatLng(35,5), new L.LatLng(30,3));
+console.log(distance);

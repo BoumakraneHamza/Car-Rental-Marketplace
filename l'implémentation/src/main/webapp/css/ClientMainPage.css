@@ -118,6 +118,10 @@
     gap: 8px;
     font-size: 20px;
 }
+.main-frame #tab_header #title #nearby {
+    font-size: 18px;
+    font-weight: 600;
+}
 .main-frame #tab_header #title #counter {
     font-weight: 600;
 }
@@ -329,11 +333,86 @@
     padding: 10px 20px;
     gap: 20px;
     height: calc(100vh - 125px);
-    overflow-y: overlay;
-	width: calc(100vw - 327px);
+	width: calc(100vw - 320px);
     justify-content: normal;
 }
- #tab_content #result {
+ #tab_content #dashboard {
+	display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: calc(53vw + 3px);
+}
+#tab_content #dashboard #recent_tab_header {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    margin-bottom: 12px;
+}
+#tab_content #dashboard #recent_tab_header #section_header {
+	font-size: 22px;
+    font-weight: 500;
+    line-height: 25px;
+}
+#tab_content #dashboard #recent_tab_header #subtitle {
+    display: flex;
+    gap: 6px;
+    flex-direction: row;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 500;
+    color: #C4C4C4;
+}
+#tab_content #dashboard #recent_tab_header #subtitle #location {
+    color: #000;
+    font-weight: 600;
+}
+#tab_content #dashboard #recent_tab_content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 74vh;
+    overflow-y: overlay;
+    gap: 20px;
+}
+#tab_content #dashboard #recent_tab_content #result #image_wrapper{
+	position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    width: 250px;
+    height: 170px;
+}
+#tab_content #dashboard #recent_tab_content #result #result_info {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 10px;
+    width: 250px;
+}
+#tab_content #dashboard #recent_tab_content #result #result_info #row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    max-width: 250px;
+    justify-content: space-between;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#tab_content #recommended_list {
+    overflow-y: overlay;
+    width: 22vw;
+    display: flex;
+    padding: 0px 20px 0px 0px;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    height: calc(100vh - 145px);
+    overflow-x: hidden;
+    align-content: center;
+}
+#tab_content #result {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
