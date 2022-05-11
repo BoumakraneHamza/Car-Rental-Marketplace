@@ -2,6 +2,8 @@ package control;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -44,6 +46,29 @@ public class CarSearch extends HttpServlet {
 		User user = (User) request.getSession().getAttribute("user");
 		if (user != null && user.getType().equals("client")) {
 			request.setAttribute("user", user);
+			DAO dao = new DAO();
+			ArrayList<Vehicule> carList = new ArrayList<Vehicule>();
+			CarFilter filter = dao.GetCarFilters(user.getEmail());
+			System.out.println("location"+filter.getLocation());
+			if(filter != null) {
+				try {
+					carList = dao.carSearch(filter);
+				} catch (InstantiationException | IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				 SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yyyy"); 
+				 SimpleDateFormat userInput = new SimpleDateFormat("yyyy-mm-dd");
+				 try {
+					filter.setPickUp_date(formatter.format(userInput.parse(filter.getPickUp_date())));
+					filter.setReturn_date(formatter.format(userInput.parse(filter.getReturn_date())));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+				request.setAttribute("filters", filter);
+				request.setAttribute("vehicules", carList);
+			}
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/ClientMainPage.jsp");
 			dispatcher.forward(request, response);
 		}else if(user != null && user.getType().equals("secretaire")) {
@@ -65,6 +90,7 @@ public class CarSearch extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		DAO dao = new DAO();
+		User user = (User) request.getSession().getAttribute("user");
 		CarFilter filter = new CarFilter();
 		ArrayList<Vehicule> vehicules;
 		ArrayList<Depot> depots;
@@ -80,6 +106,7 @@ public class CarSearch extends HttpServlet {
 		    filter.setReturn_date(date2.toString());
 		    //long daysBetween =ChronoUnit.DAYS.between(date2, date1);
 			
+		    dao.UpdateRecentSearch(filter, user.getEmail());
 		    vehicules = dao.carSearch(filter);
 		    int size = vehicules.size();
 		    depots = dao.getDepots(filter.getLocation());

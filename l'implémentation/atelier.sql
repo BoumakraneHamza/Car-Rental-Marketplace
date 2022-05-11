@@ -452,6 +452,35 @@ INSERT INTO `offices` VALUES (1,'Hertz','constantine',0,'s01@email.com','36.3664
 UNLOCK TABLES;
 
 --
+-- Table structure for table `recentsearch`
+--
+
+DROP TABLE IF EXISTS `recentsearch`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `recentsearch` (
+  `client_id` varchar(45) NOT NULL,
+  `location` varchar(45) NOT NULL,
+  `pick_up_date` date NOT NULL,
+  `return_date` date NOT NULL,
+  `return_hour` time NOT NULL,
+  `pick_up_hour` time NOT NULL,
+  PRIMARY KEY (`client_id`),
+  CONSTRAINT `client_email` FOREIGN KEY (`client_id`) REFERENCES `client` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `recentsearch`
+--
+
+LOCK TABLES `recentsearch` WRITE;
+/*!40000 ALTER TABLE `recentsearch` DISABLE KEYS */;
+INSERT INTO `recentsearch` VALUES ('1@email.com','Batna','2022-05-09','2022-05-26','05:00:00','09:00:00');
+/*!40000 ALTER TABLE `recentsearch` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `requests`
 --
 
@@ -870,4 +899,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-10 19:58:39
+-- Dump completed on 2022-05-11 21:43:24

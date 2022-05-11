@@ -326,7 +326,80 @@ public class DAO {
 		}
 		return card;
 	}
-	
+	public CarFilter GetCarFilters(String email) {
+		CarFilter filter = null;
+		String Query = "SELECT EXISTS(SELECT * FROM atelier.recentsearch WHERE client_id = ?) as result";
+		PreparedStatement statement;
+		ResultSet result;
+		try {
+			connectDB();
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, email);
+			result = statement.executeQuery();
+			if(result.next()) {
+				if(result.getString("result").equals("1")) {
+					Query = "Select * from recentsearch where client_id = ?";
+					statement = connection.prepareStatement(Query);
+					statement.setString(1, email);
+					result = statement.executeQuery();
+					if(result.next()) {
+						filter = new CarFilter();
+						filter.setLocation(result.getString("location"));
+						filter.setPickUp_date(result.getString("pick_up_date"));
+						filter.setPickUp_hour(result.getString("pick_up_hour"));
+						filter.setReturn_date(result.getString("return_date"));
+						filter.setReturn_hour(result.getString("return_hour"));
+					}
+				}
+			}
+			statement.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return filter;
+	}
+	public void UpdateRecentSearch(CarFilter filter , String email) {
+		String Query = "SELECT EXISTS(SELECT * FROM atelier.recentsearch WHERE client_id = ?) as result";
+		PreparedStatement statement;
+		ResultSet result;
+		try {
+			connectDB();
+			String location = filter.getLocation();
+			String pick_date = filter.getPickUp_date();
+			String Pick_hour = filter.getPickUp_hour();
+			String Return_date = filter.getReturn_date();
+			String Return_hour = filter.getReturn_hour();
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, email);
+			result = statement.executeQuery();
+			if(result.next()) {
+				if(result.getString("result").equals("1")) {
+					Query = "Update recentsearch set location=? ,pick_up_date=?,pick_up_hour=?,return_date=?,return_hour=? where client_id=?";
+					statement = connection.prepareStatement(Query);
+					statement.setString(1, location);
+					statement.setString(2, pick_date);
+					statement.setString(3, Pick_hour);
+					statement.setString(4, Return_date);
+					statement.setString(5, Return_hour);
+					statement.setString(6, email);
+					statement.executeUpdate();
+				}else {
+					Query = "Insert into recentsearch values(?,?,?,?,?,?)";
+					statement = connection.prepareStatement(Query);
+					statement.setString(1, email);
+					statement.setString(2, location);
+					statement.setString(3, pick_date);
+					statement.setString(4, Return_date);
+					statement.setString(5, Return_hour);
+					statement.setString(6, Pick_hour);
+					statement.executeUpdate();
+				}
+			}
+			statement.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 	public ArrayList<Vehicule> carSearch(CarFilter filter) throws InstantiationException, IllegalAccessException {
 		
 		String query;
