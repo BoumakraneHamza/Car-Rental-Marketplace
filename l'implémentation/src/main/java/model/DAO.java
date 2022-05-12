@@ -436,8 +436,8 @@ public class DAO {
 	        	vehicule.setMatricule(result.getString("matricule"));
 	        	vehicule.setMarque(result.getString("marque"));
 	        	vehicule.setModele(result.getString("modele"));
-	        	vehicule.setPLJ(result.getDouble("PLJ"));
-	        	vehicule.setPLH(result.getDouble("PLH"));
+	        	vehicule.setPLJ(result.getInt("PLJ"));
+	        	vehicule.setPLH(result.getInt("PLH"));
 	        	vehicule.setType(result.getString("type"));
 	        	vehicule.setImage(result.getString("image"));
 	        	vehicule.setDepot_code(result.getString("depot_code"));
@@ -475,8 +475,8 @@ public class DAO {
 				vehicule.setMatricule(result.getString("matricule"));
 	        	vehicule.setMarque(result.getString("marque"));
 	        	vehicule.setModele(result.getString("modele"));
-	        	vehicule.setPLJ(result.getDouble("PLJ"));
-	        	vehicule.setPLH(result.getDouble("PLH"));
+	        	vehicule.setPLJ(result.getInt("PLJ"));
+	        	vehicule.setPLH(result.getInt("PLH"));
 	        	vehicule.setType(result.getString("type"));
 	        	vehicule.setYear(result.getInt("year"));
 	        	vehicule.setImage(result.getString("image"));
@@ -719,8 +719,8 @@ public class DAO {
 				vehicule.setModele(result.getString("modele"));
 				vehicule.setYear(result.getInt("year"));
 				vehicule.setColor(result.getString("color"));
-				vehicule.setPLJ(result.getDouble("PLJ"));
-				vehicule.setPLH(result.getDouble("PLH"));
+				vehicule.setPLJ(result.getInt("PLJ"));
+				vehicule.setPLH(result.getInt("PLH"));
 				vehicule.setNumberSeats(result.getInt("seats"));
 				vehicule.setNumberDoors(result.getInt("doors"));
 				vehicule.setNumberSuitCase(result.getInt("suit_case"));
@@ -1063,6 +1063,7 @@ public class DAO {
 		PreparedStatement statement;
 		
 		ArrayList<Depot> depots = new ArrayList<Depot>();
+		ArrayList<Vehicule> vehicules = null;
 		Depot depot;
 		
 		ResultSet result;
@@ -1088,6 +1089,23 @@ public class DAO {
 				depot.setLat(result.getString("lat"));
 				depot.setLon(result.getString("lon"));
 				
+				String Query2 = "Select * from vehicule where depot_code = ? and agence = ?";
+				PreparedStatement statement2 = connection.prepareStatement(Query2);
+				statement2.setString(1, depot.getCode());
+				statement2.setString(2, depot.getAgence_nom());
+				ResultSet result2 = statement2.executeQuery();
+				vehicules = new ArrayList<Vehicule>();
+				while(result2.next()) {
+					Vehicule vehicule = new Vehicule();
+					vehicule.setMatricule(result2.getString("matricule"));
+					vehicule.setMarque(result2.getString("marque"));
+					vehicule.setModele(result2.getString("modele"));
+					vehicule.setPLJ(result2.getInt("PLJ"));
+					vehicule.setImage(result2.getString("image"));
+					vehicule.setAverageRating(result2.getDouble("rating"));
+					vehicules.add(vehicule);
+				}
+				depot.setStoredCars(vehicules);
 				depots.add(depot);
 			}
 			statement.close();

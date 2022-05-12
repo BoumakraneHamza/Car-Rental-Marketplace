@@ -333,8 +333,6 @@
    crossorigin=""></script>
    <script type="text/javascript">
 var contextPath = "${pageContext.request.contextPath}";
-var lat = ${Buildings.get(0).lat};
-var lon = ${Buildings.get(0).lon};
 </script>
 <script src="${pageContext.request.contextPath}/js/ClientMain.js"></script>
 <script src="${pageContext.request.contextPath}/js/Map.js"></script>

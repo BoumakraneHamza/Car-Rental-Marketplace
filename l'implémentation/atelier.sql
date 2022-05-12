@@ -249,7 +249,7 @@ CREATE TABLE `depot` (
 
 LOCK TABLES `depot` WRITE;
 /*!40000 ALTER TABLE `depot` DISABLE KEYS */;
-INSERT INTO `depot` VALUES (1,'constantine',20,20,'Hertz','g01@email.com','','',0),(2,'batna',15,13,'Hertz',NULL,'35.55216','6.17968',12),(3,'constantine',15,14,'agence02',NULL,'36.2650','6.5833',0),(6,'constantine',12,11,'agence02',NULL,'36.2333','6.5604',0),(7,'alger',20,18,'Hertz',NULL,'36.7734','3.0587',0),(8,'Khenchela District Khenchela Algeria',10,10,'Hertz','g02@email.com','35.474073','7.1419173',0),(9,'de Mascara District Mascara Algeria',10,10,'Hertz','g03@email.com','35.41229593023381','0.2316626583949343',0);
+INSERT INTO `depot` VALUES (1,'constantine',20,18,'Hertz','g01@email.com','36.2450','6.5733',0),(2,'batna',15,15,'Hertz',NULL,'35.55216','6.17968',12),(3,'constantine',15,13,'agence02',NULL,'36.2650','6.5833',0),(6,'constantine',12,10,'agence02',NULL,'36.2333','6.5604',0),(7,'alger',20,20,'Hertz',NULL,'36.7734','3.0587',0),(8,'Khenchela District Khenchela Algeria',10,10,'Hertz',NULL,'35.474073','7.1419173',0),(9,'de Mascara District Mascara Algeria',10,10,'Hertz','g03@email.com','35.41229593023381','0.2316626583949343',0);
 /*!40000 ALTER TABLE `depot` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -329,7 +329,7 @@ CREATE TABLE `garagiste` (
 
 LOCK TABLES `garagiste` WRITE;
 /*!40000 ALTER TABLE `garagiste` DISABLE KEYS */;
-INSERT INTO `garagiste` VALUES ('g01@email.com','Boumakrane','Hamza','/assets/profile_pics/1email.png',1,'0000-00-00','Hertz'),('g02@email.com','Hamza','2','/assets/profile_pics/1email.png',8,NULL,'Hertz'),('g03@email.com','Hamza','3','/assets/profile_pics/1email.png',9,NULL,'Hertz'),('g04@email.com','Hamza','4','/assets/profile_pics/1email.png',NULL,NULL,'Hertz');
+INSERT INTO `garagiste` VALUES ('g01@email.com','Boumakrane','Hamza','/assets/profile_pics/1email.png',1,'0000-00-00','Hertz'),('g03@email.com','Hamza','3','/assets/profile_pics/1email.png',9,NULL,'Hertz'),('g04@email.com','Hamza','4','/assets/profile_pics/1email.png',NULL,NULL,'Hertz');
 /*!40000 ALTER TABLE `garagiste` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -394,7 +394,7 @@ CREATE TABLE `meetings` (
 
 LOCK TABLES `meetings` WRITE;
 /*!40000 ALTER TABLE `meetings` DISABLE KEYS */;
-INSERT INTO `meetings` VALUES ('1@email.com','s01@email.com','2022-04-27 08:01:00'),('1@email.com','s01@email.com','2022-04-28 14:16:00'),('1@email.com','s01@email.com','2022-04-28 15:01:00'),('1@email.com','s01@email.com','2022-04-29 08:01:00'),('1@email.com','s01@email.com','2022-04-30 10:01:00'),('Hamza@gmail.com','s01@email.com','2022-04-26 09:01:00'),('Hamza@gmail.com','s01@email.com','2022-04-28 14:01:00'),('Hamza@gmail.com','s01@email.com','2022-04-29 14:01:00'),('Hamza@gmail.com','s01@email.com','2022-05-02 13:01:00');
+INSERT INTO `meetings` VALUES ('1@email.com','s01@email.com','2022-04-27 08:01:00'),('1@email.com','s01@email.com','2022-04-28 14:16:00'),('1@email.com','s01@email.com','2022-04-28 15:01:00'),('1@email.com','s01@email.com','2022-04-29 08:01:00'),('1@email.com','s01@email.com','2022-04-30 10:01:00'),('Hamza@gmail.com','s01@email.com','2022-04-26 09:01:00'),('Hamza@gmail.com','s01@email.com','2022-04-28 14:01:00'),('Hamza@gmail.com','s01@email.com','2022-04-29 14:01:00'),('Hamza@gmail.com','s01@email.com','2022-05-02 13:01:00'),('Hamza@gmail.com','s01@email.com','2022-05-13 13:01:00');
 /*!40000 ALTER TABLE `meetings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -507,7 +507,7 @@ CREATE TABLE `recentsearch` (
 
 LOCK TABLES `recentsearch` WRITE;
 /*!40000 ALTER TABLE `recentsearch` DISABLE KEYS */;
-INSERT INTO `recentsearch` VALUES ('1@email.com','Batna','2022-05-09','2022-05-26','05:00:00','09:00:00');
+INSERT INTO `recentsearch` VALUES ('1@email.com','constantine','2022-05-02','2022-05-27','07:00:00','11:00:00');
 /*!40000 ALTER TABLE `recentsearch` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -766,7 +766,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('1@email.com','12345678','client'),('d01@email.com','12345678','directeur'),('d02@gmail.com','12345678','directeur'),('g01@email.com','test','depot manager'),('g02@email.com','test','depot manager'),('g03@email.com','12345678','depot manager'),('Hamza@gmail.com','test','client'),('s01@email.com','12345678','secretary'),('s02@email.com','12345678','secretary'),('s03@email.com','test','secretary'),('Secretary@email.com','Hamza','secretary'),('serviceClient@email.com','test','service_client');
+INSERT INTO `users` VALUES ('1@email.com','12345678','client'),('d01@email.com','12345678','directeur'),('d02@gmail.com','12345678','directeur'),('g01@email.com','test','depot manager'),('g03@email.com','12345678','depot manager'),('Hamza@gmail.com','test','client'),('s01@email.com','12345678','secretary'),('s02@email.com','12345678','secretary'),('s03@email.com','test','secretary'),('Secretary@email.com','Hamza','secretary'),('serviceClient@email.com','test','service_client');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -813,7 +813,7 @@ CREATE TABLE `vehicule` (
 
 LOCK TABLES `vehicule` WRITE;
 /*!40000 ALTER TABLE `vehicule` DISABLE KEYS */;
-INSERT INTO `vehicule` VALUES ('202212401','Peugot','e-208GT',120,20,'Premium','/assets/car_pics/car02.jpg','Hertz',2,2022,'Yellow',2.8,NULL,5,4,0,0,0,0,0,0),('202212519','porsche','macan',210,55,'premium','/assets/car_pics/default.jpg','Hertz',7,2019,'black',0,NULL,4,4,0,0,0,0,0,0),('202212520','mercedes','c-class',200,50,'coupe','/assets/car_pics/default.jpg','Hertz',7,2020,'white',0,NULL,4,4,0,0,0,0,0,0),('202212521','renault','captur',190,35,'suv','/assets/car_pics/default.jpg','Hertz',2,2021,'blue',0,NULL,4,4,0,0,0,0,0,0),('202212522','Mini','cooper Sl',100,15,'Compact','/assets/car_pics/default01.jpg','Hertz',1,2021,'Red',3.2,NULL,4,2,0,0,0,0,0,0);
+INSERT INTO `vehicule` VALUES ('202212401','Peugot','e-208GT',120,20,'Premium','/assets/car_pics/car02.jpg','agence02',3,2022,'Yellow',2.8,NULL,5,4,0,0,0,0,0,0),('202212519','porsche','macan',210,55,'premium','/assets/car_pics/car03.jpg','Hertz',1,2019,'black',0,NULL,4,4,0,0,0,0,0,0),('202212520','mercedes','c-class',200,50,'coupe','/assets/car_pics/default.jpg','agence02',6,2020,'white',0,NULL,4,4,0,0,0,0,0,0),('202212521','renault','captur',190,35,'suv','/assets/car_pics/default.jpg','Hertz',1,2021,'blue',0,NULL,4,4,0,0,0,0,0,0),('202212522','Mini','cooper Sl',100,15,'Compact','/assets/car_pics/default01.jpg','Hertz',1,2021,'Red',3.2,NULL,4,2,0,0,0,0,0,0);
 /*!40000 ALTER TABLE `vehicule` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;

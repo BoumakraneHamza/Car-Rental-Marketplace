@@ -79,8 +79,8 @@ public class AjaxEditCar extends HttpServlet {
 				vehicule.setModele(request.getParameter("modele"));
 				vehicule.setYear(Integer.parseInt(request.getParameter("year")));
 				vehicule.setColor(request.getParameter("color"));
-				vehicule.setPLH(Double.parseDouble(request.getParameter("PLH")));
-				vehicule.setPLJ(Double.parseDouble(request.getParameter("PLJ")));
+				vehicule.setPLH(Integer.parseInt(request.getParameter("PLH")));
+				vehicule.setPLJ(Integer.parseInt(request.getParameter("PLJ")));
 				vehicule.setNumberSeats(Integer.parseInt(request.getParameter("seats")));
 				vehicule.setNumberDoors(Integer.parseInt(request.getParameter("doors")));
 				vehicule.setNumberSuitCase(Integer.parseInt(request.getParameter("cases")));

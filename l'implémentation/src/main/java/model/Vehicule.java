@@ -5,8 +5,8 @@ public class Vehicule {
 	private String matricule;
 	private String marque;
 	private String modele;
-	private Double PLJ;
-	private Double PLH;
+	private int PLJ;
+	private int PLH;
 	private String type;
 	private String image;
 	private String depot_code;
@@ -115,16 +115,16 @@ public class Vehicule {
 	public void setModele(String modele) {
 		this.modele = modele;
 	}
-	public Double getPLJ() {
+	public int getPLJ() {
 		return PLJ;
 	}
-	public void setPLJ(Double pLJ) {
+	public void setPLJ(int pLJ) {
 		PLJ = pLJ;
 	}
-	public Double getPLH() {
+	public int getPLH() {
 		return PLH;
 	}
-	public void setPLH(Double pLH) {
+	public void setPLH(int pLH) {
 		PLH = pLH;
 	}
 	public String getType() {

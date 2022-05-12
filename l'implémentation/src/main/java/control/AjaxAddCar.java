@@ -79,8 +79,8 @@ public class AjaxAddCar extends HttpServlet {
 				vehicule.setMatricule(request.getParameter("matricule"));
 				vehicule.setMarque(request.getParameter("marque"));
 				vehicule.setModele(request.getParameter("modele"));
-				vehicule.setPLJ(Double.parseDouble(request.getParameter("PLJ")));
-				vehicule.setPLH(Double.parseDouble(request.getParameter("PLH")));
+				vehicule.setPLJ(Integer.parseInt(request.getParameter("PLJ")));
+				vehicule.setPLH(Integer.parseInt(request.getParameter("PLH")));
 				vehicule.setType(request.getParameter("type"));
 				//vehicule.setImage(request.getParameter("image")); TODO later
 				vehicule.setDepot_code(request.getParameter("depot"));

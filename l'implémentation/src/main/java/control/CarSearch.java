@@ -49,7 +49,6 @@ public class CarSearch extends HttpServlet {
 			DAO dao = new DAO();
 			ArrayList<Vehicule> carList = new ArrayList<Vehicule>();
 			CarFilter filter = dao.GetCarFilters(user.getEmail());
-			System.out.println("location"+filter.getLocation());
 			if(filter != null) {
 				try {
 					carList = dao.carSearch(filter);

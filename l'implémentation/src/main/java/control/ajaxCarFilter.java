@@ -41,6 +41,8 @@ public class AjaxCarFilter extends HttpServlet {
 		CarFilter filter = new CarFilter();
 		filter.setLocation(request.getParameter("location"));
 		
+		
+		
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		LocalDate date1 = LocalDate.parse(request.getParameter("pickUp_date"), dtf);
 	    LocalDate date2 = LocalDate.parse(request.getParameter("return_date"), dtf);

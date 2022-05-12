@@ -554,16 +554,44 @@
     width: 180px;
     height: 119px;
 }
-#Map_pop_Up #depot_info {
+#Map_pop_Up #info_wrapper{
+    overflow: hidden;
+}
+#Map_pop_Up #info_list {
     display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 180px;
+}
+#Map_pop_Up #depot_info {
+   	display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
+    width: 180px;
 }
 #Map_pop_Up #depot_info #row {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-between;
+    width: 180px;
+    height: 40px;
+    align-items: center;
+}
+#Map_pop_Up #depot_info #view_details {
+    cursor: pointer;
+    border: 2px solid #E4E4E4;
+    border-radius: 10px;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+#Map_pop_Up #depot_info #row #price {
+    color: #fec04d;
+    font-size: 22px;
+    font-weight: 600;
 }
 #Map_pop_Up #depot_info #row #rating {
     display: flex;
@@ -583,4 +611,34 @@
     justify-content: center;
     align-items: center;
     border-radius: 4px;
+}
+#Map_pop_Up #back {
+    border: none;
+    background: #fff;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    position: absolute;
+    top: 27%;
+    left: 0%;
+    cursor: pointer;
+}
+#Map_pop_Up #next {
+    border: none;
+    background: #fff;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    position: absolute;
+    top: 27%;
+    right: 0%;
+    cursor: pointer;
 }
