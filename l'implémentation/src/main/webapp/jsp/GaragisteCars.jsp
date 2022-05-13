@@ -106,8 +106,7 @@
 		</div>
 		<div class="reviews">
 			<p id="reviews_header">Reviews</p>
-			<div id="review_list">
-							
+			<div id="review_list">				
 			</div>
 		</div>
 	</div>

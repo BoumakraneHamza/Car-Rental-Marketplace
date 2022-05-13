@@ -350,7 +350,7 @@
 	display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    width: calc(53vw + 3px);
+    width: calc(53vw - 4px);
 }
 #tab_content #dashboard #recent_tab_header {
     display: flex;
@@ -421,6 +421,7 @@
     height: calc(100vh - 145px);
     overflow-x: hidden;
     align-content: center;
+    gap:20px;
 }
 #tab_content #result {
     display: flex;
@@ -473,7 +474,6 @@
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    gap: 10px;
 	width: 300px;
 }
  #tab_content #result #result_info #row {

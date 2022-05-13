@@ -7,7 +7,8 @@ $(function() {
     endDate: moment().startOf('hour').add(32, 'hour'),
     locale: {
       format: 'M/DD hh:mm A'
-    }
+    },
+	"minDate": new Date(),
   });
 	$('input[name="range_picker"]').on('apply.daterangepicker', function(picker) {
 	  let startDate = new Date($('input[name="range_picker"]').data('daterangepicker').startDate.format('YYYY-MM-DD hh:mm'));
@@ -15,7 +16,7 @@ $(function() {
 	  let pickupdate = startDate.toLocaleString("en-GB",{
 		day:"numeric",
 		month:"numeric",
-		year:"numeric",
+		year:"numeric",	
 	});
 	let returndate = endDate.toLocaleString("en-GB",{
 		day:"numeric",
@@ -377,6 +378,7 @@ function filterCars(element){
 function toggleMap(){
 	let results = document.querySelector("#tab_content");
 	let main_content = document.querySelector(".main-frame .main_content");
+	let dashboard = document.querySelector("#tab_content #dashboard");
 	let map = document.querySelector(".map");
 	if(document.querySelector(".toggle-check").querySelector("input[type=checkbox]").checked == false){
 		createSelectMap(map.querySelector("#map_wrapper"),35,6);
@@ -384,9 +386,11 @@ function toggleMap(){
 		main_content.style.gridTemplateRows = "1fr";
 		results.style.width="24vw";
 		results.style.justifyContent="center";
+		dashboard.style.display = "none";
 		document.querySelector(".map").style.display = "block";
 	}else{
 		map.style.display = "none";
+		dashboard.style.display = "flex";
 		main_content.style.gridTemplateColumns = "277px calc(100% - 277px)";
 		main_content.style.gridTemplateRows = "1fr";
 		results.style.width="calc(100vw - 327px)";
