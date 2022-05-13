@@ -172,8 +172,6 @@ function createMapIcons(lat,lon,depots){
 	    iconUrl: contextPath+'/assets/marker-icon.svg',
 	    iconSize: [30, 30],
 	});
-	L.marker([lat, lon],{icon: marker}).addTo(map);
-}
 	/*
 	<div id=\"secondary_image\">\n\
 		<img style=\"width:95px\" src=\""+contextPath+"/assets/car_pics/car02.jpg\">\n\
