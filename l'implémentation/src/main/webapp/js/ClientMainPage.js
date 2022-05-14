@@ -1,12 +1,16 @@
 document.querySelector(".toggle-check").querySelector("input[type=checkbox]").checked = true;
 $(function() {
 	const search_form = document.querySelector("#search_form");
+	const today = new Date();
+	let secondDate = new Date();
+	secondDate.setDate(today.getDate() + 3);
   $('input[name="range_picker"]').daterangepicker({
-    timePicker: true,
-    startDate: moment().startOf('hour'),
-    endDate: moment().startOf('hour').add(32, 'hour'),
+	"timePicker": true,
+	"timePicker24Hour": true,
+    startDate: today,
+    endDate: secondDate,
     locale: {
-      format: 'M/DD hh:mm A'
+      format: 'MM/DD hh:mm'
     },
 	"minDate": new Date(),
   });
@@ -49,6 +53,11 @@ function createCars(car){
 	const matricule = car["matricule"];
 	const PLJ = car["plj"];
 	const averageRating = car["averageRating"];
+	const search_form = document.querySelector("#search_form");
+	const pick_up_date = search_form.querySelector("#pick_up_date").value;
+	const return_date = search_form.querySelector("#return_date").value;
+	const pick_up_hour= search_form.querySelector("#pick_up_hour").value;
+	const return_hour= search_form.querySelector("#return_hour").value;
 	
 	var aCar = document.createElement('div');
 	aCar.setAttribute('id','result');
@@ -56,10 +65,17 @@ function createCars(car){
 	aCar.innerHTML = "\n<div id=\"image_wrapper\">\n\
 							<img id=\"car_image\" style=\"width: 300px;object-fit: cover;height: 180px;\" src=\""+contextPath+image+"\">\n\
 							<img id=\"like\" src=\""+contextPath+"/assets/heart-icon.svg\">\n\
-							<div id=\"details\">\n\
-								<img style=\"width: 12px;\" src=\""+contextPath+"/assets/activity-purple.svg\">\n\
-								<p>Details</p>\n\
-							</div>\n\
+							<form action=\"ViewCar\" method=\"get\" target=\"_blank\">\n\
+								<input type=\"hidden\" value=\""+matricule+"\" name=\"car\">\n\
+								<input id=\"pick_up_date\" type=\"hidden\" name=\"pickUp_date\" value=\""+pick_up_date+"\">\n\
+								<input id=\"return_date\" type=\"hidden\" name=\"return_date\" value=\""+return_date+"\">\n\
+								<input id=\"pick_up_hour\" type=\"hidden\" name=\"pickUp_hour\" value=\""+pick_up_hour+"\">\n\
+								<input id=\"return_hour\" type=\"hidden\" name=\"return_hour\" value=\""+return_hour+"\">\n\
+								<button id=\"details\">\n\
+									<img style=\"width: 12px;\" src=\""+contextPath+"/assets/activity-purple.svg\">\n\
+									<p>Details</p>\n\
+								</button>\n\
+							</form>\n\
 						</div>\n\
 						<div id=\"result_info\">\n\
 							<div id=\"row\">\n\
@@ -386,11 +402,15 @@ function toggleMap(){
 		main_content.style.gridTemplateRows = "1fr";
 		results.style.width="24vw";
 		results.style.justifyContent="center";
-		dashboard.style.display = "none";
+		if(dashboard){
+			dashboard.style.display = "none";
+		}
 		document.querySelector(".map").style.display = "block";
 	}else{
 		map.style.display = "none";
-		dashboard.style.display = "flex";
+		if(dashboard){
+			dashboard.style.display = "flex";
+		}
 		main_content.style.gridTemplateColumns = "277px calc(100% - 277px)";
 		main_content.style.gridTemplateRows = "1fr";
 		results.style.width="calc(100vw - 327px)";

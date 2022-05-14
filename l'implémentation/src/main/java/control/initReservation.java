@@ -1,16 +1,10 @@
 package control;
 
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Base64;
-
-import javax.imageio.ImageIO;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -45,29 +39,7 @@ public class initReservation extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {     
-	    StringBuffer jb = new StringBuffer();
-	    String line = null;
-	    BufferedReader reader = request.getReader();
-	    while ((line = reader.readLine()) != null)
-	        jb.append(line);
-
-	    String img64 = jb.toString();   
-	    //check if the image is really a base64 png, maybe a bit hard-coded
-	    if(img64 != null && img64.startsWith("data:image/png;base64,")){
-	        //Remove Content-type declaration
-	        img64 = img64.substring(img64.indexOf(',') + 1);            
-	    }else{
-	    }   
-	    try{
-	        InputStream stream = new ByteArrayInputStream(Base64.getDecoder().decode(img64.getBytes()));  
-	        BufferedImage bfi = ImageIO.read(stream);
-	        String path = getServletConfig().getServletContext().getRealPath("assets/documents/temp/saved.png");
-	        File outputfile = new File(path);
-	        outputfile.createNewFile();
-	        ImageIO.write(bfi , "png", outputfile);
-	        bfi.flush();       
-	    }catch(IOException e){    
-	    }
+		doPost(request, response);
 	}
 
 	/**
@@ -81,8 +53,15 @@ public class initReservation extends HttpServlet {
 			reservation.setEmail(user.getEmail());
 			reservation.setAgence(request.getParameter("agence"));
 			reservation.setVehicule(request.getParameter("matricule"));
-			reservation.setPick_up_date(request.getParameter("pickUp_date"));
-			reservation.setReturn_date(request.getParameter("return_date"));
+			SimpleDateFormat userInput = new SimpleDateFormat("dd/mm/yyyy"); 
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+			try {
+				reservation.setPick_up_date(formatter.format(userInput.parse(request.getParameter("pickUp_date"))));
+				reservation.setReturn_date(formatter.format(userInput.parse(request.getParameter("return_date"))));
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			reservation.setPick_up_hour(request.getParameter("pickUp_hour"));
 			reservation.setReturn_hour(request.getParameter("return_hour"));
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu/MM/dd");

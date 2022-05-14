@@ -39,6 +39,7 @@
     gap: 10px;
     grid-template-rows: 1fr 1fr;
     grid-template-columns: 1fr;
+    align-content: center;
 }
 .main-frame .image_wrapper #sec_images img{
 	width: 100%;
@@ -46,6 +47,7 @@
     object-fit: cover;
     max-height: 190px;
     border-radius: 5px;	
+    user-select:none;
 }
 .main-frame .image_wrapper #view_all{
 	position: absolute;
@@ -146,9 +148,9 @@
     flex-wrap: nowrap;
 }
 .main-frame .info_wrapper .car_features #tab_header {
-    font-size: 16px;
+	font-size: 16px;
     font-weight: 600;
-    padding: 0px 15px;
+    padding: 5px 15px;
 }
 .main-frame .info_wrapper .car_features .features-list {
     display: flex;
@@ -186,6 +188,9 @@
     font-size: 14px;
     color: #C4C4C4;
     font-weight: 500;
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .main-frame .info_wrapper .car_features .features-list #feature #text_wrapper #subtitle {
 	font-size: 14px;
@@ -199,6 +204,10 @@
     flex-direction: column;
     flex-wrap: nowrap;
     margin: 5px 0px;
+}
+.main-frame .info_wrapper .car_description #tab_content {
+    font-size: 14px;
+    padding: 10px 15px;
 }
 .main-frame .info_wrapper .car_owner {
     display: flex;
@@ -559,38 +568,4 @@
     font-size: 14px;
     color: #C4C4C4;
     font-weight: 500;
-}
-.daterangepicker{
-    font-family: 'Poppins', sans-serif;
-}
-.daterangepicker .calendar-table th, .daterangepicker .calendar-table td{
-	width: 32px;
-    height: 32px;
-}
-.daterangepicker td.active, .daterangepicker td.active:hover {
-    background-color: #000;
-    border-color: transparent;
-    color: #fff;
-    border-radius: 50%;
-}
-.daterangepicker .drp-selected{
-	visibility: hidden;
-}
-.cancelBtn {
-    background: #fff;
-    height: 35px;
-    width: 80px;
-    border-radius: 5px;
-    font-family: 'Poppins', sans-serif;
-    border: 1px solid #E4E4E4;
-    cursor: pointer;
-}
-.applyBtn {
-    background: #c5dcfa;
-    width: 80px;
-    height: 35px;
-    border: none;
-    border-radius: 5px;
-    font-family: 'Poppins', sans-serif;
-    cursor: pointer;
 }

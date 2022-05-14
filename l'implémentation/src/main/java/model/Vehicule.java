@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONObject;
+
 public class Vehicule {
 
 	private String matricule;
@@ -22,7 +24,35 @@ public class Vehicule {
 	private double CleanlinessRating;
 	private double PickReturnRating;
 	private double ValueMoneyRating;
+	private String fullName;
+	private JSONObject secImages;
+	private String carDescription;
+	private JSONObject allImages;
 	
+	public String getFullName() {
+		return fullName;
+	}
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+	public JSONObject getAllImages() {
+		return allImages;
+	}
+	public String getCarDescription() {
+		return carDescription;
+	}
+	public JSONObject getSecImages() {
+		return secImages;
+	}
+	public void setAllImages(JSONObject allImages) {
+		this.allImages = allImages;
+	}
+	public void setCarDescription(String carDescription) {
+		this.carDescription = carDescription;
+	}
+	public void setSecImages(JSONObject secImages) {
+		this.secImages = secImages;
+	}
 	public void setAverageRating(double averageRating) {
 		AverageRating = averageRating;
 	}
@@ -89,7 +119,6 @@ public class Vehicule {
 	public void setColor(String color) {
 		this.color = color;
 	}
-	
 	public String getAgence() {
 		return Agence;
 	}

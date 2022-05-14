@@ -16,6 +16,8 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+import org.json.JSONObject;
+
 public class DAO {
 
 	private Connection connection = null;
@@ -706,7 +708,7 @@ public class DAO {
 		Vehicule vehicule = new Vehicule();
 		try {
 			connectDB();
-			query = "Select * from vehicule where matricule = ?";
+			query = "Select * from vehicule where matricule = ? limit 1";
 			statement = connection.prepareStatement(query);
 			
 			statement.setString(1, matricule);
@@ -717,6 +719,7 @@ public class DAO {
 				vehicule.setMatricule(result.getString("matricule"));
 				vehicule.setMarque(result.getString("marque"));
 				vehicule.setModele(result.getString("modele"));
+				vehicule.setAgence(result.getString("Agence"));
 				vehicule.setYear(result.getInt("year"));
 				vehicule.setColor(result.getString("color"));
 				vehicule.setPLJ(result.getInt("PLJ"));
@@ -731,6 +734,10 @@ public class DAO {
 				vehicule.setCleanlinessRating(result.getInt("cleanliness_rating"));
 				vehicule.setPickReturnRating(result.getInt("pickReturn_rating"));
 				vehicule.setValueMoneyRating(result.getInt("ValueMoney_rating"));
+				vehicule.setCarDescription(result.getString("carDescription"));
+				vehicule.setSecImages(new JSONObject(result.getString("Sec-images")));
+				vehicule.setAllImages(new JSONObject(result.getString("allImages")));
+				vehicule.setFullName(result.getString("carFullName"));
 			}
 			statement.close();
 			

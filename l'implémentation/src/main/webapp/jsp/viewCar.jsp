@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ClientMain.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/checkbox.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/viewCar.css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/dateRangePicker.css"/>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script><title>View Car</title>
@@ -52,11 +53,12 @@
 	<div class="main-frame">
 		<div class="image_wrapper">
 			<div id="main_image">
-				<img style="width: -webkit-fill-available;height: -webkit-fill-available;object-fit: cover;" src="${pageContext.request.contextPath}/assets/car_pics/car03.jpg">
+				<img style="width: -webkit-fill-available;height: -webkit-fill-available;object-fit: cover;" src="${pageContext.request.contextPath}${vehicule.image}">
 			</div>
 			<div id="sec_images">
-				<img src="${pageContext.request.contextPath}/assets/car_pics/car03-sec.jpg">
-				<img src="${pageContext.request.contextPath}/assets/car_pics/car03-sec01.jpg">
+				<c:forEach items="${vehicule.getSecImages().keySet()}" var="key">
+					<img src="${pageContext.request.contextPath}${vehicule.getSecImages().get(key)}">
+				</c:forEach>
 			</div>
 			<button id="view_all"><img style="width: 13px;" src="${pageContext.request.contextPath}/assets/application-black.svg"><p>Show all photos</p></button>
 		</div>
@@ -66,14 +68,14 @@
 					<div id="row">
 						<div id="rating">
 							<img style="width: 12px;" src="${pageContext.request.contextPath}/assets/star.svg">
-							<p id="value">5.0</p>
+							<p id="value">${vehicule.getAverageRating()}</p>
 							<p id="counter">(96 reviews)</p>
 						</div>
 						<p id="address">Constantine district constantine Algeria</p>
 					</div>
-					<p id="car_name">2021 Porsche 911 Turbo S Coupe</p>
+					<p id="car_name">${vehicule.fullName}</p>
 				</div>
-				<div id="price"><p id="value">$ 210</p><p id="unit">day</p></div>
+				<div id="price"><p id="value">$ ${vehicule.PLJ}</p><p id="unit">day</p></div>
 			</div>
 			<div class="features"></div>
 		</div>
@@ -86,7 +88,7 @@
 							<img style="width:20px;" src="${pageContext.request.contextPath}/assets/car-icon.svg">
 						</div>
 						<div id="text_wrapper">
-							<p id="title">Sedan</p>
+							<p id="title">${vehicule.type}</p>
 							<p id="subtitle">Body type</p>
 						</div>
 					</div>
@@ -95,7 +97,7 @@
 							<img style="width:16px;" src="${pageContext.request.contextPath}/assets/suit-case-icon.svg">
 						</div>
 						<div id="text_wrapper">
-							<p id="title">1 (case)</p>
+							<p id="title">${vehicule.getNumberSuitCase()} (Large case)</p>
 							<p id="subtitle">Suite cases</p>
 						</div>
 					</div>
@@ -104,7 +106,7 @@
 							<img style="width:20px;" src="${pageContext.request.contextPath}/assets/car-doors-icon.svg">
 						</div>
 						<div id="text_wrapper">
-							<p id="title">2 doors</p>
+							<p id="title">${vehicule.getNumberDoors()} doors</p>
 							<p id="subtitle">Car doors</p>
 						</div>
 					</div>
@@ -113,7 +115,7 @@
 							<img style="width:20px;" src="${pageContext.request.contextPath}/assets/gas-pump-icon.svg">
 						</div>
 						<div id="text_wrapper">
-							<p id="title">unlimited</p>
+							<p id="title">${vehicule.getMileage()}</p>
 							<p id="subtitle">Car mileage</p>
 						</div>
 					</div>
@@ -138,7 +140,7 @@
 								<img style="width:55px; height:55px;object-fit:cover;" src="${pageContext.request.contextPath}/assets/agency_pics/hertz-logo.png">
 							</div>
 							<div id="agency_info">
-								<p id="agency_name">Hertz</p>
+								<p id="agency_name">${vehicule.getAgence()}</p>
 								<p id="followers">267 followers</p>
 							</div>
 						</div>
@@ -210,13 +212,20 @@
 	</div>
 	<div class="sidebar">
 		<div id="sidebar_header">
-			<p id="header">2021 Porsche 911 Turbo S Coupe</p>
+			<p id="header">${vehicule.fullName}</p>
 			<div id="right">
 				<img style="width: 19px;" src="${pageContext.request.contextPath}/assets/heart-icon-black.svg">
 				<p>Save</p>
 			</div>
 		</div>
-		<div class="bill">
+		<form class="bill" action="initReservation" method="post">
+			<input type="hidden" name="agence" value="${vehicule.getAgence()}">
+			<input type="hidden" name="matricule" value="${vehicule.matricule}">
+			<input type="hidden" name="pickUp_date" value="${filter.pickUp_date}">
+			<input type="hidden" name="return_date" value="${filter.return_date}">
+			<input type="hidden" name="pickUp_hour" value="${filter.pickUp_hour}">
+			<input type="hidden" name="return_hour" value="${filter.return_hour}">
+			<input type="hidden" name="location" value="${filter.location}">
 			<div id="bill_content">
 				<div id="dates">
 					<div id="dates_header">
@@ -245,8 +254,8 @@
 				<p id="title">total</p>
 				<p id="value">$ 1023</p>
 			</div>
-			<button id="cta">Book Now</button>
-		</div>
+			<button type="submit" id="cta">Book Now</button>
+		</form>
 		<div class="reviews">
 			<p id="reviews_header">Reviews</p>
 			<div id="review_list">
@@ -358,6 +367,14 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+	var SearchStartDate = "${filter.pickUp_date}";
+	console.log(SearchStartDate);
+	SearchStartDate = SearchStartDate.substr(6, 4)+"-"+SearchStartDate.substr(3, 2)+"-"+SearchStartDate.substr(0, 2);
+	var SearchEndDate = "${filter.return_date}";
+	SearchEndDate = SearchEndDate.substr(6, 4)+"-"+SearchEndDate.substr(3, 2)+"-"+SearchEndDate.substr(0, 2);
+	
+</script>
 <script src="${pageContext.request.contextPath}/js/ClientMain.js"></script>
 <script src="${pageContext.request.contextPath}/js/viewCar.js"></script>
 <%@include file="/jsp/dropdownList.jsp"%>

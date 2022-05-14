@@ -1,0 +1,34 @@
+.daterangepicker{
+    font-family: 'Poppins', sans-serif;
+}
+.daterangepicker .calendar-table th, .daterangepicker .calendar-table td{
+	width: 32px;
+    height: 32px;
+}
+.daterangepicker td.active, .daterangepicker td.active:hover {
+    background-color: #000;
+    border-color: transparent;
+    color: #fff;
+    border-radius: 50%;
+}
+.daterangepicker .drp-selected{
+	visibility: hidden;
+}
+.cancelBtn {
+    background: #fff;
+    height: 35px;
+    width: 80px;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+    border: 1px solid #E4E4E4;
+    cursor: pointer;
+}
+.applyBtn {
+    background: #c5dcfa;
+    width: 80px;
+    height: 35px;
+    border: none;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+}
