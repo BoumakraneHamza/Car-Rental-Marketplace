@@ -2250,4 +2250,84 @@ public class DAO {
 		
 		return carReviews;
 	}
+
+	public ArrayList<CarProblem> getCarsProblems(String depotCode) {
+		String query;
+		PreparedStatement statement;
+		ResultSet result;
+		CarProblem carProblem = null;
+		ArrayList<CarProblem> carsProblems = new ArrayList<CarProblem>();
+		
+		try {
+			connectDB();
+			query = "SELECT carproblem.* FROM atelier.carproblem\r\n"
+					+ "JOIN atelier.vehicule ON car_matricule = matricule\r\n"
+					+ "WHERE depot_code = ?\r\n"
+					+ "AND MONTH(date) = MONTH(CURRENT_DATE())\r\n"
+					+ "AND YEAR(date) = YEAR(CURRENT_DATE())";
+			
+			statement = connection.prepareStatement(query);
+			statement.setString(1, depotCode);
+			result = statement.executeQuery();
+			
+			while (result.next()) {
+				carProblem = new CarProblem();
+				carProblem.setCarMatricule(result.getString("car_matricule"));
+				carProblem.setDescription(result.getString("description"));
+				carProblem.setType(result.getString("type"));
+				carProblem.setStatus(result.getString("status"));
+				carProblem.setDate(result.getString("date"));
+				
+				carsProblems.add(carProblem);
+			}
+			statement.close();
+		} catch (SQLException | InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return carsProblems;
+	}
+	
+	public ArrayList<dailycarsProblemsStat> getDepotWeeklyProblemsStat(String depotCode) {
+		String query;
+		PreparedStatement statement;
+		ResultSet result;
+		dailycarsProblemsStat dailyStat = null;
+		ArrayList<dailycarsProblemsStat> weeklyStat = new ArrayList<dailycarsProblemsStat>();
+		
+		try {
+			connectDB();
+			query = "SELECT `day`, \r\n"
+					+ "	SUM(CASE WHEN `status` = 'pending' THEN 1 ELSE 0 END) as pending,\r\n"
+					+ "	SUM(CASE WHEN `status` = 'active' THEN 1 ELSE 0 END) as active,\r\n"
+					+ "	SUM(CASE WHEN `status` = 'completed' THEN 1 ELSE 0 END) as completed\r\n"
+					+ "FROM (SELECT 1 AS `day` UNION ALL SELECT 2 AS `day` UNION ALL \r\n"
+					+ "	SELECT 3 AS `day` UNION ALL SELECT 4 AS `day` UNION ALL\r\n"
+					+ "	SELECT 5 AS `day` UNION ALL SELECT 6 AS `day` UNION ALL\r\n"
+					+ "	SELECT 7 AS `day`) AS days\r\n"
+					+ "LEFT JOIN (SELECT carproblem.*\r\n"
+					+ "		FROM `carproblem` JOIN `vehicule` ON `car_matricule` = `matricule`\r\n"
+					+ "        WHERE `depot_code` = ?\r\n"
+					+ "        AND YEARWEEK(`date`, 6) = YEARWEEK(CURRENT_DATE(), 6)) AS problem ON `day` = DAYOFWEEK(`date`)\r\n"
+					+ "GROUP BY `day`\r\n"
+					+ "ORDER BY `day`";
+			
+			statement = connection.prepareStatement(query);
+			statement.setString(1, depotCode);
+			result = statement.executeQuery();
+			
+			while (result.next()) {
+				dailyStat = new dailycarsProblemsStat();
+				dailyStat.setDayIndex(result.getInt("day"));
+				dailyStat.setDailyPending(result.getInt("pending"));
+				dailyStat.setDailyActive(result.getInt("active"));
+				dailyStat.setDailyCompleted(result.getInt("completed"));
+				
+				weeklyStat.add(dailyStat);
+			}
+			statement.close();
+		} catch (SQLException | InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return weeklyStat;
+	}
 }

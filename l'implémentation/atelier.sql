@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `atelier` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `atelier`;
--- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.28, for Win64 (x86_64)
 --
 -- Host: localhost    Database: atelier
 -- ------------------------------------------------------
--- Server version	8.0.27
+-- Server version	8.0.28
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -46,6 +46,36 @@ LOCK TABLES `agence` WRITE;
 /*!40000 ALTER TABLE `agence` DISABLE KEYS */;
 INSERT INTO `agence` VALUES ('agence02',52165,'batna','d02@gmail.com','030102301087','/assets/agency_pics/hertz-logo.png'),('Hertz',1231231,'constantine','d01@email.com','012031023011','/assets/agency_pics/hertz-logo.png');
 /*!40000 ALTER TABLE `agence` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `carproblem`
+--
+
+DROP TABLE IF EXISTS `carproblem`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `carproblem` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `car_matricule` varchar(45) NOT NULL,
+  `description` varchar(70) NOT NULL,
+  `type` varchar(45) NOT NULL,
+  `status` enum('pending','active','completed') NOT NULL DEFAULT 'pending',
+  `date` date NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_car_idx` (`car_matricule`),
+  CONSTRAINT `fk_car_mat` FOREIGN KEY (`car_matricule`) REFERENCES `vehicule` (`matricule`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `carproblem`
+--
+
+LOCK TABLES `carproblem` WRITE;
+/*!40000 ALTER TABLE `carproblem` DISABLE KEYS */;
+INSERT INTO `carproblem` VALUES (1,'202212522','problem with the engine','engine','active','2022-05-12'),(2,'202212521','problem with the brakes','brakes','completed','2022-05-08'),(3,'202212520','accident accured','accident','pending','2022-05-13');
+/*!40000 ALTER TABLE `carproblem` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -930,4 +960,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-10 19:58:39
+-- Dump completed on 2022-05-13 15:28:55

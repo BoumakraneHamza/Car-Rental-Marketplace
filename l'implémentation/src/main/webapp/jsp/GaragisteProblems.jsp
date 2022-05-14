@@ -63,7 +63,7 @@
 			<img style="width:24px;" src="${pageContext.request.contextPath}/assets/coffee_cup.svg">
 			<p id="title">Reviews</p>
 		</div>
-		<div class="menu-tab" style="background: #C5DCFA;" onclick="location.href='${pageContext.request.contextPath}/jsp/GaragisteProblems.jsp'">
+		<div class="menu-tab" style="background: #C5DCFA;" onclick="location.href='${pageContext.request.contextPath}/GaragisteProblems'">
 			<img style="width:13px;" src="${pageContext.request.contextPath}/assets/activity-purple.svg">
 			<p style="color:#0F56B3;" id="title">Problems</p>
 		</div>
@@ -87,20 +87,40 @@
 				<div class="Tab">
 					<p id="Tab_header">Pending Problems</p>
 					<div class="Problem_list" id="pending">
-						<div class="problem">
-							<p id="title">Problem with the engine</p>
-							<div id="tags"><p id="tag">Engine</p></div>
-						</div>
+						<c:forEach items = "${problems }" var = "problem">
+						<c:if test = "${problem.status eq 'pending' }">
+							<div class="problem">
+								<p id="title">Problem with the engine ${problem.description }</p>
+								<div id="tags"><p id="tag">Engine ${problem.type }</p></div>
+							</div>
+						</c:if>
+						</c:forEach>
 					</div>
 				</div>
 				<div class="Tab">
 					<p id="Tab_header">Active Problems</p>
 					<div class="Problem_list" id="active">
+						<c:forEach items = "${problems }" var = "problem">
+						<c:if test = "${problem.status eq 'active' }">
+							<div class="problem">
+								<p id="title">${problem.description }</p>
+								<div id="tags"><p id="tag">${problem.type }</p></div>
+							</div>
+						</c:if>
+						</c:forEach>
 					</div>
 				</div>
 				<div class="Tab">
 					<p id="Tab_header">Completed Problems</p>
 					<div class="Problem_list" id="completed">
+						<c:forEach items = "${problems }" var = "problem">
+						<c:if test = "${problem.status eq 'completed' }">
+							<div class="problem">
+								<p id="title">${problem.description }</p>
+								<div id="tags"><p id="tag">${problem.type }</p></div>
+							</div>
+						</c:if>
+						</c:forEach>
 					</div>
 				</div>
 			</div>
@@ -146,6 +166,9 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+	var weeklyStat = ${weeklyStat}
+</script>
 <script src="${pageContext.request.contextPath}/js/ClientMain.js"></script>
 <script src="${pageContext.request.contextPath}/js/GaragisteProblems.js"></script>
 <%@include file="/jsp/dropdownList.jsp"%>

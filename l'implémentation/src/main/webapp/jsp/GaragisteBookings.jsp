@@ -47,7 +47,7 @@
 			<img style="width:24px;" src="${pageContext.request.contextPath}/assets/coffee_cup.svg">
 			<p id="title">Reviews</p>
 		</div>
-		<div class="menu-tab" onclick="location.href='${pageContext.request.contextPath}/jsp/GaragisteProblems.jsp'">
+		<div class="menu-tab" onclick="location.href='${pageContext.request.contextPath}/GaragisteProblems'">
 			<img style="width:13px;" src="${pageContext.request.contextPath}/assets/activity.svg">
 			<p id="title">Problems</p>
 		</div>

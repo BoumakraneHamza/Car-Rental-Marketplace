@@ -48,7 +48,7 @@
 			<img style="width:24px;" src="${pageContext.request.contextPath}/assets/coffee_cup_purple.svg">
 			<p style="color:#0F56B3;" id="title">Reviews</p>
 		</div>
-		<div class="menu-tab" onclick="location.href='${pageContext.request.contextPath}/jsp/GaragisteProblems.jsp'">
+		<div class="menu-tab" onclick="location.href='${pageContext.request.contextPath}/GaragisteProblems'">
 			<img style="width:13px;" src="${pageContext.request.contextPath}/assets/activity.svg">
 			<p id="title">Problems</p>
 		</div>
@@ -106,7 +106,7 @@
 		</div>
 		<div class="reviews">
 			<p id="reviews_header">Reviews</p>
-			<div id="review_list">				
+			<div id="review_list">
 			</div>
 		</div>
 	</div>

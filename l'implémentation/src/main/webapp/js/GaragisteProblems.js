@@ -1,28 +1,36 @@
 const stat = document.querySelector("#stat").getContext("2d");
-	let char1 = new Chart(stat ,{
+
+var pendingData = [], activeData = [], completedData = [];
+for(dayStat of weeklyStat) {
+	pendingData.push(dayStat.dailyPending);
+	activeData.push(dayStat.dailyActive);
+	completedData.push(dayStat.dailyCompleted);
+}
+
+let char1 = new Chart(stat ,{
 	type:'bar',
 	data:{
-		labels:['Sunday','Monday','Tuesday','Wednesday','Thursday','Sunday','Monday'],
+		labels:['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
 		datasets:[{
             label: "completed",
             backgroundColor:'#b8b08d',
 			barThickness:30,
 			borderRadius: {topLeft: 100, topRight: 0, bottomLeft: 0, bottomRight: 100,}, 
-            data: [3,7,4,3,8,2,4]
+            data: completedData
         },
         {
-            label: "active",
-			backgroundColor:'#8FC73E',
+			label: "active",
+        	backgroundColor:'#8FC73E',
 			barThickness:30,
 			borderRadius: {topLeft: 100, topRight: 0, bottomLeft: 0, bottomRight: 100,},
-            data: [4,3,5,3,4,2,5]
+            data: activeData
         },
         {
-            label: "pending",
+			label: "pending",
             backgroundColor:'#3d415c',
 			barThickness:30,
 			borderRadius: {topLeft: 100, topRight: 0, bottomLeft: 0, bottomRight: 100,},
-            data: [7,2,6,1,5,3,4]
+            data: pendingData
         }]
 	},
 	options:{

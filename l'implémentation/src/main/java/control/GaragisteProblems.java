@@ -1,7 +1,7 @@
 package control;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,21 +12,22 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import model.CarStat;
+import model.CarProblem;
 import model.DAO;
 import model.User;
+import model.dailycarsProblemsStat;
 
 /**
- * Servlet implementation class AjaxCarStat
+ * Servlet implementation class GaragisteProblems
  */
-@WebServlet("/AjaxCarStat")
-public class AjaxCarStat extends HttpServlet {
+@WebServlet("/GaragisteProblems")
+public class GaragisteProblems extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxCarStat() {
+    public GaragisteProblems() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,22 +37,21 @@ public class AjaxCarStat extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) request.getSession().getAttribute("user");
-		if (user!= null && user.getType().equals("depot manager")) {
-			PrintWriter out = response.getWriter();
-			response.setContentType("application/json");
-			response.setCharacterEncoding("UTF-8");
-			
+		if (user != null && user.getType().equals("depot manager")) {
 			DAO dao = new DAO();
+			ArrayList<CarProblem> carsProblems = dao.getCarsProblems(user.getEmployement().getWorkingLocation());
+			ArrayList<dailycarsProblemsStat> weeklyProblemsStat = dao.getDepotWeeklyProblemsStat(user.getEmployement().getWorkingLocation());
+			
 			ObjectMapper mapper = new ObjectMapper();
-			CarStat carStat = null;
+			String weeklyStat = mapper.writeValueAsString(weeklyProblemsStat);
+			request.setAttribute("weeklyStat", weeklyStat);
 			
-			carStat = dao.getCarReviews(request.getParameter("matricule"));
-			String stat = mapper.writeValueAsString(carStat);
-			
-			out.print(stat);
-			out.flush();
+			request.setAttribute("problems",carsProblems);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/GaragisteProblems.jsp");
+			dispatcher.forward(request, response);
 		} else {
-			response.setStatus(500);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/login.jsp");
+			dispatcher.forward(request, response);
 		}
 	}
 
