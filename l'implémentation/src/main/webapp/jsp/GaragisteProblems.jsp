@@ -168,6 +168,7 @@
 </div>
 <script type="text/javascript">
 	var weeklyStat = ${weeklyStat}
+	var halfYearStat = ${halfYearStat}
 </script>
 <script src="${pageContext.request.contextPath}/js/ClientMain.js"></script>
 <script src="${pageContext.request.contextPath}/js/GaragisteProblems.js"></script>

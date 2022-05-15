@@ -2337,4 +2337,38 @@ public class DAO {
 		}
 		return weeklyStat;
 	}
+	
+	public ArrayList<Integer> getDepothalfYearProblemsStat(String depotCode) {
+		String query;
+		PreparedStatement statement;
+		ResultSet result;
+		ArrayList<Integer> halfYearStat = new ArrayList<Integer>();
+		
+		try {
+			connectDB();
+			query = "SELECT `month`, SUM(CASE WHEN `status` = 'completed' THEN 1 ELSE 0 END) as completed\r\n"
+					+ "FROM (SELECT month(DATE_SUB(now(), INTERVAL 6 MONTH)) AS `month` UNION ALL SELECT month(DATE_SUB(now(), INTERVAL 5 MONTH)) AS `month` UNION ALL \r\n"
+					+ "	SELECT month(DATE_SUB(now(), INTERVAL 4 MONTH)) AS `month` UNION ALL SELECT month(DATE_SUB(now(), INTERVAL 3 MONTH)) AS `month` UNION ALL\r\n"
+					+ "	SELECT month(DATE_SUB(now(), INTERVAL 2 MONTH)) AS `month` UNION ALL SELECT month(DATE_SUB(now(), INTERVAL 1 MONTH))) AS months\r\n"
+					+ "LEFT JOIN (SELECT carproblem.*\r\n"
+					+ "		FROM `carproblem` JOIN `vehicule` ON `car_matricule` = `matricule`\r\n"
+					+ "        WHERE `depot_code` = ?\r\n"
+					+ "        AND DATEDIFF(`date`, CONCAT(YEAR(DATE_SUB(now(), INTERVAL 6 MONTH)),'-',MONTH(DATE_SUB(now(), INTERVAL 6 MONTH)),'-01'))>=0) AS problem \r\n"
+					+ "ON `month` = MONTH(`date`)\r\n"
+					+ "GROUP BY `month`";
+			
+			statement = connection.prepareStatement(query);
+			statement.setString(1, depotCode);
+			result = statement.executeQuery();
+			
+			while (result.next()) {
+				
+				halfYearStat.add(result.getInt("completed"));
+			}
+			statement.close();
+		} catch (SQLException | InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return halfYearStat;
+	}	
 }

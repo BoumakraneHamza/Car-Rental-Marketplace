@@ -93,9 +93,7 @@ let history_chart = new Chart(stat_history ,{
 			label:'Completed',
 			borderColor:'#53d991',
 			backgroundColor:'#53d991',
-			data:[
-				1,2,4,2,5,6,3
-			],
+			data:Object.values(halfYearStat),
 		}]
 	},
 	options:{
