@@ -1,464 +1,463 @@
-.main-frame {
-    height: calc(100vh - 55px);
-    width: 100%;
-}
-.main-frame .sec-header {
-    border-bottom: 2px solid #E4E4E4;
-    height: 60px;
-    display: flex;
-    align-items: center;
-}
-.main-frame .sec-header #step {
-    margin-left: 60px;
-}
-.main-frame .main-content {
-    height: calc(100vh - 115px);
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    flex-wrap: nowrap;
-}
-.main-frame .main-content .main-tab {
-    height: inherit;
-    width: 65%;
-    background: #fff;
-    margin: 10px 30px 10px 60px;
-    padding: 20px;
-    border-radius: 10px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr;
-}
-.main-frame .main-content .Bill {
-	background: #fff;
-    margin: 10px;
-    padding: 0px 0px 20px 0px;
-    border-radius: 10px;
-    height: fit-content;
-    width: 25%;
+.frame {
+    height: calc(100Vh - 55px);
+    width: 100vw;
     display: flex;
     flex-direction: column;
+    flex-wrap: nowrap;
 }
-.main-frame .main-content .Bill #row {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin: 8px 20px;
+.step_slider {
+    height: 7vh;
+    width: 100vw;
+    position:relative;
 }
-.main-frame .main-content .Bill #line {
-    border: 1px solid #C4C4C4;
-    background: #C4C4C4;
-}
-.main-frame .main-content .Bill #insurance {
+.step_slider .Progressline {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    margin: 20px 20px;
-    justify-content: space-between;
-}
-.main-frame .main-content .Bill #insurance #option {
-    display: flex;
-    flex-direction: row;
     align-items: center;
-    flex-wrap: nowrap;
+    justify-content: space-between;
+    position: absolute;
+    width: 90vw;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    left: 50%;
 }
-.main-frame .main-content .Bill #savings {
+.step_slider .Progressline:after{
+	content: "";
+    width: 95%;
+    position: absolute;
+    height: 5px;
+    background: #0071ff;
+    left: 2%;
+}
+.step_slider .Progressline .checkpoint {
     display: flex;
-    justify-content: center;
-    flex-direction: row;
-    height: 50px;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin-top: 24px;
+    font-size: 14px;
     font-weight: 600;
-    background: #FFE7BA;
-    color: #C2881A;
-    border: 3px solid #C2881A;
-    margin: 10px 20px;
-    border-radius: 4px;
-    flex-wrap: nowrap;
-    align-items: center;
 }
-.main-frame .main-content .Bill h3 {
-    text-align: center;
+.step_slider .Progressline .checkpoint .point {
+    width: 25px;
+    height: 25px;
+    border: 3px solid #0071ff;
+    border-radius: 50%;
+    background: #fff;
+    z-index: 1;
+}
+.step_slider .Progressline .checkpoint .point.active{
+	background: #0071ff;
+}
+.main_content {
+    height: calc(93vh - 55px);
+    width: 90vw;
+    margin: 0px auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 10px;
+}
+.main_content .main-frame {
+	width: 85%;
+    height: 97%;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap:15px;
+    margin-top:10px;
+}
+.main_content .main-frame #tab_header {
     font-size: 17px;
     font-weight: 600;
+    padding: 5px 0px;
 }
-.main-frame .main-content .Bill #row #title {
-    font-weight: 600;
-}
-.main-frame .main-content .Bill #insurance #title {
-	font-weight: 600;
-}
-#insurance_amount {
-    margin-right: 10px;
-}
-#_checkbox {
-  display: none;
-}
-#insurance_value {
-  position: relative;
-  top: 50%;
-  right: 0;
-  left: 0;
-  width: 30px;
-  height: 30px;
-  margin: 0 auto;
-  background-color: #f72414;
-  transform: translateY(-50%);
-  border-radius: 50%;
-  box-shadow: 0 7px 10px #ffbeb8;
-  cursor: pointer;
-  transition: 0.2s ease transform, 0.2s ease background-color,
-    0.2s ease box-shadow;
-  overflow: hidden;
-  z-index: 1;
-}
-
-#insurance_value:before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: 0;
-  left: 0;
-  width: 22px;
-  height: 23px;
-  margin: 0 auto;
-  background-color: #fff;
-  transform: translateY(-50%);
-  border-radius: 50%;
-  box-shadow: inset 0 7px 10px #ffbeb8;
-  transition: 0.2s ease width, 0.2s ease height;
-}
-
-#insurance_value:hover:before {
-  width: 22px;
-  height: 23px;
-  box-shadow: inset 0 7px 10px #ff9d96;
-}
-
-#insurance_value:active {
-  transform: translateY(-50%) scale(0.9);
-}
-
-#tick_mark {
-	position: absolute;
-    top: 3px;
-    right: 0px;
-    left: -9px;
-    width: 12px;
-    height: 18px;
-    margin: 0 auto;
-    margin-left: 14px;
-    transform: rotateZ(-40deg);
-}
-
-#tick_mark:before,
-#tick_mark:after {
-  content: "";
-  position: absolute;
-  background-color: #fff;
-  border-radius: 2px;
-  opacity: 0;
-  transition: 0.2s ease transform, 0.2s ease opacity;
-}
-
-#tick_mark:before {
-  	left: 0;
-    bottom: 0;
-    width: 5px;
-    height: 13px;
-    box-shadow: -2px 0 5px rgb(0 0 0 / 23%);
-    transform: translateY(-68px);
-}
-
-#tick_mark:after {
-  	left: 0;
-    bottom: 0;
-    width: 18px;
-    height: 5px;
-    box-shadow: 0 3px 5px rgb(0 0 0 / 23%);
-    transform: translateX(78px);
-}
-
-#_checkbox:checked + #insurance_value {
-  background-color: #07d410;
-  box-shadow: 0 7px 10px #92ff97;
-}
-
-#_checkbox:checked + #insurance_value:before {
-  width: 0;
-  height: 0;
-}
-
-#_checkbox:checked + #insurance_value #tick_mark:before,
-#_checkbox:checked + #insurance_value #tick_mark:after {
-  transform: translate(0);
-  opacity: 1;
-}
-.main-frame .main-content .main-tab .methods {
+.main_content .main-frame .main_frame_content {
+	background: #fff;
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-}
-.main-frame .main-content .main-tab .methods .By_card {
-    width: 100%;
-    
-}
-.main-frame .main-content .main-tab .methods .By_card #card_info{
-	width:80%;
-	justify-self:center;
-	display:none; 
-}
-.main-frame .main-content .main-tab .methods .By_card #card_info #card_type{
-	display: flex;
-    align-items: center;
-    margin: 20px 0px;
-    justify-content: space-evenly;
-}
-.main-frame .main-content .main-tab .methods .By_card #card_info #card_type button {
-    width: 32%;
-    height: 45px;
-    background: #F8F8F8;
-    border: none;
-    border-radius: 6px;
-}
-.main-frame .main-content .main-tab .methods .By_card #card_info .pay_form #number {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-content: flex-start;
-}
-.main-frame .main-content .main-tab .methods .By_card #card_info .pay_form #number #card_number {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    flex-wrap: nowrap;
-}
-.main-frame .main-content .main-tab .methods .By_card #card_info .pay_form #number img {
-    padding: 10px 10px 11px 10px;
-    border-radius: 6px 0px 0px 6px;
-    box-sizing: border-box;
-    border-top: 2px solid #ededed;
-    border-left: 2px solid #ededed;
-    border-bottom: 2px solid #ededed;
-}
-.main-frame .main-content .main-tab .methods .By_card #card_info .pay_form #number input[type="number"]{
-	width: 100%;
-    box-sizing: border-box;
-    padding: 12px 16px;
-    font-size: 14px;
-    font-weight: 500;
-    border-radius: 0px 6px 6px 0px;
-    border-left: none;
-    color: #99a3ba;
-    border-top: 2px solid #ededed;
-    background: #ffff;
-    border-bottom: 2px solid #ededed;
-    border-right: 2px solid #ededed;
-}
-.main-frame .main-content .main-tab .methods .By_card #card_info .pay_form #number input[type="number"]:focus {
-	outline: none;
-}
-.main-frame .main-content .main-tab .methods .By_card #card_info .pay_form #input_row {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-.main-frame .main-content .main-tab .methods .By_card #card_info .pay_form #title #main_text {
-    font-weight: 600;
-}
-.main-frame .main-content .main-tab .methods .By_card #card_info .pay_form #title #sec-text {
-    font-size: 12px;
-    font-weight: 500;
-    white-space: nowrap;
-}
-
-.main-frame .main-content .main-tab .methods .By_card #card_info .pay_form #input_row input{
-    width: 120px;
-    padding: 12px 16px;
-    font-size: 14px;
-    font-weight: 500;
-    border-radius: 6px;
-    color: #99a3ba;
-    border: 2px solid #ededed;
-    background: #ffff;
-}
-.main-frame .main-content .main-tab .methods .By_card #card_info .pay_form #input_row input:focus{
-	outline: none;
-}
-.main-frame .main-content .main-tab .methods input[type="checkbox"]{
-	--active: #B8B08D;
-    --active-inner: #fff;
-    --focus: 2px #B8B08D;
-    --border: #bbc1e1;
-    --border-hover: #B8B08D;
-    --background: #fff;
-    --disabled: #f6f8ff;
-    --disabled-inner: #e1e6f9;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    height: 21px;
-    outline: none;
-    display: inline-block;
-    vertical-align: top;
-    position: relative;
-    margin: 0;
-    cursor: pointer;
-    border: 1px solid var(--bc, var(--border));
-    background: var(--b, var(--background));
-    transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
-}
-.main-frame .main-content .main-tab .methods input[type='checkbox']:after {
-	 content: '';
-	 display: block;
-	 left: 0;
-	 top: 0;
-	 position: absolute;
-	 transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s);
-}
-.main-frame .main-content .main-tab .methods input[type='checkbox']:checked {
-	 --b: var(--active);
-	 --bc: var(--active);
-	 --d-o: 0.3s;
-	 --d-t: 0.6s;
-	 --d-t-e: cubic-bezier(0.2, 0.85, 0.32, 1.2);
-}
-.main-frame .main-content .main-tab .methods input[type='checkbox']:hover:not(:checked):not(:disabled) {
-	 --bc: var(--border-hover);
-}
- .main-frame .main-content .main-tab .methods input[type='checkbox']:focus {
-	 box-shadow: 0 0 0 var(--focus);
-}
- .main-frame .main-content .main-tab .methods input[type='checkbox']:not(.switch) {
-	 width: 21px;
-}
- .main-frame .main-content .main-tab .methods input[type='checkbox']:not(.switch):after {
-	 opacity: var(--o, 0);
-}
-.main-frame .main-content .main-tab .methods input[type='checkbox']:not(.switch):checked {
-	 --o: 1;
-}
-.main-frame .main-content .main-tab .methods input[type='checkbox'] + label {
-	font-size: 14px;
-    line-height: 21px;
-    display: inline-block;
-    vertical-align: top;
-    cursor: pointer;
-    margin-left: 4px;
-    font-weight: 500;
-}
-.main-frame .main-content .main-tab .methods input[type='checkbox']:not(.switch) {
-	 border-radius: 3px;
-}
-.main-frame .main-content .main-tab .methods input[type='checkbox']:not(.switch):after {
-	 width: 5px;
-	 height: 9px;
-	 border: 2px solid var(--active-inner);
-	 border-top: 0;
-	 border-left: 0;
-	 left: 6px;
-	 top: 2px;
-	 transform: rotate(var(--r, 20deg));
-}
-.main-frame .main-content .main-tab .methods input[type='checkbox']:not(.switch):checked {
-	 --r: 43deg;
-}
-.main-frame .main-content .main-tab .methods input[type='checkbox'].switch {
-	 width: 38px;
-	 border-radius: 11px;
-}
-.main-frame .main-content .main-tab .methods input[type='checkbox'].switch:after {
-	 left: 2px;
-	 top: 2px;
-	 border-radius: 50%;
-	 width: 15px;
-	 height: 15px;
-	 background: var(--ab, var(--border));
-	 transform: translateX(var(--x, 0));
-}
-.main-frame .main-content .main-tab .methods input[type='checkbox'].switch:checked {
-	 --ab: var(--active-inner);
-	 --x: 17px;
-}
-.main-frame .main-content .main-tab .methods input[type='checkbox'].switch:disabled:not(:checked):after {
-	 opacity: 0.6;
-}
-.main-frame .main-content .main-tab .methods #cash_checkbox {
-    margin-top: 25px;
-}
-
-.main-frame .main-content .main-tab .methods .by_cash #cash_info {
-    display: none;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-items: center;
-}
-.main-frame .main-content .main-tab .methods .by_cash #cash_info #sec_text {
-    font-size: 14px;
-    margin: 16px;
-}
-.main-frame .main-content .main-tab .methods .by_cash #cash_info #office {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: center;
-}
-.main-frame .main-content .main-tab .methods .by_cash #cash_info #office #title #main_text {
-    font-size: 16px;
-    font-weight: 600;
-}
-.main-frame .main-content .main-tab .methods .by_cash #cash_info #office #title #desc_text {
-    font-size: 14px;
-}
-.main-frame .main-content .main-tab .methods .by_cash #cash_info #office button {
-    margin-left: 40px;
-    border: none;
-    width: 50px;
-    height: 50px;
-    border-radius: 10px;
-}
-.main-frame .main-content .main-tab .methods .by_cash #cash_info #office img{
-	width:18px;
-}
-.main-frame .main-content .main-tab .methods .by_cash #cash_info #confirmation button {
-    border: none;
-    font-family: 'Poppins', sans-serif;
-    width: 200px;
-    margin-top: 40px;
-    height: 50px;
-    border-radius: 7px;
-    color: #fff;
-    background: #FF7E7E;
-    font-size: 16px;
-    font-weight: 600;
-}
-.main-frame .main-content .main-tab .cards #title {
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 16px;
-}
-.main-frame .main-content .main-tab .cards #card {
-    width: fit-content;
-    margin: 16px;
-}
-
-.main-frame .main-content .main-tab #cta {
-    position: absolute;
-    bottom: 3%;
-    right: 30%;
-}
-.main-frame .main-content .main-tab #cta input[type="submit"] {
-    border: none;
-    height: 45px;
-    width: 100px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
+    height: calc(100% - 34px);
+    border: 1px solid #E4E4E4;
     border-radius: 5px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 49% 49%;
+    gap: 10px;
+    justify-items: center;
 }
-.main-frame .main-content .main-tab #cta #next {
-    background: #FAD286;
+.payment_methods {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex-wrap: nowrap;
+}
+.payment_methods #tabs {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    border-bottom: 1px solid #E4E4E4;
+}
+.payment_methods #tabs .tab {
+    background: #eee;
+    padding: 10px 20px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor:pointer;
+}
+.payment_methods #tabs .tab.active{
+	border-bottom:2px solid #0071ff;
+}
+.payment_methods .tabs_content {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.payment_methods .tabs_content #createMeeting {
+    position: absolute;
+}
+.main_content .main-frame .main_frame_content #cards_list {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.main_content .main-frame .main_frame_content #cards_list #title_header {
+    font-size: 16px;
+    font-weight: 500;
+    color: #c4C4C4;
+}
+.main_content .main-frame .main_frame_content #cards_list #list {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 20px;
+}
+.main_content .main-frame .main_frame_content #cards_list #list .card {
+    width: 280px;
+    height: 160px;
+    margin: 10px 20px;
+    border-radius: 10px;
+    z-index: 1;
+    position: relative;
+    box-shadow: -1px 10px 20px 6px #a9a9a9;
+}
+.main_content .main-frame .main_frame_content #cards_list #list .card_info{
+	padding: 25px 15px;
+    position: relative;
+    height: 100%;
+    text-shadow: 7px 6px 10px rgb(14 42 90 / 80%);
+    user-select: none;
+}
+.main_content .main-frame .main_frame_content #cards_list #list .card_top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+.main_content .main-frame .main_frame_content #cards_list #list .card .item_chip {
+    width: 26px;
+}
+.main_content .main-frame .main_frame_content #cards_list #list .card .item_type {
+    height: 24px;
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    max-width: 100px;
+    margin-left: auto;
+    width: 100%;
+    align-items: center;
+}
+.main_content .main-frame .main_frame_content #cards_list #list .card  img.item_typeImg {
+    width: 26px;
+}
+.main_content .main-frame .main_frame_content #cards_list #list .card .item_typeImg {
+    max-width: 100%;
+    object-fit: contain;
+    max-height: 100%;
+    object-position: top right;
+}
+.main_content .main-frame .main_frame_content .pay_info_form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 15px;
+}
+.main_content .main-frame .main_frame_content #cards_list #list .card_number {
+	display: flex;
     color: #fff;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    font-size: 20px;
+    padding: 5px 20px;
+    line-height: 20px;
+}
+.main_content .main-frame .main_frame_content #cards_list #list .card_number span{
+	margin-top:10px;
+}
+.main_content .main-frame .main_frame_content #cards_list #list .card .item_bottom {
+    display: flex;
+    color: #fff;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding: 0px 20px;
+    margin-top: 14px;
+}
+.main_content .main-frame .main_frame_content #cards_list #list .card .card_info #holder {
+    font-size: 12px;
+    color: #cecece;
+}
+.main_content .main-frame .main_frame_content #cards_list #list .card .card_info  #holder_full_name {
+    font-size: 12px;
+    color: #fff;
+}
+.main_content .main-frame .main_frame_content #cards_list #list .card .card_info  #card_Expiry_date {
+    font-size: 12px;
+    color: #cecece;
+}
+.main_content .main-frame .main_frame_content #row {
+    display: flex;
+    gap: 30px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+.main_content .main-frame .main_frame_content #row #input_field {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 5px;
+}
+.main_content .main-frame .main_frame_content #row #input_field #holder_card{
+	width: 225px;
+    height: 50px;
+    border: 1px solid #E4E4E4;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    padding: 0px 20px;
+    font-weight: 400;
+    color: #000;
+}
+.main_content .main-frame .main_frame_content #row #input_field #holder_card:focus{
+	outline:none;
+	border-color: #3d9cff;
+}
+.main_content .main-frame .main_frame_content #row #input_field #inputField {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    position: relative;
+}
+.main_content .main-frame .main_frame_content #row #input_field #inputField #card_number {
+	width: 391px;
+    height: 50px;
+    border: 1px solid #E4E4E4;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    padding: 0px 20px;
+    font-weight: 400;
+    color: #000;
+}
+.main_content .main-frame .main_frame_content #row #input_field #inputField #card_number:focus{
+	outline:none;
+	border-color: #3d9cff;
+}
+.main_content .main-frame .main_frame_content #row #input_field #inputField img {
+    position: absolute;
+    right: 5%;
+    width: 30px;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.main_content .main-frame .main_frame_content #row #input_field #title {
+    font-size: 14px;
+    font-weight: 500;
+    color: #C4C4C4;
+}
+.main_content .main-frame .main_frame_content #row #input_field #input_s {
+    height: 50px;
+    border: 1px solid #E4E4E4;
+    border-radius: 5px;
+    padding: 0px 20px;
+    width: 135px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+}
+.main_content .main-frame .main_frame_content #row #input_field #input_s:focus{
+	outline:none;
+	border-color: #3d9cff;
+}
+.main_content .main-frame .main_frame_content #row #select_row {
+    gap: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+.main_content .main-frame .main_frame_content #row #select_row #selectCard {
+    width: 100px;
+    height: 50px;
+    border: 1px solid #E4E4E4;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+}
+.main_content .main-frame .main_frame_content #row #select_row #selectCard:focus{
+	outline:none;
+	border-color: #3d9cff;
+}
+.main_content .main-frame .main_frame_content #notify_text {
+    font-size: 14px;
+    font-weight: 400;
+    color: #C4C4C4;
+}
+.main_content .main-frame .main_frame_content #cta {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 20px;
+}
+.main_content .main-frame .main_frame_content #cta #confirm {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 10px;
+    background: #28c397;
+    border: none;
+    height: 50px;
+    width: 240px;
+    border-radius: 5px;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 14px;
+    cursor: pointer;
+}
+.main_content .main-frame .main_frame_content #cta #cancel {
+    height: 50px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    border: 2px solid #E4E4E4;
+    width: 135px;
+    background: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.main_content .sidebar {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: calc(30% - 10px);
+    height: 97%;
+    border-radius: 5px;
+    gap:15px;
+    margin-top:10px;
+}
+.main_content .sidebar #tab_header {
+	font-size: 16px;
+    font-weight: 500;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.main_content .sidebar #tab_header #left {
+    display: flex;
+    gap: 10px;
+	font-weight: 600;
+    font-size: 17px;
+}
+.main_content .sidebar #card {
+	background: #fff;
+    border: 1px solid #E4E4E4;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding: 15px;
+    gap: 10px;
+}
+.main_content .sidebar #card  #info_list {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 5px;
+}
+.main_content .sidebar #card  #info_list #tile {
+    display: flex;
+    padding: 5px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    font-size: 16px;
+    align-items: center;
+    font-weight: 400;
+    gap: 40px;
+}
+.main_content .sidebar #card  #info_list #tile #title {
+    min-width: 110px;
+    max-width: 110px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #b1b1b1;
+}
+.main_content .sidebar #card  #info_list #tile #value {
+    font-size: 15px;
+    font-weight: 500;
+}
+.main_content .sidebar #card  #perklist {
+    display: flex;
+    border-bottom: 1px solid #E4E4E4;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding: 10px 0px;
+    border-top: 1px solid #E4E4E4;
+}
+.main_content .sidebar #card  #perklist #perk_text {
+    font-size: 15px;
+    font-weight: 600;
+    color: #C4C4C4;
+}
+.main_content .sidebar #card  #perklist #image_wrapper {
+    border: 2px solid #c4c4c4;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+}
+.main_content .sidebar #card #promo_code {
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding: 10px 5px;
+	font-weight: 500;
+}
+.main_content .sidebar #card #promo_code #submit {
+    color: #9e47b6;
+    font-weight: 600;
+    cursor: pointer;
 }

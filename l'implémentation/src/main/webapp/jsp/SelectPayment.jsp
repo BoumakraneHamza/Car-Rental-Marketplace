@@ -7,194 +7,261 @@
 <meta charset="UTF-8">
 <title>Payment Method</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ClientMain.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/addCard.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Finish_Booking.css">
 </head>
 <body>
 <div class="header">
-		<div id="logo">
-			<a href="${pageContext.request.contextPath}/Dashboard"><img src="${pageContext.request.contextPath}/assets/logoBlack.svg"></a>
+	<div class="logo" onclick="location.href='${pageContext.request.contextPath}/Dashboard'">
+		<img src="${pageContext.request.contextPath}/assets/logoBlack.svg">
+		<p id="logo_title">Unique</p>
+	</div>
+	<div class="user">
+	<img id="notification" src="${pageContext.request.contextPath}/assets/notification.svg">
+	<div id="user-image">
+		<img style="width: 40px;" src="${pageContext.request.contextPath}${user.image}">
+	</div>
+		<div id="user-info">
+			<p id="full-name">${user.nom} ${user.prenom}</p>
+			<p id="user-name">${user.user_name}</p>
 		</div>
-		<div class="user">
-		<img id="notification" src="${pageContext.request.contextPath}/assets/notification.svg">
-		<div id="user-image">
-			<img style="width: 40px;" src="${pageContext.request.contextPath}${user.image}">
-		</div>
-			<div id="user-info">
-				<p id="full-name">${user.nom} ${user.prenom}</p>
-				<p id="user-name">${user.user_name}</p>
-			</div>
-			<div id="dropdownlist">
-				<img src="${pageContext.request.contextPath}/assets/angle-down-solid.svg">
-			</div>
-		</div>
+		<div id="dropdownlist">
+			<img src="${pageContext.request.contextPath}/assets/angle-down-solid.svg">
+		</div>		
+	</div>
 </div>
 <div class="content">
-		<div class="menu">
-			<button class="search"  style="background: #F6AA1C;"><a href="${pageContext.request.contextPath}/CarSearch"><img src="${pageContext.request.contextPath}/assets/search-icon-white.svg"></a></button>
-			<button class="dashboard"><a href="${pageContext.request.contextPath}/Dashboard"><img src="${pageContext.request.contextPath}/assets/dashboard-icon.svg"></a></button>
-			<button class="inbox"><a href="${pageContext.request.contextPath}/Inbox"><img src="${pageContext.request.contextPath}/assets/inbox.svg"></a></button>
-			<button class="payment"><a href="${pageContext.request.contextPath}/ClientPayment"><img src="${pageContext.request.contextPath}/assets/Wallet.svg"></a></button>
+	<div class="frame">
+		<div class="step_slider">
+			<div class="Progressline">
+				<div class="checkpoint">
+					<div class="point active"></div>
+					<p>Payment</p>
+				</div>
+				<div class="checkpoint">
+					<div class="point active"></div>
+					<p>Identity verification</p>
+				</div>
+				<div class="checkpoint">
+					<div class="point"></div>
+					<p>Contract Confirmation</p>
+				</div>
+				<div class="checkpoint">
+					<div class="point"></div>
+					<p>Signature</p>
+				</div>
+			</div>
 		</div>
-		<div class="main-frame">
-		 <div class="sec-header">
-		 	<div id="step">
-		 	<p style="font-size: 12px;margin: 0px;font-weight: 600; color: #C4C4C4;">Step 01</p>
-		 	<h3 style="margin: 0px;font-size: 16px;font-weight: 600;">Select Payment Method</h3>
-		 	</div>
-		 </div>
-		 <div class="main-content">
-		 	<div class="main-tab">
-		 		<div class="methods">
-		 			<div class="By_card">
-		 				<div id="card_checkbox">
-		 					<input id="checkbox_1" type="checkbox" onclick="PayBy_card()">
-		 					<label for="checkbox_1">Use a new card</label> 
-		 				</div>
-		 				<div id="card_info">
-		 					<div id="card_type">
-		 						<button id="visa"><img src="${pageContext.request.contextPath}/assets/visa_blue.svg"/></button>
-		 						<button id="master_card"><img src="${pageContext.request.contextPath}/assets/master_card.svg"/></button>
-		 						<button id="3"><img src="${pageContext.request.contextPath}/assets/cash.svg"/></button>
-		 					</div>
-		 					<div class="pay_form">
-		 						<div id="number">
-		 							<div id="title">
-		 								<p id="main_text">Card Number</p>
-		 								<p id="sec-text">Enter the 16-digit card number on the card</p>
-		 							</div>
-		 							<div id="card_number">
-		 								<img id= "marque"src="${pageContext.request.contextPath}/assets/master_card.svg">
-		 								<input type="number">
-		 							</div>
-		 						</div>
-		 						<div id="input_row">
-		 							<div id="title">
-			 							<p id="main_text">CCV Number</p>
-			 							<p id="sec-text">Enter the 4 digit number of the card</p>
-		 							</div>
-		 							<input type="number">
-		 						</div>
-		 						<div id="input_row">
-		 							<div id="title">
-		 								<p id="main_text">Expiry Date</p>
-		 								<p id="sec-text">Enter the Experation date of the card</p>
-		 							</div>
-		 							<input type="number">
-		 						</div>
-		 						<div id="input_row">
-		 							<div id="title">
-		 								<p id="main_text">Password</p>
-		 								<p id="sec-text">Enter the card password</p>
-		 							</div>
-		 							<input type="password">
-		 						</div>
-		 					</div>
-		 				</div>
-		 			</div>
-		 			<div class="by_cash">
-		 				<div id="cash_checkbox">
-		 					<input id="checkbox_2" type="checkbox" onclick="PayBy_cash()">
-		 					<label for="checkbox_2" >Pay with cash</label>
-		 				</div>
-		 				<div id="cash_info">
-		 				<c:choose>
-		 					<c:when test="${user.getType().equals('client')}">
-		 						<div id="sec_text">
-		 							<p>To Continue Paying Cash for your Booking . Please make sure to 
-										visit one of our offices in the next 24 hours 
-									</p>
-			 					</div>
-			 					<div id="office">
-			 							<div id="title">
-			 								<p id="main_text">Choose an office</p>
-			 								<p id="desc_text">Finish your Booking in a nearby office</p>
-			 							</div>
-			 							<button><img src="${pageContext.request.contextPath}/assets/location.svg"></button>
-			 					</div>
-			 					<div id="confirmation">
-			 						<button>Confirm Meeting</button>
-			 					</div>
-		 					</c:when>
-		 					<c:otherwise>
-		 						<div id="sec_text">
-		 							<p>To Continue your Booking Process. Please Confirm 
-		 								that the process of payment has been completed. 
-									</p>
-			 					</div>
-			 					<form id="confirmation" action="contractView" method="post">
-			 						<input name="reservationId" type="hidden" value="${reservationId}">
-			 						<button type="submit">Confirm Payment</button>
-			 					</form>
-		 					</c:otherwise>
-		 				</c:choose>
-		 				</div>
-		 			</div>
-		 		</div>
-		 		<div class="cards">
-		 			<p id="title">Use saved cards</p>
-		 			<div class="cardlist">
-		 				<div id="card">
-		 					<img src="${pageContext.request.contextPath}/assets/paymentCard2.svg"/>
-		 				</div>
-		 				<div id="card">
-		 					<img src="${pageContext.request.contextPath}/assets/paymentCard3.svg"/>
-		 				</div>
-		 			</div>
-		 			<form id="cta" action="contractView" method="post">
-		 				<input name="reservationId" type="hidden" value="${reservationId}">
-		 				<input id="cancel" type="submit" value="Cancel">
-		 				<input id="next" type="submit" value="Next">
-		 			</form>
-		 		</div>
-		 	</div>
-		 	<div class="Bill">
-		 		<h3>Bill Summary</h3>
-		 		<div id="line"></div>
-		 		<div id="row">
-		 			<p id="title">car model</p>
-		 			<p class="amount" id="model">${reservation.carName }</p>
-		 		</div>
-		 		<div id="row">
-		 			<p id="title">daily rate</p>
-		 			<p class="amount" id="rate">${reservation.PLJ }</p>
-		 		</div>
-		 		<div id="row">
-		 			<p id="title">company fees</p>
-		 			<p class="amount" id="fees">$ 10</p>
-		 		</div>
-		 		<div id="row">
-		 			<p id="title">discount</p>
-		 			<p class="amount" id="discount">-30%</p>
-		 		</div>
-		 		<div id="line"></div>
-		 		<div id="insurance">
-		 			<p id="title">Insurance</p>
-		 			
-		 			<div id="option">
-		 				<p id="insurance_amount">$40</p>
-		 				<input type="checkbox" id="_checkbox">
-						<label for="_checkbox" id="insurance_value">
-						  <div id="tick_mark"></div>
-						</label>
-		 			</div>
-		 		</div>
-		 		<div id="line"></div>
-		 		<div id="row">
-		 			<p id="title">Booking duration</p>
-		 			<p class="amount" id="duration">${duration } days</p>
-		 		</div>
-		 		<div id="savings">
-		 			<p>total savings $</p><p id="saving">${(reservation.PLJ*duration+10) * 30 / 100 }</p>
-		 		</div>
-		 		<div id="row">
-		 			<p id="title">Booking Total</p>
-		 			<p class="amount" id="total">${(reservation.PLJ*duration+10) * ( 1 - 30/100) }</p>
-		 		</div>
-		 	</div>
-		 </div>
+		<div class="main_content">
+			<div class="main-frame">
+				<p id="tab_header">Payment information</p>
+				<div class="main_frame_content">
+				<div class="payment_methods">
+					<div id="tabs">
+						<div class="tab active" onclick="selectTab(this)">Pay Now</div>
+						<div class="tab" onclick="selectTab(this)">Meeting</div>
+					</div>
+					<div class="tabs_content">
+						<form class="pay_info_form">
+						<div id="row">
+							<div id="input_field">
+								<p id="title">Holder Card</p>
+								<input id="holder_card" type="text">
+							</div>
+							<div id="input_field">
+								<p id="title">CCV</p>
+								<input type="text" autocomplete="off" class="ccv" id="input_s">
+							</div>
+						</div>
+						<div id="row">
+							<div id="input_field">
+								<p id="title">Card Number</p>
+								<div id="inputField">
+									<input type="text" id="card_number">
+									<img src="${pageContext.request.contextPath}/assets/visa_blue.svg">
+								</div>
+							</div>
+						</div>
+						<div id="row">
+							<div id="input_field">
+								<p id="title">Expiration</p>
+								<div id="select_row">
+									<select id="selectCard">
+									<option value="" disabled="disabled" selected="selected">Month</option>
+										 <option value="01">
+							                    01
+							                </option><option value="02">
+							                    02
+							                </option><option value="03">
+							                    03
+							                </option><option value="04">
+							                    04
+							                </option><option value="05">
+							                    05
+							                </option><option value="06">
+							                    06
+							                </option><option value="07">
+							                    07
+							                </option><option value="08">
+							                    08
+							                </option><option value="09">
+							                    09
+							                </option><option value="10">
+							                    10
+							                </option><option value="11">
+							                    11
+							                </option><option value="12">
+							                    12
+							                </option></select> 
+									<select id="selectCard">
+							                <option value="" disabled="disabled" selected="selected">Year</option>
+							                <option value="2022">
+							                    2022
+							                </option><option value="2023">
+							                    2023
+							                </option><option value="2024">
+							                    2024
+							                </option><option value="2025">
+							                    2025
+							                </option><option value="2026">
+							                    2026
+							                </option><option value="2027">
+							                    2027
+							                </option><option value="2028">
+							                    2028
+							                </option><option value="2029">
+							                    2029
+							                </option><option value="2030">
+							                    2030
+							                </option><option value="2031">
+							                    2031
+							                </option><option value="2032">
+							                    2032
+							                </option><option value="2033">
+							                    2033
+							                </option>
+							                </select>
+								</div>
+							</div>
+						</div>
+						<p id="notify_text">i authorise Unique company to charge my debit/credit <br> card for a total set amount</p>
+						<div id="cta">
+							<button id="cancel">Back</button>
+							<button id="confirm"><img style="width:10px;" src="${pageContext.request.contextPath}/assets/lock-white.svg"><p>Confirm payment:</p><p>$ 210.0</p></button>
+						</div>
+						</form>
+						<div id="createMeeting" style="visibility:hidden">
+							<p id="text">Please Select a nearby office to make an appointment <br> for you to continue your booking process</p>
+							<button><img src="${pageContext.request.contextPath}/assets/location.svg"></button>
+							<button id="meeting_confirmation"></button>
+						</div>
+					</div>
+					</div>
+					<div id="cards_list">
+						<p id="title_header">Your Saved Cards</p>
+						<div id="list">
+							<div class="card" style="background-image:url(https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/6.jpeg);">
+								<div class="card_info">
+									<div class="card_top">
+										<img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/chip.png" class="item_chip">
+									 <div class="item_type">
+									 	<img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/visa.png" alt="" class="item_typeImg">
+									 </div>
+									</div>
+									<div class="card_number">
+										<span>1122 3344 5566 7788</span>
+									</div>
+									<div class="item_bottom">
+										<div id="holder">
+											<p>card holder</p>
+											<p id="holder_full_name">Nathanial  Olson</p>
+										</div>
+										<div id="card_Expiry_date">
+											<p>Expiry date</p>
+											<p id="card_expiry_date">11/24</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div id="card"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="sidebar">
+				<div id="tab_header">
+					<div id="left">
+						<img style="width: 25px;" src="${pageContext.request.contextPath}/assets/cart-purple.svg">
+						<p id="title">Order Summary</p>
+					</div>
+				</div>
+				<div id="card">
+					<div id="tab_header">
+						<p id="title">About Your Car</p>
+						<img src="${pageContext.request.contextPath}/assets/angle-down-solid.svg">
+					</div>
+					<div id="info_list">
+						<div id="tile">
+							<p id="title">Your vehicle :</p>
+							<p id="value">${reservation.carName }</p>
+						</div>
+						<div id="tile">
+							<p id="title">Daily Rate</p>
+							<p id="value">$ 210</p>
+						</div>
+					</div>
+				</div>
+				<div id="card">
+					<div id="tab_header">
+						<p id="title">About Your Booking</p>
+						<img src="${pageContext.request.contextPath}/assets/angle-down-solid.svg">
+					</div>
+					<div id="info_list">
+						<div id="tile">
+							<p id="title">Pick up date :</p>
+							<p id="value">2022-06-10</p>
+						</div>
+						<div id="tile">
+							<p id="title">Return date :</p>
+							<p id="value">2022-06-30</p>
+						</div>
+					</div>
+				</div>
+				<div id="card">
+					<div id="tab_header">
+						<p id="title">Total Price (VAT included) :</p>
+					</div>
+					<div id="info_list">
+						<div id="tile">
+							<p id="title">regular price :</p>
+							<p id="value">$ 210.0</p>
+						</div>
+						<div id="perklist">
+							<div id="tile">
+								<div id="image_wrapper">
+									<img style="width: 27px;" src="${pageContext.request.contextPath}/assets/percentage-icon.svg">
+								</div>
+								<p id="perk_text">Best Price Guarantee</p>
+							</div>
+							<div id="tile">
+								<div id="image_wrapper">
+									<img style="width: 15px;" src="${pageContext.request.contextPath}/assets/lock.svg">
+								</div>
+								<p id="perk_text">100% secure purchase</p>
+							</div>
+						</div>
+						<div id="promo_code">
+							<p>Do you have a promo_code</p>
+							<p id="submit">Click here</p>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
+	</div>
 </div>
+<script src="${pageContext.request.contextPath}/js/ClientMain.js"></script>
 <script src="${pageContext.request.contextPath}/js/Finish_booking.js"></script>
-	<%@include file="/jsp/dropdownList.jsp"%>
+<%@include file="/jsp/dropdownList.jsp"%>
 </body>
 </html>
