@@ -5,6 +5,11 @@
 <head>
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Accueil.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/dateRangePicker.css"/>
 <meta charset="UTF-8">
 <title>Unique</title>
 </head>
@@ -33,24 +38,25 @@
 		</div>
 	</div>
 	<div class="search">
-	<form action="CarSearch" method="post">
+	<form id="search_bar_form" action="CarSearch" method="post">
 		<div class="inputs">
 			<div class="search-field" id="location">
-				<p>Location</p>
-				<input required="required" type="text" name="location" placeholder="location">
+				<p>Where</p>
+				<div id="inputs_wrapper">
+					<div id="image_wrapper">
+						<img src="${pageContext.request.contextPath}/assets/search-icon.svg">
+					</div>
+					<input required="required" type="text" name="location" placeholder="Search" id="locationSearch">
+				</div>
 			</div>
-			<div class="search-field" id="pick-date">
-				<p>pick-up date</p>
-				<input required="required" type="date" name="pickUp_date" placeholder="pick-up date">
+			<div id="date">
+				<p>When</p>
+				<input required type="text" id="range_picker" name="range_picker">
 			</div>
-			<div class="search-field" id="return-date">
-				<p>return date</p>
-				<input required="required" type="date" name="return_date" placeholder="return date">
+				<input type="hidden" name="pickUp_date" placeholder="pick-up date" id="pick_up_date">
+				<input type="hidden" name="return_date" placeholder="return date" id="return_date">
+				<button id="search_btn" type="submit"><img src="${pageContext.request.contextPath}/assets/check.svg"><p>search</p></button>
 			</div>
-			<div id="search_btn">
-				<input type="submit" value="search">
-			</div>
-		</div>
 	</form>
 	</div>
 </div>

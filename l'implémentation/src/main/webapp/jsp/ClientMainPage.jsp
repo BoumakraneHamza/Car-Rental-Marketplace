@@ -26,35 +26,46 @@
 		<p id="logo_title">Unique</p>
 	</div>
 	<div class="user">
-	<img id="notification" src="${pageContext.request.contextPath}/assets/notification.svg">
-	<div id="user-image">
-		<img style="width: 40px;" src="${pageContext.request.contextPath}${user.image}">
-	</div>
-		<div id="user-info">
-			<p id="full-name">${user.nom} ${user.prenom}</p>
-			<p id="user-name">${user.user_name}</p>
-		</div>
-		<div id="dropdownlist">
-			<img src="${pageContext.request.contextPath}/assets/angle-down-solid.svg">
-		</div>
-		
+		<c:choose>
+			<c:when test="${user != null}">
+				<img id="notification" src="${pageContext.request.contextPath}/assets/notification.svg">
+				<div id="user-image">
+					<img style="width: 40px;" src="${pageContext.request.contextPath}${user.image}">
+				</div>
+				<div id="user-info">
+					<p id="full-name">${user.nom} ${user.prenom}</p>
+					<p id="user-name">${user.user_name}</p>
+				</div>
+				<div id="dropdownlist">
+					<img src="${pageContext.request.contextPath}/assets/angle-down-solid.svg">
+				</div>
+			</c:when>
+			<c:otherwise>
+				<a style="color:#B8B08D;font-size: 17px;font-weight: 500;margin-left: 30px;" href="${pageContext.request.contextPath}/SignUp">join us</a>
+				<a href="/Atelier/Login" style="color: #000;font-size: 17px;font-weight: 500;margin-left: 30px;">login</a>
+			</c:otherwise>
+		</c:choose>
 	</div>
 </div>
 <div class="content">
-	<div class="menu">
-		<div class="menu-tab" style="background: #C5DCFA;" onclick="location.href='${pageContext.request.contextPath}/CarSearch'">
-			<img style="width:20px;" src="${pageContext.request.contextPath}/assets/home-icon-purple.svg">
-			<p style="color:#0F56B3;" id="title">Explore</p>
-		</div>
-		<div class="menu-tab" onclick="location.href='${pageContext.request.contextPath}/ReservationList'">
-			<img style="width:21px;" src="${pageContext.request.contextPath}/assets/ledger.svg">
-			<p id="title">Bookings</p>
-		</div>
-		<div class="menu-tab" onclick="location.href='${pageContext.request.contextPath}/ClientPayment'">
-			<img style="width:21px;" src="${pageContext.request.contextPath}/assets/payment-icon.svg">
-			<p id="title">Payment</p>
-		</div>
-	</div>
+	<c:choose>
+		<c:when test="${user != null}">
+			<div class="menu">
+				<div class="menu-tab" style="background: #C5DCFA;" onclick="location.href='${pageContext.request.contextPath}/CarSearch'">
+					<img style="width:20px;" src="${pageContext.request.contextPath}/assets/home-icon-purple.svg">
+					<p style="color:#0F56B3;" id="title">Explore</p>
+				</div>
+				<div class="menu-tab" onclick="location.href='${pageContext.request.contextPath}/ReservationList'">
+					<img style="width:21px;" src="${pageContext.request.contextPath}/assets/ledger.svg">
+					<p id="title">Bookings</p>
+				</div>
+				<div class="menu-tab" onclick="location.href='${pageContext.request.contextPath}/ClientPayment'">
+					<img style="width:21px;" src="${pageContext.request.contextPath}/assets/payment-icon.svg">
+					<p id="title">Payment</p>
+				</div>
+			</div>
+		</c:when>
+	</c:choose>
 	<div class="main-frame">
 		<div class="main-frame-header">
 			<div class="seach_section">
@@ -198,10 +209,14 @@
 				<div id="dashboard">
 					<c:choose>
 						<c:when test="${vehicules.size()>0}">
-							<div id="recent_tab_header">
-								<p id="section_header">Recent searches</p>
-								<div id="subtitle"><p>You were looking for</p><p id="filter_location">${filters.location}</p></div>
-							</div>
+							<c:choose>
+								<c:when test="${user != null}">
+									<div id="recent_tab_header">
+										<p id="section_header">Recent searches</p>
+										<div id="subtitle"><p>You were looking for</p><p id="filter_location">${filters.location}</p></div>
+									</div>
+								</c:when>
+							</c:choose>
 							<div id="recent_tab_content">
 							<c:forEach items="${vehicules}" var="vehicule">
 								<div id="result">

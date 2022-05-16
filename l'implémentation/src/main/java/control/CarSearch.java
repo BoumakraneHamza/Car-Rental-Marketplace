@@ -79,7 +79,7 @@ public class CarSearch extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/ClientMainPage.jsp");
 			dispatcher.forward(request, response);
 		}else {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/Search.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/ClientMainPage.jsp");
 			dispatcher.forward(request, response);
 		}
 	}
@@ -106,16 +106,25 @@ public class CarSearch extends HttpServlet {
 			    filter.setPickUp_date(date1.toString());
 			    filter.setReturn_date(date2.toString());
 			    //long daysBetween =ChronoUnit.DAYS.between(date2, date1);
-				
-			    dao.UpdateRecentSearch(filter, user.getEmail());
-			    vehicules = dao.carSearch(filter);
-			    int size = vehicules.size();
-			    depots = dao.getDepots(filter.getLocation());
-			    ObjectMapper mapper = new ObjectMapper();
-			    PrintWriter out = response.getWriter();
-			    String vehiculesString = mapper.writeValueAsString(vehicules);
-			    String depot = mapper.writeValueAsString(depots);
-			    out.write("["+vehiculesString+","+depot+","+size+"]");
+				if(user != null) {
+					dao.UpdateRecentSearch(filter, user.getEmail());
+					vehicules = dao.carSearch(filter);
+				    int size = vehicules.size();
+				    depots = dao.getDepots(filter.getLocation());
+				    ObjectMapper mapper = new ObjectMapper();
+				    PrintWriter out = response.getWriter();
+				    String vehiculesString = mapper.writeValueAsString(vehicules);
+				    String depot = mapper.writeValueAsString(depots);
+				    out.write("["+vehiculesString+","+depot+","+size+"]");
+				}else {
+					vehicules = dao.carSearch(filter);
+				    int size = vehicules.size();
+				    depots = dao.getDepots(filter.getLocation());
+				    request.setAttribute("filters", filter);
+					request.setAttribute("vehicules", vehicules);
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/ClientMainPage.jsp");
+					dispatcher.forward(request, response);
+				}
 			    //request.setAttribute("duration", daysBetween);
 			}else {
 				doGet(request, response);

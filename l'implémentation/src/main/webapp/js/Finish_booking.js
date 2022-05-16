@@ -104,3 +104,17 @@ function show_select_location(){
 function closeSelectMap(){
 	document.querySelector(".view_Location").style.display="none";
 }
+function selectCard(element){
+	let name = element.querySelector("#name").value;
+	let number = element.querySelector("#number").value;
+	let ccv = element.querySelector("#ccv").value;
+	let expyear = element.querySelector("#expyear").value;
+	let expmonth = element.querySelector("#expmonth").value;
+	
+	let pay_form = document.querySelector(".pay_info_form");
+	pay_form.querySelector("#holder_card").value =name;
+	pay_form.querySelector(".ccv").value = ccv;
+	pay_form.querySelector("#card_number").value = number;
+	pay_form.querySelector(".expmonth").value=expmonth;
+	pay_form.querySelector(".expyear").value =expyear;
+}

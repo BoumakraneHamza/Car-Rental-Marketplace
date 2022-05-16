@@ -10,10 +10,10 @@
 </head>
 <body>
 	<div class="frame">
-			<div class="content">
 			<div class="logo">
 				<a href="${pageContext.request.contextPath}/PageAcueil"><img src="${pageContext.request.contextPath}/assets/logoBlack.svg"></a>
 			</div>
+			<div class="content">
 			<div id="login">
 				<h3>Welcome Back !</h3>
 				<h5>Please login to your account </h5>
@@ -51,7 +51,6 @@
 			</form>
 			</div>
 		</div>
-		<div class="image">
 		</div>
 	</div>
 	<script src="${pageContext.request.contextPath}/js/login.js"></script>

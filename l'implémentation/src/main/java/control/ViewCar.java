@@ -48,6 +48,9 @@ public class ViewCar extends HttpServlet {
 			request.setAttribute("filter", filter);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/viewCar.jsp");
 			dispatcher.forward(request, response);
+		}else {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/login.jsp");
+			dispatcher.forward(request, response);
 		}
 	}
 

@@ -41,6 +41,7 @@ public class SaveImg extends HttpServlet {
 		String reservationId = request.getParameter("reservationId");
 		String path = request.getServletContext().getRealPath("/assets/documents/contracts");
 		String test = request.getParameter("signature");
+		System.out.println(test);
 	    String base64Image = test.split(",")[1];
 	    byte[] bImg = javax.xml.bind.DatatypeConverter.parseBase64Binary(base64Image);
 	    String status = "failed";

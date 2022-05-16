@@ -7,10 +7,18 @@ var  ctx, flag = false,
 
 var x = "black",
     y = 2;
-canvas = document.getElementById('can');
-form = document.querySelector(".signature").querySelector("form");
-console.log(form);
-saver = form.querySelector("#image");
+let canvas = document.getElementById('can');
+let form = document.querySelector(".signature").querySelector(".signature_content");
+form.addEventListener("submit",(e)=>{
+		e.preventDefault();
+		var imageurl = canvas.toDataURL("image/png" , 0.9);
+		console.log(imageurl);
+		var image = new Image();
+		image.src=imageurl;
+		let saver = form.querySelector(".signature_form").querySelector("#image");
+		saver.value=image.src;	
+		form.submit();
+});
 var bounds = canvas.getBoundingClientRect();
 function init() {
     canvas = document.getElementById('can');
@@ -42,14 +50,6 @@ function draw() {
     ctx.closePath();
 }
 
-form.addEventListener("submit",(e)=>{
-	e.preventDefault();
-	var imageurl = canvas.toDataURL("image/png" , 0.9);
-	var image = new Image();
-	image.src=imageurl;
-	saver.value=image.src;
-	form.submit();
-});
 function clearPad(){
 	ctx.clearRect(0,0,w,h);
 }
@@ -83,10 +83,28 @@ function findxy(res, e) {
         }
     }
 }
-const pad = document.querySelector(".signature");
 function show(){
+	const pad = document.querySelector(".signature");
 	pad.style.visibility="visible";
 }
 function hide(){
+	const pad = document.querySelector(".signature");
 	pad.style.visibility="hidden";
+}
+function selectTab(element){
+	let tabs = document.querySelector(".signature").querySelector("#tabs").querySelectorAll(".tab");
+	tabs.forEach((tab)=>{
+		if(tab.classList.contains("active")){
+				tab.classList.remove("active");
+		}
+	});
+	element.classList.toggle("active");
+	let signature_content= document.querySelector(".signature_content");
+	if(element.innerHTML == "Draw"){
+		signature_content.querySelector(".signature_form").style.visibility="visible";
+		signature_content.querySelector(".upload_form").style.visibility="hidden";
+	}else{
+		signature_content.querySelector(".signature_form").style.visibility="hidden";
+		signature_content.querySelector(".upload_form").style.visibility="visible";
+	}
 }

@@ -89,7 +89,7 @@
 							<div id="input_field">
 								<p id="title">Expiration</p>
 								<div id="select_row">
-									<select required id="selectCard">
+									<select required id="selectCard" class="expmonth">
 									<option value="" disabled="disabled" selected="selected">Month</option>
 										 <option value="01">
 							                    01
@@ -116,7 +116,7 @@
 							                </option><option value="12">
 							                    12
 							                </option></select> 
-									<select required id="selectCard">
+									<select required id="selectCard" class="expyear">
 							                <option value="" disabled="disabled" selected="selected">Year</option>
 							                <option value="2022">
 							                    2022
@@ -163,7 +163,12 @@
 					<div id="cards_list">
 						<p id="title_header">Your Saved Cards</p>
 						<div id="list">
-							<div class="card" style="background-image:url(https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/6.jpeg);">
+							<div onclick="selectCard(this)" class="card" style="background-image:url(https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/6.jpeg);">
+								<input type="hidden" id="number" value="1122 3344 5566 7788">
+								<input type="hidden" id="name" value="Nathanial olson">
+								<input type="hidden" id="expyear" value="2024">
+								<input type="hidden" id="expmonth" value="11">
+								<input type="hidden" id="ccv" value="3041">
 								<div class="card_info">
 									<div class="card_top">
 										<img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/chip.png" class="item_chip">

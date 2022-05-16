@@ -10,44 +10,53 @@
 </head>
 <body>
 <div class="header">
-		<div id="logo">
-			<a href="${pageContext.request.contextPath}/Dashboard"><img src="${pageContext.request.contextPath}/assets/logoBlack.svg"></a>
+	<div class="logo" onclick="location.href='${pageContext.request.contextPath}/Dashboard'">
+		<img src="${pageContext.request.contextPath}/assets/logoBlack.svg">
+		<p id="logo_title">Unique</p>
+	</div>
+	<div class="user">
+	<img id="notification" src="${pageContext.request.contextPath}/assets/notification.svg">
+	<div id="user-image">
+		<img style="width: 40px;" src="${pageContext.request.contextPath}${user.image}">
+	</div>
+		<div id="user-info">
+			<p id="full-name">${user.nom} ${user.prenom}</p>
+			<p id="user-name">${user.user_name}</p>
 		</div>
-		<div class="user">
-		<img id="notification" src="${pageContext.request.contextPath}/assets/notification.svg">
-		<div id="user-image">
-			<img style="width: 40px;" src="${pageContext.request.contextPath}${user.image}">
-		</div>
-			<div id="user-info">
-				<p id="full-name">${user.nom} ${user.prenom}</p>
-				<p id="user-name">${user.user_name}</p>
-			</div>
-			<div id="dropdownlist">
-				<img src="${pageContext.request.contextPath}/assets/angle-down-solid.svg">
-			</div>
-		</div>
+		<div id="dropdownlist">
+			<img src="${pageContext.request.contextPath}/assets/angle-down-solid.svg">
+		</div>		
+	</div>
 </div>
 <div class="content">
-		<div class="menu">
-			<button class="search" style="background: #F6AA1C;"><a href="${pageContext.request.contextPath}/CarSearch"><img src="${pageContext.request.contextPath}/assets/search-icon-white.svg"></a></button>
-			<button class="dashboard"><a href="${pageContext.request.contextPath}/Dashboard"><img src="${pageContext.request.contextPath}/assets/dashboard-icon.svg"></a></button>
-			<button class="inbox"><a href="${pageContext.request.contextPath}/Inbox"><img src="${pageContext.request.contextPath}/assets/inbox.svg"></a></button>
-			<button class="payment"><a href="${pageContext.request.contextPath}/ClientPayment"><img src="${pageContext.request.contextPath}/assets/Wallet.svg"></a></button>
-		</div>
 		<div class="main-frame">
-		 <div class="sec-header">
-		 	<div id="step">
-		 	<p style="font-size: 12px;margin: 0px;font-weight: 600; color: #C4C4C4;">Step 03</p>
-		 	<h3 style="margin: 0px;font-size: 16px;font-weight: 600;">Contract Confirmation</h3>
-		 	</div>
-		 </div>
+		 <div class="step_slider">
+			<div class="Progressline">
+				<div class="checkpoint">
+					<div class="point active"></div>
+					<p>Payment</p>
+				</div>
+				<div class="checkpoint">
+					<div class="point active"></div>
+					<p>Identity verification</p>
+				</div>
+				<div class="checkpoint">
+					<div class="point active"></div>
+					<p>Contract Confirmation</p>
+				</div>
+				<div class="checkpoint">
+					<div class="point"></div>
+					<p>Signature</p>
+				</div>
+			</div>
+		</div>
 		<div class="contract">
 			<div class="view">
 				<div id="view_option">
 					<p>Booking Contract</p>
 					<img src="${pageContext.request.contextPath}/assets/download.svg">
 				</div>
-				<iframe src="${pageContext.request.contextPath}/contractView?reservationId=${reservationId}#toolbar=0&view=fith" style="width:670px; height:570px;" frameborder="0"></iframe>
+				<iframe src="${pageContext.request.contextPath}/contractView?reservationId=274#toolbar=0&view=fith&scrollbar=0" style="width:670px; height: calc(100% - 45px);" frameborder="0"></iframe>
 			</div>
 			<div class="cta">
 				<div class="action" id="confirm" onclick="show()">

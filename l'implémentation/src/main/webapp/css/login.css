@@ -78,26 +78,29 @@ form{
     flex-wrap: nowrap;
 }
 .frame {
-    display: grid;
+	display: flex;
     width: 100%;
-    grid-template-columns: 1fr 1fr;
     height: 100%;
+    flex-direction: column;
+    flex-wrap: nowrap;
 }
-.frame .image {
-	background-color:#8C4843;
+.frame .logo {
+	width: 100vw;
+    height: 7vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding: 10px;
+    align-items: center;
+}
+.frame .logo img{
+	width: 35px;
 }
 .frame .content {
     display: flex;
     flex-direction: column;
     height: 100%;
     padding: 20px;
-}
-.frame .content .logo {
-    width: fit-content;
-    height: fit-content;
-}
-.frame .content .logo img{
-	width: 35px;
 }
 .frame .content #login {
     display: flex;
