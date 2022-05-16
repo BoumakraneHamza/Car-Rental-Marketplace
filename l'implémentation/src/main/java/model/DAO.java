@@ -2337,7 +2337,6 @@ public class DAO {
 		}
 		return weeklyStat;
 	}
-	
 	public ArrayList<Integer> getDepothalfYearProblemsStat(String depotCode) {
 		String query;
 		PreparedStatement statement;

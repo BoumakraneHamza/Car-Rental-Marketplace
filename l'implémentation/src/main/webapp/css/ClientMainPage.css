@@ -647,3 +647,43 @@
     right: 0%;
     cursor: pointer;
 }
+#booking_completed {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 30px;
+    border: 1px solid #E4E4E4;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+#booking_completed #title {
+    font-size: 17px;
+    font-weight: 500;
+    margin-top: 15px;
+}
+#booking_completed #subtitle {
+    max-width: 210px;
+    text-align: center;
+    margin-top: 15px;
+    font-size: 17px;
+    color: #6666;
+    font-weight: 500;
+}
+#booking_completed #ok {
+    width: 100px;
+    height: 35px;
+    margin-top: 15px;
+    border: none;
+    background: #0071FF;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    border-radius: 16px;
+    cursor: pointer;
+}

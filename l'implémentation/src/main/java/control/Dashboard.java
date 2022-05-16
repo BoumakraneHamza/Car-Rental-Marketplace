@@ -42,9 +42,9 @@ public class Dashboard extends HttpServlet {
 			String url = "";
 			
 			if (user.getType().equals("client")) {
-				url = url + "/";
-				url = url + "Atelier/CarSearch";
-				response.sendRedirect(url);
+				request.setAttribute("status", request.getAttribute("status"));
+				RequestDispatcher dispatcher = request.getRequestDispatcher("CarSearch");
+				dispatcher.forward(request, response);
 			} else if (user.getType().equals("directeur")) {
 				url = url + "/Atelier/";
 				url = url + "jsp/AgencyDashboard.jsp"; 

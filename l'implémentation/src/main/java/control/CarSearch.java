@@ -45,6 +45,7 @@ public class CarSearch extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) request.getSession().getAttribute("user");
 		if (user != null && user.getType().equals("client")) {
+			request.setAttribute("status", request.getAttribute("status"));
 			request.setAttribute("user", user);
 			DAO dao = new DAO();
 			ArrayList<Vehicule> carList = new ArrayList<Vehicule>();
@@ -75,7 +76,7 @@ public class CarSearch extends HttpServlet {
 			
 			request.setAttribute("client_password", request.getParameter("password"));
 			request.setAttribute("client_email", request.getParameter("email"));
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/carSearch.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/ClientMainPage.jsp");
 			dispatcher.forward(request, response);
 		}else {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/Search.jsp");
@@ -94,28 +95,31 @@ public class CarSearch extends HttpServlet {
 		ArrayList<Vehicule> vehicules;
 		ArrayList<Depot> depots;
 		try {
-			filter.setLocation(request.getParameter("location"));
-			filter.setPickUp_hour(request.getParameter("pickUp_hour"));
-			filter.setReturn_hour(request.getParameter("return_hour"));
-			
-			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-			LocalDate date1 = LocalDate.parse(request.getParameter("pickUp_date"), dtf);
-		    LocalDate date2 = LocalDate.parse(request.getParameter("return_date"), dtf);
-		    filter.setPickUp_date(date1.toString());
-		    filter.setReturn_date(date2.toString());
-		    //long daysBetween =ChronoUnit.DAYS.between(date2, date1);
-			
-		    dao.UpdateRecentSearch(filter, user.getEmail());
-		    vehicules = dao.carSearch(filter);
-		    int size = vehicules.size();
-		    depots = dao.getDepots(filter.getLocation());
-		    ObjectMapper mapper = new ObjectMapper();
-		    PrintWriter out = response.getWriter();
-		    String vehiculesString = mapper.writeValueAsString(vehicules);
-		    String depot = mapper.writeValueAsString(depots);
-		    out.write("["+vehiculesString+","+depot+","+size+"]");
-		    //request.setAttribute("duration", daysBetween);
-			
+			if(request.getParameterMap().containsKey("location")) {
+				filter.setLocation(request.getParameter("location"));
+				filter.setPickUp_hour(request.getParameter("pickUp_hour"));
+				filter.setReturn_hour(request.getParameter("return_hour"));
+				
+				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+				LocalDate date1 = LocalDate.parse(request.getParameter("pickUp_date"), dtf);
+			    LocalDate date2 = LocalDate.parse(request.getParameter("return_date"), dtf);
+			    filter.setPickUp_date(date1.toString());
+			    filter.setReturn_date(date2.toString());
+			    //long daysBetween =ChronoUnit.DAYS.between(date2, date1);
+				
+			    dao.UpdateRecentSearch(filter, user.getEmail());
+			    vehicules = dao.carSearch(filter);
+			    int size = vehicules.size();
+			    depots = dao.getDepots(filter.getLocation());
+			    ObjectMapper mapper = new ObjectMapper();
+			    PrintWriter out = response.getWriter();
+			    String vehiculesString = mapper.writeValueAsString(vehicules);
+			    String depot = mapper.writeValueAsString(depots);
+			    out.write("["+vehiculesString+","+depot+","+size+"]");
+			    //request.setAttribute("duration", daysBetween);
+			}else {
+				doGet(request, response);
+			}
 		} catch (InstantiationException | IllegalAccessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -7,8 +7,10 @@
 <meta charset="UTF-8">
 <title>Payment Method</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ClientMain.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/addCard.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Finish_Booking.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+   crossorigin=""/>
 </head>
 <body>
 <div class="header">
@@ -62,22 +64,23 @@
 						<div class="tab" onclick="selectTab(this)">Meeting</div>
 					</div>
 					<div class="tabs_content">
-						<form class="pay_info_form">
+						<form class="pay_info_form" action="contractView" method="post">
+						<input name="reservationId" type="hidden" value="${reservationId}">
 						<div id="row">
 							<div id="input_field">
 								<p id="title">Holder Card</p>
-								<input id="holder_card" type="text">
+								<input required id="holder_card" type="text">
 							</div>
 							<div id="input_field">
 								<p id="title">CCV</p>
-								<input type="text" autocomplete="off" class="ccv" id="input_s">
+								<input required type="text" autocomplete="off" class="ccv" id="input_s">
 							</div>
 						</div>
 						<div id="row">
 							<div id="input_field">
 								<p id="title">Card Number</p>
 								<div id="inputField">
-									<input type="text" id="card_number">
+									<input required type="text" id="card_number">
 									<img src="${pageContext.request.contextPath}/assets/visa_blue.svg">
 								</div>
 							</div>
@@ -86,7 +89,7 @@
 							<div id="input_field">
 								<p id="title">Expiration</p>
 								<div id="select_row">
-									<select id="selectCard">
+									<select required id="selectCard">
 									<option value="" disabled="disabled" selected="selected">Month</option>
 										 <option value="01">
 							                    01
@@ -113,7 +116,7 @@
 							                </option><option value="12">
 							                    12
 							                </option></select> 
-									<select id="selectCard">
+									<select required id="selectCard">
 							                <option value="" disabled="disabled" selected="selected">Year</option>
 							                <option value="2022">
 							                    2022
@@ -151,9 +154,9 @@
 						</div>
 						</form>
 						<div id="createMeeting" style="visibility:hidden">
-							<p id="text">Please Select a nearby office to make an appointment <br> for you to continue your booking process</p>
-							<button><img src="${pageContext.request.contextPath}/assets/location.svg"></button>
-							<button id="meeting_confirmation"></button>
+							<p id="text">Please Select a nearby office to make an appointment for you to continue your booking process</p>
+							<button id="view_map" onclick="show_select_location()"><img src="${pageContext.request.contextPath}/assets/location.svg"></button>
+							<button style="display:none;" id="meeting_confirmation"></button>
 						</div>
 					</div>
 					</div>
@@ -260,6 +263,22 @@
 		</div>
 	</div>
 </div>
+<div class="view_Location" style="display:none;">
+	<div id="select_map_wrapper"></div>
+	<div id="inputs">
+		<div id="right">
+			<button onclick="submitSelectedLocation()" id="select_location"><img src="${pageContext.request.contextPath}/assets/check.svg"><p>Select</p></button>
+			<img onclick="closeSelectMap()" style="cursor:pointer;" src="${pageContext.request.contextPath}/assets/cancel-black.svg">
+		</div>
+	</div>
+</div>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin="">
+</script>
+<script type="text/javascript">
+	var contextPath = "${pageContext.request.contextPath}";
+</script>
 <script src="${pageContext.request.contextPath}/js/ClientMain.js"></script>
 <script src="${pageContext.request.contextPath}/js/Finish_booking.js"></script>
 <%@include file="/jsp/dropdownList.jsp"%>

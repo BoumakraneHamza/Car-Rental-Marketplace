@@ -39,15 +39,13 @@ public class GaragisteProblems extends HttpServlet {
 		User user = (User) request.getSession().getAttribute("user");
 		if (user != null && user.getType().equals("depot manager")) {
 			DAO dao = new DAO();
-			ObjectMapper mapper = new ObjectMapper();
 			ArrayList<CarProblem> carsProblems = dao.getCarsProblems(user.getEmployement().getWorkingLocation());
 			ArrayList<dailycarsProblemsStat> weeklyProblemsStat = dao.getDepotWeeklyProblemsStat(user.getEmployement().getWorkingLocation());
 			ArrayList<Integer> halfYearProblemsStat = dao.getDepothalfYearProblemsStat(user.getEmployement().getWorkingLocation());
 			
-			
+			ObjectMapper mapper = new ObjectMapper();
 			String weeklyStat = mapper.writeValueAsString(weeklyProblemsStat);
 			request.setAttribute("weeklyStat", weeklyStat);
-			
 			String halfYearStat = mapper.writeValueAsString(halfYearProblemsStat);
 			request.setAttribute("halfYearStat", halfYearStat);
 			
