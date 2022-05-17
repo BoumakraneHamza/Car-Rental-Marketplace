@@ -5,13 +5,9 @@ $(function() {
 	let secondDate = new Date();
 	secondDate.setDate(today.getDate() + 3);
   $('input[name="range_picker"]').daterangepicker({
-	"timePicker": true,
-	"timePicker24Hour": true,
     startDate: today,
     endDate: secondDate,
-    locale: {
-      format: 'MM/DD hh:mm'
-    },
+	autoApply:true,
 	"minDate": new Date(),
   });
 	$('input[name="range_picker"]').on('apply.daterangepicker', function(picker) {

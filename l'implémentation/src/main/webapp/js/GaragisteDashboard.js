@@ -26,7 +26,13 @@ let char1 = new Chart(stat1 ,{
 		datasets:[{
 			label:'active hours',
 			data:Object.values(stat1Data),
-			backgroundColor:randomColorArray(Object.keys(stat1Data).length),
+			backgroundColor:[
+				'#8fc73e',
+		      '#527c85',
+		      '#9cb5ba',
+			  '#B56576',
+			  '#E56B6F',
+			],
 			hoverOffset: 6,
 		}]
 	},
@@ -39,7 +45,7 @@ const stat2 = document.querySelector("#stat2");
 let char2 = new Chart(stat2 ,{
 	type:'doughnut',
 	data:{
-		labels:['Hamza','Oussama','Nathanial'],
+		labels:['Engine','Breaks','Body',"Lights","Interior"],
 		datasets:[{
 			label:'active hours',
 			data:[6,7,3],

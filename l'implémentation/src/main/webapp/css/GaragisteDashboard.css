@@ -89,13 +89,14 @@
     margin: 0px auto;
 }
 .main-frame .top_main_frame .reservations .tab_slider {
-	display: flex;
+	    display: flex;
     width: 100%;
     padding: 0px 10px;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
+    gap: 15px;
 }
 .main-frame .top_main_frame .reservations .tab_slider .booking_card {
 	display: flex;

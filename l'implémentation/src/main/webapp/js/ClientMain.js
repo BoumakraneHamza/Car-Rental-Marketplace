@@ -3,20 +3,24 @@ let menu = document.querySelector(".menu");
 let logo = document.querySelector(".logo");
 
 menu.addEventListener("mouseenter",()=>{
-	menu.classList.toggle("active");
+	if(!menu.classList.contains("active")){
+		menu.classList.add("active");
+	}
 	for(let key= 0; key < menuBtns.length ; key++){
-		menuBtns.item(key).classList.toggle("active");
-		if(!logo.classList.contains("active")){
-			logo.classList.toggle("active");
-		}
+		menuBtns.item(key).classList.add("active");
+	}
+	if(!logo.classList.contains("active")){
+		logo.classList.add("active");
 	}
 });
 menu.addEventListener("mouseleave",()=>{
-	menu.classList.toggle("active");
+	if(menu.classList.contains("active")){
+		menu.classList.remove("active");
+	}
 	for(let key= 0; key < menuBtns.length ; key++){
-		menuBtns.item(key).classList.toggle("active");
-		if(logo.classList.contains("active")){
-			logo.classList.toggle("active");
-		}
+		menuBtns.item(key).classList.remove("active");
+	}
+	if(logo.classList.contains("active")){
+		logo.classList.remove("active");
 	}
 });
