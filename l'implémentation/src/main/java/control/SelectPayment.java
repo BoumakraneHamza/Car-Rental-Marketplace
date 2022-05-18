@@ -47,7 +47,9 @@ public class SelectPayment extends HttpServlet {
 			    LocalDate date2 = LocalDate.parse(reservation.getReturn_date(), dtf);
 			    long daysBetween = ChronoUnit.DAYS.between(date1, date2);
 			    request.setAttribute("reservation", reservation);
+			    request.setAttribute("price", reservation.getId()*daysBetween);
 			    request.setAttribute("duration", daysBetween);
+			    request.setAttribute("matricule", request.getParameter("matricule"));
 			} catch (InstantiationException | IllegalAccessException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

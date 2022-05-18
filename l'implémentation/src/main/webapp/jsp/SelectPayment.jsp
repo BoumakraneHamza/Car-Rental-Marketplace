@@ -64,7 +64,7 @@
 						<div class="tab" onclick="selectTab(this)">Meeting</div>
 					</div>
 					<div class="tabs_content">
-						<form class="pay_info_form" action="contractView" method="post">
+						<form class="pay_info_form" action="ContractManagement" method="post">
 						<input name="reservationId" type="hidden" value="${reservationId}">
 						<div id="row">
 							<div id="input_field">
@@ -150,8 +150,15 @@
 						<p id="notify_text">i authorise Unique company to charge my debit/credit <br> card for a total set amount</p>
 						<div id="cta">
 							<button id="cancel">Back</button>
-							<button id="confirm"><img style="width:10px;" src="${pageContext.request.contextPath}/assets/lock-white.svg"><p>Confirm payment:</p><p>$ 210.0</p></button>
+							<button id="confirm"><img style="width:10px;" src="${pageContext.request.contextPath}/assets/lock-white.svg"><p>Confirm payment:</p><p>$ ${price}</p></button>
 						</div>
+						</form>
+						<form class="back_form" action="BookingManagement" method="post">
+							<input type="hidden" name="matricule" value="${matricule}">
+							<input type="hidden" name="required_action" value="delete">
+							<input type="hidden" name="pick_up_date" value="${reservation.pick_up_date}">
+							<input type="hidden" name="return_date" value="${reservation.return_date}">
+							<input type="hidden" name="reservationId" value="${reservationId}">
 						</form>
 						<div id="createMeeting" style="visibility:hidden">
 							<p id="text">Please Select a nearby office to make an appointment for you to continue your booking process</p>
@@ -211,11 +218,11 @@
 					<div id="info_list">
 						<div id="tile">
 							<p id="title">Your vehicle :</p>
-							<p id="value">${reservation.carName }</p>
+							<p id="value">${reservation.vehicule.marque} ${reservation.vehicule.modele}</p>
 						</div>
 						<div id="tile">
 							<p id="title">Daily Rate</p>
-							<p id="value">$ 210</p>
+							<p id="value">$ ${reservation.vehicule.PLJ}</p>
 						</div>
 					</div>
 				</div>
@@ -227,11 +234,11 @@
 					<div id="info_list">
 						<div id="tile">
 							<p id="title">Pick up date :</p>
-							<p id="value">2022-06-10</p>
+							<p id="value">${reservation.pick_up_date}</p>
 						</div>
 						<div id="tile">
 							<p id="title">Return date :</p>
-							<p id="value">2022-06-30</p>
+							<p id="value">${reservation.return_date}</p>
 						</div>
 					</div>
 				</div>
@@ -242,7 +249,7 @@
 					<div id="info_list">
 						<div id="tile">
 							<p id="title">regular price :</p>
-							<p id="value">$ 210.0</p>
+							<p id="value">$ ${price}</p>
 						</div>
 						<div id="perklist">
 							<div id="tile">

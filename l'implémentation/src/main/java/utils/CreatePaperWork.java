@@ -102,8 +102,8 @@ public class CreatePaperWork {
      private static Map<String ,String> init(Reservation reservation,User user){
     	 Map <String , String > map = new HashMap<String, String>();
     	 DAO dao = new DAO();
-    	 Agence agence  = dao.getAgence(reservation.getAgence());
-    	 Vehicule vehicule = dao.getVehicule(reservation.getVehicule());
+    	 Agence agence  = dao.getAgence(reservation.getVehicule().getAgence());
+    	 Vehicule vehicule = dao.getVehicule(reservation.getVehicule().getMatricule());
     	 map.put("AgencyName", agence.getName());
     	 map.put("AgencyAddress", agence.getAddress());
     	 map.put("AgencyPhone", agence.getPhone());
@@ -118,9 +118,7 @@ public class CreatePaperWork {
     	 map.put("VehiculeYear", String.valueOf(vehicule.getYear()));
     	 map.put("VehiculeColor", vehicule.getColor());
     	 map.put("VehiculeMatricule", vehicule.getMatricule());
-    	 map.put("time1", reservation.getPick_up_hour());
     	 map.put("date2", reservation.getReturn_date());
-    	 map.put("time2", reservation.getReturn_hour());
     	 map.put("dateReservation", reservation.getReservation_date());
     	 
     	 return map;
@@ -131,18 +129,18 @@ public class CreatePaperWork {
          XWPFDocument doc = new XWPFDocument(OPCPackage.open(stream));
     		 try {
     			 for(Entry<String, String>entry :map.entrySet()) {
-                 for (XWPFParagraph p : doc.getParagraphs()) {
-                  List<XWPFRun> runs = p.getRuns();
-                  if (runs != null) {
-                   for (XWPFRun r : runs) {
-                    String text = r.getText(0);
-                    if (text != null && text.equals(entry.getKey())) {
-                     text = text.replace(entry.getKey(), entry.getValue());
-                     r.setText(text, 0);
-                    }
-                   }
-                  }
-                 }
+	                 for (XWPFParagraph p : doc.getParagraphs()) {
+		                  List<XWPFRun> runs = p.getRuns();
+		                  if (runs != null) {
+			                   for (XWPFRun r : runs) {
+				                    String text = r.getText(0);
+					                    if (text != null && text.equals(entry.getKey())) {
+					                    	text = text.replace(entry.getKey(), entry.getValue());
+					                    	r.setText(text, 0);
+					                    }
+			                   }
+		                  }
+	                 }
                  for (XWPFTable tbl : doc.getTables()) {
                      for (XWPFTableRow row : tbl.getRows()) {
                       for (XWPFTableCell cell : row.getTableCells()) {

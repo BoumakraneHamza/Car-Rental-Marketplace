@@ -10,9 +10,9 @@ $(function() {
 	autoApply:true,
 	"minDate": new Date(),
   });
-	$('input[name="range_picker"]').on('apply.daterangepicker', function(picker) {
-	  let startDate = new Date($('input[name="range_picker"]').data('daterangepicker').startDate.format('YYYY-MM-DD hh:mm'));
-	  let endDate = new Date($('input[name="range_picker"]').data('daterangepicker').endDate.format('YYYY-MM-DD hh:mm'));
+	$('input[name="range_picker"]').on('apply.daterangepicker', function() {
+	  let startDate = new Date($('input[name="range_picker"]').data('daterangepicker').startDate.format('YYYY-MM-DD '));
+	  let endDate = new Date($('input[name="range_picker"]').data('daterangepicker').endDate.format('YYYY-MM-DD'));
 	  let pickupdate = startDate.toLocaleString("en-GB",{
 		day:"numeric",
 		month:"numeric",
@@ -23,18 +23,8 @@ $(function() {
 		month:"numeric",
 		year:"numeric",
 	});
-	let pickuphour = startDate.toLocaleString("en-GB",{
-		hour:"2-digit",
-		minute:"2-digit",
-	});
-	let returnHour = endDate.toLocaleString("en-GB",{
-		hour:"2-digit",
-		minute:"2-digit",
-	});
 	search_form.querySelector("#pick_up_date").value = pickupdate;
 	search_form.querySelector("#return_date").value = returndate;
-	search_form.querySelector("#pick_up_hour").value = pickuphour;
-	search_form.querySelector("#return_hour").value = returnHour;
 	});
 	$(".seach_section #location_input").focusout(function(){
   		search_form.querySelector("#location").value = this.value;
@@ -420,3 +410,4 @@ function deleteUnBlur(){
 	content.style.filter="none";
 }
 toggleMap();
+console.log(document.querySelector("#search_form").querySelector("#location").value);

@@ -51,7 +51,6 @@ public class AjaxDeleteCar extends HttpServlet {
 				out.print("<marque>" + car.getMarque() + "</marque>\n");
 				out.print("<modele>" + car.getModele() + "</modele>\n");
 				out.print("<PLJ>" + car.getPLJ() + "</PLJ>\n");
-				out.print("<PLH>" + car.getPLH() + "</PLH>\n");
 				out.print("<type>" + car.getType() + "</type>\n");
 				out.print("<image>" + car.getImage() + "</image>\n");
 				out.print("<depot_code>" + car.getDepot_code() + "</depot_code>\n");

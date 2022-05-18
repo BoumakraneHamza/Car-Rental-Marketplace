@@ -33,32 +33,33 @@ public class ViewCar extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		User user = (User) request.getSession().getAttribute("user");
-		if (user != null ) {
-			String matricule = request.getParameter("car");
-			CarFilter filter = new CarFilter();
+		CarFilter filter = new CarFilter();
+		String matricule = null;
+		if(request.getParameterMap().containsKey("car")) {
+			matricule = request.getParameter("car");
 			filter.setPickUp_date(request.getParameter("pickUp_date"));
 			filter.setReturn_date(request.getParameter("return_date"));
-			filter.setPickUp_hour(request.getParameter("pickUp_hour"));
-			filter.setReturn_hour(request.getParameter("return_hour"));
 			filter.setLocation(request.getParameter("location"));
-			DAO dao = new DAO();
-			Vehicule vehicule = dao.getVehicule(matricule);
-			request.setAttribute("vehicule", vehicule);
-			request.setAttribute("filter", filter);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/viewCar.jsp");
-			dispatcher.forward(request, response);
 		}else {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/login.jsp");
-			dispatcher.forward(request, response);
+			matricule = (String) request.getAttribute("car");
+			filter.setPickUp_date((String) request.getAttribute("pickUp_date"));
+			filter.setReturn_date((String) request.getAttribute("return_date"));
+			filter.setLocation((String) request.getAttribute("location"));
 		}
+		DAO dao = new DAO();
+		Vehicule vehicule = dao.getVehicule(matricule);
+		request.setAttribute("vehicule", vehicule);
+		request.setAttribute("filter", filter);
+		System.out.println("Entered View Car");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/viewCar.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		doGet(request, response);
 	}
 
 }

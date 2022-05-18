@@ -56,7 +56,7 @@
 					<p>Booking Contract</p>
 					<img src="${pageContext.request.contextPath}/assets/download.svg">
 				</div>
-				<iframe src="${pageContext.request.contextPath}/contractView?reservationId=274#toolbar=0&view=fith&scrollbar=0" style="width:670px; height: calc(100% - 45px);" frameborder="0"></iframe>
+				<iframe src="${pageContext.request.contextPath}/ContractManagement?reservationId=${reservationId}#toolbar=0&view=fith&scrollbar=0" style="width:670px; height: calc(100% - 45px);"></iframe>
 			</div>
 			<div class="cta">
 				<div class="action" id="confirm" onclick="show()">

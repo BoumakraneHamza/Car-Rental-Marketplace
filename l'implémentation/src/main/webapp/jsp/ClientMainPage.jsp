@@ -77,15 +77,9 @@
 					<img id="erase_search" src="${pageContext.request.contextPath}/assets/cancel-fill-circle.svg">
 				</div>
 				<form id="search_form" style="display:none">
-					<input id="location" type="hidden" name="location" value="${filters.location}">
-					
+					<input id="location" type="hidden" name="location" value="${filters.getLocation()}">
 					<input id="pick_up_date" type="hidden" name="pickUp_date" value="${filters.pickUp_date}">
-					
 					<input id="return_date" type="hidden" name="return_date" value="${filters.return_date}">
-					
-					<input id="pick_up_hour" type="hidden" name="pickUp_hour" value="${filters.pickUp_hour}">
-					 
-					<input id="return_hour" type="hidden" name="return_hour" value="${filters.return_hour}">
 				</form>
 				<input type="text" id="range_picker" name="range_picker">
 				<div id="minimize_wrapper">

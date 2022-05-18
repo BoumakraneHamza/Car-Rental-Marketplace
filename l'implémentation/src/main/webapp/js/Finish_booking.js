@@ -118,3 +118,7 @@ function selectCard(element){
 	pay_form.querySelector(".expmonth").value=expmonth;
 	pay_form.querySelector(".expyear").value =expyear;
 }
+document.querySelector(".pay_info_form").querySelector("#cta").querySelector("#cancel").addEventListener("click",(e)=>{
+	e.preventDefault();
+	document.querySelector(".back_form").submit();
+});

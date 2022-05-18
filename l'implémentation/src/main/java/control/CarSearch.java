@@ -2,11 +2,8 @@ package control;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -57,15 +54,8 @@ public class CarSearch extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				 SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yyyy"); 
-				 SimpleDateFormat userInput = new SimpleDateFormat("yyyy-mm-dd");
-				 try {
-					filter.setPickUp_date(formatter.format(userInput.parse(filter.getPickUp_date())));
-					filter.setReturn_date(formatter.format(userInput.parse(filter.getReturn_date())));
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} 
+				filter.setPickUp_date(filter.getPickUp_date());
+				filter.setReturn_date(filter.getReturn_date());
 				request.setAttribute("filters", filter);
 				request.setAttribute("vehicules", carList);
 			}
@@ -118,7 +108,6 @@ public class CarSearch extends HttpServlet {
 				    out.write("["+vehiculesString+","+depot+","+size+"]");
 				}else {
 					vehicules = dao.carSearch(filter);
-				    int size = vehicules.size();
 				    depots = dao.getDepots(filter.getLocation());
 				    request.setAttribute("filters", filter);
 					request.setAttribute("vehicules", vehicules);

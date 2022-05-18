@@ -218,13 +218,11 @@
 				<p>Save</p>
 			</div>
 		</div>
-		<form class="bill" action="initReservation" method="post">
+		<form class="bill" action="BookingManagement" method="post">
 			<input type="hidden" name="agence" value="${vehicule.getAgence()}">
 			<input type="hidden" name="matricule" value="${vehicule.matricule}">
 			<input type="hidden" name="pickUp_date" value="${filter.pickUp_date}">
 			<input type="hidden" name="return_date" value="${filter.return_date}">
-			<input type="hidden" name="pickUp_hour" value="${filter.pickUp_hour}">
-			<input type="hidden" name="return_hour" value="${filter.return_hour}">
 			<input type="hidden" name="location" value="${filter.location}">
 			<div id="bill_content">
 				<div id="dates">
@@ -369,11 +367,7 @@
 </div>
 <script type="text/javascript">
 	var SearchStartDate = "${filter.pickUp_date}";
-	console.log(SearchStartDate);
-	SearchStartDate = SearchStartDate.substr(6, 4)+"-"+SearchStartDate.substr(3, 2)+"-"+SearchStartDate.substr(0, 2);
 	var SearchEndDate = "${filter.return_date}";
-	SearchEndDate = SearchEndDate.substr(6, 4)+"-"+SearchEndDate.substr(3, 2)+"-"+SearchEndDate.substr(0, 2);
-	
 </script>
 <script src="${pageContext.request.contextPath}/js/ClientMain.js"></script>
 <script src="${pageContext.request.contextPath}/js/viewCar.js"></script>

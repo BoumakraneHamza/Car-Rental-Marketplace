@@ -439,7 +439,6 @@ public class DAO {
 	        	vehicule.setMarque(result.getString("marque"));
 	        	vehicule.setModele(result.getString("modele"));
 	        	vehicule.setPLJ(result.getInt("PLJ"));
-	        	vehicule.setPLH(result.getInt("PLH"));
 	        	vehicule.setType(result.getString("type"));
 	        	vehicule.setImage(result.getString("image"));
 	        	vehicule.setDepot_code(result.getString("depot_code"));
@@ -478,7 +477,6 @@ public class DAO {
 	        	vehicule.setMarque(result.getString("marque"));
 	        	vehicule.setModele(result.getString("modele"));
 	        	vehicule.setPLJ(result.getInt("PLJ"));
-	        	vehicule.setPLH(result.getInt("PLH"));
 	        	vehicule.setType(result.getString("type"));
 	        	vehicule.setYear(result.getInt("year"));
 	        	vehicule.setImage(result.getString("image"));
@@ -522,20 +520,21 @@ public class DAO {
 				reservation.setReturn_date(result.getString("date_2"));
 				reservation.setReservation_date(result.getString("date_reservation"));
 				reservation.setStatus(result.getString("reservation.etat"));
-				reservation.setPick_up_hour(result.getString("hour_1"));
-				reservation.setReturn_hour(result.getString("hour_2"));
 				reservation.setLocation(result.getString("location"));
-				reservation.setVehicule(result.getString("vehicule_matricule"));
 				reservation.setContrat(result.getString("contrat"));
 				Query = "SELECT * from vehicule where matricule = ?";
 				PreparedStatement statement2 = connection.prepareStatement(Query);
-				statement2.setString(1, reservation.getVehicule());
+				statement2.setString(1, result.getString("vehicule_matricule"));
 				ResultSet result2 =statement2.executeQuery();
 				while(result2.next()) {
-					reservation.setVehicule(result2.getString("modele"));
-					reservation.setPLH(result2.getInt("PLH"));
-					reservation.setPLJ(result2.getInt("PLJ"));
-					reservation.setCarImage(result2.getString("image"));
+					Vehicule vehicule = new Vehicule();
+					vehicule.setMatricule(result.getString("vehicule_matricule"));
+					vehicule.setMarque(result2.getString("marque"));
+					vehicule.setModele(result2.getString("modele"));
+					vehicule.setPLJ(result2.getInt("PLJ"));
+					vehicule.setImage(result2.getString("image"));
+					vehicule.setAgence(result2.getString("Agence"));
+					reservation.setVehicule(vehicule);
 				}
 				
 				Query = "SELECT * from transactionhistory where reservationID = "+reservation.getId() ;
@@ -544,7 +543,6 @@ public class DAO {
 				while(result3.next()) {
 					reservation.setPaymentId(result3.getInt("payment_id"));
 					reservation.setTotalAmount(result3.getInt("montant"));
-					reservation.setAgence(result3.getString("agence_name"));
 				}	
 				reservationList.put(reservation.getPick_up_date(), reservation);
 			}
@@ -555,7 +553,20 @@ public class DAO {
 		}
 		return reservationList;
 	}
-	
+	public int DeleteReservation(int id) {
+		String Query ; 
+		PreparedStatement statement ;
+		int result = 0;
+		try {
+			connectDB();
+			Query = "Delete from reservation where id="+id;
+			statement = connection.prepareStatement(Query);
+			result = statement.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return result ;
+	}
 	public Reservation getReservation(int id) throws InstantiationException, IllegalAccessException{
 		String Query;
 		PreparedStatement statement;
@@ -575,15 +586,16 @@ public class DAO {
 				reservation.setReturn_date(result.getString("date_2"));
 				reservation.setReservation_date(result.getString("date_reservation"));
 				reservation.setStatus(result.getString("etat"));
-				reservation.setPick_up_hour(result.getString("hour_1"));
-				reservation.setReturn_hour(result.getString("hour_2"));
 				reservation.setLocation(result.getString("location"));
-				reservation.setVehicule(result.getString("vehicule_matricule"));
 				reservation.setContrat(result.getString("contrat"));
-				reservation.setCarName(result.getString("marque") + " " + result.getString("modele"));
-				reservation.setPLH(result.getInt("PLH"));
-				reservation.setPLJ(result.getInt("PLJ"));
-				reservation.setCarImage(result.getString("image"));
+				Vehicule vehicule = new Vehicule();
+				vehicule.setAgence(result.getString("Agence"));
+				vehicule.setMatricule(result.getString("vehicule_matricule"));
+				vehicule.setMarque(result.getString("marque"));
+				vehicule.setModele(result.getString("modele"));
+				vehicule.setPLJ(result.getInt("PLJ"));
+				vehicule.setImage(result.getString("v.image"));
+				reservation.setVehicule(vehicule);
 				
 			}
 			statement.close();
@@ -648,18 +660,16 @@ public class DAO {
 		ResultSet result ;
 		try {
 			connectDB();
-			query = "Insert into reservation(locataire_email , vehicule_matricule,date_1,date_2,etat,hour_1,hour_2,date_reservation,location)"
-					+ " values(?,?,?,?,?,?,?,?,?);";
+			query = "Insert into reservation(locataire_email,vehicule_matricule,date_1,date_2,etat,date_reservation,location)"
+					+ " values(?,?,?,?,?,?,?);";
 			statement = connection.prepareStatement(query);
 			statement.setString(1, data.getEmail());
-			statement.setString(2, data.getVehicule());
+			statement.setString(2, data.getVehicule().getMatricule());
 			statement.setString(3, data.getPick_up_date());
 			statement.setString(4, data.getReturn_date());
 			statement.setString(5, "en cours");
-			statement.setString(6, data.getPick_up_hour());
-			statement.setString(7, data.getReturn_hour());
-			statement.setString(8, data.getReservation_date());
-			statement.setString(9, data.getLocation());
+			statement.setString(6, data.getReservation_date());
+			statement.setString(7, data.getLocation());
 			statement.executeUpdate();
 			
 			query = "SELECT LAST_INSERT_ID()";
@@ -723,7 +733,6 @@ public class DAO {
 				vehicule.setYear(result.getInt("year"));
 				vehicule.setColor(result.getString("color"));
 				vehicule.setPLJ(result.getInt("PLJ"));
-				vehicule.setPLH(result.getInt("PLH"));
 				vehicule.setNumberSeats(result.getInt("seats"));
 				vehicule.setNumberDoors(result.getInt("doors"));
 				vehicule.setNumberSuitCase(result.getInt("suit_case"));
@@ -1648,7 +1657,7 @@ public class DAO {
 		
 		try {
 			connectDB();
-			Query = "INSERT INTO `atelier`.`vehicule` (`matricule`, `marque`, `modele`, `PLJ`, `PLH`, `type`, `depot_code`, `year`, `color`) \r\n"
+			Query = "INSERT INTO `atelier`.`vehicule` (`matricule`, `marque`, `modele`, `PLJ`, `type`, `depot_code`, `year`, `color`) \r\n"
 					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			statement = connection.prepareStatement(Query);
 			
@@ -1656,7 +1665,6 @@ public class DAO {
 			statement.setString(2, vehicule.getMarque());
 			statement.setString(3, vehicule.getModele());
 			statement.setDouble(4, vehicule.getPLJ());
-			statement.setDouble(5, vehicule.getPLH());
 			statement.setString(6, vehicule.getType());
 			//statement.setString(7, vehicule.getImage()); TODO later
 			statement.setString(7, vehicule.getDepot_code());
@@ -1697,7 +1705,7 @@ public class DAO {
 		try {
 			connectDB();
 			Query = "UPDATE `atelier`.`vehicule` \r\n"
-					+ "SET `marque` = ?, `modele` = ?, `PLJ` = ?, `PLH` = ?, `type` = ?, `year` = ?, `color` = ?, `seats` = ?, `doors` = ?, `suit_case` = ? \r\n"
+					+ "SET `marque` = ?, `modele` = ?, `PLJ` = ?, `type` = ?, `year` = ?, `color` = ?, `seats` = ?, `doors` = ?, `suit_case` = ? \r\n"
 					+ "WHERE (`matricule` = ?)";
 			statement = connection.prepareStatement(Query);
 			
@@ -1705,7 +1713,6 @@ public class DAO {
 			statement.setString(1, vehicule.getMarque());
 			statement.setString(2, vehicule.getModele());
 			statement.setDouble(3, vehicule.getPLJ());
-			statement.setDouble(4, vehicule.getPLH());
 			statement.setString(5, vehicule.getType());
 			statement.setInt(6, vehicule.getYear());
 			statement.setString(7, vehicule.getColor());
@@ -2130,22 +2137,21 @@ public class DAO {
 			
 			while(result.next()) {
 				reservation = new Reservation();
-				
+				Vehicule vehicule = new Vehicule();
+				vehicule.setMatricule(result.getString("vehicule_matricule"));
+				vehicule.setMarque(result.getString("marque"));
+				vehicule.setModele(result.getString("modele"));
+				vehicule.setPLJ(result.getInt("PLJ"));
+				vehicule.setImage(result.getString("v.image"));
+				reservation.setVehicule(vehicule);
 				reservation.setId(result.getInt("id"));
 				reservation.setEmail(result.getString("locataire_email"));
-				reservation.setVehicule(result.getString("vehicule_matricule"));
 				reservation.setPick_up_date(result.getString("date_1"));
 				reservation.setReturn_date(result.getString("date_2"));
 				reservation.setStatus(result.getString("etat"));
 				reservation.setContrat(result.getString("contrat"));
-				reservation.setPick_up_hour(result.getString("hour_1"));
-				reservation.setReturn_hour(result.getString("hour_2"));
 				reservation.setReservation_date(result.getString("date_reservation"));
 				reservation.setLocation(result.getString("location"));
-				reservation.setCarName(result.getString("marque") + " " + result.getString("modele"));
-				reservation.setPLH(result.getInt("PLH"));
-				reservation.setPLJ(result.getInt("PLJ"));
-				reservation.setCarImage(result.getString("v.image"));
 				reservation.setRenterName(result.getString("nom") + " " + result.getString("prenom"));
 				reservation.setRenterImage(result.getString("c.image"));
 				if (begin == null && end == null) {

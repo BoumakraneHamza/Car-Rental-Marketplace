@@ -8,7 +8,6 @@ public class Vehicule {
 	private String marque;
 	private String modele;
 	private int PLJ;
-	private int PLH;
 	private String type;
 	private String image;
 	private String depot_code;
@@ -149,12 +148,6 @@ public class Vehicule {
 	}
 	public void setPLJ(int pLJ) {
 		PLJ = pLJ;
-	}
-	public int getPLH() {
-		return PLH;
-	}
-	public void setPLH(int pLH) {
-		PLH = pLH;
 	}
 	public String getType() {
 		return type;

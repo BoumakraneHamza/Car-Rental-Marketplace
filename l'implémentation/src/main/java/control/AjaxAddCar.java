@@ -53,7 +53,6 @@ public class AjaxAddCar extends HttpServlet {
 				out.print("<marque>" + car.getMarque() + "</marque>\n");
 				out.print("<modele>" + car.getModele() + "</modele>\n");
 				out.print("<PLJ>" + car.getPLJ() + "</PLJ>\n");
-				out.print("<PLH>" + car.getPLH() + "</PLH>\n");
 				out.print("<type>" + car.getType() + "</type>\n");
 				out.print("<image>" + car.getImage() + "</image>\n");
 				out.print("<depot_code>" + car.getDepot_code() + "</depot_code>\n");
@@ -80,7 +79,6 @@ public class AjaxAddCar extends HttpServlet {
 				vehicule.setMarque(request.getParameter("marque"));
 				vehicule.setModele(request.getParameter("modele"));
 				vehicule.setPLJ(Integer.parseInt(request.getParameter("PLJ")));
-				vehicule.setPLH(Integer.parseInt(request.getParameter("PLH")));
 				vehicule.setType(request.getParameter("type"));
 				//vehicule.setImage(request.getParameter("image")); TODO later
 				vehicule.setDepot_code(request.getParameter("depot"));

@@ -56,7 +56,6 @@ public class AjaxCarDetails extends HttpServlet {
 			out.print("<year>" + vehicule.getYear() + "</year>\n");
 			out.print("<color>" + vehicule.getColor() + "</color>\n");
 			out.print("<PLJ>" + vehicule.getPLJ() + "</PLJ>\n");
-			out.print("<PLH>" + vehicule.getPLH() + "</PLH>\n");
 			out.print("<image>" + vehicule.getImage() + "</image>\n");
 			out.print("<seats>" + vehicule.getNumberSeats() + "</seats>\n");
 			out.print("<doors>" + vehicule.getNumberDoors() + "</doors>\n");
