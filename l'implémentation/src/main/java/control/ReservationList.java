@@ -57,7 +57,7 @@ public class ReservationList extends HttpServlet {
 				out.write(output);
 			}else {
 				request.setAttribute("user", user);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/reservationList.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/ClientBookings.jsp");
 				dispatcher.forward(request, response);
 			}
 		}else {

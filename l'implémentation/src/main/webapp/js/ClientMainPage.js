@@ -11,26 +11,28 @@ $(function() {
 	"minDate": new Date(),
   });
 	$('input[name="range_picker"]').on('apply.daterangepicker', function() {
-	  let startDate = new Date($('input[name="range_picker"]').data('daterangepicker').startDate.format('YYYY-MM-DD '));
-	  let endDate = new Date($('input[name="range_picker"]').data('daterangepicker').endDate.format('YYYY-MM-DD'));
-	  let pickupdate = startDate.toLocaleString("en-GB",{
-		day:"numeric",
-		month:"numeric",
-		year:"numeric",	
-	});
-	let returndate = endDate.toLocaleString("en-GB",{
-		day:"numeric",
-		month:"numeric",
-		year:"numeric",
-	});
-	search_form.querySelector("#pick_up_date").value = pickupdate;
-	search_form.querySelector("#return_date").value = returndate;
-	});
-	$(".seach_section #location_input").focusout(function(){
-  		search_form.querySelector("#location").value = this.value;
-	});
+	  	let startDate = new Date($('input[name="range_picker"]').data('daterangepicker').startDate.format('YYYY-MM-DD'));
+	  	let endDate = new Date($('input[name="range_picker"]').data('daterangepicker').endDate.format('YYYY-MM-DD'));
+		let pickupdate = moment(startDate).format("YYYY-MM-DD");
+		let returndate = moment(endDate).format("YYYY-MM-DD");
+		
+		search_form.querySelector("#pick_up_date").value = pickupdate;
+		search_form.querySelector("#return_date").value = returndate;
+		});
+		$(".seach_section #location_input").focusout(function(){
+	  		search_form.querySelector("#location").value = this.value;
+		});
 });
+function ChangeFormat(date){
+	let dt = new Date(date);
+	var mm = dt.getMonth()+1; // getMonth() is zero-based
+  	var dd = dt.getDate();
 
+  return [dt.getFullYear(),
+          (mm>9 ? '' : '0') + mm,
+          (dd>9 ? '' : '0') + dd
+         ].join('-');
+}
 function createCars(car){
 	const image = car["image"];
 	const marque = car["marque"];
@@ -42,8 +44,6 @@ function createCars(car){
 	const search_form = document.querySelector("#search_form");
 	const pick_up_date = search_form.querySelector("#pick_up_date").value;
 	const return_date = search_form.querySelector("#return_date").value;
-	const pick_up_hour= search_form.querySelector("#pick_up_hour").value;
-	const return_hour= search_form.querySelector("#return_hour").value;
 	
 	var aCar = document.createElement('div');
 	aCar.setAttribute('id','result');
@@ -55,8 +55,6 @@ function createCars(car){
 								<input type=\"hidden\" value=\""+matricule+"\" name=\"car\">\n\
 								<input id=\"pick_up_date\" type=\"hidden\" name=\"pickUp_date\" value=\""+pick_up_date+"\">\n\
 								<input id=\"return_date\" type=\"hidden\" name=\"return_date\" value=\""+return_date+"\">\n\
-								<input id=\"pick_up_hour\" type=\"hidden\" name=\"pickUp_hour\" value=\""+pick_up_hour+"\">\n\
-								<input id=\"return_hour\" type=\"hidden\" name=\"return_hour\" value=\""+return_hour+"\">\n\
 								<button id=\"details\">\n\
 									<img style=\"width: 12px;\" src=\""+contextPath+"/assets/activity-purple.svg\">\n\
 									<p>Details</p>\n\

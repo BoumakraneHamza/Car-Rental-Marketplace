@@ -4,8 +4,6 @@ public class CarFilter {
 	private String location;
 	private String pickUp_date; //YYYY-MM-DD
 	private String return_date;
-	private String pickUp_hour; //HH:MM
-	private String return_hour;
 	private String typeFilter;
 	private int MaxPriceBound;
 	private int MinPriceBound;
@@ -41,18 +39,6 @@ public class CarFilter {
 	}
 	public void setReturn_date(String return_date) {
 		this.return_date = return_date;
-	}
-	public String getPickUp_hour() {
-		return pickUp_hour;
-	}
-	public void setPickUp_hour(String pickUp_hour) {
-		this.pickUp_hour = pickUp_hour;
-	}
-	public String getReturn_hour() {
-		return return_hour;
-	}
-	public void setReturn_hour(String return_hour) {
-		this.return_hour = return_hour;
 	}
 	public String getTypeFilter() {
 		return typeFilter;

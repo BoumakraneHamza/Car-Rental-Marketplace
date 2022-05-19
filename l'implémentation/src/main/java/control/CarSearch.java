@@ -87,14 +87,8 @@ public class CarSearch extends HttpServlet {
 		try {
 			if(request.getParameterMap().containsKey("location")) {
 				filter.setLocation(request.getParameter("location"));
-				filter.setPickUp_hour(request.getParameter("pickUp_hour"));
-				filter.setReturn_hour(request.getParameter("return_hour"));
-				
-				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-				LocalDate date1 = LocalDate.parse(request.getParameter("pickUp_date"), dtf);
-			    LocalDate date2 = LocalDate.parse(request.getParameter("return_date"), dtf);
-			    filter.setPickUp_date(date1.toString());
-			    filter.setReturn_date(date2.toString());
+			    filter.setPickUp_date(request.getParameter("pickUp_date"));
+			    filter.setReturn_date(request.getParameter("return_date"));
 			    //long daysBetween =ChronoUnit.DAYS.between(date2, date1);
 				if(user != null) {
 					dao.UpdateRecentSearch(filter, user.getEmail());

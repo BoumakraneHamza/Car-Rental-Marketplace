@@ -221,8 +221,6 @@
 											<input type="hidden" value="${vehicule.matricule}" name="car">
 											<input id="pick_up_date" type="hidden" name="pickUp_date" value="${filters.pickUp_date}">
 											<input id="return_date" type="hidden" name="return_date" value="${filters.return_date}">
-											<input id="pick_up_hour" type="hidden" name="pickUp_hour" value="${filters.pickUp_hour}">
-											<input id="return_hour" type="hidden" name="return_hour" value="${filters.return_hour}">
 											<input type="hidden" name="location" value="${filters.location}">
 											<button id="details">
 												<img style="width:12px;" src="${pageContext.request.contextPath}/assets/activity-purple.svg">
@@ -266,8 +264,6 @@
 									<input type="hidden" value="${vehicule.matricule}" name="car">
 									<input id="pick_up_date" type="hidden" name="pickUp_date" value="${filters.pickUp_date}">
 									<input id="return_date" type="hidden" name="return_date" value="${filters.return_date}">
-									<input id="pick_up_hour" type="hidden" name="pickUp_hour" value="${filters.pickUp_hour}">
-									<input id="return_hour" type="hidden" name="return_hour" value="${filters.return_hour}">
 									<input type="hidden" name="location" value="${filters.location}">
 									<button id="details">
 										<img style="width:12px;" src="${pageContext.request.contextPath}/assets/activity-purple.svg">

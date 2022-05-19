@@ -8,6 +8,7 @@
 <title>Payment Method</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ClientMain.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Finish_Booking.css">
+<script src="https://js.stripe.com/v3/"></script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
    crossorigin=""/>
@@ -64,7 +65,7 @@
 						<div class="tab" onclick="selectTab(this)">Meeting</div>
 					</div>
 					<div class="tabs_content">
-						<form class="pay_info_form" action="ContractManagement" method="post">
+						<!-- <form class="pay_info_form" action="ContractManagement" method="post">
 						<input name="reservationId" type="hidden" value="${reservationId}">
 						<div id="row">
 							<div id="input_field">
@@ -152,7 +153,17 @@
 							<button id="cancel">Back</button>
 							<button id="confirm"><img style="width:10px;" src="${pageContext.request.contextPath}/assets/lock-white.svg"><p>Confirm payment:</p><p>$ ${price}</p></button>
 						</div>
-						</form>
+						</form>-->
+						<form id="payment-form">
+					      <div id="payment-element">
+					        <!--Stripe.js injects the Payment Element-->
+					      </div>
+					      <button id="submit">
+					        <div class="spinner hidden" id="spinner"></div>
+					        <span id="button-text">Pay now</span>
+					      </button>
+					      <div id="payment-message" class="hidden"></div>
+					    </form>
 						<form class="back_form" action="BookingManagement" method="post">
 							<input type="hidden" name="matricule" value="${matricule}">
 							<input type="hidden" name="required_action" value="delete">
@@ -291,8 +302,8 @@
 <script type="text/javascript">
 	var contextPath = "${pageContext.request.contextPath}";
 </script>
+<script src="${pageContext.request.contextPath}/js/checkout.js"></script>
 <script src="${pageContext.request.contextPath}/js/ClientMain.js"></script>
-<script src="${pageContext.request.contextPath}/js/Finish_booking.js"></script>
 <%@include file="/jsp/dropdownList.jsp"%>
 </body>
 </html>

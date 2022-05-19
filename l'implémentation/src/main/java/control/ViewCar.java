@@ -50,7 +50,6 @@ public class ViewCar extends HttpServlet {
 		Vehicule vehicule = dao.getVehicule(matricule);
 		request.setAttribute("vehicule", vehicule);
 		request.setAttribute("filter", filter);
-		System.out.println("Entered View Car");
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/viewCar.jsp");
 		dispatcher.forward(request, response);
 	}

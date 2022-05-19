@@ -219,6 +219,7 @@
 			</div>
 		</div>
 		<form class="bill" action="BookingManagement" method="post">
+			<input type="hidden" id="required_action" name="required_action" value="check_availability">
 			<input type="hidden" name="agence" value="${vehicule.getAgence()}">
 			<input type="hidden" name="matricule" value="${vehicule.matricule}">
 			<input type="hidden" name="pickUp_date" value="${filter.pickUp_date}">

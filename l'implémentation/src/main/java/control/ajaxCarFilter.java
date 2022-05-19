@@ -49,8 +49,6 @@ public class AjaxCarFilter extends HttpServlet {
 	    filter.setPickUp_date(date1.toString());
 	    filter.setReturn_date(date2.toString());
 
-		filter.setPickUp_hour(request.getParameter("pickUp_hour"));
-		filter.setReturn_hour(request.getParameter("return_hour"));
 		filter.setTypeFilter(request.getParameter("typeFilter"));
 		filter.setMaxPriceBound(Integer.parseInt(request.getParameter("MaxPrice")));
 		filter.setMinPriceBound(Integer.parseInt(request.getParameter("MinPrice")));

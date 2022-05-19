@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ClientMain.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ContractConfirmation.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script> 
 <title>Contract Confirmation</title>
 </head>
 <body>
@@ -71,6 +72,7 @@
 		</div>
 		</div>
 </div>
+<script src="${pageContext.request.contextPath}/js/ContractConfirmation.js"></script>
 <%@include file="/jsp/Signature.jsp"%>
 <%@include file="/jsp/dropdownList.jsp"%>
 </body>

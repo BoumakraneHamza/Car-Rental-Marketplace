@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import utils.CreatePaperWork;
+import utils.PaperWorkManagement;
 
 /**
  * Servlet implementation class SaveImg
@@ -30,8 +30,6 @@ public class SaveImg extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/Signature.jsp");
-		dispatcher.forward(request, response);
 	}
 
 	/**
@@ -41,15 +39,14 @@ public class SaveImg extends HttpServlet {
 		String reservationId = request.getParameter("reservationId");
 		String path = request.getServletContext().getRealPath("/assets/documents/contracts");
 		String test = request.getParameter("signature");
-		System.out.println(test);
 	    String base64Image = test.split(",")[1];
 	    byte[] bImg = javax.xml.bind.DatatypeConverter.parseBase64Binary(base64Image);
 	    String status = "failed";
 	    try {
-			CreatePaperWork.FinishContract(path, reservationId , bImg);
+			PaperWorkManagement.FinishContract(path, reservationId , bImg);
+			
 			status = "success";
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	    request.setAttribute("status", status);

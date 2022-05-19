@@ -348,9 +348,7 @@ public class DAO {
 						filter = new CarFilter();
 						filter.setLocation(result.getString("location"));
 						filter.setPickUp_date(result.getString("pick_up_date"));
-						filter.setPickUp_hour(result.getString("pick_up_hour"));
 						filter.setReturn_date(result.getString("return_date"));
-						filter.setReturn_hour(result.getString("return_hour"));
 					}
 				}
 			}
@@ -368,32 +366,26 @@ public class DAO {
 			connectDB();
 			String location = filter.getLocation();
 			String pick_date = filter.getPickUp_date();
-			String Pick_hour = filter.getPickUp_hour();
 			String Return_date = filter.getReturn_date();
-			String Return_hour = filter.getReturn_hour();
 			statement = connection.prepareStatement(Query);
 			statement.setString(1, email);
 			result = statement.executeQuery();
 			if(result.next()) {
 				if(result.getString("result").equals("1")) {
-					Query = "Update recentsearch set location=? ,pick_up_date=?,pick_up_hour=?,return_date=?,return_hour=? where client_id=?";
+					Query = "Update recentsearch set location=? ,pick_up_date=?,return_date=? where client_id=?";
 					statement = connection.prepareStatement(Query);
 					statement.setString(1, location);
 					statement.setString(2, pick_date);
-					statement.setString(3, Pick_hour);
-					statement.setString(4, Return_date);
-					statement.setString(5, Return_hour);
-					statement.setString(6, email);
+					statement.setString(3, Return_date);
+					statement.setString(4, email);
 					statement.executeUpdate();
 				}else {
-					Query = "Insert into recentsearch values(?,?,?,?,?,?)";
+					Query = "Insert into recentsearch values(?,?,?,?)";
 					statement = connection.prepareStatement(Query);
 					statement.setString(1, email);
 					statement.setString(2, location);
 					statement.setString(3, pick_date);
 					statement.setString(4, Return_date);
-					statement.setString(5, Return_hour);
-					statement.setString(6, Pick_hour);
 					statement.executeUpdate();
 				}
 			}
@@ -401,6 +393,28 @@ public class DAO {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	public boolean verifyVehiculeAvailability(Reservation reservation) {
+		String Query = "SELECT EXISTS(SELECT * FROM reservation where vehicule_matricule = ? and ? < date_2 and ? > date_1 ) as result";
+		PreparedStatement statement ;
+		ResultSet result ;
+		boolean Available = true;
+		try {
+			connectDB();
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, reservation.getVehicule().getMatricule());
+			statement.setString(2, reservation.getPick_up_date());
+			statement.setString(3, reservation.getReturn_date());
+			result = statement.executeQuery();
+			if(result.next()) {
+				if(Integer.parseInt(result.getString("result")) != 0) {
+					Available = false;
+				}
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Available;
 	}
 	public ArrayList<Vehicule> carSearch(CarFilter filter) throws InstantiationException, IllegalAccessException {
 		
@@ -553,6 +567,7 @@ public class DAO {
 		}
 		return reservationList;
 	}
+	
 	public int DeleteReservation(int id) {
 		String Query ; 
 		PreparedStatement statement ;
@@ -653,7 +668,6 @@ public class DAO {
 		}
 		return map;
 	}
-
 	public int SetTempReservation(Reservation data) {
 		String query ; 
 		PreparedStatement statement ;
