@@ -7,14 +7,14 @@ let elements;
 
 initialize();
 checkStatus();
-
+setLoading(false);
 document.querySelector("#payment-form").addEventListener("submit", handleSubmit);
 
 async function initialize() {
   const response = await fetch("PaymentManager", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ items }),
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded',  },
+    body: "required_action=init",
   });
   const { clientSecret } = await response.json();
 	console.log(clientSecret);
@@ -35,7 +35,7 @@ async function handleSubmit(e) {
     elements,
     confirmParams: {
       // Make sure to change this to your payment completion page
-      return_url: "http://localhost:12409/Atelier/jsp/ContractConfirmation.jsp",
+      return_url: "http://localhost:12409/Atelier/ContractManagement?reservationId="+reservationId,
     },
   });
 
@@ -62,7 +62,6 @@ async function checkStatus() {
   if (!clientSecret) {
     return;
   }
-
   const { paymentIntent } = await stripe.retrievePaymentIntent(clientSecret);
 
   switch (paymentIntent.status) {

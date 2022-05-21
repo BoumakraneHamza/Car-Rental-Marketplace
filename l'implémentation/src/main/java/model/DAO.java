@@ -283,50 +283,59 @@ public class DAO {
     	statement.close();
 		return user;
 	}
-	
-	public CreditCards getDefaultCard(String user_email) throws InstantiationException, IllegalAccessException {
-		
-		String query;
+	public boolean CheckIfNewCustomer(String email) {
+		String Query;
 		PreparedStatement statement;
-		CreditCards card = new CreditCards();	
-		String email = user_email ;
-		
-		try {	
+		boolean newCustomer = false;
+		ResultSet set;
+		try {
 			connectDB();
-			
-			query = "SELECT defaultPaymentMethod FROM client WHERE email = ?";
-			statement = connection.prepareStatement(query);
+			Query = "Select customer_id from client where email = ?";
+			statement = connection.prepareStatement(Query);
 			statement.setString(1, email);
-			ResultSet result = statement.executeQuery();
-			
-			
-			if (result.next()) {
-				card.setCardNumber(result.getString("defaultPaymentMethod"));
-			}
-			
-			
-			System.out.println(card.getCardNumber());
-			if (card.getCardNumber()==null) {
-				return null;
-			}else {
-				
-				query = "SELECT CardNumber , exp FROM creditcards WHERE CardNumber = ?";
-				statement = connection.prepareStatement(query);
-				statement.setString(1, card.getCardNumber());
-				
-				
-				ResultSet result2 = statement.executeQuery();
-				if (result2.next()) {
-					card.setExp(result2.getString("exp"));
+			set = statement.executeQuery();
+			if(set.next()) {
+				if(set.getString("customer_id") == null) {
+					newCustomer = true;
 				}
 			}
-			statement.close();
-			
-			System.out.println("Success !");
-		}catch (SQLException e) {
-			System.out.println("Failure on getting default payment card because :" + e);
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
-		return card;
+		return newCustomer;
+	}
+	public void setCustomerId(String email,String id) {
+		String Query;
+		PreparedStatement statement;
+		try {
+			connectDB();
+			Query = "Update client set customer_id = ? where email = ?";
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, id);
+			statement.setString(2, email);
+			statement.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public String getCustomerId(String email) {
+		String Query ;
+		PreparedStatement statement;
+		String CustomerId = null;
+		ResultSet result ;
+		try {
+			connectDB();
+			Query = "Select customer_id from client where email = ?";
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, email);
+			result = statement.executeQuery();
+			if(result.next()) {
+				CustomerId = result.getString("customer_id");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return CustomerId;
 	}
 	public CarFilter GetCarFilters(String email) {
 		CarFilter filter = null;

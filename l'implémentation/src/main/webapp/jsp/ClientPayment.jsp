@@ -48,31 +48,33 @@
 	<div class="main-frame">
 			<div class="payment-content">
 				<div id="payment_details">
-						<p id="main-title">Personal Cards</p>
+					<p id="main-title">Personal Cards</p>
 					<div id="cards">
-						<div class="card" style="background-image:url(https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/${random}.jpeg);">
-							<div class="card_info">
-								<div class="card_top">
-									<img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/chip.png" class="item_chip">
-								 <div class="item_type">
-								 	<img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/visa.png" alt="" class="item_typeImg">
-								 </div>
-								</div>
-								<div class="card_number">
-									<span>${card.getCardNumber()}</span>
-								</div>
-								<div class="item_bottom">
-									<div id="holder">
-										<p>card holder</p>
-										<p id="holder_full_name">${user.getNom()} ${user.getPrenom()}</p>
+					<c:forEach items="${cardList}" var="card">
+							<div class="card" style="background-image:url(https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/${random}.jpeg);">
+								<div class="card_info">
+									<div class="card_top">
+										<img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/chip.png" class="item_chip">
+									 <div class="item_type">
+									 	<img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/visa.png" alt="" class="item_typeImg">
+									 </div>
 									</div>
-									<div id="card_Expiry_date">
-										<p>Expiry date</p>
-										<p id="card_expiry_date">${card.getExp()}</p>
+									<div class="card_number">
+										<span>**** **** **** ${card.getCardNumber()}</span>
+									</div>
+									<div class="item_bottom">
+										<div id="holder">
+											<p>card holder</p>
+											<p id="holder_full_name">${user.getNom()} ${user.getPrenom()}</p>
+										</div>
+										<div id="card_Expiry_date">
+											<p>Expiry date</p>
+											<p id="card_expiry_date">${card.exp_month}/${card.exp_year}</p>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
+						</c:forEach>
 						<div id="add-card" onclick="addCard()">
 							<button>Add Card</button>
 						</div>

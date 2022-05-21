@@ -39,14 +39,7 @@ public class ContractManagement extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String reservationId = request.getParameter("reservationId");
-		System.out.println(reservationId);
-		String path = request.getServletContext().getRealPath("/assets/documents/contracts/"+reservationId+".pdf");
-		File file = new File(path);
-		response.setContentType("application/pdf;charset=UTF-8");
-		response.setHeader("Content-Length", String.valueOf(file.length()));
-		response.setHeader("Content-Disposition", "inline; filename=\"" + file.getName() + "\"");
-		Files.copy(file.toPath(), response.getOutputStream());
+		doPost(request, response);
 	}
 
 	/**

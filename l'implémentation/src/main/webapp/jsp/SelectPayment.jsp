@@ -8,7 +8,9 @@
 <title>Payment Method</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ClientMain.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Finish_Booking.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/checkout.css">
 <script src="https://js.stripe.com/v3/"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
    crossorigin=""/>
@@ -65,95 +67,6 @@
 						<div class="tab" onclick="selectTab(this)">Meeting</div>
 					</div>
 					<div class="tabs_content">
-						<!-- <form class="pay_info_form" action="ContractManagement" method="post">
-						<input name="reservationId" type="hidden" value="${reservationId}">
-						<div id="row">
-							<div id="input_field">
-								<p id="title">Holder Card</p>
-								<input required id="holder_card" type="text">
-							</div>
-							<div id="input_field">
-								<p id="title">CCV</p>
-								<input required type="text" autocomplete="off" class="ccv" id="input_s">
-							</div>
-						</div>
-						<div id="row">
-							<div id="input_field">
-								<p id="title">Card Number</p>
-								<div id="inputField">
-									<input required type="text" id="card_number">
-									<img src="${pageContext.request.contextPath}/assets/visa_blue.svg">
-								</div>
-							</div>
-						</div>
-						<div id="row">
-							<div id="input_field">
-								<p id="title">Expiration</p>
-								<div id="select_row">
-									<select required id="selectCard" class="expmonth">
-									<option value="" disabled="disabled" selected="selected">Month</option>
-										 <option value="01">
-							                    01
-							                </option><option value="02">
-							                    02
-							                </option><option value="03">
-							                    03
-							                </option><option value="04">
-							                    04
-							                </option><option value="05">
-							                    05
-							                </option><option value="06">
-							                    06
-							                </option><option value="07">
-							                    07
-							                </option><option value="08">
-							                    08
-							                </option><option value="09">
-							                    09
-							                </option><option value="10">
-							                    10
-							                </option><option value="11">
-							                    11
-							                </option><option value="12">
-							                    12
-							                </option></select> 
-									<select required id="selectCard" class="expyear">
-							                <option value="" disabled="disabled" selected="selected">Year</option>
-							                <option value="2022">
-							                    2022
-							                </option><option value="2023">
-							                    2023
-							                </option><option value="2024">
-							                    2024
-							                </option><option value="2025">
-							                    2025
-							                </option><option value="2026">
-							                    2026
-							                </option><option value="2027">
-							                    2027
-							                </option><option value="2028">
-							                    2028
-							                </option><option value="2029">
-							                    2029
-							                </option><option value="2030">
-							                    2030
-							                </option><option value="2031">
-							                    2031
-							                </option><option value="2032">
-							                    2032
-							                </option><option value="2033">
-							                    2033
-							                </option>
-							                </select>
-								</div>
-							</div>
-						</div>
-						<p id="notify_text">i authorise Unique company to charge my debit/credit <br> card for a total set amount</p>
-						<div id="cta">
-							<button id="cancel">Back</button>
-							<button id="confirm"><img style="width:10px;" src="${pageContext.request.contextPath}/assets/lock-white.svg"><p>Confirm payment:</p><p>$ ${price}</p></button>
-						</div>
-						</form>-->
 						<form id="payment-form">
 					      <div id="payment-element">
 					        <!--Stripe.js injects the Payment Element-->
@@ -179,38 +92,43 @@
 					</div>
 					</div>
 					<div id="cards_list">
-						<p id="title_header">Your Saved Cards</p>
-						<div id="list">
-							<div onclick="selectCard(this)" class="card" style="background-image:url(https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/6.jpeg);">
-								<input type="hidden" id="number" value="1122 3344 5566 7788">
-								<input type="hidden" id="name" value="Nathanial olson">
-								<input type="hidden" id="expyear" value="2024">
-								<input type="hidden" id="expmonth" value="11">
-								<input type="hidden" id="ccv" value="3041">
-								<div class="card_info">
-									<div class="card_top">
-										<img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/chip.png" class="item_chip">
-									 <div class="item_type">
-									 	<img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/visa.png" alt="" class="item_typeImg">
-									 </div>
-									</div>
-									<div class="card_number">
-										<span>1122 3344 5566 7788</span>
-									</div>
-									<div class="item_bottom">
-										<div id="holder">
-											<p>card holder</p>
-											<p id="holder_full_name">Nathanial  Olson</p>
+						<c:choose>
+							<c:when test="${cardlist.size() >0}">
+							<p id="title_header">Your Saved Cards</p>
+							<div id="list">
+								<c:forEach items="${cardlist}" var="Paymentcard">
+									<div onclick="PayWithSaved(this)" class="card" style="background-image:url(https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/6.jpeg);">
+										<input id="payment_method_id" type="hidden" name="payment_method" value="${Paymentcard.getMethod().paymentMethods}">
+										<input id="customer_id" type="hidden" name="customer_id" value="${customer_id}"> 
+										<div class="card_info">
+											<div class="card_top">
+												<img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/chip.png" class="item_chip">
+											 <div class="item_type">
+											 	<img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/visa.png" alt="" class="item_typeImg">
+											 </div>
+											</div>
+											<div class="card_number">
+												<span>**** **** **** ${Paymentcard.getCardNumber()}</span>
+											</div>
+											<div class="item_bottom">
+												<div id="holder">
+													<p>card holder</p>
+													<p id="holder_full_name">${user.getNom()} ${user.getPrenom()}</p>
+												</div>
+												<div id="card_Expiry_date">
+													<p>Expiry date</p>
+													<p id="card_expiry_date">${Paymentcard.exp_month}/${Paymentcard.exp_year}</p>
+												</div>
+											</div>
 										</div>
-										<div id="card_Expiry_date">
-											<p>Expiry date</p>
-											<p id="card_expiry_date">11/24</p>
-										</div>
 									</div>
-								</div>
+								</c:forEach>
 							</div>
-							<div id="card"></div>
-						</div>
+							</c:when>
+							<c:otherwise>
+								<p id="title_header">No saved cards</p>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 			</div>
@@ -301,9 +219,11 @@
 </script>
 <script type="text/javascript">
 	var contextPath = "${pageContext.request.contextPath}";
+	var reservationId = ${reservation.id};
 </script>
 <script src="${pageContext.request.contextPath}/js/checkout.js"></script>
 <script src="${pageContext.request.contextPath}/js/ClientMain.js"></script>
+<script src="${pageContext.request.contextPath}/js/SelectPayment.js"></script>
 <%@include file="/jsp/dropdownList.jsp"%>
 </body>
 </html>

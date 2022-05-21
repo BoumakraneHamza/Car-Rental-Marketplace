@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,9 +15,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.stripe.Stripe;
+import com.stripe.exception.StripeException;
+import com.stripe.model.Customer;
+
+import model.CreditCard;
 import model.DAO;
 import model.Reservation;
 import model.User;
+import utils.PaymentCardRetriever;
 
 /**
  * Servlet implementation class SelectPayment
@@ -41,16 +50,31 @@ public class SelectPayment extends HttpServlet {
 			Reservation reservation;
 			DAO dao = new DAO();
 			try {
+				Stripe.apiKey="sk_test_51L1HugBYa9gzCakFmWr011KOzYFiePCxyVhXA9wsXI22PAp62dGnQ6W4UxIliQ2mojOoCWLQwUkIiXlndsRYIx8m00Cgv9Zz7z";
+				if(dao.CheckIfNewCustomer(user.getEmail())) {
+					Map<String, Object> params = new HashMap<>();
+					params.put(
+					  "email", user.getEmail()
+					);
+					Customer customer = Customer.create(params);
+					dao.setCustomerId(user.getEmail(), customer.getId());
+					request.setAttribute("customer_id", customer.getId());
+				}else {
+					String customerId = dao.getCustomerId(user.getEmail());
+					request.setAttribute("customer_id", customerId);
+				}
+				ArrayList<CreditCard> cardlist = PaymentCardRetriever.RetrieveCards(user );
 				reservation = dao.getReservation((int)request.getAttribute("reservationId"));
 				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 				LocalDate date1 = LocalDate.parse(reservation.getPick_up_date(), dtf);
 			    LocalDate date2 = LocalDate.parse(reservation.getReturn_date(), dtf);
 			    long daysBetween = ChronoUnit.DAYS.between(date1, date2);
+			    request.setAttribute("cardlist", cardlist);
 			    request.setAttribute("reservation", reservation);
-			    request.setAttribute("price", reservation.getId()*daysBetween);
+			    request.setAttribute("price", reservation.getVehicule().getPLJ()*daysBetween);
 			    request.setAttribute("duration", daysBetween);
 			    request.setAttribute("matricule", request.getParameter("matricule"));
-			} catch (InstantiationException | IllegalAccessException e) {
+			} catch (InstantiationException | IllegalAccessException | StripeException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

@@ -2,7 +2,11 @@ package control;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,7 +19,13 @@ import com.google.gson.annotations.SerializedName;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
+import com.stripe.model.PaymentMethod;
 import com.stripe.param.PaymentIntentCreateParams;
+
+import model.CreditCard;
+import model.DAO;
+import model.PaymentMethods;
+import model.User;
 
 /**
  * Servlet implementation class PaymentManager
@@ -44,35 +54,92 @@ public class PaymentManager extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		User user = (User) request.getSession().getAttribute("user");
 		Stripe.apiKey="sk_test_51L1HugBYa9gzCakFmWr011KOzYFiePCxyVhXA9wsXI22PAp62dGnQ6W4UxIliQ2mojOoCWLQwUkIiXlndsRYIx8m00Cgv9Zz7z";
 		response.setContentType("application/json");
+		if(request.getParameterMap().containsKey("required_action")) {
+			if(request.getParameter("required_action").equals("add_card")) {
+				DAO dao = new DAO();
+				Map<String, Object> card = new HashMap<>();
+				card.put("number", request.getParameter("card_number"));
+				card.put("exp_month", request.getParameter("exp_month"));
+				card.put("exp_year", request.getParameter("exp_year"));
+				card.put("cvc", request.getParameter("cvc"));
+				Map<String, Object> params = new HashMap<>();
+				params.put("type", "card");
+				params.put("card", card);
+				int result = 0;
+				String responseText = null;
+				try {
+					PaymentMethod paymentMethod = PaymentMethod.create(params);
+					Map<String, Object> Method_params = new HashMap<>();
+					String customer_id = dao.getCustomerId(user.getEmail());
+					Method_params.put("customer", customer_id);
+					paymentMethod.attach(Method_params);
+				} catch (StripeException e) {
+					result = 1;
+					e.printStackTrace();
+				}
+				if(result == 1) {
+					responseText = "failure";
+					String JsonRes = gson.toJson(responseText);
+					PrintWriter out = response.getWriter();
+					out.write(JsonRes);
+				}else {
+					RequestDispatcher dispatcher = request.getRequestDispatcher("ClientPayment");
+					dispatcher.forward(request, response);
+				}
+			}else if(request.getParameter("required_action").equals("init")) {
+				PaymentIntentCreateParams params =
+			        PaymentIntentCreateParams.builder()
+			          .setAmount((long)20000)
+			          .setCurrency("usd")
+			          .setAutomaticPaymentMethods(
+			            PaymentIntentCreateParams.AutomaticPaymentMethods
+			              .builder()
+			              .setEnabled(true)
+			              .build()
+			          )
+			          .build();
 
-	      PaymentIntentCreateParams params =
-	        PaymentIntentCreateParams.builder()
-	          .setAmount((long)200)
-	          .setCurrency("eur")
-	          .setAutomaticPaymentMethods(
-	            PaymentIntentCreateParams.AutomaticPaymentMethods
-	              .builder()
-	              .setEnabled(true)
-	              .build()
-	          )
-	          .build();
+				PaymentIntent paymentIntent = null;
+				try {
+					paymentIntent = PaymentIntent.create(params);
+				} catch (StripeException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
-	      // Create a PaymentIntent with the order amount and currency
-	      PaymentIntent paymentIntent = null;
-		try {
-			paymentIntent = PaymentIntent.create(params);
-		} catch (StripeException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+				CreatePaymentResponse paymentResponse = new CreatePaymentResponse(paymentIntent.getClientSecret());
+				String Paymentresponse = gson.toJson(paymentResponse);
+				PrintWriter out = response.getWriter();
+				out.write(Paymentresponse);
+			}else if(request.getParameter("required_action").equals("useSaved_Method")) {
+				String paymentMethod = request.getParameter("paymentMethod");
+				String CustomerId = request.getParameter("customer_id");
+				PaymentIntentCreateParams params =
+						  PaymentIntentCreateParams.builder()
+						    .setAmount((long)20000)
+						    .setCurrency("usd")
+						    .setCustomer("{{"+CustomerId+"}}")
+						    .addPaymentMethodType("card")
+						    .setPaymentMethod("{{"+paymentMethod+"}}")
+						    .build();
+				PaymentIntent paymentIntent = null;
+				try {
+					paymentIntent = PaymentIntent.create(params);
+				} catch (StripeException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				CreatePaymentResponse paymentResponse = new CreatePaymentResponse(paymentIntent.getClientSecret());
+				String Paymentresponse = gson.toJson(paymentResponse);
+				PrintWriter out = response.getWriter();
+				out.write(Paymentresponse);
+			}
+		}else {
+			response.setStatus(300);
 		}
-
-	      CreatePaymentResponse paymentResponse = new CreatePaymentResponse(paymentIntent.getClientSecret());
-	      String Paymentresponse = gson.toJson(paymentResponse);
-	      PrintWriter out = response.getWriter();
-	      out.write(Paymentresponse);
-
 	}
 	private static Gson gson = new Gson();
 

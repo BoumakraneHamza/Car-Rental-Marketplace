@@ -117,7 +117,7 @@ p{
     padding-top: 180px;
     display: flex;
     margin: auto;
-    width: 400px;
+    width: 500px;
     flex-direction: column;
     z-index: 1;
     flex-wrap: nowrap;
@@ -193,25 +193,23 @@ p{
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: center;
+    justify-content: flex-end;
+    gap: 10px;
 }
 .card-cta input {
-	width: 170px;
-    height: 50px;
-    background: #B8B08D;
+	width: 130px;
+    height: 45px;
+    background: #0071ff;
     border: none;
     border-radius: 5px;
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 600;
-    margin-right: 10px;
     font-family: 'Poppins', sans-serif;
-    box-shadow: 3px 10px 20px 0px rgb(35 100 210 / 30%);
     color: #fff;
     cursor: pointer;
-    align-self: center;
 }
 #cancel {
     background: #fff;
     color: #000;
-    border: 2px solid;
+    border: 1px solid #000;
 }

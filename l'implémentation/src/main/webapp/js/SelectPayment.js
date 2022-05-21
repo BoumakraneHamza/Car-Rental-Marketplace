@@ -1,38 +1,6 @@
-let i = 1;
-let card_number = document.querySelector("#card_number");
-let ccv = document.querySelector(".ccv");
-let ClientName = document.querySelector("#holder_card");
-ClientName.addEventListener("input",()=>{
-	let input = ClientName.value.slice(ClientName.value.length-1, ClientName.value.length);
-	if(isNaN(input)==false && input != " "){
-		ClientName.value = ClientName.value.substring(0,ClientName.value.length-1);
-	}
-});
-ccv.addEventListener("input",()=>{
-	if(isNaN(ccv.value.slice(ccv.value.length-1, 4))==false){
-		if (ccv.value.length > 4){
-			ccv.value = ccv.value.slice(0, 4);
-		}
-	}else{
-		ccv.value = ccv.value.substring(0,ccv.value.length-1);
-	}
-});
-card_number.addEventListener("input",()=>{
-	console.log(card_number.value.slice(card_number.value.length-1, 25));
-	console.log(i);
-	if(isNaN(card_number.value.slice(card_number.value.length-1, 25))==false){
-		if (card_number.value.length > 25){
-			card_number.value = card_number.value.slice(0, 25);
-		}else if (i == 4){
-			card_number.value = card_number.value + ' - ',
-			i=1;
-		}else{
-			i++;
-		} 
-	}else{
-		card_number.value = card_number.value.substring(0,card_number.value.length-1);
-	}
-});
+window.addEventListener('load', function () {
+  document.getElementsByTagName("body")[0].style.display="block";
+})
 function selectTab(element){
 	let tabs = document.querySelector("#tabs").querySelectorAll(".tab");
 	tabs.forEach((tab)=>{
@@ -42,10 +10,10 @@ function selectTab(element){
 	});
 	element.classList.toggle("active");
 	if(element.innerHTML == "Pay Now"){
-		document.querySelector(".tabs_content").querySelector(".pay_info_form").style.visibility="visible";
+		document.querySelector(".tabs_content").querySelector("#payment-form").style.visibility="visible";
 		document.querySelector(".tabs_content").querySelector("#createMeeting").style.visibility="hidden";
 	}else{
-		document.querySelector(".tabs_content").querySelector(".pay_info_form").style.visibility="hidden";
+		document.querySelector(".tabs_content").querySelector("#payment-form").style.visibility="hidden";
 		document.querySelector(".tabs_content").querySelector("#createMeeting").style.visibility="visible";
 	}
 }
@@ -104,21 +72,38 @@ function show_select_location(){
 function closeSelectMap(){
 	document.querySelector(".view_Location").style.display="none";
 }
-function selectCard(element){
-	let name = element.querySelector("#name").value;
-	let number = element.querySelector("#number").value;
-	let ccv = element.querySelector("#ccv").value;
-	let expyear = element.querySelector("#expyear").value;
-	let expmonth = element.querySelector("#expmonth").value;
-	
-	let pay_form = document.querySelector(".pay_info_form");
-	pay_form.querySelector("#holder_card").value =name;
-	pay_form.querySelector(".ccv").value = ccv;
-	pay_form.querySelector("#card_number").value = number;
-	pay_form.querySelector(".expmonth").value=expmonth;
-	pay_form.querySelector(".expyear").value =expyear;
+let newElements;
+async function Re_initialize(paymentMethod,customer_id) {
+  const response = await fetch("PaymentManager", {
+    method: "POST",
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded',  },
+    body: "required_action=useSaved_Method&paymentMethod="+paymentMethod+"&customer_id="+customer_id,
+  });
+  const { clientSecret } = await response.json();
+	console.log(clientSecret);
+  const appearance = {
+    theme: 'stripe',
+  };
+  newElements = stripe.elements({ appearance, clientSecret });
 }
-document.querySelector(".pay_info_form").querySelector("#cta").querySelector("#cancel").addEventListener("click",(e)=>{
-	e.preventDefault();
-	document.querySelector(".back_form").submit();
-});
+async function PayWithSaved(element){
+	let payment_method_id=element.querySelector("#payment_method_id").value;
+	let customer_id = element.querySelector("#customer_id").value;
+	console.log(payment_method_id);
+	console.log(customer_id);
+	Re_initialize(payment_method_id,customer_id);
+	setLoading(true);
+	const { error } = await stripe.confirmPayment({
+	    newElements,
+	    confirmParams: {
+	      // Make sure to change this to your payment completion page
+	      return_url: "http://localhost:12409/Atelier/jsp/ContractConfirmation.jsp",
+	    },
+	});
+	if (error.type === "card_error" || error.type === "validation_error") {
+  		showMessage(error.message);
+  	} else{
+    	showMessage("An unexpected error occured.");
+  	}
+  	setLoading(false);
+}

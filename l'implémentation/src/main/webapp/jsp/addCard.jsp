@@ -25,7 +25,7 @@
 			<div class="card_item_bottom">
 				<div id="card_holder">
 					<p>card holder</p>
-					<p id="full_name">FULL Name</p>
+					<p id="full_name">${user.nom} ${user.prenom}</p>
 				</div>
 				<div id="Expiry_date">
 					<p>Expiry date</p>
@@ -35,20 +35,17 @@
 		</div>
 	</div>
 	<div class="inner_card_form">
-		<form action="" method="">
+		<form action="PaymentManager" method="Post">
+			<input type="hidden" name="required_action" value="add_card">
 			<div class="card-input">
 			<label for="cardNumber" class="card-input__label">Card Number</label> 
-			<input type="text" id="cardNumber" maxlength="16" autocomplete="off" class="card-input__input">
-		</div>
-		<div class="card-input">
-			<label for="cardName" class="card-input__label">Card Holders</label>
-			<input type="text" id="cardName" data-ref="cardName" autocomplete="off" class="card-input__input">
+			<input name="card_number" required type="number" id="cardNumber" autocomplete="off" class="card-input__input">
 		</div>
 		<div class="card-form__row">
 		<div class="card-form__col">
 		<div class="card-form__group">
 		<label for="cardMonth" class="card-input__label">Expiration Date</label>
-		<select id="cardMonth" data-ref="cardDate" class="card-input__input -select">
+		<select required name="exp_month" id="cardMonth" data-ref="cardDate" class="card-input__input -select">
 		<option value="" disabled="disabled" selected="selected">Month</option>
 			 <option value="01">
                     01
@@ -75,7 +72,7 @@
                 </option><option value="12">
                     12
                 </option></select> 
-                <select id="cardYear" data-ref="cardDate" class="card-input__input -select">
+                <select required name="exp_year" id="cardYear" data-ref="cardDate" class="card-input__input -select">
                 <option value="" disabled="disabled" selected="selected">Year</option>
                 <option value="2022">
                     2022
@@ -107,8 +104,8 @@
                 </div>
                  <div class="card-form__col -cvv">
                  <div class="card-input">
-                 <label for="cardCvv" class="card-input__label">CVV</label>
-                  <input type="text" id="cardCvv" maxlength="4" autocomplete="off" class="card-input__input">
+                 <label for="cardCvv" class="card-input__label">CVC</label>
+                  <input name="cvc" required type="number" id="cardCvv" autocomplete="off" class="card-input__input">
                   </div>
                   </div>
                   </div>

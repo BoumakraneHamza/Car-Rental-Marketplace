@@ -128,15 +128,13 @@ CREATE TABLE `client` (
   `alert` int NOT NULL DEFAULT '0',
   `image` varchar(50) NOT NULL,
   `user_name` varchar(45) NOT NULL,
-  `defaultPaymentMethod` varchar(45) DEFAULT NULL,
   `currentLat` varchar(45) NOT NULL,
   `currentLong` varchar(45) NOT NULL,
   `Account_created` date NOT NULL,
   `Address` varchar(45) NOT NULL,
+  `customer_id` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`email`),
-  UNIQUE KEY `num_carte_UNIQUE` (`num_carte`),
-  KEY `CreditCard_idx` (`defaultPaymentMethod`),
-  CONSTRAINT `fk_CreditCard` FOREIGN KEY (`defaultPaymentMethod`) REFERENCES `creditcards` (`CardNumber`)
+  UNIQUE KEY `num_carte_UNIQUE` (`num_carte`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -146,7 +144,7 @@ CREATE TABLE `client` (
 
 LOCK TABLES `client` WRITE;
 /*!40000 ALTER TABLE `client` DISABLE KEYS */;
-INSERT INTO `client` VALUES ('Nathanial ','Olson',549837,'1@email.com','111111111111','2001-01-01','male','regulier',0,'/assets/profile_pics/1email.png','@olson','1122 3344 5566 7788','36.1889','5.4039','2022-02-10','setif-algeria'),('Hamza','Boumakrane',123131,'Hamza@gmail.com','12312310','2001-04-02','male','regulier',0,'/assets/profile_pics/hamzagmail.jpg','@Hamza','9879 2041 7230 1275','35.5468','6.162','2022-04-20','batna-algeria');
+INSERT INTO `client` VALUES ('Nathanial ','Olson',549837,'1@email.com','111111111111','2001-01-01','male','regulier',0,'/assets/profile_pics/1email.png','@olson','36.1889','5.4039','2022-02-10','setif-algeria','cus_LjRtnEp6Wil43W'),('Hamza','Boumakrane',123131,'Hamza@gmail.com','12312310','2001-04-02','male','regulier',0,'/assets/profile_pics/hamzagmail.jpg','@Hamza','35.5468','6.162','2022-04-20','batna-algeria',NULL);
 /*!40000 ALTER TABLE `client` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -220,34 +218,6 @@ INSERT INTO `conversation` VALUES (23,'Problem with the contract signature','1@e
 UNLOCK TABLES;
 
 --
--- Table structure for table `creditcards`
---
-
-DROP TABLE IF EXISTS `creditcards`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `creditcards` (
-  `CardNumber` varchar(45) NOT NULL,
-  `CardOwner` varchar(45) NOT NULL,
-  `exp` varchar(45) NOT NULL,
-  `ccv` varchar(45) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`CardNumber`,`CardOwner`),
-  KEY `owner_idx` (`CardOwner`),
-  CONSTRAINT `owner` FOREIGN KEY (`CardOwner`) REFERENCES `client` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `creditcards`
---
-
-LOCK TABLES `creditcards` WRITE;
-/*!40000 ALTER TABLE `creditcards` DISABLE KEYS */;
-INSERT INTO `creditcards` VALUES ('1122 3344 5566 7788','1@email.com','11/24','0'),('9879 2041 7230 1275','Hamza@gmail.com','08/22','0');
-/*!40000 ALTER TABLE `creditcards` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `depot`
 --
 
@@ -280,7 +250,7 @@ CREATE TABLE `depot` (
 
 LOCK TABLES `depot` WRITE;
 /*!40000 ALTER TABLE `depot` DISABLE KEYS */;
-INSERT INTO `depot` VALUES (1,'Guidjel District Setif Algeria',20,20,'Hertz','g01@email.com','36.1223','5.5311233',290),(2,'batna',15,15,'Hertz',NULL,'35.55216','6.17968',12),(3,'constantine',15,13,'agence02',NULL,'36.2650','6.5833',4),(6,'constantine',12,11,'agence02',NULL,'36.2333','6.5604',16),(7,'alger',20,20,'Hertz',NULL,'36.7734','3.0587',0),(8,'Khenchela District Khenchela Algeria',10,10,'Hertz','g04@email.com','','',0),(9,'de Mascara District Mascara Algeria',10,10,'Hertz','g03@email.com','35.41229593023381','0.2316626583949343',0);
+INSERT INTO `depot` VALUES (1,'Guidjel District Setif Algeria',20,20,'Hertz','g01@email.com','36.1223','5.5311233',460),(2,'batna',15,15,'Hertz',NULL,'35.55216','6.17968',12),(3,'constantine',15,13,'agence02',NULL,'36.2650','6.5833',40),(6,'constantine',12,11,'agence02',NULL,'36.2333','6.5604',16),(7,'alger',20,20,'Hertz',NULL,'36.7734','3.0587',0),(8,'Khenchela District Khenchela Algeria',10,10,'Hertz','g04@email.com','','',0),(9,'de Mascara District Mascara Algeria',10,10,'Hertz','g03@email.com','35.41229593023381','0.2316626583949343',0);
 /*!40000 ALTER TABLE `depot` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -497,8 +467,6 @@ CREATE TABLE `recentsearch` (
   `location` varchar(45) NOT NULL,
   `pick_up_date` date NOT NULL,
   `return_date` date NOT NULL,
-  `return_hour` time NOT NULL,
-  `pick_up_hour` time NOT NULL,
   PRIMARY KEY (`client_id`),
   CONSTRAINT `client_email` FOREIGN KEY (`client_id`) REFERENCES `client` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -510,7 +478,7 @@ CREATE TABLE `recentsearch` (
 
 LOCK TABLES `recentsearch` WRITE;
 /*!40000 ALTER TABLE `recentsearch` DISABLE KEYS */;
-INSERT INTO `recentsearch` VALUES ('1@email.com','constantine','2022-05-17','2022-06-30','11:59:00','12:48:00');
+INSERT INTO `recentsearch` VALUES ('1@email.com','constantine','2022-09-08','2022-10-18');
 /*!40000 ALTER TABLE `recentsearch` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -563,7 +531,7 @@ CREATE TABLE `reservation` (
   KEY `fk_Locataire_has_Vehicule_Locataire1_idx` (`locataire_email`),
   CONSTRAINT `fk_Locataire_has_Vehicule_Locataire1` FOREIGN KEY (`locataire_email`) REFERENCES `client` (`email`),
   CONSTRAINT `fk_Locataire_has_Vehicule_Vehicule1` FOREIGN KEY (`vehicule_matricule`) REFERENCES `vehicule` (`matricule`)
-) ENGINE=InnoDB AUTO_INCREMENT=356 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=562 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -572,7 +540,7 @@ CREATE TABLE `reservation` (
 
 LOCK TABLES `reservation` WRITE;
 /*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
-INSERT INTO `reservation` VALUES (235,'1@email.com','202212520','2022-05-15','2022-05-31','en cours','/assets/documents/contracts/70.pdf',NULL,'2022-05-16','constantine');
+INSERT INTO `reservation` VALUES (558,'1@email.com','202212401','2022-09-08','2022-10-18','en cours','/assets/documents/contracts/520.pdf',NULL,'2022-05-21','constantine'),(559,'1@email.com','202212401','2022-09-08','2022-10-18','en cours','/assets/documents/contracts/527.pdf',NULL,'2022-05-21','constantine'),(560,'1@email.com','202212521','2022-09-08','2022-10-18','en cours','/assets/documents/contracts/522.pdf',NULL,'2022-05-21','constantine'),(561,'1@email.com','202212521','2022-09-08','2022-10-18','en cours','/assets/documents/contracts/515.pdf',NULL,'2022-05-21','constantine');
 /*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -932,4 +900,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-18 18:41:47
+-- Dump completed on 2022-05-21 23:45:20
