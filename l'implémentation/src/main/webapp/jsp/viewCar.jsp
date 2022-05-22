@@ -253,7 +253,10 @@
 				<p id="title">total</p>
 				<p id="value">$ 1023</p>
 			</div>
-			<button type="submit" id="cta">Book Now</button>
+			<button type="submit" id="submit_btn">
+		        <div class="spinner hidden" id="spinner"></div>
+		        <span id="button-text">Book now</span>
+		    </button>
 		</form>
 		<div class="reviews">
 			<p id="reviews_header">Reviews</p>

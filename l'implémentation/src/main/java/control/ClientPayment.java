@@ -20,7 +20,6 @@ import com.stripe.exception.StripeException;
 import model.CreditCard;
 import model.DAO;
 import model.Payment;
-import model.PaymentMethods;
 import model.User;
 import utils.PaymentCardRetriever;
 

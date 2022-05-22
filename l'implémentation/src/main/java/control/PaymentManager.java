@@ -24,7 +24,6 @@ import com.stripe.param.PaymentIntentCreateParams;
 
 import model.CreditCard;
 import model.DAO;
-import model.PaymentMethods;
 import model.User;
 
 /**
@@ -90,10 +89,13 @@ public class PaymentManager extends HttpServlet {
 					dispatcher.forward(request, response);
 				}
 			}else if(request.getParameter("required_action").equals("init")) {
+				DAO dao = new DAO();
+				String CustomerId = dao.getCustomerId(user.getEmail());
 				PaymentIntentCreateParams params =
 			        PaymentIntentCreateParams.builder()
 			          .setAmount((long)20000)
 			          .setCurrency("usd")
+			          .setCustomer(CustomerId)
 			          .setAutomaticPaymentMethods(
 			            PaymentIntentCreateParams.AutomaticPaymentMethods
 			              .builder()

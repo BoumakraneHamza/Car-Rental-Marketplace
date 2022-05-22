@@ -11,7 +11,6 @@ import com.stripe.param.CustomerListPaymentMethodsParams;
 
 import model.CreditCard;
 import model.DAO;
-import model.PaymentMethods;
 import model.User;
 
 public class PaymentCardRetriever {
@@ -44,9 +43,7 @@ public class PaymentCardRetriever {
 			card.setCardNumber(paymentMethod.getCard().getLast4());
 			card.setExp_month(paymentMethod.getCard().getExpMonth().toString());
 			card.setExp_year(paymentMethod.getCard().getExpYear().toString());
-			PaymentMethods methods = new PaymentMethods();
-			methods.setPaymentMethods(method.getId());
-			card.setMethodInfo(methods);
+			card.setMethodInfo(method);
 			cardlist.add(card);
 		}
 		return cardlist;

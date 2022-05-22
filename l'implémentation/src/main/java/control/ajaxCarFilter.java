@@ -40,14 +40,9 @@ public class AjaxCarFilter extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		CarFilter filter = new CarFilter();
 		filter.setLocation(request.getParameter("location"));
-		
-		
-		
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		LocalDate date1 = LocalDate.parse(request.getParameter("pickUp_date"), dtf);
-	    LocalDate date2 = LocalDate.parse(request.getParameter("return_date"), dtf);
-	    filter.setPickUp_date(date1.toString());
-	    filter.setReturn_date(date2.toString());
+
+	    filter.setPickUp_date(request.getParameter("pickUp_date"));
+	    filter.setReturn_date(request.getParameter("return_date"));
 
 		filter.setTypeFilter(request.getParameter("typeFilter"));
 		filter.setMaxPriceBound(Integer.parseInt(request.getParameter("MaxPrice")));

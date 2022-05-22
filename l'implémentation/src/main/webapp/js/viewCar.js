@@ -6,8 +6,10 @@ $(function() {
 		"opens": "center",
 	  });
 });
-document.querySelector(".bill").querySelector("#cta").addEventListener("click",(e)=>{
+setLoading(false);
+document.querySelector(".bill").querySelector("#submit_btn").addEventListener("click",(e)=>{
 	e.preventDefault();
+	setLoading(true);
 	let data = new FormData(document.querySelector(".bill"));
 	var param = new URLSearchParams(data).toString();
 	let xhr = new XMLHttpRequest();
@@ -16,7 +18,9 @@ document.querySelector(".bill").querySelector("#cta").addEventListener("click",(
 			if(xhr.status == 200){
 				document.querySelector(".bill").querySelector("#required_action").value="add";
 				document.querySelector(".bill").submit();
+				setTimeout(setLoading(false),1000);
 			}else if(xhr.status == 300){
+				setLoading(false);
 				let data = xhr.responseText;
 				console.log(data);
 				let warnning = document.createElement("div");
@@ -32,4 +36,17 @@ document.querySelector(".bill").querySelector("#cta").addEventListener("click",(
 });
 function Refresh(){
 	location.reload();
+}
+// Show a spinner on payment submission
+function setLoading(isLoading) {
+  if (isLoading) {
+    // Disable the button and show a spinner
+    document.querySelector("#submit_btn").disabled = true;
+    document.querySelector("#spinner").classList.remove("hidden");
+    document.querySelector("#button-text").classList.add("hidden");
+  } else {
+    document.querySelector("#submit_btn").disabled = false;
+    document.querySelector("#spinner").classList.add("hidden");
+    document.querySelector("#button-text").classList.remove("hidden");
+  }
 }

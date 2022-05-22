@@ -354,8 +354,6 @@ function filterCars(element){
 	var location = search_form.querySelector("#location").value;
 	var pickUp_date = search_form.querySelector("#pick_up_date").value;
 	var return_date = search_form.querySelector("#return_date").value;
-	var pickUp_hour = search_form.querySelector("#pick_up_hour").value;
-	var return_hour = search_form.querySelector("#return_hour").value;
 	
 	var minPrice = document.querySelector(".filter #price .range-min").value;
 	var maxPrice = document.querySelector(".filter #price .range-max").value;
@@ -372,7 +370,7 @@ function filterCars(element){
 		}
 	}
 	xhttp.open("GET","AjaxCarFilter?location="+location+"&pickUp_date="+pickUp_date+"&return_date="+return_date
-								  +"&pickUp_hour="+pickUp_hour+"&return_hour="+return_hour+"&typeFilter="+typeFilter+"&carRate="+carRate+"&MinPrice="+minPrice+"&MaxPrice="+maxPrice);
+								  +"&typeFilter="+typeFilter+"&carRate="+carRate+"&MinPrice="+minPrice+"&MaxPrice="+maxPrice);
 	xhttp.send();
 }
 function toggleMap(){

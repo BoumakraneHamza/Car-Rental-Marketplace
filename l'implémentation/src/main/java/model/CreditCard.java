@@ -1,16 +1,18 @@
 package model;
 
+import com.stripe.model.PaymentMethod;
+
 public class CreditCard {
 	private String CardNumber;
 	private String exp_month;
 	private String exp_year;
 	private String cvc;
-	private PaymentMethods methodInfo;
+	private PaymentMethod methodInfo;
 	
-	public PaymentMethods getMethod() {
+	public PaymentMethod getMethod() {
 		return methodInfo;
 	}
-	public void setMethodInfo(PaymentMethods methodInfo) {
+	public void setMethodInfo(PaymentMethod methodInfo) {
 		this.methodInfo = methodInfo;
 	}
 	public String getCardNumber() {

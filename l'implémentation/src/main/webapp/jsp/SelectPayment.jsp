@@ -98,7 +98,7 @@
 							<div id="list">
 								<c:forEach items="${cardlist}" var="Paymentcard">
 									<div onclick="PayWithSaved(this)" class="card" style="background-image:url(https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/6.jpeg);">
-										<input id="payment_method_id" type="hidden" name="payment_method" value="${Paymentcard.getMethod().paymentMethods}">
+										<input id="payment_method_id" type="hidden" name="payment_method" value="">
 										<input id="customer_id" type="hidden" name="customer_id" value="${customer_id}"> 
 										<div class="card_info">
 											<div class="card_top">
