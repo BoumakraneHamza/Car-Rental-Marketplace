@@ -1,12 +1,19 @@
 package model;
 
 public class CarProblem {
+	private int id;
 	private String carMatricule;
 	private String description;
 	private String type;
 	private String status;
 	private String date;
 	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getCarMatricule() {
 		return carMatricule;
 	}

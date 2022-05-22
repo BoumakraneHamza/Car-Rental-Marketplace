@@ -67,15 +67,24 @@ dragula([
 	document.getElementById('pending'),
 	document.getElementById('active'),
 	document.getElementById('completed'),
-]) .on('drag', function (el) {
+]).on('drag', function (el) {
     el.className += ' moving';
   }).on('dragend', function (el) {
     el.className = el.className.replace(' moving', '');
+    togleProblemState(el, el.parentElement.id);
   }).on('over', function (el, container) {
     container.className += ' ex-over';
   }).on('out', function (el, container) {
     container.className = container.className.replace(' ex-over', '');
   });
+
+function togleProblemState(element, status) {
+	var xhttp = new XMLHttpRequest();
+	
+	xhttp.open("POST","AjaxManageProblems");
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhttp.send("problemId="+element.id+"&problemStatus="+status);
+}
 
 var today = new Date();
 var d;

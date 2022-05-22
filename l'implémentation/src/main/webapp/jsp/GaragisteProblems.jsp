@@ -89,9 +89,9 @@
 					<div class="Problem_list" id="pending">
 						<c:forEach items = "${problems }" var = "problem">
 						<c:if test = "${problem.status eq 'pending' }">
-							<div class="problem">
-								<p id="title">Problem with the engine ${problem.description }</p>
-								<div id="tags"><p id="tag">Engine ${problem.type }</p></div>
+							<div id="${problem.id }" class="problem">
+								<p id="title">${problem.description }</p>
+								<div id="tags"><p id="tag">${problem.type }</p></div>
 							</div>
 						</c:if>
 						</c:forEach>
@@ -102,7 +102,7 @@
 					<div class="Problem_list" id="active">
 						<c:forEach items = "${problems }" var = "problem">
 						<c:if test = "${problem.status eq 'active' }">
-							<div class="problem">
+							<div id="${problem.id }" class="problem">
 								<p id="title">${problem.description }</p>
 								<div id="tags"><p id="tag">${problem.type }</p></div>
 							</div>
@@ -115,7 +115,7 @@
 					<div class="Problem_list" id="completed">
 						<c:forEach items = "${problems }" var = "problem">
 						<c:if test = "${problem.status eq 'completed' }">
-							<div class="problem">
+							<div id="${problem.id }" class="problem">
 								<p id="title">${problem.description }</p>
 								<div id="tags"><p id="tag">${problem.type }</p></div>
 							</div>

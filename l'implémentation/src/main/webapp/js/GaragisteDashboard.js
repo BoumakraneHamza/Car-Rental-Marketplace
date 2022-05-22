@@ -45,10 +45,10 @@ const stat2 = document.querySelector("#stat2");
 let char2 = new Chart(stat2 ,{
 	type:'doughnut',
 	data:{
-		labels:['Engine','Breaks','Body',"Lights","Interior"],
+		labels:Object.keys(stat2Data),
 		datasets:[{
 			label:'active hours',
-			data:[6,7,3],
+			data:Object.values(stat2Data),
 			backgroundColor: [
 		      '#8fc73e',
 		      '#527c85',

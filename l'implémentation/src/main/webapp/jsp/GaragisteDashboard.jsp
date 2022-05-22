@@ -78,15 +78,15 @@
 			<div id="tab_right_corner">
 				<div id="summary">
 					<div id="tile">
-						<p id="value">3</p>
+						<p id="value">${reservationStat.today }</p>
 						<p id="title">Today</p>
 					</div>
 					<div id="tile">
-						<p id="value">17</p>
+						<p id="value">${reservationStat.week }</p>
 						<p id="title">This Week</p>
 					</div>
 					<div id="tile">
-						<p id="value">194</p>
+						<p id="value">${reservationStat.month }</p>
 						<p id="title">This Month</p>
 					</div>
 				</div>
@@ -187,6 +187,7 @@
 </div>
 <script type="text/javascript">
 	var stat1Data = ${stat1}
+	var stat2Data = ${stat2}
 	var stat3Data = ${stat3}
 </script>
 <script src="${pageContext.request.contextPath}/js/ClientMain.js"></script>

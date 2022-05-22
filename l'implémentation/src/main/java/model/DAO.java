@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -2065,7 +2064,6 @@ public class DAO {
 	public HashMap<String ,User> getUpcomingMeetings(String email ,String limit){
 		HashMap<String ,User> map = new HashMap<>();
 		String Query = "Select * from meetings where secretary=? and date > ? Order By date asc limit "+limit;
-		 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
 		 LocalDateTime now = LocalDateTime.now(); 
 		 String Time = now.toString();
 		PreparedStatement statement;
@@ -2198,14 +2196,47 @@ public class DAO {
 		
 		try {
 			connectDB();
-			query = "SELECT marque, count(matricule) AS `total`\r\n"
-					+ "FROM atelier.vehicule GROUP BY marque";
+			query = "SELECT `marque`, count(`matricule`) AS `total`\r\n"
+					+ "FROM `vehicule` JOIN `carproblem` ON `matricule` = `car_matricule`\r\n"
+					+ "WHERE `depot_code` = ?\r\n"
+					+ "AND MONTH(`date`) = MONTH(CURRENT_DATE())\r\n"
+					+ "AND YEAR(`date`) = YEAR(CURRENT_DATE())\r\n"
+					+ "GROUP BY `marque`";
 			
 			statement = connection.prepareStatement(query);
+			statement.setString(1, depotCode);
 			result = statement.executeQuery();
 			
 			while (result.next()) {
 				carStat.put(result.getString("marque"),result.getInt("total"));
+			}
+		} catch (SQLException | InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return carStat;
+	}
+	
+	public HashMap<String,Integer> depotCarStatByDefect(String depotCode) {
+		String query;
+		PreparedStatement statement;
+		HashMap<String,Integer> carStat = new HashMap<String,Integer>();
+		ResultSet result;
+		
+		try {
+			connectDB();
+			query = "SELECT `carproblem`.`type`, count(`car_matricule`) AS `total`\r\n"
+					+ "FROM `carproblem` JOIN `vehicule` ON `car_matricule` = `matricule`\r\n"
+					+ "WHERE `depot_code` = ?\r\n"
+					+ "AND MONTH(`date`) = MONTH(CURRENT_DATE())\r\n"
+					+ "AND YEAR(`date`) = YEAR(CURRENT_DATE())\r\n"
+					+ "GROUP BY `carproblem`.`type`";
+			
+			statement = connection.prepareStatement(query);
+			statement.setString(1, depotCode);
+			result = statement.executeQuery();
+			
+			while (result.next()) {
+				carStat.put(result.getString("type"),result.getInt("total"));
 			}
 		} catch (SQLException | InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
@@ -2221,11 +2252,16 @@ public class DAO {
 		
 		try {
 			connectDB();
-			query = "SELECT ROUND(rating) AS `rating`, count(matricule) AS `total`\r\n"
-					+ "FROM atelier.vehicule\r\n"
-					+ "GROUP BY ROUND(rating) ORDER BY ROUND(rating)";
+			query = "SELECT ROUND(`rating`) AS `rating`, count(`matricule`) AS `total`\r\n"
+					+ "FROM `vehicule` JOIN `carproblem` ON `matricule` = `car_matricule`\r\n"
+					+ "WHERE `depot_code` = ?\r\n"
+					+ "AND MONTH(`date`) = MONTH(CURRENT_DATE())\r\n"
+					+ "AND YEAR(`date`) = YEAR(CURRENT_DATE())\r\n"
+					+ "GROUP BY ROUND(`rating`) \r\n"
+					+ "ORDER BY ROUND(`rating`)";
 			
 			statement = connection.prepareStatement(query);
+			statement.setString(1, depotCode);
 			result = statement.executeQuery();
 			
 			while (result.next()) {
@@ -2308,6 +2344,7 @@ public class DAO {
 			
 			while (result.next()) {
 				carProblem = new CarProblem();
+				carProblem.setId(result.getInt("id"));
 				carProblem.setCarMatricule(result.getString("car_matricule"));
 				carProblem.setDescription(result.getString("description"));
 				carProblem.setType(result.getString("type"));
@@ -2398,5 +2435,49 @@ public class DAO {
 			e.printStackTrace();
 		}
 		return halfYearStat;
+	}
+
+	public HashMap<String, Integer> getDepotReservationStat(String depotCode) {
+		String query;
+		PreparedStatement statement;
+		ResultSet result;
+		HashMap<String, Integer> reservationStat = new HashMap<String, Integer>();
+		
+		try {
+			connectDB();
+			query = "SELECT COUNT(IF(`date_1` = current_date(), 1, NULL)) AS `today`,\r\n"
+					+ "		SUM(IF(YEARWEEK(`date_1`, 6) = YEARWEEK(current_date(), 6), 1, 0)) AS `week`,\r\n"
+					+ "		SUM(IF(EXTRACT(Year_MONTH FROM `date_1`) = EXTRACT(Year_MONTH FROM CURRENT_DATE()), 1, 0)) AS `month`\r\n"
+					+ "FROM `reservation` JOIN `vehicule` ON `vehicule_matricule` = `matricule`\r\n"
+					+ "WHERE `depot_code` = ?";
+			
+			statement = connection.prepareStatement(query);
+			statement.setString(1, depotCode);
+			result = statement.executeQuery();
+			
+			if (result.next()) {
+				reservationStat.put("today",result.getInt("today"));
+				reservationStat.put("week",result.getInt("week"));
+				reservationStat.put("month",result.getInt("month"));
+			}
+			statement.close();
+		} catch (SQLException | InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return reservationStat;
+	}
+	
+	public void changeProblemState(String id, String status) {
+		String query = "UPDATE `atelier`.`carproblem` SET `status` = ? WHERE (`id` = ?)";
+		PreparedStatement statement ; 
+		try {
+			connectDB();
+			statement = connection.prepareStatement(query);
+			statement.setString(1, status);
+			statement.setString(2, id);
+			statement.executeUpdate(); 
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}	
 }

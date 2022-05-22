@@ -60,9 +60,17 @@ public class ProfileStateManager extends HttpServlet {
 					String stat1 = mapper.writeValueAsString(stat);
 					request.setAttribute("stat1", stat1);
 					
+					stat = dao.depotCarStatByDefect(user.getEmployement().getWorkingLocation());
+					String stat2 = mapper.writeValueAsString(stat);
+					request.setAttribute("stat2", stat2);
+					
 					stat = dao.depotCarStatByRating(user.getEmployement().getWorkingLocation());
 					String stat3 = mapper.writeValueAsString(stat);
 					request.setAttribute("stat3", stat3);
+					
+					stat = dao.getDepotReservationStat(user.getEmployement().getWorkingLocation());
+					request.setAttribute("reservationStat", stat);
+					
 					url = url + "jsp/GaragisteDashboard.jsp";
 				}else {
 					user = dao.getSecretaire(user.getEmail());
