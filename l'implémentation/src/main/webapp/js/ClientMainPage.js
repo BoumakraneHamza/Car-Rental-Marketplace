@@ -140,6 +140,7 @@ search_section.querySelector("#minimize_wrapper").addEventListener("click",()=>{
 });
 let map;
 function createSelectMap(mapWrapper,lat,lon){
+	
 	var container = L.DomUtil.get(mapWrapper);
       if(container != null){
         container._leaflet_id = null;
@@ -169,6 +170,10 @@ function createSelectMap(mapWrapper,lat,lon){
 }
 
 function createMapIcons(lat,lon,depots){
+	const search_form = document.querySelector("#search_form");
+	const location = search_form.querySelector("#location").value;
+	const pick_up_date = search_form.querySelector("#pick_up_date").value;
+	const return_date = search_form.querySelector("#return_date").value;
 	var marker = L.icon({
 	    iconUrl: contextPath+'/assets/marker-icon.svg',
 	    iconSize: [30, 30],
@@ -191,6 +196,7 @@ function createMapIcons(lat,lon,depots){
 		image.src= contextPath + depots.storedCars[key].image;
 		image_slider.append(image);
 	}
+	
 	image_wrapper.append(image_slider);
 	Map_pop_up.append(image_wrapper);
 	console.log(depots.storedCars.length);
@@ -251,11 +257,34 @@ function createMapIcons(lat,lon,depots){
 		price.innerHTML = "$"+depots.storedCars[i].plj;
 		row2.append(price);
 		depot_info.append(row2);
-		let view_details = document.createElement("div");
-		view_details.setAttribute("id","view_details");
-		let text = document.createElement("p");
-		text.innerHTML="See details";
-		view_details.append(text);
+		let view_details = document.createElement("form");
+		view_details.setAttribute("action","ViewCar");
+		view_details.setAttribute("method","get");
+		view_details.setAttribute("target","_blank");
+		let input = document.createElement("input");
+		input.setAttribute("type","hidden");
+		input.setAttribute("name","car");
+		input.setAttribute("value",depots.storedCars[i].matricule);
+		view_details.append(input);
+		let input1 = document.createElement("input");
+		input1.setAttribute("type","hidden");
+		input1.setAttribute("name","pickUp_date");
+		input1.setAttribute("value",pick_up_date);
+		view_details.append(input1);
+		let input2 = document.createElement("input");
+		input2.setAttribute("type","hidden");
+		input2.setAttribute("name","return_date");
+		input2.setAttribute("value",return_date);
+		view_details.append(input2);
+		let input3 = document.createElement("input");
+		input3.setAttribute("type","hidden");
+		input3.setAttribute("name","location");
+		input3.setAttribute("value",location);
+		view_details.append(input3);
+		let cta_button = document.createElement("button");
+		cta_button.setAttribute("id","view_details");
+		cta_button.innerHTML="See details";
+		view_details.append(cta_button);
 		depot_info.append(view_details);
 		info_list.append(depot_info);
 	}

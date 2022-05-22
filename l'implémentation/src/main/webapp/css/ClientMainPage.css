@@ -573,6 +573,7 @@
     flex-direction: column;
     flex-wrap: nowrap;
     width: 180px;
+    align-items:center;
 }
 #Map_pop_Up #depot_info #row {
     display: flex;
@@ -584,14 +585,20 @@
     align-items: center;
 }
 #Map_pop_Up #depot_info #view_details {
-    cursor: pointer;
+	cursor: pointer;
     border: 2px solid #E4E4E4;
-    border-radius: 10px;
-    height: 50px;
+    border-radius: 5px;
+    height: 45px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    width: 130px;
+    background: none;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    margin-top: 10px;
 }
 #Map_pop_Up #depot_info #row #price {
     color: #fec04d;

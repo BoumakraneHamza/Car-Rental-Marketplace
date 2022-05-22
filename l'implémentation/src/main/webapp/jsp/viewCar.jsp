@@ -159,7 +159,7 @@
 					<div id="tab_content">
 						<div id="option">
 							<div id="left">
-								<input type="radio" name="insurance" checked>
+								<input onclick="selectInsurance(this)" type="radio" name="insurance" checked>
 								<div id="option_text">
 									<p id="title">No insurance</p>
 									<p id="subtitle">No insurance Selected</p>
@@ -175,7 +175,7 @@
 						</div>
 						<div id="option">
 							<div id="left">
-								<input type="radio" name="insurance">
+								<input onclick="selectInsurance(this)" type="radio" name="insurance">
 								<div id="option_text">
 									<p id="title">No Worries on the vehicle</p>
 									<p id="subtitle">Collision protection on the vehicle only</p>
@@ -191,7 +191,7 @@
 						</div>
 						<div id="option">
 							<div id="left">
-								<input type="radio" name="insurance">
+								<input onclick="selectInsurance(this)" type="radio" name="insurance">
 								<div id="option_text">
 									<p id="title">Full Insurance</p>
 									<p id="subtitle">Full protection</p>
@@ -225,6 +225,7 @@
 			<input type="hidden" name="pickUp_date" value="${filter.pickUp_date}">
 			<input type="hidden" name="return_date" value="${filter.return_date}">
 			<input type="hidden" name="location" value="${filter.location}">
+			<input type="hidden" id="insurance" name="insurance" value="0">
 			<div id="bill_content">
 				<div id="dates">
 					<div id="dates_header">
@@ -235,14 +236,19 @@
 				</div>
 				<div id="duration">
 					<div id="title">
-						<p id="dur">3</p>
-						<p id="text">days @ $210
+						<p id="dur">${duration}</p>
+						<p id="text">days @ $${vehicule.PLJ}
 					</div>
-					<p id="value">$ 630.0</p>
+					<div id="price_container">
+						<p>$</p><p class="price" id="value"> ${price}</p>
+					</div>
 				</div>
-				<div id="tile">
-					<p id="title">No worries for the vehicle</p>
-					<p id="value">$ 52.0</p>
+				<div class="insurance_tile" id="tile">
+					<p id="title">No Insurance</p>
+					<div id="price_container">
+						<p>$</p>
+						<p class="insurance" id="value">0.0</p>
+					</div>
 				</div>
 				<div id="tile">
 					<p id="title">Booking fee</p>
@@ -251,7 +257,7 @@
 			</div>
 			<div id="tile">
 				<p id="title">total</p>
-				<p id="value">$ 1023</p>
+				<p class="total_price" id="value">$ </p>
 			</div>
 			<button type="submit" id="submit_btn">
 		        <div class="spinner hidden" id="spinner"></div>

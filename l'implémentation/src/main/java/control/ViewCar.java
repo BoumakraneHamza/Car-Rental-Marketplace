@@ -1,6 +1,9 @@
 package control;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -46,8 +49,14 @@ public class ViewCar extends HttpServlet {
 			filter.setReturn_date((String) request.getAttribute("return_date"));
 			filter.setLocation((String) request.getAttribute("location"));
 		}
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate date1 = LocalDate.parse(filter.getPickUp_date(), dtf);
+	    LocalDate date2 = LocalDate.parse(filter.getReturn_date(), dtf);
+	    long daysBetween = ChronoUnit.DAYS.between(date1, date2);
 		DAO dao = new DAO();
 		Vehicule vehicule = dao.getVehicule(matricule);
+		request.setAttribute("duration", daysBetween);
+		request.setAttribute("price", daysBetween * vehicule.getPLJ());
 		request.setAttribute("vehicule", vehicule);
 		request.setAttribute("filter", filter);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/viewCar.jsp");

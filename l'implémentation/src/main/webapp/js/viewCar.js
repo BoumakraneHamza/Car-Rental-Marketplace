@@ -6,6 +6,39 @@ $(function() {
 		"opens": "center",
 	  });
 });
+function calculateBill(){
+	let price = parseInt(document.querySelector("#bill_content").querySelector("#duration").querySelector(".price").innerHTML);
+	let insurance = parseInt(document.querySelector("#bill_content").querySelector("#tile").querySelector(".insurance").innerHTML);
+	let total = price + insurance + 10;
+	document.querySelector(".total_price").innerHTML = "$ "+ parseInt(total);
+}
+function clearChild(e){
+	var child = e.lastElementChild; 
+    while (child) {
+        child.remove();
+        child = e.lastElementChild;
+    }
+}
+function selectInsurance(element){
+	element = element.parentNode.parentNode;
+	let insuranceText = element.querySelector("#title").innerHTML;
+	let insurancePrice = element.querySelector("#total").innerHTML;
+	insurancePrice = insurancePrice.replace("$","");
+	let insurance = document.querySelector(".insurance_tile").querySelector("#price_container");
+	clearChild(insurance);
+	let dollarSign = document.createElement("p");
+	dollarSign.innerHTML = "$ ";
+	insurance.append(dollarSign);
+	let insuranceValue = document.createElement("p");
+	insuranceValue.setAttribute("class","insurance");
+	insuranceValue.setAttribute("id","value");
+	insuranceValue.innerHTML = insurancePrice;
+	insurance.append(insuranceValue);
+	document.querySelector(".insurance_tile").querySelector("#title").innerHTML = insuranceText;
+	document.querySelector(".bill").querySelector("#insurance").value= insurancePrice;
+	calculateBill();
+}
+calculateBill();
 setLoading(false);
 document.querySelector(".bill").querySelector("#submit_btn").addEventListener("click",(e)=>{
 	e.preventDefault();
