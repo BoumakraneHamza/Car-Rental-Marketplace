@@ -97,12 +97,12 @@
 			<c:forEach items="${reservations}" var="reservation">
 				<div class="booking_card">
 					<div class="date">
-						<div id="pick_up"><p id="main_date">${reservation.pick_up_date }, ${reservation.pick_up_hour }</p></div>
+						<div id="pick_up"><p id="main_date">${reservation.pick_up_date }</p></div>
 						<p id="remaining_time">${reservation.timeLeft }</p>
 					</div>
 					<div id="vehicule">
 						<p id="card_tab_title">vehicule</p>
-						<p id="car_name">${reservation.carName }</p>
+						<p id="car_name">${reservation.vehicule.marque } ${reservation.vehicule.modele }</p>
 					</div>
 					<div id="renter">
 						<p id="card_tab_title">Renter</p>
@@ -166,19 +166,17 @@
 				<img style="width: 10px;" src="${pageContext.request.contextPath}/assets/activity-black.svg">
 				<p id="title">Recent Problems</p>
 			</div>
-			<div class="Report_list">
-				<div class="report">
-					<p id="title">Problem with the engine</p>
-					<div id="tags">
-						<div id="tag">Engine</div>
+			<div class="Report_list">carProblems
+				
+				<c:forEach items="${carProblems }" var="carProblem">
+					<div class="report">
+						<p id="title">${carProblem.description }</p>
+						<div id="tags">
+							<div id="tag">${carProblem.type }</div>
+						</div>
 					</div>
-				</div>
-				<div class="report">
-					<p id="title">Accident Accured</p>
-					<div id="tags">
-						<div id="tag">Accident</div>
-					</div>
-				</div>
+				</c:forEach>
+				
 			</div>
 			<button onclick="window.location.href='${pageContext.request.contextPath}/GaragisteProblems'" id="SeeReviews">View All</button>
 		</div>

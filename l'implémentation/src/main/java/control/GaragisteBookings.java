@@ -38,7 +38,7 @@ public class GaragisteBookings extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) request.getSession().getAttribute("user");
-		if (user.getType().equals("depot manager")) {
+		if (user != null && user.getType().equals("depot manager")) {
 			DAO dao = new DAO();
 			ArrayList<Reservation> reservations = null;
 			

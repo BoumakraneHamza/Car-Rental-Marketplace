@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import model.CarProblem;
 import model.DAO;
 import model.Employee;
 import model.Reservation;
@@ -54,7 +55,9 @@ public class ProfileStateManager extends HttpServlet {
 					ObjectMapper mapper = new ObjectMapper();
 					HashMap<String, Integer> stat = null;
 					ArrayList<Reservation> reservations = dao.getDepotReservations(user.getEmployement().getWorkingLocation(), 5);
+					ArrayList<CarProblem> carProblems = dao.depotRecentProblems(user.getEmployement().getWorkingLocation(), 2);
 					request.setAttribute("reservations", reservations);
+					request.setAttribute("carProblems", carProblems);
 					
 					stat = dao.depotCarStatByMarque(user.getEmployement().getWorkingLocation());
 					String stat1 = mapper.writeValueAsString(stat);

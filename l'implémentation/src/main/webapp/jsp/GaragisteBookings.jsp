@@ -82,9 +82,9 @@
 					<c:forEach items="${reservations}" var="reservation">
 						<div id="booking">
 							<span>${reservation.renterName }</span>
-							<span>${reservation.carName }</span>
-							<span>${reservation.pick_up_date }, ${reservation.pick_up_hour }</span>
-							<span>${reservation.return_date }, ${reservation.return_hour }</span>
+							<span>${reservation.vehicule.marque } ${reservation.vehicule.modele }</span>
+							<span>${reservation.pick_up_date }</span>
+							<span>${reservation.return_date }</span>
 						</div>
 					</c:forEach>
 				</div>

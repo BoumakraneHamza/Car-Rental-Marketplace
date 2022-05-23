@@ -2150,22 +2150,20 @@ public class DAO {
 		try {
 			connectDB();
 			if (begin == null && end == null) {
-				query = "SELECT *, TIMEDIFF(CONCAT(date_1, \" \", hour_1), NOW()) AS `timeLeft`\r\n"
+				query = "SELECT *, DATEDIFF(date_1, NOW()) AS `timeLeft`\r\n"
 						+ "FROM reservation AS r\r\n"
 						+ "JOIN vehicule AS v ON r.vehicule_matricule = v.matricule\r\n"
 						+ "JOIN client AS c ON r.locataire_email = c.email\r\n"
-						+ "WHERE depot_code = ?\r\n"
-						+ "AND TIMEDIFF(CONCAT(date_1, \" \", hour_1), NOW()) >= 0\r\n"
-						+ "ORDER BY CONCAT(date_1, \" \", hour_1) ASC";
+						+ "WHERE depot_code = ? AND DATEDIFF(date_1, NOW()) >= 0\r\n"
+						+ "ORDER BY date_1 ASC";
 			} else {
-				query = "SELECT *\r\n"
-						+ "FROM reservation AS r\r\n"
+				query = "SELECT * FROM reservation AS r\r\n"
 						+ "JOIN vehicule AS v ON r.vehicule_matricule = v.matricule\r\n"
 						+ "JOIN client AS c ON r.locataire_email = c.email\r\n"
 						+ "WHERE depot_code = ?\r\n"
-						+ "AND timediff(CONCAT(date_1, \" \", hour_1), ?) >= 0\r\n"
-						+ "AND timediff(?, CONCAT(date_1, \" \", hour_1)) > 0\r\n"
-						+ "ORDER BY CONCAT(date_1, \" \", hour_1) ASC";
+						+ "AND DATEDIFF(date_1, ?) >= 0\r\n"
+						+ "AND DATEDIFF(?, date_1) > 0\r\n"
+						+ "ORDER BY date_1 ASC";
 			}
 			if (limit != 0) {
 				query = query + " limit " + limit;
@@ -2504,5 +2502,47 @@ public class DAO {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-	}	
+	}
+	
+	public ArrayList<CarProblem> depotRecentProblems(String depotCode, int limit) {
+		String query;
+		PreparedStatement statement;
+		ResultSet result;
+		CarProblem carProblem = null;
+		ArrayList<CarProblem> carProblems = new ArrayList<CarProblem>();
+		
+		try {
+			connectDB();
+			query = "SELECT p.* FROM `carproblem` AS p\r\n"
+					+ "JOIN `vehicule` AS v ON p.`car_matricule` = v.`matricule`\r\n"
+					+ "WHERE `depot_code` = ? AND `status` != 'completed'\r\n"
+					+ "ORDER BY `date` DESC";
+			
+			if (limit > 0) {
+				query += " limit ?";
+			}
+			statement = connection.prepareStatement(query);
+			statement.setString(1, depotCode);
+			if (limit > 0) {
+				statement.setInt(2, limit);
+			}
+			result = statement.executeQuery();
+			
+			while (result.next()) {
+				carProblem = new CarProblem();
+				carProblem.setId(result.getInt("id"));
+				carProblem.setCarMatricule(result.getString("car_matricule"));
+				carProblem.setDescription(result.getString("description"));
+				carProblem.setType(result.getString("type"));
+				carProblem.setStatus(result.getString("status"));
+				carProblem.setDate(result.getString("date"));
+				
+				carProblems.add(carProblem);
+			}
+			statement.close();
+		} catch (SQLException | InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return carProblems;
+	}
 }
