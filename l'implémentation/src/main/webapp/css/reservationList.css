@@ -587,3 +587,378 @@
     cursor: pointer;
     margin-top:10px;
 }
+.details_wrapper {
+    position: absolute;
+    top: 0%;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+	transition: all 0.5s ease;
+}
+.details_wrapper #wrapper {
+    width: 100vw;
+    height: 100vh;
+    background: #818181;
+    opacity: 0.3;
+	transition: all 0.5s ease;
+}
+.details_wrapper .details_banner.active{
+	margin-right: -24vw;
+	transition: all 0.5s ease;
+}
+.details_wrapper .details_banner {
+    position: absolute;
+    width: 24vw;
+    align-self: flex-end;
+    background: #fff;
+    margin: 10px;
+    border: 1px solid #E4E4E4;
+    height: calc(100vh - 20px);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    margin-right:0px;
+    transition: all 0.5s ease;
+}
+.details_wrapper .details_banner #banner_header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+	padding: 15px;
+}
+.details_wrapper .details_banner #banner_header #icon_wrapper {
+    width: 30px;
+    height: 30px;
+    background: #eee;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.details_wrapper .details_banner #banner_header #text_block {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.details_wrapper .details_banner #banner_header #text_block #date {
+    font-size: 15px;
+    font-weight: 500;
+}
+.details_wrapper .details_banner #banner_header #text_block #details {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 10px;
+}
+.details_wrapper .details_banner #banner_header #text_block #details #Price {
+    font-size: 22px;
+    font-weight: 600;
+}
+.details_wrapper .details_banner #banner_header #text_block #details #status {
+    background: #28ffaf;
+    padding: 5px 10px;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 5px;
+}
+.details_wrapper .details_banner .card_container{
+	transform-style: preserve-3d;
+    transition: all 0.5s ease;
+    height: 320px;
+}
+.details_wrapper .details_banner .payment_info{
+	    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    background:#f9f9f9;
+    padding: 10px;
+    margin: 0px 15px;
+    position: absolute;
+    border-radius: 10px;
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
+}
+.details_wrapper .details_banner .payment_info #tab_title {
+    font-size: 16px;
+    font-weight: 500;
+}
+.details_wrapper .details_banner .payment_info #footer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+}
+.details_wrapper .details_banner .payment_info #footer #icon_wrapper {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #d4d4d4;
+    position: absolute;
+    bottom: 19Px;
+}
+.details_wrapper .details_banner .booking_info {
+	display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    background: #f1f0f0;
+    padding: 10px;
+    margin: 0px 15px;
+    border-radius: 10px;
+    position: absolute;
+    width: -webkit-fill-available;
+    backface-visibility: hidden;
+}
+.details_wrapper .details_banner .booking_info #tab_header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+	margin-bottom: 15px;
+}
+.details_wrapper .details_banner .booking_info #tab_header #left {
+   	display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    height: fit-content;
+    font-size: 14px;
+    font-weight: 500;
+    color: #8052e9;
+    cursor: pointer;
+}
+.details_wrapper .details_banner .booking_info #tab_header #left #location {
+    font-size: 16px;
+    font-weight: 500;
+    color: #000;
+    cursor: unset;
+}
+.details_wrapper .details_banner .booking_info #tab_header #right {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-end;
+}
+.details_wrapper .details_banner .booking_info #tab_header #right #date {
+    display: flex;
+    gap: 6px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+	font-size: 14px;
+    font-weight: 500;
+}
+.details_wrapper .details_banner .booking_info #tab_header #right #pick_up_date {
+    font-size: 15px;
+    font-weight: 500;
+}
+.details_wrapper .details_banner .booking_info #tab_content {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 10px;
+}
+.details_wrapper .details_banner .booking_info #tab_content #tile {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #bebebe;
+    padding-bottom: 10px;
+}
+.details_wrapper .details_banner .booking_info #tab_content #tile #left {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.details_wrapper .details_banner .booking_info #tab_content #tile #left #title {
+    font-size: 15px;
+    font-weight: 500;
+    color: #9e9e9f;
+}
+.details_wrapper .details_banner .booking_info #tab_content #tile #left #value {
+    font-size: 16px;
+    font-weight: 500;
+}
+.details_wrapper .details_banner .booking_info #tab_content #tile #price {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-end;
+}
+.details_wrapper .details_banner .booking_info #tab_content #tile #value {
+    font-size: 19px;
+    color: #000000;
+    font-weight: 600;
+    line-height: 18px;
+}
+.details_wrapper .details_banner .booking_info #tab_content #tile #price #per_day {
+    font-size: 14px;
+    font-weight: 500;
+    color: #818181;
+}
+.details_wrapper .details_banner .booking_info #tab_content #total {
+    margin: 10px 0px;
+    display: flex;
+    justify-content: flex-end;
+    font-size: 22px;
+    font-weight: 700;
+}
+.details_wrapper .details_banner .booking_info #tab_content #footer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+}
+.details_wrapper .details_banner .booking_info #tab_content #footer #icon_wrapper {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #d4d4d4;
+}
+.details_wrapper .details_banner .contract_list {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    margin: 15px;
+    padding: 10px;
+}
+.details_wrapper .details_banner .contract_list #tab_title {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+.details_wrapper .details_banner .contract_list #contract {
+    width: 80px;
+    height: 100px;
+    border: 3px solid #d6d5d5;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    box-shadow: 0px 3px 20px 0px #d1d1d1;
+    cursor: pointer;
+}
+.card{
+  	width: 280px;
+    height: 160px;
+    margin: 10px 20px;
+    border-radius: 15px;
+    z-index: 1;
+	margin-top: 25px;
+    position: relative;
+    box-shadow: -1px 10px 20px 6px #a9a9a9;
+}
+.card_info{
+	padding: 25px 15px;
+    position: relative;
+    height: 100%;
+    text-shadow: 7px 6px 10px rgb(14 42 90 / 80%);
+    user-select: none;
+}
+.card_top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+.item_chip {
+    width: 27px;
+}
+.item_type {
+    height: 27px;
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    max-width: 100px;
+    margin-left: auto;
+    width: 100%;
+    align-items: center;
+}
+img.item_typeImg {
+    width: 27px;
+}
+.item_typeImg {
+    max-width: 100%;
+    object-fit: contain;
+    max-height: 100%;
+    object-position: top right;
+}
+.card_number {
+	display: flex;
+    color: #fff;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    font-size: 23px;
+    padding: 10px;
+    justify-content: center;
+    line-height: 16px;
+    font-weight: 600;
+    text-align: center;
+}
+.card_number span{
+	margin-top:10px;
+}
+.item_bottom {
+    display: flex;
+    color: #fff;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding: 0px 20px;
+}
+.card .card_info #holder {
+    font-size: 13px;
+    color: #cecece;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    font-weight: 500;
+    gap: 5px;
+}
+.card .card_info  #holder_full_name {
+    font-size: 14px;
+    color: #fff;
+}
+.card .card_info  #card_Expiry_date {
+	font-size: 13px;
+    color: #cecece;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-end;
+    font-weight: 500;
+    gap: 5px;
+}
+.card .card_info  #card_expiry_date {
+    font-size: 14px;
+    color: #fff;
+}

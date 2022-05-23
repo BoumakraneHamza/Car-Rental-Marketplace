@@ -32,7 +32,7 @@ async function handleSubmit(e) {
   const { error } = await stripe.confirmPayment({
     elements,
     confirmParams: {
-      return_url: "http://localhost:12409/Atelier/PaymentManager?status=success",
+      return_url: "http://localhost:12409/Atelier/PaymentManager?status=success&reservationId="+reservationId,
     },
   });
 

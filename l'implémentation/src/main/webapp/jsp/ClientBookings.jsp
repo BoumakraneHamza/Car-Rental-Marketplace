@@ -291,6 +291,109 @@
 		</div>
 	</div>
 </div>
+<div class="details_wrapper" style="visibility:hidden;">
+	<div id="wrapper" style="display:none;"></div>
+	<div class="details_banner active">
+		<div id="banner_header">
+			<div id="text_block">
+				<p id="date">10 December 2020</p>
+				<div id="details">
+					<p id="Price">$ 1200</p>
+					<p id="status">pending</p>
+				</div>
+			</div>
+			<div onclick="showDetails()" id="icon_wrapper">
+				<img src="${pageContext.request.contextPath}/assets/cancel-black.svg">
+			</div>
+		</div>
+		<div class="card_container">
+			<div class="booking_info">
+				<div id="tab_header">
+					<div id="left">
+						<p id="location">Constantine</p>
+						<p>view location</p>
+					</div>
+					<div id="right">
+						<div id="date">
+							<p id="duration">4 days</p>
+							<p>starting</p>
+						</div>
+						<p id="pick_up_date">10 November 2020</p>
+					</div>
+				</div>
+				<div id="tab_content">
+					<div id="tile">
+						<div id="left">
+							<p id="title">Booked Car</p>
+							<p id="value">Mercedes c class</p>
+						</div>
+						<div id="price">
+							<p id="value">$ 1200</p>
+							<p id="per_day">$120 /day</p>
+						</div>
+					</div>
+					<div id="tile">
+						<div id="left">
+							<p id="title">Insurance Policy</p>
+							<p id="value">No insurance</p>
+						</div>
+						<p id="value">$ 0</p>
+					</div>
+					<div id="tile">
+						<div id="left">
+							<p id="title">Service fees</p>
+							<p id="value">Booking fee</p>
+						</div>
+						<p id="value">$ 10</p>
+					</div>
+					<div id="footer">
+						<div onclick="flip(1)" id="icon_wrapper">
+							<img style="width: 20px;" src="${pageContext.request.contextPath}/assets/flip-icon-black.svg">
+						</div>
+						<p id="total">$1210</p>
+					</div>
+				</div>
+			</div>
+			<div class="payment_info">
+				<p id="tab_title">Payment Information</p>
+				<div class="card" style="background-image:url(https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/10.jpeg);">
+					<div class="card_info">
+						<div class="card_top">
+							<img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/chip.png" class="item_chip">
+						 <div class="item_type">
+						 	<img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/visa.png" alt="" class="item_typeImg">
+						 </div>
+						</div>
+						<div class="card_number">
+							<span>**** **** **** 4242</span>
+						</div>
+						<div class="item_bottom">
+							<div id="holder">
+								<p>card holder</p>
+								<p id="holder_full_name">Nathanial Olson</p>
+							</div>
+							<div id="card_Expiry_date">
+								<p>Expiry date</p>
+								<p id="card_expiry_date">07/2025</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="footer">
+					<div onclick="flip(2)" id="icon_wrapper">
+						<img style="width: 20px;" src="${pageContext.request.contextPath}/assets/flip-icon-black.svg">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="contract_list">
+			<p id="tab_title">Associated Paper Work</p>
+			<div id="contract">
+				<p>PDF</p>
+			</div>
+		</div>
+	</div>
+</div>
 <script src="${pageContext.request.contextPath}/js/ClientMain.js"></script>
 <script src="${pageContext.request.contextPath}/js/ClientBookings.js"></script>
 <%@include file="/jsp/dropdownList.jsp"%>

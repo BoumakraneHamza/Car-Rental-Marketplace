@@ -79,6 +79,7 @@ function loadData(){
 		for(let j=0;j<map.get(keys[i]).length;j++){
 			let booking = document.createElement("div");
 			booking.setAttribute("id","booking");
+			booking.setAttribute("onclick","showDetails()")
 			let booking_info = document.createElement("div");
 			booking_info.setAttribute("id","booking_info");
 			let image_wrapper = document.createElement("div");
@@ -219,5 +220,23 @@ function showTags(){
 		tab_header.style.display="none";
 		tag_list.style.display="none";
 		add_tag_list.style.display="none";
+	}
+}
+function flip(i){
+	if(i==1){
+		document.querySelector(".card_container").style.transform="rotateY(180deg)";
+	}else{
+		document.querySelector(".card_container").style.transform="rotateY(0deg)";
+	}
+}
+function showDetails(){
+	if(document.querySelector(".details_banner").classList.contains("active")){
+		document.querySelector(".details_wrapper").style.visibility="visible";
+		document.querySelector("#wrapper").style.display="block";
+		document.querySelector(".details_banner").classList.remove("active");
+	}else{
+		document.querySelector(".details_wrapper").style.visibility="hidden";
+		document.querySelector("#wrapper").style.display="none";
+		document.querySelector(".details_banner").classList.add("active");
 	}
 }
