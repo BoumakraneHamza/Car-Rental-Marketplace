@@ -464,18 +464,20 @@ input[type="number"]::-webkit-inner-spin-button {
     width: calc(30% - 10px);
     height: 97%;
     border-radius: 5px;
-    gap:15px;
+    gap:10px;
     margin-top:10px;
 }
 .main_content .sidebar #tab_header {
 	font-size: 16px;
     font-weight: 500;
-    padding: 5px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-between;
     align-items: center;
+}
+.main_content .sidebar  .main_tab_header{
+	margin-bottom:15px;
 }
 .main_content .sidebar #tab_header #left {
     display: flex;
@@ -491,7 +493,7 @@ input[type="number"]::-webkit-inner-spin-button {
     flex-direction: column;
     flex-wrap: nowrap;
     padding: 15px;
-    gap: 10px;
+    gap:10px;
 }
 .main_content .sidebar #card  #info_list {
     display: flex;
@@ -515,6 +517,9 @@ input[type="number"]::-webkit-inner-spin-button {
     font-size: 16px;
     font-weight: 400;
     color: #b1b1b1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .main_content .sidebar #card  #info_list #tile #value {
     font-size: 15px;
@@ -551,7 +556,7 @@ input[type="number"]::-webkit-inner-spin-button {
     align-items: center;
     flex-direction: row;
     flex-wrap: nowrap;
-    padding: 10px 5px;
+    padding: 10px 5px 0px 5px;
 	font-weight: 500;
 }
 .main_content .sidebar #card #promo_code #submit {

@@ -611,6 +611,7 @@ public class DAO {
 				reservation.setStatus(result.getString("etat"));
 				reservation.setLocation(result.getString("location"));
 				reservation.setContrat(result.getString("contrat"));
+				reservation.setInsurance(result.getString("insurance"));
 				Vehicule vehicule = new Vehicule();
 				vehicule.setAgence(result.getString("Agence"));
 				vehicule.setMatricule(result.getString("vehicule_matricule"));
@@ -676,14 +677,37 @@ public class DAO {
 		}
 		return map;
 	}
+	public ArrayList<Office> getAvailableOffices(String Agency_name){
+		ArrayList<Office> offices = new ArrayList<Office>();
+		PreparedStatement statement ;
+		String Query;
+		ResultSet result;
+		try {
+			connectDB();
+			Query = "Select * from offices where agency_name = ?";
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, Agency_name);
+			result = statement.executeQuery();
+			while(result.next()) {
+				Office office = new Office();
+				office.setLat(result.getString("lat"));
+				office.setLon(result.getString("lon"));
+				office.setCode(result.getString("code"));
+				offices.add(office);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return offices;
+	}
 	public int SetTempReservation(Reservation data) {
 		String query ; 
 		PreparedStatement statement ;
 		ResultSet result ;
 		try {
 			connectDB();
-			query = "Insert into reservation(locataire_email,vehicule_matricule,date_1,date_2,etat,date_reservation,location)"
-					+ " values(?,?,?,?,?,?,?);";
+			query = "Insert into reservation(locataire_email,vehicule_matricule,date_1,date_2,etat,date_reservation,location,insurance)"
+					+ " values(?,?,?,?,?,?,?,?);";
 			statement = connection.prepareStatement(query);
 			statement.setString(1, data.getEmail());
 			statement.setString(2, data.getVehicule().getMatricule());
@@ -692,6 +716,7 @@ public class DAO {
 			statement.setString(5, "en cours");
 			statement.setString(6, data.getReservation_date());
 			statement.setString(7, data.getLocation());
+			statement.setString(8, data.getInsurance());
 			statement.executeUpdate();
 			
 			query = "SELECT LAST_INSERT_ID()";

@@ -41,16 +41,13 @@ public class SaveImg extends HttpServlet {
 		String test = request.getParameter("signature");
 	    String base64Image = test.split(",")[1];
 	    byte[] bImg = javax.xml.bind.DatatypeConverter.parseBase64Binary(base64Image);
-	    String status = "failed";
 	    try {
 			PaperWorkManagement.FinishContract(path, reservationId , bImg);
-			
-			status = "success";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	    request.setAttribute("status", status);
-	    RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard");
+	    request.setAttribute("reservationId", reservationId);
+	    RequestDispatcher dispatcher = request.getRequestDispatcher("SelectPayment");
 		dispatcher.forward(request, response);
 	}
 

@@ -77,13 +77,6 @@
 					      </button>
 					      <div id="payment-message" class="hidden"></div>
 					    </form>
-						<form class="back_form" action="BookingManagement" method="post">
-							<input type="hidden" name="matricule" value="${matricule}">
-							<input type="hidden" name="required_action" value="delete">
-							<input type="hidden" name="pick_up_date" value="${reservation.pick_up_date}">
-							<input type="hidden" name="return_date" value="${reservation.return_date}">
-							<input type="hidden" name="reservationId" value="${reservationId}">
-						</form>
 						<div id="createMeeting" style="visibility:hidden">
 							<p id="text">Please Select a nearby office to make an appointment for you to continue your booking process</p>
 							<button id="view_map" onclick="show_select_location()"><img src="${pageContext.request.contextPath}/assets/location.svg"></button>
@@ -133,7 +126,7 @@
 				</div>
 			</div>
 			<div class="sidebar">
-				<div id="tab_header">
+				<div class="main_tab_header" id="tab_header">
 					<div id="left">
 						<img style="width: 25px;" src="${pageContext.request.contextPath}/assets/cart-purple.svg">
 						<p id="title">Order Summary</p>
@@ -161,6 +154,10 @@
 						<img src="${pageContext.request.contextPath}/assets/angle-down-solid.svg">
 					</div>
 					<div id="info_list">
+						<div id="tile">
+							<p id="title">Car Insurance :</p>
+							<p id="value">$ ${reservation.insurance}</p>
+						</div>
 						<div id="tile">
 							<p id="title">Pick up date :</p>
 							<p id="value">${reservation.pick_up_date}</p>
@@ -220,6 +217,7 @@
 <script type="text/javascript">
 	var contextPath = "${pageContext.request.contextPath}";
 	var reservationId = ${reservation.id};
+	var offices = ${offices};
 </script>
 <script src="${pageContext.request.contextPath}/js/checkout.js"></script>
 <script src="${pageContext.request.contextPath}/js/ClientMain.js"></script>

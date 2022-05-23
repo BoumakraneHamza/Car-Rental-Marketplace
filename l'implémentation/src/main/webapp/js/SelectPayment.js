@@ -17,7 +17,8 @@ function selectTab(element){
 		document.querySelector(".tabs_content").querySelector("#createMeeting").style.visibility="visible";
 	}
 }
-function createSelectMap(mapWrapper,lat,lon){
+function createSelectMap(mapWrapper,lat,lon,offices){
+	console.log(offices);
 	map = L.map(mapWrapper, {
 	    center: [lat, lon],
 		zoom: 8,
@@ -30,7 +31,9 @@ function createSelectMap(mapWrapper,lat,lon){
 	    iconUrl: contextPath+'/assets/map-marker.svg',
 	    iconSize: [17, 40],
 	});
-	L.marker([lat, lon],{icon: marker}).addTo(map);
+	for(let i=0;i<offices.size;i++){
+		L.marker([office.get(i).lat, office.get(i).lon],{icon: marker}).addTo(map);
+	}
 	map.on('click', function(e) {
 		map.eachLayer((layer) => {
 		     if(layer['_latlng']!=undefined)
@@ -67,43 +70,8 @@ function createSelectMap(mapWrapper,lat,lon){
 }
 function show_select_location(){
 	document.querySelector(".view_Location").style.display="block";
-	createSelectMap(document.querySelector(".view_Location").querySelector("#select_map_wrapper"),35,5);
+	createSelectMap(document.querySelector(".view_Location").querySelector("#select_map_wrapper"),35,5,offices);
 }
 function closeSelectMap(){
 	document.querySelector(".view_Location").style.display="none";
-}
-let newElements;
-async function Re_initialize(paymentMethod,customer_id) {
-  const response = await fetch("PaymentManager", {
-    method: "POST",
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded',  },
-    body: "required_action=useSaved_Method&paymentMethod="+paymentMethod+"&customer_id="+customer_id,
-  });
-  const { clientSecret } = await response.json();
-	console.log(clientSecret);
-  const appearance = {
-    theme: 'stripe',
-  };
-  newElements = stripe.elements({ appearance, clientSecret });
-}
-async function PayWithSaved(element){
-	let payment_method_id=element.querySelector("#payment_method_id").value;
-	let customer_id = element.querySelector("#customer_id").value;
-	console.log(payment_method_id);
-	console.log(customer_id);
-	Re_initialize(payment_method_id,customer_id);
-	setLoading(true);
-	const { error } = await stripe.confirmPayment({
-	    newElements,
-	    confirmParams: {
-	      // Make sure to change this to your payment completion page
-	      return_url: "http://localhost:12409/Atelier/jsp/ContractConfirmation.jsp",
-	    },
-	});
-	if (error.type === "card_error" || error.type === "validation_error") {
-  		showMessage(error.message);
-  	} else{
-    	showMessage("An unexpected error occured.");
-  	}
-  	setLoading(false);
 }

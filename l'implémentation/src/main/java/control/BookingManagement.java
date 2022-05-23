@@ -70,9 +70,10 @@ public class BookingManagement extends HttpServlet {
 					reservation.setVehicule(vehicule);
 					reservation.setPick_up_date(request.getParameter("pickUp_date"));
 					reservation.setReturn_date(request.getParameter("return_date"));
-					if(dao.verifyVehiculeAvailability(reservation)==true) {
-						System.out.println("initiate");
-						Initiate(request, response, user);
+					reservation.setInsurance(request.getParameter("insurance"));
+					int insuranceValue = Integer.parseInt(reservation.getInsurance());
+					if(dao.verifyVehiculeAvailability(reservation)==true && (insuranceValue == 0 || insuranceValue == 52 || insuranceValue == 87)) {
+						response.setStatus(200);
 					}else {
 						response.setStatus(300);
 						PrintWriter out = response.getWriter();
@@ -101,7 +102,6 @@ public class BookingManagement extends HttpServlet {
 			try {
 				client = dao.checkLogin(email,password);
 			} catch (InstantiationException | IllegalAccessException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			String path = request.getServletContext().getRealPath("/assets/documents/contracts");
@@ -121,11 +121,10 @@ public class BookingManagement extends HttpServlet {
 			try {
 				PaperWorkManagement.CreateContract(reservation, client, path, String.valueOf(reservationId));
 			} catch (InvalidFormatException | IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			request.setAttribute("reservationId", reservationId);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/SelectPayment");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/ContractManagement");
 			dispatcher.forward(request, response);
 		}else {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/login.jsp");
@@ -142,15 +141,17 @@ public class BookingManagement extends HttpServlet {
 		reservation.setVehicule(vehicule);
 		reservation.setPick_up_date(request.getParameter("pickUp_date"));
 		reservation.setReturn_date(request.getParameter("return_date"));
+		reservation.setInsurance(request.getParameter("insurance"));
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	    LocalDate localDate = LocalDate.now();
 		reservation.setReservation_date(dtf.format(localDate));
 		reservation.setLocation(request.getParameter("location"));
 		DAO dao = new DAO();
 		int reservationId = dao.SetTempReservation(reservation);
+		request.setAttribute("insurance", reservation.getInsurance());
 		request.setAttribute("reservationId", reservationId);
 		request.setAttribute("matricule", request.getParameter("matricule"));
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/SelectPayment");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/ContractManagement");
 		dispatcher.forward(request, response);
 	}
 }

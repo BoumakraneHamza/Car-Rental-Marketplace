@@ -250,7 +250,7 @@ CREATE TABLE `depot` (
 
 LOCK TABLES `depot` WRITE;
 /*!40000 ALTER TABLE `depot` DISABLE KEYS */;
-INSERT INTO `depot` VALUES (1,'Guidjel District Setif Algeria',20,20,'Hertz','g01@email.com','36.1223','5.5311233',490),(2,'batna',15,15,'Hertz',NULL,'35.55216','6.17968',12),(3,'constantine',15,13,'agence02',NULL,'36.2650','6.5833',46),(6,'constantine',12,11,'agence02',NULL,'36.2333','6.5604',16),(7,'alger',20,20,'Hertz',NULL,'36.7734','3.0587',0),(8,'Khenchela District Khenchela Algeria',10,10,'Hertz','g04@email.com','','',0),(9,'de Mascara District Mascara Algeria',10,10,'Hertz','g03@email.com','35.41229593023381','0.2316626583949343',0);
+INSERT INTO `depot` VALUES (1,'Guidjel District Setif Algeria',20,20,'Hertz','g01@email.com','36.1223','5.5311233',593),(2,'batna',15,15,'Hertz',NULL,'35.55216','6.17968',12),(3,'constantine',15,13,'agence02',NULL,'36.2650','6.5833',74),(6,'constantine',12,11,'agence02',NULL,'36.2333','6.5604',16),(7,'alger',20,20,'Hertz',NULL,'36.7734','3.0587',0),(8,'Khenchela District Khenchela Algeria',10,10,'Hertz','g04@email.com','','',0),(9,'de Mascara District Mascara Algeria',10,10,'Hertz','g03@email.com','35.41229593023381','0.2316626583949343',0);
 /*!40000 ALTER TABLE `depot` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -478,7 +478,7 @@ CREATE TABLE `recentsearch` (
 
 LOCK TABLES `recentsearch` WRITE;
 /*!40000 ALTER TABLE `recentsearch` DISABLE KEYS */;
-INSERT INTO `recentsearch` VALUES ('1@email.com','constantine','2022-09-08','2022-10-18'),('Hamza@gmail.com','constantine','2022-05-23','2022-05-27');
+INSERT INTO `recentsearch` VALUES ('1@email.com','constantine','2022-05-25','2022-05-31'),('Hamza@gmail.com','constantine','2022-05-23','2022-05-27');
 /*!40000 ALTER TABLE `recentsearch` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -526,12 +526,13 @@ CREATE TABLE `reservation` (
   `facture` varchar(45) DEFAULT NULL,
   `date_reservation` date NOT NULL,
   `location` varchar(45) NOT NULL,
+  `insurance` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_Locataire_has_Vehicule_Vehicule1_idx` (`vehicule_matricule`),
   KEY `fk_Locataire_has_Vehicule_Locataire1_idx` (`locataire_email`),
   CONSTRAINT `fk_Locataire_has_Vehicule_Locataire1` FOREIGN KEY (`locataire_email`) REFERENCES `client` (`email`),
   CONSTRAINT `fk_Locataire_has_Vehicule_Vehicule1` FOREIGN KEY (`vehicule_matricule`) REFERENCES `vehicule` (`matricule`)
-) ENGINE=InnoDB AUTO_INCREMENT=598 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=729 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -540,7 +541,7 @@ CREATE TABLE `reservation` (
 
 LOCK TABLES `reservation` WRITE;
 /*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
-INSERT INTO `reservation` VALUES (593,'1@email.com','202212519','2022-09-08','2022-10-18','en cours','/assets/documents/contracts/578.pdf',NULL,'2022-05-22','constantine'),(594,'1@email.com','202212519','2022-09-08','2022-10-18','en cours','/assets/documents/contracts/580.pdf',NULL,'2022-05-22','constantine'),(595,'1@email.com','202212522','2022-09-08','2022-10-18','en cours','/assets/documents/contracts/589.pdf',NULL,'2022-05-22','constantine'),(596,'1@email.com','202212522','2022-09-08','2022-10-18','en cours','/assets/documents/contracts/576.pdf',NULL,'2022-05-22','constantine'),(597,'1@email.com','202212522','2022-09-08','2022-10-18','en cours','/assets/documents/contracts/580.pdf',NULL,'2022-05-22','constantine');
+INSERT INTO `reservation` VALUES (724,'1@email.com','202212521','2022-05-25','2022-05-31','en cours','/assets/documents/contracts/620.pdf',NULL,'2022-05-23','constantine','0'),(725,'1@email.com','202212401','2022-05-25','2022-05-31','en cours','/assets/documents/contracts/602.pdf',NULL,'2022-05-23','constantine','0'),(726,'1@email.com','202212522','2022-05-25','2022-05-31','en cours','/assets/documents/contracts/620.pdf',NULL,'2022-05-23','constantine','0'),(727,'1@email.com','202212520','2022-05-25','2022-05-31','en cours','/assets/documents/contracts/602.pdf',NULL,'2022-05-23','constantine','0'),(728,'1@email.com','202212519','2022-05-25','2022-05-31','en cours','/assets/documents/contracts/607.pdf',NULL,'2022-05-23','constantine','0');
 /*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -900,4 +901,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-22 10:27:26
+-- Dump completed on 2022-05-23 19:24:49

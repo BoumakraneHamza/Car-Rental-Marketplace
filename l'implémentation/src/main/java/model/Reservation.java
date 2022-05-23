@@ -16,7 +16,14 @@ public class Reservation {
 	private String renterName;
 	private String renterImage;
 	private Vehicule vehicule;
+	private String insurance;
 	
+	public String getInsurance() {
+		return insurance;
+	}
+	public void setInsurance(String insurance) {
+		this.insurance = insurance;
+	}
 	public Vehicule getVehicule() {
 		return vehicule;
 	}

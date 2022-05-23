@@ -46,7 +46,7 @@ document.querySelector(".bill").querySelector("#submit_btn").addEventListener("c
 	let data = new FormData(document.querySelector(".bill"));
 	var param = new URLSearchParams(data).toString();
 	let xhr = new XMLHttpRequest();
-	xhr.onreadystatechange = ()=>{
+	xhr.onload = ()=>{
 		if(xhr.readyState == 4){
 			if(xhr.status == 200){
 				document.querySelector(".bill").querySelector("#required_action").value="add";
@@ -55,7 +55,6 @@ document.querySelector(".bill").querySelector("#submit_btn").addEventListener("c
 			}else if(xhr.status == 300){
 				setLoading(false);
 				let data = xhr.responseText;
-				console.log(data);
 				let warnning = document.createElement("div");
 				warnning.setAttribute("class","WarningNotification");
 				warnning.innerHTML = data;

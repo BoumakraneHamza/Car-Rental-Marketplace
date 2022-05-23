@@ -1,8 +1,6 @@
 package control;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -55,11 +53,11 @@ public class ContractManagement extends HttpServlet {
 				dao.DeleteReservation(Integer.parseInt(request.getParameter("reservationId")));
 				PaperWorkManagement.deleteContract(request.getParameter("reservationId"),path);
 			}else {
-				String reservationId = request.getParameter("reservationId");
+				int reservationId = (int) request.getAttribute("reservationId");
 				DAO dao = new DAO();
 				String path = request.getServletContext().getRealPath("/assets/documents/contracts");
 				try {
-					Reservation reservation = dao.getReservation(Integer.parseInt(request.getParameter("reservationId")));
+					Reservation reservation = dao.getReservation(reservationId);
 					PaperWorkManagement.CreateContract(reservation, user, path, String.valueOf(reservationId));
 				} catch (InvalidFormatException | IOException | NumberFormatException | InstantiationException | IllegalAccessException e) {
 					// TODO Auto-generated catch block

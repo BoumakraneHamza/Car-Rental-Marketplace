@@ -21,6 +21,7 @@ import com.stripe.model.Customer;
 
 import model.CreditCard;
 import model.DAO;
+import model.Office;
 import model.Reservation;
 import model.User;
 import utils.PaymentCardRetriever;
@@ -64,17 +65,19 @@ public class SelectPayment extends HttpServlet {
 					request.setAttribute("customer_id", customerId);
 				}
 				ArrayList<CreditCard> cardlist = PaymentCardRetriever.RetrieveCards(user );
-				reservation = dao.getReservation((int)request.getAttribute("reservationId"));
+				ArrayList<Office> offices = new ArrayList<Office>();
+				reservation = dao.getReservation(Integer.parseInt((String) request.getAttribute("reservationId")));
+				offices = dao.getAvailableOffices(reservation.getVehicule().getAgence());
 				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 				LocalDate date1 = LocalDate.parse(reservation.getPick_up_date(), dtf);
 			    LocalDate date2 = LocalDate.parse(reservation.getReturn_date(), dtf);
 			    long daysBetween = ChronoUnit.DAYS.between(date1, date2);
-			    int inssurance = (int) request.getAttribute("inssurance");
+			    int inssurance = Integer.parseInt(reservation.getInsurance());
 			    request.setAttribute("cardlist", cardlist);
+			    request.setAttribute("offices", offices);
 			    request.setAttribute("reservation", reservation);
 			    request.setAttribute("price", reservation.getVehicule().getPLJ()*daysBetween + inssurance + 10);
 			    request.setAttribute("duration", daysBetween);
-			    request.setAttribute("matricule", request.getParameter("matricule"));
 			} catch (InstantiationException | IllegalAccessException | StripeException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

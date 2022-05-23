@@ -17,12 +17,10 @@ async function initialize() {
     body: "required_action=init",
   });
   const { clientSecret } = await response.json();
-	console.log(clientSecret);
   const appearance = {
     theme: 'stripe',
   };
   elements = stripe.elements({ appearance, clientSecret });
-	console.log(elements);
   const paymentElement = elements.create("payment");
   paymentElement.mount("#payment-element");
 }
@@ -34,8 +32,7 @@ async function handleSubmit(e) {
   const { error } = await stripe.confirmPayment({
     elements,
     confirmParams: {
-      // Make sure to change this to your payment completion page
-      return_url: "http://localhost:12409/Atelier/ContractManagement?reservationId="+reservationId,
+      return_url: "http://localhost:12409/Atelier/PaymentManager?status=success",
     },
   });
 

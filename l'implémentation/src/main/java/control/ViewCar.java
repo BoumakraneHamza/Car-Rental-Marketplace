@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.CarFilter;
 import model.DAO;
-import model.User;
 import model.Vehicule;
 
 /**

@@ -166,7 +166,7 @@
 								</div>
 							</div>
 							<div id="price">
-								<p id="total">$0.00</p>
+								<p id="total">$0</p>
 								<div id="perday">
 									<p id="value">$0</p>
 									<p>/day</p>
@@ -182,7 +182,7 @@
 								</div>
 							</div>
 							<div id="price">
-								<p id="total">$52.00</p>
+								<p id="total">$52</p>
 								<div id="perday">
 									<p id="value">$13</p>
 									<p>/day</p>
@@ -198,7 +198,7 @@
 								</div>
 							</div>
 							<div id="price">
-								<p id="total">$87.00</p>
+								<p id="total">$87</p>
 								<div id="perday">
 									<p id="value">$18</p>
 									<p>/day</p>
