@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +17,7 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 import model.DAO;
 import model.Reservation;
+import model.Transaction;
 import model.User;
 import model.Vehicule;
 import utils.PaperWorkManagement;
@@ -70,8 +73,10 @@ public class BookingManagement extends HttpServlet {
 					reservation.setVehicule(vehicule);
 					reservation.setPick_up_date(request.getParameter("pickUp_date"));
 					reservation.setReturn_date(request.getParameter("return_date"));
-					reservation.setInsurance(request.getParameter("insurance"));
-					int insuranceValue = Integer.parseInt(reservation.getInsurance());
+					Transaction transaction = new Transaction();
+					transaction.setInsurance(Integer.parseInt(request.getParameter("insurance")));
+					reservation.setPayment(transaction);
+					int insuranceValue = reservation.getPayment().getInsurance();
 					if(dao.verifyVehiculeAvailability(reservation)==true && (insuranceValue == 0 || insuranceValue == 52 || insuranceValue == 87)) {
 						response.setStatus(200);
 					}else {
@@ -133,24 +138,32 @@ public class BookingManagement extends HttpServlet {
 		
 	}
 	private void Initiate(HttpServletRequest request , HttpServletResponse response , User user) throws ServletException, IOException {
+		DAO dao = new DAO();
 		Reservation reservation = new Reservation();
 		reservation.setEmail(user.getEmail());
 		Vehicule vehicule = new Vehicule();
 		vehicule.setMatricule(request.getParameter("matricule"));
-		vehicule.setAgence(request.getParameter("agence"));
+		vehicule = dao.getVehicule(vehicule.getMatricule());
 		reservation.setVehicule(vehicule);
 		reservation.setPick_up_date(request.getParameter("pickUp_date"));
 		reservation.setReturn_date(request.getParameter("return_date"));
-		reservation.setInsurance(request.getParameter("insurance"));
+		Transaction transaction = new Transaction();
+		transaction.setInsurance(Integer.parseInt(request.getParameter("insurance")));
+		int total = transaction.getInsurance();
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate date1 = LocalDate.parse(reservation.getPick_up_date(), dtf);
+	    LocalDate date2 = LocalDate.parse(reservation.getReturn_date(), dtf);
+	    long daysBetween = ChronoUnit.DAYS.between(date1, date2);
+		total = (int) (total + (daysBetween * vehicule.getPLJ() + 10));
+		transaction.setTotal(total);
+		reservation.setPayment(transaction);
 	    LocalDate localDate = LocalDate.now();
 		reservation.setReservation_date(dtf.format(localDate));
 		reservation.setLocation(request.getParameter("location"));
-		DAO dao = new DAO();
 		int reservationId = dao.SetTempReservation(reservation);
-		request.setAttribute("insurance", reservation.getInsurance());
-		request.setAttribute("reservationId", reservationId);
-		request.setAttribute("matricule", request.getParameter("matricule"));
+		reservation.setId(reservationId);
+		dao.setTempTransaction(reservation);
+		request.setAttribute("reservation", reservation);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/ContractManagement");
 		dispatcher.forward(request, response);
 	}

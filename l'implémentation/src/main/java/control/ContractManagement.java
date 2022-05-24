@@ -53,17 +53,15 @@ public class ContractManagement extends HttpServlet {
 				dao.DeleteReservation(Integer.parseInt(request.getParameter("reservationId")));
 				PaperWorkManagement.deleteContract(request.getParameter("reservationId"),path);
 			}else {
-				int reservationId = (int) request.getAttribute("reservationId");
-				DAO dao = new DAO();
+				Reservation reservation = (Reservation) request.getAttribute("reservation");
 				String path = request.getServletContext().getRealPath("/assets/documents/contracts");
 				try {
-					Reservation reservation = dao.getReservation(reservationId);
-					PaperWorkManagement.CreateContract(reservation, user, path, String.valueOf(reservationId));
-				} catch (InvalidFormatException | IOException | NumberFormatException | InstantiationException | IllegalAccessException e) {
+					PaperWorkManagement.CreateContract(reservation, user, path, String.valueOf(reservation.getId()));
+				} catch (InvalidFormatException | IOException | NumberFormatException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				request.setAttribute("reservationId", reservationId);
+				request.setAttribute("reservation", reservation);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/ContractConfirmation.jsp");
 				dispatcher.forward(request, response);
 			}

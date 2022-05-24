@@ -50,7 +50,6 @@ function sortDatabyWeeks(weeks , twoDim){
 					}
 				}else{
 					for(let k=0; k<twoDim[keyset.get(date)][1].length;k++){
-						console.log(twoDim[keyset.get(date)][1][k]);
 						arr.push(twoDim[keyset.get(date)][1][k]);	
 					}
 					map.set(key,arr);
@@ -88,7 +87,12 @@ function loadData(){
 		for(let j=0;j<map.get(keys[i]).length;j++){
 			let booking = document.createElement("div");
 			booking.setAttribute("id","booking");
-			booking.setAttribute("onclick","showDetails()")
+			booking.setAttribute("onclick","showDetails(this)");
+			let id= document.createElement("input");
+			id.setAttribute("type","hidden");
+			id.setAttribute("id","reservationId");
+			id.value = map.get(keys[i])[j]["id"];
+			booking.append(id);
 			let booking_info = document.createElement("div");
 			booking_info.setAttribute("id","booking_info");
 			let image_wrapper = document.createElement("div");
@@ -239,11 +243,49 @@ function flip(i){
 		document.querySelector(".card_container").style.transform="rotateY(0deg)";
 	}
 }
-function showDetails(){
-	if(document.querySelector(".details_banner").classList.contains("active")){
-		document.querySelector(".details_wrapper").style.visibility="visible";
-		document.querySelector("#wrapper").style.display="block";
-		document.querySelector(".details_banner").classList.remove("active");
+function showDetails(element){
+	let banner = document.querySelector(".details_banner");
+	if(banner.classList.contains("active")){
+		let xhr = new XMLHttpRequest();
+		let reservationId = element.querySelector("#reservationId").value;
+		let params = "reservationId="+reservationId;
+		xhr.onreadystatechange = ()=>{
+			if(xhr.readyState == 4 && xhr.status == 200){
+				let json = JSON.parse(xhr.responseText);
+				console.log(json);
+				document.querySelector(".details_wrapper").style.visibility="visible";
+				document.querySelector("#wrapper").style.display="block";
+				banner.classList.remove("active");
+				let firstDate = new Date(json["pick_up_date"]);
+				let secondDate = new Date(json["return_date"]);
+				let duration = secondDate.getDate() - firstDate.getDate();
+				console.log(duration);
+				banner.querySelector("#banner_header").querySelector("#date").innerHTML = json["reservation_date"];
+				banner.querySelector("#banner_header").querySelector("#Price").innerHTML ="$ "+ json["payment"]["Total"];
+				banner.querySelector("#banner_header").querySelector("#status").innerHTML = json["payment"]["status"];
+				let booking = banner.querySelector(".card_container").querySelector(".booking_info");
+				booking.querySelector("#location").innerHTML = json["location"];
+				booking.querySelector("#pick_up_date").innerHTML = json["pick_up_date"];
+				booking.querySelector("#duration").innerHTML = duration + " days";
+				booking.querySelector(".car_name").innerHTML = json["vehicule"]["marque"]+" "+json["vehicule"]["modele"];
+				booking.querySelector("#per_day").innerHTML ="$ "+ json["vehicule"]["PLJ"];
+				booking.querySelector(".total_price").innerHTML ="$ "+ parseInt(json["vehicule"]["PLJ"])*duration;
+				booking.querySelector(".insuranceV").innerHTML ="$ "+ json["payment"]["Insurance"];
+				if(json["payment"]["Insurance"] == "0"){
+					booking.querySelector(".insuranceP").innerHTML = "no insurance";
+				}
+				if(json["payment"]["Insurance"] == "52"){
+					booking.querySelector(".insuranceP").innerHTML = "no Worries about the vehicle";
+				}
+				if(json["payment"]["Insurance"] == "87"){
+					booking.querySelector(".insuranceP").innerHTML = "Full insurance";
+				}
+				booking.querySelector("#footer").querySelector("#total").innerHTML ="$ "+ json["payment"]["Total"];
+			}
+		}
+		xhr.open("POST","ReservationList");
+		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+		xhr.send(params);
 	}else{
 		document.querySelector(".details_wrapper").style.visibility="hidden";
 		document.querySelector("#wrapper").style.display="none";

@@ -57,7 +57,7 @@
 					<p>Booking Contract</p>
 					<img src="${pageContext.request.contextPath}/assets/download.svg">
 				</div>
-				<embed src="${pageContext.request.contextPath}/ContractView?reservationId=${reservationId}&embedded=true" style="width:670px; height: calc(100% - 45px);"></embed>
+				<embed src="${pageContext.request.contextPath}/ContractView?reservationId=${reservation.id}&embedded=true" style="width:670px; height: calc(100% - 45px);"></embed>
 			</div>
 			<div class="cta">
 				<div class="action" id="confirm" onclick="show()">

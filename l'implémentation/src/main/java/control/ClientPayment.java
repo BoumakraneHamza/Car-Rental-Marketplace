@@ -53,17 +53,10 @@ public class ClientPayment extends HttpServlet {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			HashMap<Integer ,Payment> map = null;
-			try {
-				map = dao.getPayments(user.getEmail());
-			} catch (InstantiationException | IllegalAccessException | ParseException e) {
-				e.printStackTrace();
-			}
 			Random rand = new Random();
 			Integer random = rand.nextInt(25);
 			request.setAttribute("random", random);
 			request.setAttribute("cardList", cardlist);
-			request.setAttribute("payments", map);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/ClientPayment.jsp");
 			dispatcher.forward(request, response);
 		} else {
@@ -76,18 +69,6 @@ public class ClientPayment extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		User user = (User) request.getSession().getAttribute("user");
-		ObjectMapper mapper = new ObjectMapper();
-		DAO dao = new DAO();
-		HashMap<Integer,Payment> map = new HashMap<>();
-		try {
-			map = dao.getPayments(user.getEmail());
-		}catch (InstantiationException | IllegalAccessException | ParseException e) {
-			e.printStackTrace();
-		}
-		String JsonMap = mapper.writeValueAsString(map);
-		PrintWriter out = response.getWriter();
-		out.write(JsonMap);
 	}
 
 }

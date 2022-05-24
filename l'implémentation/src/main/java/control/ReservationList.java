@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
 import model.DAO;
 import model.Reservation;
@@ -71,8 +72,22 @@ public class ReservationList extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		User user = (User) request.getSession().getAttribute("user");
+		if(user != null) {
+			Gson gson = new Gson();
+			int reservationId = Integer.parseInt(request.getParameter("reservationId"));
+			DAO dao = new DAO();
+			Reservation reservation = null;
+			try {
+				reservation = dao.getReservation(reservationId);
+			} catch (InstantiationException | IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			String result = gson.toJson(reservation);
+			PrintWriter out = response.getWriter();
+			out.print(result);
+		}
+	
 	}
-
 }

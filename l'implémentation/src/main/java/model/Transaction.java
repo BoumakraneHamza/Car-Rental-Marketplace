@@ -1,27 +1,34 @@
 package model;
 
 public class Transaction {
-	private int amount;
-	private String agence;
+	private int Total;
+	private int Insurance;
 	private String method;
+	private String status;
 	
-	public String getAgence() {
-		return agence;
-	}
-	public int getAmount() {
-		return amount;
+	public int getInsurance() {
+		return Insurance;
 	}
 	public String getMethod() {
 		return method;
 	}
-	public void setAgence(String agence) {
-		this.agence = agence;
+	public String getStatus() {
+		return status;
 	}
-	public void setAmount(int amount) {
-		this.amount = amount;
+	public int getTotal() {
+		return Total;
+	}
+	public void setInsurance(int insurance) {
+		Insurance = insurance;
 	}
 	public void setMethod(String method) {
 		this.method = method;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public void setTotal(int total) {
+		Total = total;
 	}
 
 }

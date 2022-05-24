@@ -19,7 +19,7 @@
 		</div>
 		<form class="signature_content" action="SaveImg" method="post">
 			<div class="signature_form">
-				<input name="reservationId" type="hidden" value="${reservationId}">
+				<input name="reservationId" type="hidden" value="${reservation.id}">
 		   		<canvas id="can" width="600px" height="400" style="background:#eee"></canvas>
 		   		<input id="image" type="hidden" name="signature" value="" >
 	  		</div>

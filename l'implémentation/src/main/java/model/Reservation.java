@@ -3,26 +3,23 @@ package model;
 public class Reservation {
 	private int Id;
 	private String email;
-	private String status ; 
+	private String status ;
 	private String reservation_date;
 	private String pick_up_date;
 	private String return_date;
-	private int TotalAmount;
-	private int paymentId;
 	private String location;
 	private String contrat;
-	private String facture;
 	private String timeLeft;
 	private String renterName;
 	private String renterImage;
 	private Vehicule vehicule;
-	private String insurance;
+	private Transaction payment;
 	
-	public String getInsurance() {
-		return insurance;
+	public Transaction getPayment() {
+		return payment;
 	}
-	public void setInsurance(String insurance) {
-		this.insurance = insurance;
+	public void setPayment(Transaction payment) {
+		this.payment = payment;
 	}
 	public Vehicule getVehicule() {
 		return vehicule;
@@ -36,12 +33,6 @@ public class Reservation {
 	}
 	public void setContrat(String contrat) {
 		this.contrat = contrat;
-	}
-	public String getFacture() {
-		return facture;
-	}
-	public void setFacture(String facture) {
-		this.facture = facture;
 	}
 	public String getEmail() {
 		return email;
@@ -61,15 +52,6 @@ public class Reservation {
 	public void setReservation_date(String reservation_date) {
 		this.reservation_date = reservation_date;
 	}
-	public int getPaymentId() {
-		return paymentId;
-	}
-	public void setPaymentId(int paymentId) {
-		this.paymentId = paymentId;
-	}
-	public int getTotalAmount() {
-		return TotalAmount;
-	}
 	public int getId() {
 		return Id;
 	}
@@ -81,9 +63,6 @@ public class Reservation {
 	}
 	public String getStatus() {
 		return status;
-	}
-	public void setTotalAmount(int TotalAmount) {
-		this.TotalAmount = TotalAmount;
 	}
 	public void setId(int id) {
 		Id = id;

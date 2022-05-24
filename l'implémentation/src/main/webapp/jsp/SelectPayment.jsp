@@ -156,7 +156,7 @@
 					<div id="info_list">
 						<div id="tile">
 							<p id="title">Car Insurance :</p>
-							<p id="value">$ ${reservation.insurance}</p>
+							<p id="value">$ ${reservation.payment.insurance}</p>
 						</div>
 						<div id="tile">
 							<p id="title">Pick up date :</p>

@@ -520,7 +520,6 @@ public class DAO {
 			}
 		return cars;
 	}
-	
 	public HashMap<String , ArrayList<Reservation>> getReservation(String email) throws InstantiationException, IllegalAccessException{
 		String Query;
 		HashMap<String ,ArrayList<Reservation>> reservationList = new HashMap<String , ArrayList<Reservation>>();
@@ -559,14 +558,6 @@ public class DAO {
 					vehicule.setImage(result2.getString("image"));
 					vehicule.setAgence(result2.getString("Agence"));
 					reservation.setVehicule(vehicule);
-				}
-				
-				Query = "SELECT * from transactionhistory where reservationID = "+reservation.getId() ;
-				PreparedStatement statement3 = connection.prepareStatement(Query);
-				ResultSet result3 = statement3.executeQuery();
-				while(result3.next()) {
-					reservation.setPaymentId(result3.getInt("payment_id"));
-					reservation.setTotalAmount(result3.getInt("montant"));
 				}
 				if(reservationList.containsKey(reservation.getPick_up_date())) {
 					reservationList.get(reservation.getPick_up_date()).add(reservation);
@@ -618,7 +609,6 @@ public class DAO {
 				reservation.setStatus(result.getString("etat"));
 				reservation.setLocation(result.getString("location"));
 				reservation.setContrat(result.getString("contrat"));
-				reservation.setInsurance(result.getString("insurance"));
 				Vehicule vehicule = new Vehicule();
 				vehicule.setAgence(result.getString("Agence"));
 				vehicule.setMatricule(result.getString("vehicule_matricule"));
@@ -629,60 +619,23 @@ public class DAO {
 				reservation.setVehicule(vehicule);
 				
 			}
-			statement.close();
-		}catch (SQLException e) {
-			System.out.println(e);
-			
-		}
-		return reservation;
-	}
-	
-	public HashMap<Integer,Payment> getPayments(String email) throws InstantiationException, IllegalAccessException, ParseException{
-		String Query;
-		PreparedStatement statement;
-		
-		HashMap<Integer,Payment> map = new HashMap<>();
-		Payment payment;
-		
-		ResultSet result;
-		try {
-			connectDB();
-			Query = "select * \r\n"
-					+ "from transactionhistory as t join reservation as r on t.reservationID = r.id join vehicule as v on r.vehicule_matricule = v.matricule\r\n"
-					+ "where locataire_email = ?";
+			Query = "Select * from billing where reservationId = "+reservation.getId();
 			statement = connection.prepareStatement(Query);
-			statement.setString(1, email);
 			result = statement.executeQuery();
-			
-			while(result.next()) {
-				payment = new Payment();
-				
-				payment.setPayment_id(result.getInt("payment_id"));
-				payment.setReservationID(result.getInt("reservationID"));
-				payment.setMontant(result.getInt("montant"));
-				payment.setAgence(result.getString("agence_name"));
-				payment.setMethod(result.getString("Method"));
-				payment.setDate(result.getString("date"));
-				payment.setCar_name(result.getString("marque") + " " + result.getString("modele"));
-				payment.setReservation_date(result.getString("date_reservation"));
-				payment.setPick_up_date(result.getString("date_1"));
-				payment.setReturn_date(result.getString("date_2"));
-				payment.setPLJ(result.getInt("PLJ"));
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-			    Date firstDate = sdf.parse(payment.getPick_up_date());
-			    Date secondDate = sdf.parse(payment.getReturn_date());
-
-			    long diffInMillies = Math.abs(secondDate.getTime() - firstDate.getTime());
-			    long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-			    payment.setDuration(diff);
-				map.put(payment.getPayment_id(), payment);
+			if(result.next()) {
+				Transaction transaction = new Transaction();
+				transaction.setInsurance(Integer.parseInt(result.getString("insurance")));
+				transaction.setMethod(result.getString("method"));
+				transaction.setStatus(result.getString("status"));
+				transaction.setTotal(Integer.parseInt(result.getString("Total")));
+				reservation.setPayment(transaction);
 			}
 			statement.close();
 		}catch (SQLException e) {
 			System.out.println(e);
 			
 		}
-		return map;
+		return reservation;
 	}
 	public ArrayList<Office> getAvailableOffices(String Agency_name){
 		ArrayList<Office> offices = new ArrayList<Office>();
@@ -713,8 +666,8 @@ public class DAO {
 		ResultSet result ;
 		try {
 			connectDB();
-			query = "Insert into reservation(locataire_email,vehicule_matricule,date_1,date_2,etat,date_reservation,location,insurance)"
-					+ " values(?,?,?,?,?,?,?,?);";
+			query = "Insert into reservation(locataire_email,vehicule_matricule,date_1,date_2,etat,date_reservation,location)"
+					+ " values(?,?,?,?,?,?,?);";
 			statement = connection.prepareStatement(query);
 			statement.setString(1, data.getEmail());
 			statement.setString(2, data.getVehicule().getMatricule());
@@ -723,7 +676,6 @@ public class DAO {
 			statement.setString(5, "en cours");
 			statement.setString(6, data.getReservation_date());
 			statement.setString(7, data.getLocation());
-			statement.setString(8, data.getInsurance());
 			statement.executeUpdate();
 			
 			query = "SELECT LAST_INSERT_ID()";
@@ -739,7 +691,19 @@ public class DAO {
 		}
 		return 0; 
 	}
-	
+	public void setTempTransaction(Reservation reservation) {
+		String Query = "Insert into billing values("+reservation.getId()+","+reservation.getPayment().getTotal()+","+reservation.getPayment().getInsurance()+",?,?)";
+		PreparedStatement statement;
+		try {
+			connectDB();
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, "pending");
+			statement.setString(2, "pending to set");
+			statement.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 	public Agence getAgence(String Name) {
 		String query ; 
 		PreparedStatement statement ;

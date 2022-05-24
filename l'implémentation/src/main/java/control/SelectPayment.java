@@ -72,11 +72,10 @@ public class SelectPayment extends HttpServlet {
 				LocalDate date1 = LocalDate.parse(reservation.getPick_up_date(), dtf);
 			    LocalDate date2 = LocalDate.parse(reservation.getReturn_date(), dtf);
 			    long daysBetween = ChronoUnit.DAYS.between(date1, date2);
-			    int inssurance = Integer.parseInt(reservation.getInsurance());
 			    request.setAttribute("cardlist", cardlist);
 			    request.setAttribute("offices", offices);
 			    request.setAttribute("reservation", reservation);
-			    request.setAttribute("price", reservation.getVehicule().getPLJ()*daysBetween + inssurance + 10);
+			    request.setAttribute("price", reservation.getPayment().getTotal());
 			    request.setAttribute("duration", daysBetween);
 			} catch (InstantiationException | IllegalAccessException | StripeException e) {
 				// TODO Auto-generated catch block

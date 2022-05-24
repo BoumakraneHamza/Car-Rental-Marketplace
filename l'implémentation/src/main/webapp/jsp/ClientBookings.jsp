@@ -325,19 +325,19 @@
 					<div id="tile">
 						<div id="left">
 							<p id="title">Booked Car</p>
-							<p id="value">Mercedes c class</p>
+							<p class="car_name" id="value">Mercedes c class</p>
 						</div>
 						<div id="price">
-							<p id="value">$ 1200</p>
+							<p class="total_price" id="value">$ 1200</p>
 							<p id="per_day">$120 /day</p>
 						</div>
 					</div>
 					<div id="tile">
 						<div id="left">
 							<p id="title">Insurance Policy</p>
-							<p id="value">No insurance</p>
+							<p class="insuranceP" id="value">No insurance</p>
 						</div>
-						<p id="value">$ 0</p>
+						<p class="insuranceV" id="value">$ 0</p>
 					</div>
 					<div id="tile">
 						<div id="left">
