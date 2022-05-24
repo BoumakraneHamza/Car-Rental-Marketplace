@@ -41,11 +41,12 @@ public class ReservationList extends HttpServlet {
 		if (user != null) {
 			if(request.getParameterMap().containsKey("required_action")) {
 				DAO dao = new DAO();
-				HashMap<String , Reservation> reservationMap = new HashMap<String, Reservation>();
+				HashMap<String , ArrayList<Reservation>> reservationMap = new HashMap<String, ArrayList<Reservation>>();
 				int map_size = 0 ;
 				try {
 					reservationMap = dao.getReservation(user.getEmail());
 					map_size = reservationMap.size();
+					System.out.println(map_size);
 				} catch (InstantiationException | IllegalAccessException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

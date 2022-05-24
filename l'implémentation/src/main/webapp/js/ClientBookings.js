@@ -23,9 +23,13 @@ const nth = function(d) {
 }
 let map = new Map();
 function sortDatabyWeeks(weeks , twoDim){
+	console.log(twoDim);
 	for(let j=0;j<jsonSize;j++){
 		let keyset = new Map();
 		let date = new Date(twoDim[j][0]);
+		
+		console.log(twoDim[j][0]);
+		console.log(twoDim[j][1].length);
 		keyset.set(date,j)
 		for (let i=0 ;i<weeks.length;i++){
 			let firstDate = new Date(weeks[i]);
@@ -41,9 +45,14 @@ function sortDatabyWeeks(weeks , twoDim){
 					key = firstDate.toLocaleString("en-GB",{month:"long",})+" "+firstDate.toLocaleString("en-GB",{day:'numeric'})+nth(firstDate.toLocaleString("en-GB",{day:'numeric'}))+" "+secondDate.toLocaleString("en-GB",{day:'numeric'})+nth(secondDate.toLocaleString("en-GB",{day:'numeric'}))+" "+secondDate.getFullYear();
 				}
 				if(map.has(key)){
-					map.set(key,map.get(key).concat(twoDim[keyset.get(date)][1]));
+					for(let k=0; k<twoDim[keyset.get(date)][1].length;k++){
+						map.set(key,map.get(key).concat(twoDim[keyset.get(date)][1][k]));
+					}
 				}else{
-					arr.push(twoDim[keyset.get(date)][1]);
+					for(let k=0; k<twoDim[keyset.get(date)][1].length;k++){
+						console.log(twoDim[keyset.get(date)][1][k]);
+						arr.push(twoDim[keyset.get(date)][1][k]);	
+					}
 					map.set(key,arr);
 				}
 				break;
@@ -168,7 +177,7 @@ function getData(){
 				data = JSON.parse(xhr.responseText);
 				json = data[1];
 				jsonSize = data[0];
-				console.log(data);
+				console.log(json);
 				let arrr = new Array();
 				for (let key in json){
 					arrr.push(key);
@@ -178,6 +187,7 @@ function getData(){
 				for(let i in arrr){
 					twoDim[i] = [arrr[i],json[arrr[i]]];
 				}
+				console.log(twoDim);
 				if(jsonSize == 1){
 					let lastDay = new Date(twoDim[0][0]);
 					lastDay = lastDay.setDate(lastDay.getDate()+7);

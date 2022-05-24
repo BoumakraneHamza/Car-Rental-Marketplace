@@ -521,15 +521,17 @@ public class DAO {
 		return cars;
 	}
 	
-	public HashMap<String , Reservation> getReservation(String email) throws InstantiationException, IllegalAccessException{
+	public HashMap<String , ArrayList<Reservation>> getReservation(String email) throws InstantiationException, IllegalAccessException{
 		String Query;
-		HashMap<String ,Reservation> reservationList = new HashMap<String , Reservation>();
+		HashMap<String ,ArrayList<Reservation>> reservationList = new HashMap<String , ArrayList<Reservation>>();
+		ArrayList<Reservation> arr =null;
 		PreparedStatement statement;
 		Reservation reservation = null;
 		ResultSet result;
 		try {
+			arr = new ArrayList<Reservation>();
 			connectDB();
-			Query = "SELECT * from reservation where locataire_email = ? Order by date_1 asc";
+			Query = "SELECT * from reservation where locataire_email = ?";
 			statement = connection.prepareStatement(Query);
 			statement.setString(1, email);
 			result =statement.executeQuery();
@@ -565,8 +567,13 @@ public class DAO {
 				while(result3.next()) {
 					reservation.setPaymentId(result3.getInt("payment_id"));
 					reservation.setTotalAmount(result3.getInt("montant"));
-				}	
-				reservationList.put(reservation.getPick_up_date(), reservation);
+				}
+				if(reservationList.containsKey(reservation.getPick_up_date())) {
+					reservationList.get(reservation.getPick_up_date()).add(reservation);
+				}else {
+					arr.add(reservation);
+					reservationList.put(reservation.getPick_up_date(), arr);
+				}
 			}
 			statement.close();
 		}catch (SQLException e) {
