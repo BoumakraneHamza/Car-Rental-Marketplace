@@ -588,6 +588,19 @@ public class DAO {
 		}
 		return result ;
 	}
+	public void finishPayment(String reservationId,String pm) {
+		String Query = "Update Billing set status = ? , method=? where reservationId = "+reservationId;
+		PreparedStatement statement ;
+		try {
+			connectDB();
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, "completed");
+			statement.setString(2, pm);
+			statement.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 	public Reservation getReservation(int id) throws InstantiationException, IllegalAccessException{
 		String Query;
 		PreparedStatement statement;

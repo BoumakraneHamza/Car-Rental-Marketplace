@@ -370,7 +370,7 @@
 						<div class="item_bottom">
 							<div id="holder">
 								<p>card holder</p>
-								<p id="holder_full_name">Nathanial Olson</p>
+								<p id="holder_full_name">${user.nom} ${user.prenom}</p>
 							</div>
 							<div id="card_Expiry_date">
 								<p>Expiry date</p>
@@ -388,9 +388,9 @@
 		</div>
 		<div class="contract_list">
 			<p id="tab_title">Associated Paper Work</p>
-			<div id="contract">
-				<p>PDF</p>
-			</div>
+			<a target="_blank" href="${pageContext.request.contextPath}${reservationList[i].contrat}" id="contract">
+				PDF
+			</a>
 		</div>
 	</div>
 </div>

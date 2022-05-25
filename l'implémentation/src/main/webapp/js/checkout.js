@@ -4,7 +4,7 @@ const stripe = Stripe("pk_test_51L1HugBYa9gzCakFCKatid9ZpMRN34mBCKasFo6IDHhsiPY0
 const items = [{ id: "xl-tshirt" }];
 
 let elements;
-
+let res = document.querySelector("#reservation_id_selected_payment").value;
 initialize();
 checkStatus();
 setLoading(false);
@@ -14,7 +14,7 @@ async function initialize() {
   const response = await fetch("PaymentManager", {
     method: "POST",
     headers: { 'Content-Type': 'application/x-www-form-urlencoded',  },
-    body: "required_action=init",
+    body: "required_action=init&reservationId="+res,
   });
   const { clientSecret } = await response.json();
   const appearance = {
@@ -32,7 +32,7 @@ async function handleSubmit(e) {
   const { error } = await stripe.confirmPayment({
     elements,
     confirmParams: {
-      return_url: "http://localhost:12409/Atelier/PaymentManager?status=success&reservationId="+reservationId,
+      return_url: "http://localhost:12409/Atelier/PaymentManager?status=success&reservationId="+res,
     },
   });
 

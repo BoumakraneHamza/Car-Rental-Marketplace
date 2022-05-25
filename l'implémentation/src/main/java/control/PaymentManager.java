@@ -24,6 +24,7 @@ import com.stripe.param.PaymentIntentCreateParams;
 
 import model.CreditCard;
 import model.DAO;
+import model.Reservation;
 import model.User;
 
 /**
@@ -46,6 +47,21 @@ public class PaymentManager extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("status", request.getParameter("status"));
+		String reservationId = request.getParameter("reservationId");
+		Stripe.apiKey = "sk_test_51L1HugBYa9gzCakFmWr011KOzYFiePCxyVhXA9wsXI22PAp62dGnQ6W4UxIliQ2mojOoCWLQwUkIiXlndsRYIx8m00Cgv9Zz7z";
+		String PI = request.getParameter("payment_intent");
+		PaymentIntent paymentIntent = null;
+		try {
+			paymentIntent =
+					  PaymentIntent.retrieve(
+							  PI
+					  );
+		} catch (StripeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		DAO dao = new DAO();
+		dao.finishPayment(reservationId, paymentIntent.getPaymentMethod());
 		RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard");
 		dispatcher.include(request, response);
 	}
@@ -92,11 +108,20 @@ public class PaymentManager extends HttpServlet {
 			}else if(request.getParameter("required_action").equals("init")) {
 				DAO dao = new DAO();
 				String CustomerId = dao.getCustomerId(user.getEmail());
+				String reservationId = request.getParameter("reservationId");
+				Reservation reservation = new Reservation();
+				try {
+					reservation = dao.getReservation(Integer.parseInt(reservationId));
+				} catch (NumberFormatException | InstantiationException | IllegalAccessException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				PaymentIntentCreateParams params =
 			        PaymentIntentCreateParams.builder()
-			          .setAmount((long)20000)
+			          .setAmount((long)reservation.getPayment().getTotal()*100)
 			          .setCurrency("usd")
 			          .setCustomer(CustomerId)
+			          .setSetupFutureUsage(PaymentIntentCreateParams.SetupFutureUsage.OFF_SESSION)
 			          .setAutomaticPaymentMethods(
 			            PaymentIntentCreateParams.AutomaticPaymentMethods
 			              .builder()

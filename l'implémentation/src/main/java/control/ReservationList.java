@@ -14,7 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.stripe.Stripe;
+import com.stripe.exception.StripeException;
+import com.stripe.model.PaymentMethod;
 
+import model.CreditCard;
 import model.DAO;
 import model.Reservation;
 import model.User;
@@ -84,9 +88,26 @@ public class ReservationList extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			String result = gson.toJson(reservation);
+			Stripe.apiKey = "sk_test_51L1HugBYa9gzCakFmWr011KOzYFiePCxyVhXA9wsXI22PAp62dGnQ6W4UxIliQ2mojOoCWLQwUkIiXlndsRYIx8m00Cgv9Zz7z";
+
+			PaymentMethod paymentMethod = null;
+			try {
+				paymentMethod =
+				  PaymentMethod.retrieve(
+				    reservation.getPayment().getMethod()
+				  );
+			} catch (StripeException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			CreditCard card = new CreditCard();
+			card.setCardNumber(paymentMethod.getCard().getLast4());
+			card.setExp_month(paymentMethod.getCard().getExpMonth().toString());
+			card.setExp_year(paymentMethod.getCard().getExpYear().toString());
+			String res = gson.toJson(reservation);
+			String cardRes = gson.toJson(card);
 			PrintWriter out = response.getWriter();
-			out.print(result);
+			out.print("["+res+","+cardRes+"]");
 		}
 	
 	}

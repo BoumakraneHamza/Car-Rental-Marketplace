@@ -16,6 +16,7 @@
    crossorigin=""/>
 </head>
 <body>
+<input type="hidden" id="reservation_id_selected_payment" value="${reservation.id}">
 <div class="header">
 	<div class="logo" onclick="location.href='${pageContext.request.contextPath}/Dashboard'">
 		<img src="${pageContext.request.contextPath}/assets/logoBlack.svg">
@@ -216,7 +217,7 @@
 </script>
 <script type="text/javascript">
 	var contextPath = "${pageContext.request.contextPath}";
-	var reservationId = ${reservation.id};
+	var reservationId = "${reservation.id}";
 	var offices = ${offices};
 </script>
 <script src="${pageContext.request.contextPath}/js/checkout.js"></script>

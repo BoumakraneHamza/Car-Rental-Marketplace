@@ -251,8 +251,10 @@ function showDetails(element){
 		let params = "reservationId="+reservationId;
 		xhr.onreadystatechange = ()=>{
 			if(xhr.readyState == 4 && xhr.status == 200){
-				let json = JSON.parse(xhr.responseText);
-				console.log(json);
+				let data = JSON.parse(xhr.responseText);
+				let json = data[0];
+				let card = data[1];
+				console.log(card);
 				document.querySelector(".details_wrapper").style.visibility="visible";
 				document.querySelector("#wrapper").style.display="block";
 				banner.classList.remove("active");
@@ -281,6 +283,10 @@ function showDetails(element){
 					booking.querySelector(".insuranceP").innerHTML = "Full insurance";
 				}
 				booking.querySelector("#footer").querySelector("#total").innerHTML ="$ "+ json["payment"]["Total"];
+				banner.querySelector(".contract_list").querySelector("#contract").href ="/Atelier/"+ json["contrat"];
+				let payment = banner.querySelector(".payment_info");
+				payment.querySelector(".card_number").querySelector("span").innerHTML = "**** **** **** "+card["CardNumber"];
+				payment.querySelector("#card_Expiry_date").querySelector("#card_expiry_date").innerHTML = card["exp_month"]+"/"+card["exp_year"];
 			}
 		}
 		xhr.open("POST","ReservationList");
