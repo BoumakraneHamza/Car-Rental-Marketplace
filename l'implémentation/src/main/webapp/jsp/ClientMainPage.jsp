@@ -78,6 +78,8 @@
 				</div>
 				<form id="search_form" style="display:none">
 					<input id="location" type="hidden" name="location" value="${filters.getLocation()}">
+					<input id="location_LAT" type="hidden" name="location_LAT" value="${filters.getLocation_LAT()}">
+					<input id="location_LON" type="hidden" name="location_LON" value="${filters.getLocation_Lon()}">
 					<input id="pick_up_date" type="hidden" name="pickUp_date" value="${filters.pickUp_date}">
 					<input id="return_date" type="hidden" name="return_date" value="${filters.return_date}">
 				</form>

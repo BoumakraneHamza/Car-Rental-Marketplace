@@ -33,13 +33,18 @@ p{
 	border-radius:5px;
 }
 .dropdownList .tile .viewProfile #profile_image{
-	    width: 60px;
+	width: 60px;
     height: 60px;
     border-radius: 50%;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.dropdownList .tile .viewProfile #profile_image img{
+	width:60px;
+	height:60px;
+	object-fit:cover;
 }
 .dropdownList .tile .viewProfile .text {
     margin-left: 10px;

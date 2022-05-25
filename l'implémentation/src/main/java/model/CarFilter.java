@@ -2,6 +2,8 @@ package model;
 
 public class CarFilter {
 	private String location;
+	private String location_LAT;
+	private String location_Lon;
 	private String pickUp_date; //YYYY-MM-DD
 	private String return_date;
 	private String typeFilter;
@@ -9,7 +11,18 @@ public class CarFilter {
 	private int MinPriceBound;
 	private int carRate;
 	
-	
+	public String getLocation_LAT() {
+		return location_LAT;
+	}
+	public String getLocation_Lon() {
+		return location_Lon;
+	}
+	public void setLocation_LAT(String location_LAT) {
+		this.location_LAT = location_LAT;
+	}
+	public void setLocation_Lon(String location_Lon) {
+		this.location_Lon = location_Lon;
+	}
 	public int getMaxPriceBound() {
 		return MaxPriceBound;
 	}

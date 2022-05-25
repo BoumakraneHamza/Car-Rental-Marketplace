@@ -71,7 +71,7 @@ CREATE TABLE `billing` (
 
 LOCK TABLES `billing` WRITE;
 /*!40000 ALTER TABLE `billing` DISABLE KEYS */;
-INSERT INTO `billing` VALUES (733,1270,0,'pending','pending to set'),(734,610,0,'pending','pending to set'),(735,610,0,'pending','pending to set'),(736,730,0,'pending','pending to set');
+INSERT INTO `billing` VALUES (752,2530,0,'completed','pm_1L3ExdBYa9gzCakFjgGg2tkb'),(753,4210,0,'pending','pending to set'),(754,4190,0,'completed','pm_1L3FSCBYa9gzCakFExDw3XJf');
 /*!40000 ALTER TABLE `billing` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -101,7 +101,7 @@ CREATE TABLE `carproblem` (
 
 LOCK TABLES `carproblem` WRITE;
 /*!40000 ALTER TABLE `carproblem` DISABLE KEYS */;
-INSERT INTO `carproblem` VALUES (1,'202212522','problem with the engine','engine','active','2022-05-12'),(2,'202212521','problem with the brakes','brakes','completed','2022-05-08'),(3,'202212520','accident accured','accident','pending','2022-05-13');
+INSERT INTO `carproblem` VALUES (1,'202212522','problem with the engine','engine','completed','2022-05-12'),(2,'202212521','problem with the brakes','brakes','completed','2022-05-08'),(3,'202212520','accident accured','accident','completed','2022-05-13');
 /*!40000 ALTER TABLE `carproblem` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -258,8 +258,8 @@ CREATE TABLE `depot` (
   `capacite_libre` int NOT NULL,
   `agence_nom` varchar(45) NOT NULL,
   `garagiste_email` varchar(45) DEFAULT NULL,
-  `lat` varchar(45) DEFAULT NULL,
-  `lon` varchar(45) DEFAULT NULL,
+  `lat` double DEFAULT NULL,
+  `lon` double DEFAULT NULL,
   `Bookings` int DEFAULT '0',
   PRIMARY KEY (`code`,`agence_nom`),
   UNIQUE KEY `garagiste_email_UNIQUE` (`garagiste_email`),
@@ -268,7 +268,7 @@ CREATE TABLE `depot` (
   CONSTRAINT `agency_name` FOREIGN KEY (`agence_nom`) REFERENCES `agence` (`nom`),
   CONSTRAINT `fk_garagiste` FOREIGN KEY (`garagiste_email`) REFERENCES `garagiste` (`email`),
   CONSTRAINT `check_storage` CHECK (((`capacite` >= 0) and (`capacite_libre` >= 0) and (`capacite_libre` <= `capacite`)))
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -277,7 +277,7 @@ CREATE TABLE `depot` (
 
 LOCK TABLES `depot` WRITE;
 /*!40000 ALTER TABLE `depot` DISABLE KEYS */;
-INSERT INTO `depot` VALUES (1,'Guidjel District Setif Algeria',20,20,'Hertz','g01@email.com','36.1223','5.5311233',600),(2,'batna',15,15,'Hertz',NULL,'35.55216','6.17968',12),(3,'constantine',15,13,'agence02',NULL,'36.2650','6.5833',75),(6,'constantine',12,11,'agence02',NULL,'36.2333','6.5604',16),(7,'alger',20,20,'Hertz',NULL,'36.7734','3.0587',0),(8,'Khenchela District Khenchela Algeria',10,10,'Hertz','g04@email.com','','',0),(9,'de Mascara District Mascara Algeria',10,10,'Hertz','g03@email.com','35.41229593023381','0.2316626583949343',0);
+INSERT INTO `depot` VALUES (1,'Guidjel District Setif Algeria',56,56,'Hertz','g01@email.com',36.1892751,5.403493,0),(2,'batna',15,14,'Hertz','g02@email.com',35.55216,6.17968,12),(3,'constantine',15,13,'agence02',NULL,36.265,6.5833,80),(11,'Tiaret District Tiaret Algeria',15,15,'Hertz','g03@email.com',35.3468431,1.3351707165070137,0),(12,'Ouled Derradj District M\'Sila Algeria',45,45,'Hertz',NULL,35.73696290663628,4.747322392462819,0);
 /*!40000 ALTER TABLE `depot` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -329,7 +329,7 @@ CREATE TABLE `garagiste` (
 
 LOCK TABLES `garagiste` WRITE;
 /*!40000 ALTER TABLE `garagiste` DISABLE KEYS */;
-INSERT INTO `garagiste` VALUES ('g01@email.com','Boumakrane','Hamza','/assets/profile_pics/1email.png',1,'0000-00-00','Hertz'),('g03@email.com','Hamza','3','/assets/profile_pics/1email.png',9,NULL,'Hertz'),('g04@email.com','Hamza','4','/assets/profile_pics/1email.png',8,NULL,'Hertz');
+INSERT INTO `garagiste` VALUES ('g01@email.com','Boumakrane','Hamza','/assets/profile_pics/1email.png',1,'0000-00-00','Hertz'),('g02@email.com','Oussama','Ghodbane','/assets/profile_pics/g02email.jpeg',2,NULL,'Hertz'),('g03@email.com','Hakim ','Tebri','/assets/profile_pics/g03email.jpeg',11,NULL,'Hertz');
 /*!40000 ALTER TABLE `garagiste` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -394,7 +394,7 @@ CREATE TABLE `meetings` (
 
 LOCK TABLES `meetings` WRITE;
 /*!40000 ALTER TABLE `meetings` DISABLE KEYS */;
-INSERT INTO `meetings` VALUES ('1@email.com','s01@email.com','2022-04-27 08:01:00'),('1@email.com','s01@email.com','2022-04-28 14:16:00'),('1@email.com','s01@email.com','2022-04-28 15:01:00'),('1@email.com','s01@email.com','2022-04-29 08:01:00'),('1@email.com','s01@email.com','2022-04-30 10:01:00'),('Hamza@gmail.com','s01@email.com','2022-04-26 09:01:00'),('Hamza@gmail.com','s01@email.com','2022-04-28 14:01:00'),('Hamza@gmail.com','s01@email.com','2022-04-29 14:01:00'),('Hamza@gmail.com','s01@email.com','2022-05-02 13:01:00'),('Hamza@gmail.com','s01@email.com','2022-05-23 13:01:00'),('Hamza@gmail.com','s01@email.com','2022-05-23 13:31:00');
+INSERT INTO `meetings` VALUES ('1@email.com','s01@email.com','2022-05-26 08:01:00'),('1@email.com','s01@email.com','2022-05-28 14:16:00'),('1@email.com','s01@email.com','2022-05-28 15:01:00'),('1@email.com','s01@email.com','2022-05-29 08:01:00'),('1@email.com','s01@email.com','2022-05-30 10:01:00'),('Hamza@gmail.com','s01@email.com','2022-05-02 13:01:00'),('Hamza@gmail.com','s01@email.com','2022-05-23 13:01:00'),('Hamza@gmail.com','s01@email.com','2022-05-25 13:31:00'),('Hamza@gmail.com','s01@email.com','2022-05-26 09:01:00'),('Hamza@gmail.com','s01@email.com','2022-05-28 14:01:00'),('Hamza@gmail.com','s01@email.com','2022-05-29 14:01:00');
 /*!40000 ALTER TABLE `meetings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -478,7 +478,7 @@ CREATE TABLE `offices` (
 
 LOCK TABLES `offices` WRITE;
 /*!40000 ALTER TABLE `offices` DISABLE KEYS */;
-INSERT INTO `offices` VALUES (1,'Hertz','constantine',0,'s01@email.com','36.3664','6.6093'),(2,'Hertz','Djelfa District Djelfa Algeria',0,NULL,'34.6510735267218','3.248866793118921'),(3,'Hertz','Setif',0,'Secretary@email.com','36.191','5.407'),(4,'Hertz','M\'Sila District M\'Sila Algeria',0,'s02@email.com','35.698119264003076','4.556631683459123'),(5,'Hertz','Kherrata District Bejaia Algeria',0,NULL,'36.44549','5.254379890609391');
+INSERT INTO `offices` VALUES (1,'Hertz','constantine',0,'s01@email.com','36.3664','6.6093'),(2,'Hertz','Djelfa District Djelfa Algeria',0,'d09@email.com','34.6510735267218','3.248866793118921'),(3,'Hertz','Setif',0,'Secretary@email.com','36.191','5.407'),(4,'Hertz','M\'Sila District M\'Sila Algeria',0,'s02@email.com','35.698119264003076','4.556631683459123'),(5,'Hertz','Kherrata District Bejaia Algeria',0,NULL,'36.44549','5.254379890609391');
 /*!40000 ALTER TABLE `offices` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -494,6 +494,8 @@ CREATE TABLE `recentsearch` (
   `location` varchar(45) NOT NULL,
   `pick_up_date` date NOT NULL,
   `return_date` date NOT NULL,
+  `locationLat` varchar(45) DEFAULT NULL,
+  `locationLon` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`client_id`),
   CONSTRAINT `client_email` FOREIGN KEY (`client_id`) REFERENCES `client` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -505,7 +507,7 @@ CREATE TABLE `recentsearch` (
 
 LOCK TABLES `recentsearch` WRITE;
 /*!40000 ALTER TABLE `recentsearch` DISABLE KEYS */;
-INSERT INTO `recentsearch` VALUES ('1@email.com','constantine','2022-05-25','2022-05-31'),('Hamza@gmail.com','constantine','2022-05-23','2022-05-27');
+INSERT INTO `recentsearch` VALUES ('1@email.com','setif','2022-05-25','2022-05-31','36.1892751','5.403493'),('Hamza@gmail.com','constantine','2022-05-23','2022-05-27',NULL,NULL);
 /*!40000 ALTER TABLE `recentsearch` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -557,7 +559,7 @@ CREATE TABLE `reservation` (
   KEY `fk_Locataire_has_Vehicule_Locataire1_idx` (`locataire_email`),
   CONSTRAINT `fk_Locataire_has_Vehicule_Locataire1` FOREIGN KEY (`locataire_email`) REFERENCES `client` (`email`),
   CONSTRAINT `fk_Locataire_has_Vehicule_Vehicule1` FOREIGN KEY (`vehicule_matricule`) REFERENCES `vehicule` (`matricule`)
-) ENGINE=InnoDB AUTO_INCREMENT=737 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=755 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -566,7 +568,6 @@ CREATE TABLE `reservation` (
 
 LOCK TABLES `reservation` WRITE;
 /*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
-INSERT INTO `reservation` VALUES (735,'1@email.com','202212522','2022-05-25','2022-05-31','en cours','/assets/documents/contracts/735.pdf','2022-05-24','constantine'),(736,'1@email.com','202212401','2022-05-25','2022-05-31','en cours','/assets/documents/contracts/736.pdf','2022-05-24','constantine');
 /*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -659,7 +660,7 @@ CREATE TABLE `secretary` (
 
 LOCK TABLES `secretary` WRITE;
 /*!40000 ALTER TABLE `secretary` DISABLE KEYS */;
-INSERT INTO `secretary` VALUES ('s01@email.com','secr','secretary','/assets/profile_pics/1email.png',1,'Hertz'),('s02@email.com','secretary','secr','/assets/profile_pics/1email.png',2,'Hertz'),('Secretary@email.com','2','Hamza','/assets/profile_pics/Secretaryemail.jpeg',3,'Hertz');
+INSERT INTO `secretary` VALUES ('d09@email.com',NULL,NULL,'/assets/profile_pics/default.png',2,'Hertz'),('s01@email.com','secr','secretary','/assets/profile_pics/1email.png',1,'Hertz'),('s02@email.com','secretary','secr','/assets/profile_pics/1email.png',2,'Hertz'),('Secretary@email.com','2','Hamza','/assets/profile_pics/Secretaryemail.jpeg',3,'Hertz');
 /*!40000 ALTER TABLE `secretary` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -729,7 +730,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('1@email.com','12345678','client'),('d01@email.com','12345678','directeur'),('d02@gmail.com','12345678','directeur'),('g01@email.com','test','depot manager'),('g03@email.com','12345678','depot manager'),('Hamza@gmail.com','test','client'),('s01@email.com','12345678','secretary'),('s02@email.com','12345678','secretary'),('Secretary@email.com','Hamza','secretary'),('serviceClient@email.com','test','service_client');
+INSERT INTO `users` VALUES ('1@email.com','12345678','client'),('d01@email.com','12345678','directeur'),('d02@gmail.com','12345678','directeur'),('d09@email.com','azerty','secretary'),('g01@email.com','test','depot manager'),('g02@email.com','test','depot manager'),('g03@email.com','test','depot manager'),('Hamza@gmail.com','test','client'),('s01@email.com','12345678','secretary'),('s02@email.com','12345678','secretary'),('Secretary@email.com','Hamza','secretary'),('serviceClient@email.com','test','service_client');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -778,7 +779,7 @@ CREATE TABLE `vehicule` (
 
 LOCK TABLES `vehicule` WRITE;
 /*!40000 ALTER TABLE `vehicule` DISABLE KEYS */;
-INSERT INTO `vehicule` VALUES ('202212401','Peugot','e-208GT','2020 Peugeot e-208 GT Line | Faro Yellow',120,'Premium','/assets/car_pics/car02.jpg','{\"1\": \"/assets/car_pics/peugot208GT-sec.jpeg\", \"2\": \"/assets/car_pics/car02-sec01.jpg\"}','{\"1\": \"/assets/car_pics/car02.jpg\", \"2\": \"/assets/car_pics/peugot208GT-sec.jpeg\", \"3\": \"/assets/car_pics/car02-sec01.jpg\"}','unlimited','agence02',3,2022,'Yellow',2.8,4,4,1,0,0,0,0,''),('202212519','porsche','911','2021 Porsche 911 Turbo S Coupe',210,'premium','/assets/car_pics/car03.jpg','{\"1\": \"/assets/car_pics/car03-sec.jpg\", \"2\": \"/assets/car_pics/car03-sec01.jpg\"}','{\"1\": \"/assets/car_pics/car03.jpg\", \"2\": \"/assets/car_pics/car03-sec.jpg\", \"3\": \"/assets/car_pics/car03-sec01.jpg\"}','unlimited','Hertz',1,2019,'black',0,2,2,1,0,0,0,0,''),('202212520','mercedes','c-class','2016 Mercedes-Benz, C-Class , C205, coupe',200,'coupe','/assets/car_pics/mercedes-benz-c-class.jpg','{\"1\": \"/assets/car_pics/mercedes-benz-c-class01.jpg\", \"2\": \"/assets/car_pics/mercedes-benz-c-class02.jpg\"}','{\"1\": \"/assets/car_pics/mercedes-benz-c-class.jpg\", \"2\": \"/assets/car_pics/mercedes-benz-c-class01.jpg\", \"3\": \"/assets/car_pics/mercedes-benz-c-class02.jpg\"}','unlimited','agence02',1,2020,'white',0,2,2,1,0,0,0,0,''),('202212521','renault','captur','2021 Renault Captur Zen',190,'suv','/assets/car_pics/RC01.jpg','{\"1\": \"/assets/car_pics/RC02.jpg\", \"2\": \"/assets/car_pics/RC03.jpg\"}','{\"1\": \"/assets/car_pics/RC01.jpg\", \"2\": \"/assets/car_pics/RC02.jpg\", \"3\": \"/assets/car_pics/RC03.jpg\"}','unlimited','Hertz',1,2021,'blue',0,4,4,1,0,0,0,0,''),('202212522','Mini','cooper Sl','2020 Mini Cooper S Hardtop Red',100,'Compact','/assets/car_pics/default01.jpg','{\"1\": \"/assets/car_pics/sec-image01.jpg\", \"2\": \"/assets/car_pics/sec-image02.jpg\"}','{\"1\": \"/assets/car_pics/default01.jpg\", \"2\": \"/assets/car_pics/sec-image01.jpg\", \"3\": \"/assets/car_pics/sec-image02.jpg\", \"4\": \"/assets/car_pics/sec-image03.jpg\"}','unlimited','Hertz',1,2021,'Red',3.2,2,2,1,0,0,0,0,'');
+INSERT INTO `vehicule` VALUES ('202212401','Peugot','e-208GT','2020 Peugeot e-208 GT Line | Faro Yellow',120,'Premium','/assets/car_pics/car02.jpg','{\"1\": \"/assets/car_pics/peugot208GT-sec.jpeg\", \"2\": \"/assets/car_pics/car02-sec01.jpg\"}','{\"1\": \"/assets/car_pics/car02.jpg\", \"2\": \"/assets/car_pics/peugot208GT-sec.jpeg\", \"3\": \"/assets/car_pics/car02-sec01.jpg\"}','unlimited','agence02',3,2022,'Yellow',2.8,4,4,1,0,0,0,0,''),('202212519','porsche','911','2021 Porsche 911 Turbo S Coupe',210,'premium','/assets/car_pics/car03.jpg','{\"1\": \"/assets/car_pics/car03-sec.jpg\", \"2\": \"/assets/car_pics/car03-sec01.jpg\"}','{\"1\": \"/assets/car_pics/car03.jpg\", \"2\": \"/assets/car_pics/car03-sec.jpg\", \"3\": \"/assets/car_pics/car03-sec01.jpg\"}','unlimited','Hertz',1,2019,'black',0,2,2,1,0,0,0,0,''),('202212520','mercedes','c-class','2016 Mercedes-Benz, C-Class , C205, coupe',200,'coupe','/assets/car_pics/mercedes-benz-c-class.jpg','{\"1\": \"/assets/car_pics/mercedes-benz-c-class01.jpg\", \"2\": \"/assets/car_pics/mercedes-benz-c-class02.jpg\"}','{\"1\": \"/assets/car_pics/mercedes-benz-c-class.jpg\", \"2\": \"/assets/car_pics/mercedes-benz-c-class01.jpg\", \"3\": \"/assets/car_pics/mercedes-benz-c-class02.jpg\"}','unlimited','agence02',1,2020,'white',0,2,2,1,0,0,0,0,''),('202212521','renault','captur','2021 Renault Captur Zen',190,'suv','/assets/car_pics/RC01.jpg','{\"1\": \"/assets/car_pics/RC02.jpg\", \"2\": \"/assets/car_pics/RC03.jpg\"}','{\"1\": \"/assets/car_pics/RC01.jpg\", \"2\": \"/assets/car_pics/RC02.jpg\", \"3\": \"/assets/car_pics/RC03.jpg\"}','unlimited','Hertz',1,2021,'blue',0,4,4,1,0,0,0,0,''),('202212522','Mini','cooper Sl','2020 Mini Cooper S Hardtop Red',100,'Compact','/assets/car_pics/default01.jpg','{\"1\": \"/assets/car_pics/sec-image01.jpg\", \"2\": \"/assets/car_pics/sec-image02.jpg\"}','{\"1\": \"/assets/car_pics/default01.jpg\", \"2\": \"/assets/car_pics/sec-image01.jpg\", \"3\": \"/assets/car_pics/sec-image02.jpg\", \"4\": \"/assets/car_pics/sec-image03.jpg\"}','unlimited','Hertz',2,2021,'Red',3.2,2,2,1,0,0,0,0,'');
 /*!40000 ALTER TABLE `vehicule` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -858,10 +859,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `car_search`(in pickUp_date date,
                                                          in typeFilter varchar(40),
                                                          in PriceMinBound int,
                                                          in PriceMaxBound int,
-                                                         in carRate int)
+                                                         in carRate int,
+                                                         in lat double,
+                                                         in lon double)
 BEGIN
 set @query = concat("SELECT * FROM vehicule as v join depot as d on v.depot_code = d.code
-				   WHERE v.matricule not in (SELECT vehicule_matricule FROM reservation 
+				   WHERE d.lat >= ",lat-0.5,"and d.lat <=",lat+0.5," and d.lon >=",lon-0.5," and d.lon <=",lon+0.5," and v.matricule not in (SELECT vehicule_matricule FROM reservation 
 											 WHERE (datediff(", return_date, ", date_1) >= 0 
                                              AND datediff(date_2, ", pickUp_date, ") >= 0))");
 if typeFilter is not null then
@@ -895,4 +898,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-24 21:55:10
+-- Dump completed on 2022-05-25 23:39:33

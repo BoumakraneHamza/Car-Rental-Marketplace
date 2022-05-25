@@ -172,6 +172,7 @@ const activities_list = document.querySelector("#activities_list");
 function create_Upcoming_Acts(){
 	let keys = Array.from(map.keys());
 	clearChild(activities_list);
+	console.log(keys);
 	for (let i=0;i<keys.length;i++){
 		const activity_date = document.createElement("div");
 		activity_date.setAttribute("id","activity_date");
@@ -189,6 +190,7 @@ function create_Upcoming_Acts(){
 		activity_list.setAttribute("id","activity_list");
 		activities_list.append(activity_date);
 		let apptValues = map.get(keys[i]);
+		console.log(apptValues);
 		for (let arr in apptValues){
 			let ApptArray = apptValues[arr];
 			let MeetingDate = ApptArray[1];
@@ -282,7 +284,7 @@ function getData(){
 				}
 				n++;
 			}
-			if(map.keys.length>0){
+			if(map.size>0){
 				create_Upcoming_Acts();
 			}
 			load();

@@ -2,9 +2,11 @@ package control;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -87,14 +89,31 @@ public class CarSearch extends HttpServlet {
 		try {
 			if(request.getParameterMap().containsKey("location")) {
 				filter.setLocation(request.getParameter("location"));
+				filter.setLocation_LAT(request.getParameter("location_LAT"));
+				filter.setLocation_Lon(request.getParameter("location_LON"));
 			    filter.setPickUp_date(request.getParameter("pickUp_date"));
 			    filter.setReturn_date(request.getParameter("return_date"));
-			    //long daysBetween =ChronoUnit.DAYS.between(date2, date1);
 				if(user != null) {
 					dao.UpdateRecentSearch(filter, user.getEmail());
 					vehicules = dao.carSearch(filter);
+					
+					//Regroup the vehicle list so that the vehicles
+					//from the same depot are grouped together;
+					
+					Map<List<String>,ArrayList<Vehicule>> sortedVehicules = new HashMap<List<String>,ArrayList<Vehicule>>();
+					for(Vehicule vehicule : vehicules) {
+						String[] arr = {vehicule.getDepot_code() , vehicule.getAgence()};
+						List<String> key = Arrays.asList(arr);
+						if(!sortedVehicules.containsKey(key)) {
+							ArrayList<Vehicule> vl = new ArrayList<Vehicule>();
+							vl.add(vehicule);
+							sortedVehicules.put(key, vl);
+						}else {
+							sortedVehicules.get(key).add(vehicule);
+						}
+					}
 				    int size = vehicules.size();
-				    depots = dao.getDepots(filter.getLocation());
+				    depots = dao.getDepots(sortedVehicules);
 				    ObjectMapper mapper = new ObjectMapper();
 				    PrintWriter out = response.getWriter();
 				    String vehiculesString = mapper.writeValueAsString(vehicules);
@@ -102,7 +121,23 @@ public class CarSearch extends HttpServlet {
 				    out.write("["+vehiculesString+","+depot+","+size+"]");
 				}else {
 					vehicules = dao.carSearch(filter);
-				    depots = dao.getDepots(filter.getLocation());
+					
+					//Regroup the vehicle list so that the vehicles
+					//from the same depot are grouped together;
+					
+					Map<List<String>,ArrayList<Vehicule>> sortedVehicules = new HashMap<List<String>,ArrayList<Vehicule>>();
+					for(Vehicule vehicule : vehicules) {
+						String[] arr = {vehicule.getDepot_code() , vehicule.getAgence()};
+						List<String> key = Arrays.asList(arr);
+						if(!sortedVehicules.containsKey(key)) {
+							ArrayList<Vehicule> vl = new ArrayList<Vehicule>();
+							vl.add(vehicule);
+							sortedVehicules.put(key, vl);
+						}else {
+							sortedVehicules.get(key).add(vehicule);
+						}
+					}
+				    depots = dao.getDepots(sortedVehicules);
 				    request.setAttribute("filters", filter);
 					request.setAttribute("vehicules", vehicules);
 					RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/ClientMainPage.jsp");

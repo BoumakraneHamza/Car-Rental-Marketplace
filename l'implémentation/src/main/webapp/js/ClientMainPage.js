@@ -95,48 +95,60 @@ function clearChild(e){
 const search_section = document.querySelector(".seach_section");
 search_section.querySelector("#minimize_wrapper").addEventListener("click",()=>{
 	const search_form = document.querySelector("#search_form");
-	var param = new URLSearchParams(new FormData(search_form)).toString();
-	var xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = ()=>{
-		if(xhttp.status == 200 && xhttp.readyState == 4){
-			let json = JSON.parse(xhttp.responseText);
-			document.querySelector(".toggle-check").querySelector("input[type=checkbox]").checked = false;
-			toggleMap();
+	let address = document.querySelector("#search_bar").querySelector("#location_input").value;
+	let http = new XMLHttpRequest();
+	http.onload=()=>{
+		if(http.status == 200){
+			let json = JSON.parse(http.responseText);
 			console.log(json);
-			let cars = json[0];
-			let depots= json[1];
-			console.log(depots);
-			let size = json[2];
-			let counter = document.createElement("p");
-			counter.setAttribute("id","counter");
-			counter.innerHTML = size;
-			let text = document.createElement("p");
-			text.innerHTML = "Results";
-			clearChild(document.querySelector(".main-frame-header #tab_header #title"));
-			document.querySelector(".main-frame-header #tab_header #title").append(counter);
-			document.querySelector(".main-frame-header #tab_header #title").append(text);
-			clearChild(document.querySelector("#tab_content"));
-			for(car in cars){
-				createCars(cars[car]);
-			}
-			map.eachLayer((layer) => {
-		     if(layer['_latlng']!=undefined)
-		         layer.remove();
-			 });
-			for(depot in depots){
-				if(depots[depot]["lat"]){
-					map.setView(new L.LatLng(depots[depot]["lat"], depots[depot]["lon"]), 13);	
-					break;
+			search_form.querySelector("#location_LAT").value = json[0]["lat"];
+			search_form.querySelector("#location_LON").value = json[0]["lon"];
+			var param = new URLSearchParams(new FormData(search_form)).toString();
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = ()=>{
+				if(xhttp.status == 200 && xhttp.readyState == 4){
+					let json = JSON.parse(xhttp.responseText);
+					document.querySelector(".toggle-check").querySelector("input[type=checkbox]").checked = false;
+					toggleMap();
+					console.log(json);
+					let cars = json[0];
+					let depots= json[1];
+					console.log(depots);
+					let size = json[2];
+					let counter = document.createElement("p");
+					counter.setAttribute("id","counter");
+					counter.innerHTML = size;
+					let text = document.createElement("p");
+					text.innerHTML = "Results";
+					clearChild(document.querySelector(".main-frame-header #tab_header #title"));
+					document.querySelector(".main-frame-header #tab_header #title").append(counter);
+					document.querySelector(".main-frame-header #tab_header #title").append(text);
+					clearChild(document.querySelector("#tab_content"));
+					for(car in cars){
+						createCars(cars[car]);
+					}
+					map.eachLayer((layer) => {
+				     if(layer['_latlng']!=undefined)
+				         layer.remove();
+					 });
+					for(depot in depots){
+						if(depots[depot]["lat"]){
+							map.setView(new L.LatLng(depots[depot]["lat"], depots[depot]["lon"]), 13);	
+							break;
+						}
+					}
+					for (depot in depots){
+						createMapIcons(depots[depot]["lat"],depots[depot]["lon"],depots[depot]);
+					}
 				}
 			}
-			for (depot in depots){
-				createMapIcons(depots[depot]["lat"],depots[depot]["lon"],depots[depot]);
-			}
+			xhttp.open("post","CarSearch");
+			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhttp.send(param);
 		}
 	}
-	xhttp.open("post","CarSearch");
-	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhttp.send(param);
+	http.open("GET","https://nominatim.openstreetmap.org/search/"+address+"?format=json&accept-language=fr&limit=1");
+	http.send();
 });
 let map;
 function createSelectMap(mapWrapper,lat,lon){
@@ -170,6 +182,7 @@ function createSelectMap(mapWrapper,lat,lon){
 }
 
 function createMapIcons(lat,lon,depots){
+	console.log(depots);
 	const search_form = document.querySelector("#search_form");
 	const location = search_form.querySelector("#location").value;
 	const pick_up_date = search_form.querySelector("#pick_up_date").value;
@@ -196,7 +209,6 @@ function createMapIcons(lat,lon,depots){
 		image.src= contextPath + depots.storedCars[key].image;
 		image_slider.append(image);
 	}
-	
 	image_wrapper.append(image_slider);
 	Map_pop_up.append(image_wrapper);
 	console.log(depots.storedCars.length);

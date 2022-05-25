@@ -12,7 +12,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.json.JSONObject;
@@ -354,6 +356,10 @@ public class DAO {
 					result = statement.executeQuery();
 					if(result.next()) {
 						filter = new CarFilter();
+						filter.setLocation_LAT(result.getString("locationLat"));
+						System.out.println(filter.getLocation_LAT());
+						filter.setLocation_Lon(result.getString("locationLon"));
+						System.out.println(filter.getLocation_Lon());
 						filter.setLocation(result.getString("location"));
 						filter.setPickUp_date(result.getString("pick_up_date"));
 						filter.setReturn_date(result.getString("return_date"));
@@ -375,25 +381,31 @@ public class DAO {
 			String location = filter.getLocation();
 			String pick_date = filter.getPickUp_date();
 			String Return_date = filter.getReturn_date();
+			String locationLat = filter.getLocation_LAT();
+			String locationLon = filter.getLocation_Lon();
 			statement = connection.prepareStatement(Query);
 			statement.setString(1, email);
 			result = statement.executeQuery();
 			if(result.next()) {
 				if(result.getString("result").equals("1")) {
-					Query = "Update recentsearch set location=? ,pick_up_date=?,return_date=? where client_id=?";
+					Query = "Update recentsearch set location=? ,pick_up_date=?,return_date=? ,locationLat=? ,locationLon=? where client_id=?";
 					statement = connection.prepareStatement(Query);
 					statement.setString(1, location);
 					statement.setString(2, pick_date);
 					statement.setString(3, Return_date);
-					statement.setString(4, email);
+					statement.setString(6, email);
+					statement.setString(4, locationLat);
+					statement.setString(5, locationLon);
 					statement.executeUpdate();
 				}else {
-					Query = "Insert into recentsearch values(?,?,?,?)";
+					Query = "Insert into recentsearch values(?,?,?,?,?,?)";
 					statement = connection.prepareStatement(Query);
 					statement.setString(1, email);
 					statement.setString(2, location);
 					statement.setString(3, pick_date);
 					statement.setString(4, Return_date);
+					statement.setString(5, locationLat);
+					statement.setString(6, locationLon);
 					statement.executeUpdate();
 				}
 			}
@@ -443,7 +455,7 @@ public class DAO {
 				}
 			}
 			
-			query = "call car_search(?, ?, ?, ?, ?,?)";
+			query = "call car_search(?, ?, ?, ?, ?,?,?,?)";
 			statement = connection.prepareCall(query);
 			statement.setString(1, filter.getPickUp_date());
 			statement.setString(2, filter.getReturn_date());
@@ -451,6 +463,8 @@ public class DAO {
 			statement.setInt(4, filter.getMinPriceBound());
 			statement.setInt(5, filter.getMaxPriceBound());
 			statement.setInt(6, filter.getCarRate());
+			statement.setString(7, filter.getLocation_LAT());
+			statement.setString(8, filter.getLocation_Lon());
 			
 			ResultSet result = statement.executeQuery();			
 			
@@ -1105,57 +1119,38 @@ public class DAO {
 		return employees;
 	}
 	
-	public ArrayList<Depot> getDepots(String location) {
+	public ArrayList<Depot> getDepots(Map<List<String>,ArrayList<Vehicule>> VehiculeMap) {
 		String Query;
 		PreparedStatement statement;
 		
 		ArrayList<Depot> depots = new ArrayList<Depot>();
-		ArrayList<Vehicule> vehicules = null;
-		Depot depot;
-		
+		Depot depot = null ;
 		ResultSet result;
 		try {
-			connectDB();
-			Query = "select * \r\n"
-					+ "from depot \r\n"
-					+ "where adress = ?";
-			statement = connection.prepareStatement(Query);
-			statement.setString(1, location);
-			result = statement.executeQuery();
-			
-			while(result.next()) {
-				depot = new Depot();
-				
-				
-				depot.setCode(result.getString("code"));
-				depot.setAdress(result.getString("adress"));
-				depot.setCapacite(result.getInt("capacite"));
-				depot.setCapacite_libre(result.getInt("capacite_libre"));
-				depot.setAgence_nom(result.getString("agence_nom"));
-				depot.setGaragiste_email(result.getString("garagiste_email"));
-				depot.setLat(result.getString("lat"));
-				depot.setLon(result.getString("lon"));
-				
-				String Query2 = "Select * from vehicule where depot_code = ? and agence = ?";
-				PreparedStatement statement2 = connection.prepareStatement(Query2);
-				statement2.setString(1, depot.getCode());
-				statement2.setString(2, depot.getAgence_nom());
-				ResultSet result2 = statement2.executeQuery();
-				vehicules = new ArrayList<Vehicule>();
-				while(result2.next()) {
-					Vehicule vehicule = new Vehicule();
-					vehicule.setMatricule(result2.getString("matricule"));
-					vehicule.setMarque(result2.getString("marque"));
-					vehicule.setModele(result2.getString("modele"));
-					vehicule.setPLJ(result2.getInt("PLJ"));
-					vehicule.setImage(result2.getString("image"));
-					vehicule.setAverageRating(result2.getDouble("rating"));
-					vehicules.add(vehicule);
+			for(List<String> key : VehiculeMap.keySet()) {
+				connectDB();
+				Query = "select * \r\n"
+						+ "from depot \r\n"
+						+ "where agence_nom = ? and code = ? limit 1";
+				statement = connection.prepareStatement(Query);
+				statement.setString(1, key.get(1));
+				statement.setString(2, key.get(0));
+				result = statement.executeQuery();
+				if(result.next()) {
+					depot = new Depot();
+					depot.setCode(result.getString("code"));
+					depot.setAdress(result.getString("adress"));
+					depot.setCapacite(result.getInt("capacite"));
+					depot.setCapacite_libre(result.getInt("capacite_libre"));
+					depot.setAgence_nom(result.getString("agence_nom"));
+					depot.setGaragiste_email(result.getString("garagiste_email"));
+					depot.setLat(result.getString("lat"));
+					depot.setLon(result.getString("lon"));
+					depot.setStoredCars(VehiculeMap.get(key));
+					depots.add(depot);
 				}
-				depot.setStoredCars(vehicules);
-				depots.add(depot);
-			}
-			statement.close();
+				statement.close();
+		}
 		}catch (Exception e) {
 			System.out.println(e);
 			

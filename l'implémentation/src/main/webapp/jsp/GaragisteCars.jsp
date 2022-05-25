@@ -72,27 +72,31 @@
 			</div>
 		</div>
 			<div class="content_body">
-			<c:forEach items="${cars}" var="car">
-			<div id="car">
-				<div id="car_image">
-					<div id="cta">
-						<img id="calendar" src="${pageContext.request.contextPath}/assets/date-checked-white.svg">
-						<img onclick="showStat('${car.matricule}')" id="stats"src="${pageContext.request.contextPath}/assets/chart-pie-white.svg">
-					</div>
-					<img style="width:240px;height:151px;border-radius: 10px 10px 0px 0px ;" src="${pageContext.request.contextPath}${car.image}">
-				</div>
-				<div id="car_info">
-					<div id="names">
-						<p id="carName">${car.marque} ${car.modele}</p>
-						<input type="hidden" id="matricule" value="${car.matricule}"></input>
-					</div>
-					<div id="rating">
-						<img style="width: 18px;margin-right: 5Px;" src="${pageContext.request.contextPath}/assets/star.svg">
-						<p id="score">${car.getAverageRating()}</p>
-					</div>
-				</div>
-			</div>	
-			</c:forEach>					
+			<c:choose>
+				<c:when test="${cars.size() > 0}">
+					<c:forEach items="${cars}" var="car">
+						<div id="car">
+							<div id="car_image">
+								<div id="cta">
+									<img id="calendar" src="${pageContext.request.contextPath}/assets/date-checked-white.svg">
+									<img onclick="showStat('${car.matricule}')" id="stats"src="${pageContext.request.contextPath}/assets/chart-pie-white.svg">
+								</div>
+								<img style="width:240px;height:151px;border-radius: 10px 10px 0px 0px ;" src="${pageContext.request.contextPath}${car.image}">
+							</div>
+							<div id="car_info">
+								<div id="names">
+									<p id="carName">${car.marque} ${car.modele}</p>
+									<input type="hidden" id="matricule" value="${car.matricule}"></input>
+								</div>
+								<div id="rating">
+									<img style="width: 18px;margin-right: 5Px;" src="${pageContext.request.contextPath}/assets/star.svg">
+									<p id="score">${car.getAverageRating()}</p>
+								</div>
+							</div>
+						</div>	
+					</c:forEach>
+				</c:when>
+			</c:choose>					
 			</div>
 		</div>
 	</div>
