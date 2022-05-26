@@ -673,3 +673,99 @@
     color: #C4C4C4;
     font-weight: 500;
 }
+.PhotoCarGallery {
+    width: 90vw;
+    height: 90vh;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border: 1px solid #E4E4E4;
+    border-radius: 10px;
+}
+.PhotoCarGallery .Galleryheader {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+	position: absolute;
+}
+.PhotoCarGallery .Galleryheader #primary_header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-bottom: 1px solid #E4E4E4;
+}
+.PhotoCarGallery .Galleryheader #primary_header #title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #C4C4C4;
+}
+.PhotoCarGallery .Galleryheader  #secondary_header {
+	display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding: 10px 20px;
+    gap: 10px;
+    width: fit-content;
+    align-self: center;
+    z-index: 1;
+    background: #fff;
+    margin-top: 10px;
+    border: 1px solid #E4E4E4;
+    border-radius: 10Px;
+    opacity: 0.3;
+    cursor: pointer;
+}
+.PhotoCarGallery .Galleryheader  #secondary_header:hover{
+	opacity:1.0;
+}
+.PhotoCarGallery .Galleryheader  #secondary_header #CarFullName {
+    font-size: 25px;
+    font-weight: 500;
+}
+.PhotoCarGallery .Galleryheader  #secondary_header #Visuals {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 20px;
+	font-size: 15px;
+    font-weight: 500;
+}
+.PhotoCarGallery .Galleryheader  #secondary_header #Visuals #color {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 5px;
+}
+.PhotoCarGallery .Galleryheader  #secondary_header #Visuals #color #color_visual{
+	background: #000;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+.PhotoCarGallery .GalleryContent {
+	width: 90vw;
+    height: 83vh;
+    overflow-y: overlay;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 10px;
+	margin-top: 6vh;
+}
+.PhotoCarGallery .GalleryContent .row {
+	height: 32vh;
+    gap: 10PX;
+    display: flex;
+    width: 100%;
+	padding: 0px 20px 0px 10px;
+}

@@ -40,7 +40,8 @@ public class AjaxCarFilter extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		CarFilter filter = new CarFilter();
 		filter.setLocation(request.getParameter("location"));
-
+		filter.setLocation_LAT(request.getParameter("locationLat"));
+		filter.setLocation_Lon(request.getParameter("locationLon"));
 	    filter.setPickUp_date(request.getParameter("pickUp_date"));
 	    filter.setReturn_date(request.getParameter("return_date"));
 

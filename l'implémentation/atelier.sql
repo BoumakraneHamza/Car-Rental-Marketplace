@@ -71,7 +71,7 @@ CREATE TABLE `billing` (
 
 LOCK TABLES `billing` WRITE;
 /*!40000 ALTER TABLE `billing` DISABLE KEYS */;
-INSERT INTO `billing` VALUES (752,2530,0,'completed','pm_1L3ExdBYa9gzCakFjgGg2tkb'),(753,4210,0,'pending','pending to set'),(754,4190,0,'completed','pm_1L3FSCBYa9gzCakFExDw3XJf');
+INSERT INTO `billing` VALUES (752,2530,0,'completed','pm_1L3ExdBYa9gzCakFjgGg2tkb'),(753,4210,0,'pending','pending to set'),(754,4190,0,'completed','pm_1L3FSCBYa9gzCakFExDw3XJf'),(755,1210,0,'completed','pm_1L3Sy1BYa9gzCakF28nf5bMP');
 /*!40000 ALTER TABLE `billing` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -268,7 +268,7 @@ CREATE TABLE `depot` (
   CONSTRAINT `agency_name` FOREIGN KEY (`agence_nom`) REFERENCES `agence` (`nom`),
   CONSTRAINT `fk_garagiste` FOREIGN KEY (`garagiste_email`) REFERENCES `garagiste` (`email`),
   CONSTRAINT `check_storage` CHECK (((`capacite` >= 0) and (`capacite_libre` >= 0) and (`capacite_libre` <= `capacite`)))
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -277,7 +277,7 @@ CREATE TABLE `depot` (
 
 LOCK TABLES `depot` WRITE;
 /*!40000 ALTER TABLE `depot` DISABLE KEYS */;
-INSERT INTO `depot` VALUES (1,'Guidjel District Setif Algeria',56,56,'Hertz','g01@email.com',36.1892751,5.403493,0),(2,'batna',15,14,'Hertz','g02@email.com',35.55216,6.17968,12),(3,'constantine',15,13,'agence02',NULL,36.265,6.5833,80),(11,'Tiaret District Tiaret Algeria',15,15,'Hertz','g03@email.com',35.3468431,1.3351707165070137,0),(12,'Ouled Derradj District M\'Sila Algeria',45,45,'Hertz',NULL,35.73696290663628,4.747322392462819,0);
+INSERT INTO `depot` VALUES (1,'Guidjel District Setif Algeria',56,56,'Hertz','g01@email.com',36.1892751,5.403493,1),(2,'batna',15,14,'Hertz','g02@email.com',35.55216,6.17968,12),(3,'constantine',15,13,'agence02',NULL,36.265,6.5833,80),(11,'Tiaret District Tiaret Algeria',15,15,'Hertz','g03@email.com',35.3468431,1.3351707165070137,0),(12,'Ouled Derradj District M\'Sila Algeria',45,45,'Hertz',NULL,35.73696290663628,4.747322392462819,0),(13,'Setif District Setif Algeria',10,9,'agence02',NULL,36.182615350000006,5.4023142721312,0);
 /*!40000 ALTER TABLE `depot` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -507,7 +507,7 @@ CREATE TABLE `recentsearch` (
 
 LOCK TABLES `recentsearch` WRITE;
 /*!40000 ALTER TABLE `recentsearch` DISABLE KEYS */;
-INSERT INTO `recentsearch` VALUES ('1@email.com','setif','2022-05-25','2022-05-31','36.1892751','5.403493'),('Hamza@gmail.com','constantine','2022-05-23','2022-05-27',NULL,NULL);
+INSERT INTO `recentsearch` VALUES ('1@email.com','setif','2022-05-26','2022-05-31','36.1892751','5.403493'),('Hamza@gmail.com','constantine','2022-05-23','2022-05-27',NULL,NULL);
 /*!40000 ALTER TABLE `recentsearch` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -559,7 +559,7 @@ CREATE TABLE `reservation` (
   KEY `fk_Locataire_has_Vehicule_Locataire1_idx` (`locataire_email`),
   CONSTRAINT `fk_Locataire_has_Vehicule_Locataire1` FOREIGN KEY (`locataire_email`) REFERENCES `client` (`email`),
   CONSTRAINT `fk_Locataire_has_Vehicule_Vehicule1` FOREIGN KEY (`vehicule_matricule`) REFERENCES `vehicule` (`matricule`)
-) ENGINE=InnoDB AUTO_INCREMENT=755 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=756 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -568,6 +568,7 @@ CREATE TABLE `reservation` (
 
 LOCK TABLES `reservation` WRITE;
 /*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
+INSERT INTO `reservation` VALUES (755,'1@email.com','202212520','2022-05-25','2022-05-31','en cours','/assets/documents/contracts/755.pdf','2022-05-25','setif');
 /*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -779,7 +780,7 @@ CREATE TABLE `vehicule` (
 
 LOCK TABLES `vehicule` WRITE;
 /*!40000 ALTER TABLE `vehicule` DISABLE KEYS */;
-INSERT INTO `vehicule` VALUES ('202212401','Peugot','e-208GT','2020 Peugeot e-208 GT Line | Faro Yellow',120,'Premium','/assets/car_pics/car02.jpg','{\"1\": \"/assets/car_pics/peugot208GT-sec.jpeg\", \"2\": \"/assets/car_pics/car02-sec01.jpg\"}','{\"1\": \"/assets/car_pics/car02.jpg\", \"2\": \"/assets/car_pics/peugot208GT-sec.jpeg\", \"3\": \"/assets/car_pics/car02-sec01.jpg\"}','unlimited','agence02',3,2022,'Yellow',2.8,4,4,1,0,0,0,0,''),('202212519','porsche','911','2021 Porsche 911 Turbo S Coupe',210,'premium','/assets/car_pics/car03.jpg','{\"1\": \"/assets/car_pics/car03-sec.jpg\", \"2\": \"/assets/car_pics/car03-sec01.jpg\"}','{\"1\": \"/assets/car_pics/car03.jpg\", \"2\": \"/assets/car_pics/car03-sec.jpg\", \"3\": \"/assets/car_pics/car03-sec01.jpg\"}','unlimited','Hertz',1,2019,'black',0,2,2,1,0,0,0,0,''),('202212520','mercedes','c-class','2016 Mercedes-Benz, C-Class , C205, coupe',200,'coupe','/assets/car_pics/mercedes-benz-c-class.jpg','{\"1\": \"/assets/car_pics/mercedes-benz-c-class01.jpg\", \"2\": \"/assets/car_pics/mercedes-benz-c-class02.jpg\"}','{\"1\": \"/assets/car_pics/mercedes-benz-c-class.jpg\", \"2\": \"/assets/car_pics/mercedes-benz-c-class01.jpg\", \"3\": \"/assets/car_pics/mercedes-benz-c-class02.jpg\"}','unlimited','agence02',1,2020,'white',0,2,2,1,0,0,0,0,''),('202212521','renault','captur','2021 Renault Captur Zen',190,'suv','/assets/car_pics/RC01.jpg','{\"1\": \"/assets/car_pics/RC02.jpg\", \"2\": \"/assets/car_pics/RC03.jpg\"}','{\"1\": \"/assets/car_pics/RC01.jpg\", \"2\": \"/assets/car_pics/RC02.jpg\", \"3\": \"/assets/car_pics/RC03.jpg\"}','unlimited','Hertz',1,2021,'blue',0,4,4,1,0,0,0,0,''),('202212522','Mini','cooper Sl','2020 Mini Cooper S Hardtop Red',100,'Compact','/assets/car_pics/default01.jpg','{\"1\": \"/assets/car_pics/sec-image01.jpg\", \"2\": \"/assets/car_pics/sec-image02.jpg\"}','{\"1\": \"/assets/car_pics/default01.jpg\", \"2\": \"/assets/car_pics/sec-image01.jpg\", \"3\": \"/assets/car_pics/sec-image02.jpg\", \"4\": \"/assets/car_pics/sec-image03.jpg\"}','unlimited','Hertz',2,2021,'Red',3.2,2,2,1,0,0,0,0,'');
+INSERT INTO `vehicule` VALUES ('202212401','Peugot','e-208GT','2020 Peugeot e-208 GT Line | Faro Yellow',120,'Premium','/assets/car_pics/car02.jpg','{\"1\": \"/assets/car_pics/peugot208GT-sec.jpeg\", \"2\": \"/assets/car_pics/car02-sec01.jpg\"}','{\"1\": \"/assets/car_pics/car02.jpg\", \"2\": \"/assets/car_pics/peugot208GT-sec.jpeg\", \"3\": \"/assets/car_pics/car02-sec01.jpg\"}','unlimited','agence02',3,2022,'Yellow',2.8,4,4,1,0,0,0,0,''),('202212519','porsche','911','2021 Porsche 911 Turbo S Coupe',210,'premium','/assets/car_pics/car03.jpg','{\"1\": \"/assets/car_pics/car03-sec.jpg\", \"2\": \"/assets/car_pics/car03-sec01.jpg\"}','{\"1\": \"/assets/car_pics/car03.jpg\", \"2\": \"/assets/car_pics/car03-sec.jpg\", \"3\": \"/assets/car_pics/car03-sec01.jpg\"}','unlimited','Hertz',1,2019,'black',0,2,2,1,0,0,0,0,''),('202212520','mercedes','c-class','2016 Mercedes-Benz, C-Class , C205, coupe',200,'coupe','/assets/car_pics/mercedes-benz-c-class.jpg','{\"1\": \"/assets/car_pics/mercedes-benz-c-class01.jpg\", \"2\": \"/assets/car_pics/mercedes-benz-c-class02.jpg\"}','{\"1\": \"/assets/car_pics/mercedes-benz-c-class.jpg\", \"2\": \"/assets/car_pics/mercedes-benz-c-class01.jpg\", \"3\": \"/assets/car_pics/mercedes-benz-c-class02.jpg\"}','unlimited','Hertz',1,2020,'white',0,2,2,1,0,0,0,0,''),('202212521','renault','captur','2021 Renault Captur Zen',190,'suv','/assets/car_pics/RC01.jpg','{\"1\": \"/assets/car_pics/RC02.jpg\", \"2\": \"/assets/car_pics/RC03.jpg\"}','{\"1\": \"/assets/car_pics/RC01.jpg\", \"2\": \"/assets/car_pics/RC02.jpg\", \"3\": \"/assets/car_pics/RC03.jpg\"}','unlimited','Hertz',1,2021,'blue',0,4,4,1,0,0,0,0,''),('202212522','Mini','cooper Sl','2020 Mini Cooper S Hardtop Red',100,'Compact','/assets/car_pics/default01.jpg','{\"1\": \"/assets/car_pics/sec-image01.jpg\", \"2\": \"/assets/car_pics/sec-image02.jpg\"}','{\"1\": \"/assets/car_pics/default01.jpg\", \"2\": \"/assets/car_pics/sec-image01.jpg\", \"3\": \"/assets/car_pics/sec-image02.jpg\", \"4\": \"/assets/car_pics/sec-image03.jpg\"}','unlimited','Hertz',2,2021,'Red',3.2,2,2,1,0,0,0,0,''),('202212523','Audi','Berliner A3','2022 Audi A3 Berline 35 TFSI',135,'Sedan','/assets/car_pics/auditA3.jpg','{\"1\": \"/assets/car_pics/auditA3R01.jpg\", \"2\": \"/assets/car_pics/auditA3R02.jpg\", \"3\": \"/assets/car_pics/auditA3R03.jpg\"}','{\"1\": \"/assets/car_pics/auditA3.jpg\", \"2\": \"/assets/car_pics/auditA3R01.jpg\", \"3\": \"/assets/car_pics/auditA3R02.jpg\", \"4\": \"/assets/car_pics/auditA3R03.jpg\"}','unlimited','agence02',13,2022,'Black',2.3,4,4,2,0,0,0,0,'');
 /*!40000 ALTER TABLE `vehicule` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -898,4 +899,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-25 23:39:33
+-- Dump completed on 2022-05-26 22:48:24

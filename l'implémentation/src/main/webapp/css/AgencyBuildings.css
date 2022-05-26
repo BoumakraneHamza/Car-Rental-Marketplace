@@ -477,6 +477,102 @@
     font-weight: 600;
     color: #C4C4C4;
 }
+.sidebar .pop_upContainer {
+    width: fit-content;
+    height: fit-content;
+    position: absolute;
+    right: 25vw;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+.sidebar .pop_upContainer .hit_area {
+    width: 107%;
+    height: 105%;
+    position: absolute;
+}
+.sidebar .car_hover_popUp {
+	flex-direction: row;
+    flex-wrap: nowrap;
+    position: relative;
+    background: #fff;
+    border: 1px solid #E4E4E4;
+    display:flex;
+    border-radius: 5px;
+    overflow: hidden;
+    gap: 10px;
+}
+.sidebar .car_hover_popUp #image_wrapper{
+	width: 300px;
+    height: fit-content;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+.sidebar .car_hover_popUp #car_info {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.sidebar .car_hover_popUp #car_info #pop_up_header {
+	display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    border-bottom: 1px solid #E4E4E4;
+    gap: 5px;
+    padding: 10px 5px;
+}
+.sidebar .car_hover_popUp #car_info #pop_up_header #name_plj {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 10px;
+}
+.sidebar .car_hover_popUp #car_info #pop_up_header #name_plj #car_name {
+    font-size: 21px;
+    font-weight: 600;
+}
+.sidebar .car_hover_popUp #car_info #pop_up_header #name_plj #plj {
+    font-size: 21px;
+    font-weight: 600;
+    color: #90c73f;
+}
+.sidebar .car_hover_popUp #car_info #pop_up_header #rating_reviews {
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+.sidebar .car_hover_popUp #car_info #pop_up_header #rating_reviews #rating {
+    display: flex;
+    gap: 5px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+.sidebar .car_hover_popUp #car_info #pop_up_header #rating_reviews #rating #rating_counter {
+    font-size: 15px;
+    font-weight: 600;
+}
+.sidebar .car_hover_popUp #car_info #pop_up_header #rating_reviews #reviews_counter {
+    font-size: 14px;
+    font-weight: 500;
+    color: #C4D4D4;
+}
+.hidden{
+	display:none;
+}
+.displayed{
+	display:flex;
+}
 .sidebar .car_list {
     height: 60%;
     display: flex;

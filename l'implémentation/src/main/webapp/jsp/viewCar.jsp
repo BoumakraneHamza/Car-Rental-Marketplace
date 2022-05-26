@@ -52,6 +52,7 @@
 	</div>
 	<div class="main-frame">
 		<div class="image_wrapper">
+			<input type="hidden" id="carMatricule" value="${vehicule.matricule}">
 			<div id="main_image">
 				<img style="width: -webkit-fill-available;height: -webkit-fill-available;object-fit: cover;" src="${pageContext.request.contextPath}${vehicule.image}">
 			</div>
@@ -60,7 +61,7 @@
 					<img src="${pageContext.request.contextPath}${vehicule.getSecImages().get(key)}">
 				</c:forEach>
 			</div>
-			<button id="view_all"><img style="width: 13px;" src="${pageContext.request.contextPath}/assets/application-black.svg"><p>Show all photos</p></button>
+			<button onclick="GalleryDisplay(this)" id="view_all"><img style="width: 13px;" src="${pageContext.request.contextPath}/assets/application-black.svg"><p>Show all photos</p></button>
 		</div>
 		<div class="banner">
 			<div id="car_header">
@@ -373,6 +374,30 @@
 				</div>
 			</div>
 		</div>
+	</div>
+</div>
+<div class="PhotoCarGallery" style="display:none">
+	<div class="Galleryheader">
+		<div id="primary_header">
+			<p id="title">Car Photo Gallery</p>
+			<img onclick="GalleryDisplay(this)" style="width:14px;cursor:pointer;" src="${pageContext.request.contextPath}/assets/cancel.svg">
+		</div>
+		<div id="secondary_header">
+			<p id="CarFullName">2022 Audi A3 Berline 35 TFSI</p>
+			<div id="Visuals">
+				<div id="color">
+					<div id="color_visual"></div>
+					<p id="color_name">Black</p>
+				</div>
+				<p id="year">2022</p>
+				<p id="bodyType">Sedan</p>
+			</div>
+		</div>
+	</div>
+	<div class="GalleryContent">
+		<div class="row" id="first_row"></div>
+		<div class="row" id="second_row"></div>
+		<div class="row" id="third_row"></div>
 	</div>
 </div>
 <script type="text/javascript">

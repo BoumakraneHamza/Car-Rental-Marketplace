@@ -218,6 +218,29 @@
 				<img style="width: 12px;" src="${pageContext.request.contextPath}/assets/add-black.svg">
 				<p>Add new car</p>
 			</div>
+			<div class="pop_upContainer hidden">
+				<div class="hit_area"></div>
+				<div class="car_hover_popUp">
+					<div id="image_wrapper">
+						<img id="car_image" style="width:300px;height:200px;object-fit:cover;" src="">
+					</div>
+					<div id="car_info">
+						<div id="pop_up_header">
+							<div id="name_plj">
+								<p id="car_name"></p>
+								<p id="plj"></p>
+							</div>
+							<div id="rating_reviews">
+								<div id="rating">
+									<img style="width: 18px;" src="${pageContext.request.contextPath}/assets/star.svg">
+									<p id="rating_counter"></p>
+								</div>
+								<p id="reviews_counter">(205 reviews)</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 			<div id="cars_list">
 			</div>
 		</div>

@@ -108,7 +108,9 @@ search_section.querySelector("#minimize_wrapper").addEventListener("click",()=>{
 			xhttp.onreadystatechange = ()=>{
 				if(xhttp.status == 200 && xhttp.readyState == 4){
 					let json = JSON.parse(xhttp.responseText);
-					document.querySelector(".toggle-check").querySelector("input[type=checkbox]").checked = false;
+					document.querySelector(".filter").querySelectorAll("input[type=checkbox]").forEach((checkbox)=>{
+						checkbox.checked = false;
+					});
 					toggleMap();
 					console.log(json);
 					let cars = json[0];
@@ -395,11 +397,10 @@ function filterCars(element){
 	var location = search_form.querySelector("#location").value;
 	var pickUp_date = search_form.querySelector("#pick_up_date").value;
 	var return_date = search_form.querySelector("#return_date").value;
-	
+	var locationLat = search_form.querySelector("#location_LAT").value;
+	var locationLon = search_form.querySelector("#location_LON").value;
 	var minPrice = document.querySelector(".filter #price .range-min").value;
 	var maxPrice = document.querySelector(".filter #price .range-max").value;
-
-	console.log(typeFilter + "\n" + carRate);
 	var xhttp = new XMLHttpRequest();
 	xhttp.onload = function() {
 		if(xhttp.response){
@@ -411,7 +412,7 @@ function filterCars(element){
 		}
 	}
 	xhttp.open("GET","AjaxCarFilter?location="+location+"&pickUp_date="+pickUp_date+"&return_date="+return_date
-								  +"&typeFilter="+typeFilter+"&carRate="+carRate+"&MinPrice="+minPrice+"&MaxPrice="+maxPrice);
+								  +"&typeFilter="+typeFilter+"&carRate="+carRate+"&MinPrice="+minPrice+"&MaxPrice="+maxPrice+"&locationLat="+locationLat+"&locationLon="+locationLon);
 	xhttp.send();
 }
 function toggleMap(){

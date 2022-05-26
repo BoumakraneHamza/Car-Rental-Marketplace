@@ -102,6 +102,7 @@ public class CarSearch extends HttpServlet {
 					
 					Map<List<String>,ArrayList<Vehicule>> sortedVehicules = new HashMap<List<String>,ArrayList<Vehicule>>();
 					for(Vehicule vehicule : vehicules) {
+						System.out.println(vehicule.getAgence());
 						String[] arr = {vehicule.getDepot_code() , vehicule.getAgence()};
 						List<String> key = Arrays.asList(arr);
 						if(!sortedVehicules.containsKey(key)) {
@@ -112,6 +113,7 @@ public class CarSearch extends HttpServlet {
 							sortedVehicules.get(key).add(vehicule);
 						}
 					}
+					System.out.println(sortedVehicules.keySet());
 				    int size = vehicules.size();
 				    depots = dao.getDepots(sortedVehicules);
 				    ObjectMapper mapper = new ObjectMapper();

@@ -1,6 +1,7 @@
 package control;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -11,6 +12,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
 
 import model.CarFilter;
 import model.DAO;
@@ -66,7 +69,15 @@ public class ViewCar extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		String Matricule = request.getParameter("matricule");
+		DAO dao = new DAO();
+		Vehicule vehicule = new Vehicule();
+		vehicule = dao.getVehicule(Matricule);
+		Gson gson=  new Gson();
+		String result = gson.toJson(vehicule);
+		int size = vehicule.getAllImages().length();
+		PrintWriter out = response.getWriter();
+		out.write("["+result+","+size+"]");
 	}
 
 }

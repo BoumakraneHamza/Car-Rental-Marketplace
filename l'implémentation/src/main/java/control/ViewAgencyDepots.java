@@ -2,9 +2,7 @@ package control;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -16,12 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
 import model.Building;
 import model.DAO;
 import model.Depot;
 import model.Office;
-import model.Reservation;
 import model.User;
 import model.Vehicule;
 
@@ -73,25 +71,39 @@ public class ViewAgencyDepots extends HttpServlet {
 		
 		User user = (User) request.getSession().getAttribute("user");
 		if (user != null && user.getType().equals("directeur")) {
-			request.setAttribute("user", user);
-			String code = request.getParameter("code");
-			String type = request.getParameter("type");
-			String responseString = null ;
-			DAO dao = new DAO();
-			Depot depot = null ;
-			Office office = null ;
-			if(type.equals("depot")) {
-				depot = dao.getDepotInfo(user.getNom(),code );
-				ObjectMapper mapper = new ObjectMapper();
-				responseString = mapper.writeValueAsString(depot);
-			}else {
-				office = dao.getOfficeInfo(user.getNom(), code);
-				ObjectMapper mapper = new ObjectMapper();
-				responseString = mapper.writeValueAsString(office);
+			if(request.getParameterMap().containsKey("required_action")) {
+				if(request.getParameter("required_action").equals("Building_details")) {
+					String code = request.getParameter("code");
+					String type = request.getParameter("type");
+					String responseString = null ;
+					DAO dao = new DAO();
+					Depot depot = null ;
+					Office office = null ;
+					if(type.equals("depot")) {
+						depot = dao.getDepotInfo(user.getNom(),code );
+						ObjectMapper mapper = new ObjectMapper();
+						responseString = mapper.writeValueAsString(depot);
+					}else {
+						office = dao.getOfficeInfo(user.getNom(), code);
+						ObjectMapper mapper = new ObjectMapper();
+						responseString = mapper.writeValueAsString(office);
+					}
+					PrintWriter out = response.getWriter();
+					out.write(responseString);
+					response.setStatus(200);
+				}else if(request.getParameter("required_action").equals("car_details")) {
+					DAO dao = new DAO();
+					Vehicule vehicule = new Vehicule();
+					System.out.println(request.getParameter("matricule"));
+					vehicule = dao.getVehicule(request.getParameter("matricule"));
+					System.out.println(vehicule.getMarque());
+					PrintWriter out = response.getWriter();
+					Gson gson = new Gson();
+					String DataResponse = gson.toJson(vehicule);
+					out.write(DataResponse);
+					response.setStatus(200);
+				}
 			}
-			PrintWriter out = response.getWriter();
-			out.write(responseString);
-			response.setStatus(200);
 		} else {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/login.jsp");
 			dispatcher.forward(request, response);

@@ -595,14 +595,12 @@
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-	transition: all 0.5s ease;
 }
 .details_wrapper #wrapper {
     width: 100vw;
     height: 100vh;
     background: #818181;
     opacity: 0.3;
-	transition: all 0.5s ease;
 }
 .details_wrapper .details_banner.active{
 	margin-right: -24vw;

@@ -453,6 +453,13 @@ function showDetails(element){
 					for(let i=0;i<json.storedCars.length;i++){
 						let car = document.createElement("div");
 						car.setAttribute("id","car");
+						car.setAttribute("onmouseenter","showHoverDetails(this)");
+						car.setAttribute("onmouseleave","HideHoverDetails()");
+						let input = document.createElement("input");
+						input.setAttribute("type","hidden");
+						input.setAttribute("id","carMatricule");
+						input.value = json.storedCars[i].matricule;
+						car.append(input);
 						let car_info = document.createElement("div");
 						car_info.setAttribute("id","car_info");
 						let info = document.createElement("div");
@@ -513,7 +520,7 @@ function showDetails(element){
 	}
 	xhr.open("Post","ViewAgencyDepots");
 	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhr.send("code="+depot_code+"&type="+building_type);
+	xhr.send("code="+depot_code+"&type="+building_type+"&required_action=Building_details");
 }
 function showBuilding_Options(element){
 	let options = element.parentNode.querySelector("#option_list");
@@ -858,3 +865,45 @@ edit_asset.querySelector("#sbt_btn").addEventListener("click",(e)=>{
 	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xhttp.send(param);
 });
+let car_hover_popUp = document.querySelector(".pop_upContainer");
+car_hover_popUp.addEventListener("mouseover",()=>{
+		car_hover_popUp.classList.remove("hidden");
+		car_hover_popUp.classList.add("displayed");
+});
+car_hover_popUp.addEventListener("mouseleave",()=>{
+		car_hover_popUp.classList.add("hidden");
+		car_hover_popUp.classList.remove("displayed");
+});
+function showHoverDetails(element){
+	if(car_hover_popUp.classList.contains("hidden")){
+		let matricule = element.querySelector("#carMatricule").value;
+		let params = "required_action=car_details&matricule="+matricule;
+		console.log(matricule);
+		let xhr = new XMLHttpRequest();
+		xhr.onload = ()=>{
+				if(xhr.status == 200 && xhr.readyState == 4){
+					let json = JSON.parse(xhr.responseText);
+					console.log(json);
+					car_hover_popUp.querySelector("#car_image").src="/Atelier"+json["image"];
+					car_hover_popUp.querySelector("#car_name").innerHTML = json["marque"] +" "+json["modele"];
+					car_hover_popUp.querySelector("#plj").innerHTML ="$ "+ json["PLJ"];
+					car_hover_popUp.querySelector("#rating_counter").innerHTML = json["AverageRating"]; 
+					let offsets=element.getBoundingClientRect();
+					car_hover_popUp.style.top = (offsets.top - element.offsetHeight/2) +"px";
+					car_hover_popUp.querySelector("#car_image").addEventListener("load",()=>{
+						car_hover_popUp.classList.remove("hidden");
+						car_hover_popUp.classList.add("displayed");
+					});
+				}	
+		}
+		xhr.open("POST","ViewAgencyDepots");
+		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+		xhr.send(params);
+	}
+}
+function HideHoverDetails(){
+	if(!car_hover_popUp.classList.contains("hidden")){
+		car_hover_popUp.classList.add("hidden");
+		car_hover_popUp.classList.remove("displayed");
+	}
+}
