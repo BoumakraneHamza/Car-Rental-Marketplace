@@ -144,7 +144,6 @@ function load(){
 		}
 		dayWrapper.append(day_calendar);
 		calendar_content.append(dayWrapper);
-		
 	}
 }
 function initButtons(){

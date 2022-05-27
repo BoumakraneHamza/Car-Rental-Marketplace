@@ -1,6 +1,7 @@
 package control;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Customer;
@@ -65,15 +67,12 @@ public class SelectPayment extends HttpServlet {
 					request.setAttribute("customer_id", customerId);
 				}
 				ArrayList<CreditCard> cardlist = PaymentCardRetriever.RetrieveCards(user );
-				ArrayList<Office> offices = new ArrayList<Office>();
 				reservation = dao.getReservation(Integer.parseInt((String) request.getAttribute("reservationId")));
-				offices = dao.getAvailableOffices(reservation.getVehicule().getAgence());
 				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 				LocalDate date1 = LocalDate.parse(reservation.getPick_up_date(), dtf);
 			    LocalDate date2 = LocalDate.parse(reservation.getReturn_date(), dtf);
 			    long daysBetween = ChronoUnit.DAYS.between(date1, date2);
 			    request.setAttribute("cardlist", cardlist);
-			    request.setAttribute("offices", offices);
 			    request.setAttribute("reservation", reservation);
 			    request.setAttribute("price", reservation.getPayment().getTotal());
 			    request.setAttribute("duration", daysBetween);
@@ -93,7 +92,6 @@ public class SelectPayment extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

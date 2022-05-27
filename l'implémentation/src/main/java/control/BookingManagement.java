@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,7 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
+import com.google.gson.Gson;
+
 import model.DAO;
+import model.Office;
 import model.Reservation;
 import model.Transaction;
 import model.User;
@@ -94,6 +98,23 @@ public class BookingManagement extends HttpServlet {
 								+ "	<button id=\"cta\" onclick=\"Refresh()\">Refresh</button>");
 						out.flush();
 					}
+				}else if(request.getParameter("required_action").equals("get_offices")) {
+					DAO dao = new DAO();
+					ArrayList<Office> offices = new ArrayList<Office>();
+					String reservationId = request.getParameter("reservation_id");
+					Reservation reservation = new Reservation();
+					try {
+						reservation = dao.getReservation(Integer.parseInt(reservationId));
+					} catch (NumberFormatException | InstantiationException | IllegalAccessException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					offices = dao.getAvailableOffices(reservation.getVehicule().getAgence());
+					Gson gson = new Gson();
+					String result = gson.toJson(offices);
+					int size = offices.size();
+					PrintWriter out = response.getWriter();
+					out.write("["+result+","+size+"]");
 				}
 			}else {
 				response.setStatus(499);

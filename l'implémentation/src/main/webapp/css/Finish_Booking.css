@@ -564,3 +564,238 @@ input[type="number"]::-webkit-inner-spin-button {
     font-weight: 600;
     cursor: pointer;
 }
+.leaflet-popup-content {
+    margin: 20px 10px;
+    line-height: 1.4;
+}
+#mapPopUp {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    font-family: 'Poppins', sans-serif;
+}
+#mapPopUp p{
+	margin:0px;
+}
+#mapPopUp #secretaryHeader {
+	display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid #E4E4E4;
+    padding-bottom: 10px;
+}
+#mapPopUp #secretaryHeader #imageWrapper {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+}
+#mapPopUp #secretaryHeader #secretaryInfo {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 7px;
+    font-size: 13px;
+    font-weight: 500;
+}
+#mapPopUp #secretaryHeader #secretaryInfo #rating {
+    display: flex;
+    gap: 6px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 6px;
+}
+#mapPopUp #meetingTitle {
+    padding: 10px 0px;
+    font-size: 14px;
+    font-weight: 500;
+}
+#mapPopUp #meeting_wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    justify-content: center;
+    margin: 10Px;
+}
+#mapPopUp #cta {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 10px;
+    align-self: flex-end;
+    padding: 10px 0px 0px;
+}
+#mapPopUp #cta button {
+    width: 85px;
+    height: 35px;
+    background: none;
+    border: 1px solid #E4E4E4;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+#mapPopUp #cta #custom {
+    background: #c5dcfa;
+    color: #1a5eb7;
+    border: none;
+}
+#mapPopUp #cta #confirm {
+    background: none;
+    border: 1px solid #E4E4E4;
+}
+.selectCustomDate {
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 70vw;
+    height: 90vh;
+    background: #fff;
+    transform: translate(-50%, -50%);
+    border: 1px solid #E4E4E4;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    z-index: 2;
+}
+.selectCustomDate .tab_header {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.selectCustomDate #primary_header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #E4E4E4;
+}
+.selectCustomDate #secondary_header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding: 10px;
+    width: 70vw;
+    align-self: center;
+    justify-content: space-around;
+}
+.selectCustomDate #secondary_header #dayHeader {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 10px;
+}
+.selectCustomDate #secondary_header #dayHeader #day_name {
+    font-size: 16px;
+    font-weight: 500;
+    color: #2364ba;
+}
+.selectCustomDate #secondary_header #dayHeader #day_count {
+    font-weight: 600;
+    color: #2364ba;
+}
+.selectCustomDate #secondary_header #dayHeader #borderBottom {
+    height: 3px;
+    background: #1459b5;
+    width: 50px;
+    border-radius: 5px;
+}
+.selectCustomDate .tab_content {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    width: 70vw;
+    height: -webkit-fill-available;
+    overflow-y: overlay;
+    align-self: center;
+    border: 1px solid #E4E4E4;
+}
+.selectCustomDate .tab_content  #day {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+	border-right: 1px solid #E4E4E4;
+}
+.selectCustomDate .tab_content  #day #day_calendar {
+    width: -webkit-fill-available;
+    height: 100%;
+    display: grid;
+    grid-template-rows: repeat(8,1fr);
+}
+.selectCustomDate .tab_content  #day #day_calendar #tile {
+	padding: 0px 0px 10px;
+    border-bottom: 1px solid #E4E4E4;
+	height: 239px;
+}
+.selectCustomDate .tab_content  #day #day_calendar #tile #time {
+    font-size: 13px;
+    font-weight: 500;
+    color: #C4C4C4;
+}
+.selectCustomDate .tab_content  #day #day_calendar #tile_content {
+    width: auto;
+    height: calc(100% - 20px);
+    display: grid;
+    grid-template-rows: repeat(4,1fr);
+}
+.selectCustomDate .tab_content  #day #day_calendar #tile_content #appt {
+	display: flex;
+    flex-direction: row;
+    margin: 1px 5px;
+    padding: 0px 10px;
+    border-radius: 10px;
+    height: 50px;
+    flex-wrap: nowrap;
+    align-items: center;
+    cursor: pointer;
+    border: 1px solid #E4E4E4;
+    justify-content: space-between;
+}
+.selectCustomDate .tab_content  #day #day_calendar #tile_content #appt #appt_info {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    margin-right: 10px;
+}
+.selectCustomDate .tab_content  #day #day_calendar #tile_content #appt #appt_info #title {
+    font-size: 15px;
+    font-weight: 600;
+}
+.selectCustomDate .tab_content  #day #day_calendar #tile_content #appt #appt_info #subtitle {
+    font-size: 14px;
+    font-weight: 500;
+    color: #C4C4C4;
+}
+.selectCustomDate .tab_content  #day #day_calendar #tile_content #appt #appt_image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 30px;
+    height: 30Px;
+    overflow: hidden;
+    border-radius: 50%;
+}

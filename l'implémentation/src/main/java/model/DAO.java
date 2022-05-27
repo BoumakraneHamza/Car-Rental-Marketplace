@@ -671,15 +671,25 @@ public class DAO {
 		ResultSet result;
 		try {
 			connectDB();
-			Query = "Select * from offices where agency_name = ?";
+			Query = "Select * from offices where agency_name = ? and email_secretaire IS NOT NULL";
 			statement = connection.prepareStatement(Query);
 			statement.setString(1, Agency_name);
 			result = statement.executeQuery();
 			while(result.next()) {
 				Office office = new Office();
+				office.setEmployee_email(result.getString("email_secretaire"));
+				Employee secretaire = new Employee();
+				secretaire.setEmail(office.getEmployee_email());
+				secretaire.setType("secretary");
+				if (IsNewAccount(secretaire)) {
+					continue;
+				}
+				secretaire = getBuildingEmployee(office);
 				office.setLat(result.getString("lat"));
 				office.setLon(result.getString("lon"));
 				office.setCode(result.getString("code"));
+				office.setAvailableTime(result.getString("AvailableMeetingTime"));
+				office.setEmployee(secretaire);;
 				offices.add(office);
 			}
 		}catch(Exception e) {
@@ -1052,7 +1062,6 @@ public class DAO {
 				employee.setImage(result.getString("photo"));
 				employee.setEmail(result.getString("email"));
 				employee.setWorkingLocation(result.getString("working_location"));
-				//employee.setMonthlySession(result.getString("monthly_session"));
 				employee.setType(type);
 			}
 		} catch (SQLException | InstantiationException | IllegalAccessException e) {

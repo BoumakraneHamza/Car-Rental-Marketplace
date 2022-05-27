@@ -80,7 +80,8 @@
 					    </form>
 						<div id="createMeeting" style="visibility:hidden">
 							<p id="text">Please Select a nearby office to make an appointment for you to continue your booking process</p>
-							<button id="view_map" onclick="show_select_location()"><img src="${pageContext.request.contextPath}/assets/location.svg"></button>
+							<input value="${reservation.id}" type="hidden" id="reservationID">
+							<button id="view_map" onclick="show_select_location(this)"><img src="${pageContext.request.contextPath}/assets/location.svg"></button>
 							<button style="display:none;" id="meeting_confirmation"></button>
 						</div>
 					</div>
@@ -211,14 +212,44 @@
 		</div>
 	</div>
 </div>
+<div class="selectCustomDate" style="display:none;">
+	<div class="tab_header">
+		<div id="primary_header">
+			<p id="title">Book a Meeting</p>
+			<img onclick="selectCustom()" src="${pageContext.request.contextPath}/assets/cancel-black.svg">
+		</div>
+		<div id="secondary_header">
+			<div id="dayHeader">
+				<p id="day_name">Wednesday</p>
+				<p id="day_count">6</p>
+				<div id="borderBottom"></div>
+			</div>
+			<div id="dayHeader">
+				<p id="day_name">Thursday</p>
+				<p id="day_count">7</p>
+				<div id="borderBottom"></div>
+			</div>
+			<div id="dayHeader">
+				<p id="day_name">Sunday</p>
+				<p id="day_count">8</p>
+				<div id="borderBottom"></div>
+			</div>
+			<div id="dayHeader">
+				<p id="day_name">Monday</p>
+				<p id="day_count">9</p>
+				<div id="borderBottom"></div>
+			</div>
+		</div>
+	</div>
+	<div class="tab_content">
+	</div>
+</div>
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
    crossorigin="">
 </script>
 <script type="text/javascript">
 	var contextPath = "${pageContext.request.contextPath}";
-	var reservationId = "${reservation.id}";
-	var offices = ${offices};
 </script>
 <script src="${pageContext.request.contextPath}/js/checkout.js"></script>
 <script src="${pageContext.request.contextPath}/js/ClientMain.js"></script>

@@ -220,7 +220,7 @@ function getData(){
 				}
 				n++;
 			}
-			if(map.keys.length>0){
+			if(map.size>0){
 				create_Upcoming_Acts();
 			}
 		}
