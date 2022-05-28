@@ -18,6 +18,7 @@ function selectTab(element){
 	}
 }
 function createSelectMap(mapWrapper,lat,lon,offices,size){
+	let res = document.querySelector("#reservation_id_selected_payment").value;
 	console.log(offices);
 	map = L.map(mapWrapper, {
 	    center: [lat, lon],
@@ -77,15 +78,45 @@ function createSelectMap(mapWrapper,lat,lon,offices,size){
 		meetingDate.innerHTML = dateTime;
 		meetingWrapper.append(meetingDate);
 		mapPopUp.append(meetingWrapper);
-		let cta = document.createElement("div");
+		let cta = document.createElement("form");
 		cta.setAttribute("id","cta");
+		cta.setAttribute("action","PaymentManager");
+		cta.setAttribute("method","GET");
+		let status = document.createElement("input");
+		status.setAttribute("type","hidden");
+		status.setAttribute("name","status");
+		status.setAttribute("id","status");
+		let reservationId = document.createElement("input");
+		reservationId.setAttribute("name","reservationId");
+		reservationId.setAttribute("id","reservationId");
+		reservationId.setAttribute("type","hidden");
+		reservationId.setAttribute("value",res);
+		cta.append(status);
+		cta.append(reservationId);
 		let confirm = document.createElement("button");
 		confirm.setAttribute("id","confirm");
 		confirm.innerHTML = "confirm";
+		confirm.setAttribute("onclick","bookMeeting(this)");
 		let custom = document.createElement("button");
 		custom.setAttribute("id","custom");
-		custom.setAttribute("onclick","selectCustom()");
+		custom.setAttribute("onclick","selectCustom(this)");
 		custom.innerHTML = "custom";
+		let sec_email = document.createElement("input");
+		sec_email.setAttribute("type","hidden");
+		sec_email.setAttribute("id","sec_email");
+		sec_email.value = offices[i]["employee"]["email"];
+		let MeetingdateInput = document.createElement("input");
+		MeetingdateInput.setAttribute("type","hidden");
+		MeetingdateInput.setAttribute("id","MeetingdateInput");
+		MeetingdateInput.value = new Date(offices[i]["AvailableTime"]).toLocaleString("en-GB",{
+			day:"numeric",
+			month:"long",
+			year:"numeric",
+			hour:"2-digit",
+			minute:"2-digit"
+		});
+		cta.append(sec_email);
+		cta.append(MeetingdateInput);
 		cta.append(confirm);
 		cta.append(custom);
 		mapPopUp.append(cta);
@@ -94,14 +125,22 @@ function createSelectMap(mapWrapper,lat,lon,offices,size){
 }
 let calendar_content = document.querySelector(".selectCustomDate").querySelector(".tab_content");
 let nav =0;
+function clearChild(e){
+	var child = e.lastElementChild; 
+    while (child) {
+        e.removeChild(child);
+        child = e.lastElementChild;
+    }
+}
 function load(){
 	let dt = new Date();
 	let currentYear = dt.getFullYear();
 	let month;
 	let year;
+	let sec_header = document.querySelector("#secondary_header");
+	clearChild(sec_header);
+	clearChild(calendar_content);
 	for(let i=nav;i<4+nav;i++){
-		let day_count = document.createElement('div');
-		day_count.setAttribute('id','day_count');
 		let weekday = new Date(currentYear,dt.getMonth(),dt.getDate()+i).toLocaleDateString('en-GB',{
 			weekday:'long',
 		});
@@ -121,6 +160,18 @@ function load(){
 		year = new Date(currentYear,dt.getMonth(),dt.getDate()+i).toLocaleDateString('en-GB',{
 			year:'numeric',
 		});
+		let day_header = document.createElement("div");
+		day_header.setAttribute("id","dayHeader");
+		let day_name = document.createElement("p");
+		day_name.innerHTML = weekday;
+		day_header.append(day_name);
+		let day_count = document.createElement("p");
+		day_count.innerHTML = NumericDay;
+		day_header.append(day_count);
+		let borderBottom = document.createElement("div");
+		borderBottom.setAttribute("id","borderBottom"); 
+		day_header.append(borderBottom);
+		sec_header.append(day_header);
 		let dayWrapper = document.createElement('div');
 		dayWrapper.setAttribute("id","day");
 		let day_calendar = document.createElement('div');
@@ -132,37 +183,60 @@ function load(){
 			time.setAttribute("id","time");
 			let date1 = 8+j;
 			let date2 = 8+j+1;
-			let from = year+"-"+NumericMonth+"-"+NumericDay+" "+date1+":00"+":00";
-			let to = year+"-"+NumericMonth+"-"+NumericDay+" "+date2+":00"+":00";
 			time.innerHTML = date1+':00 , '+ date2+':00';
 			tile.append(time);
 			let tile_content = document.createElement('div');
 			tile_content.setAttribute("id","tile_content");
-			for(let key in json){
-				let meetingDate = new Date(key);
-				if (meetingDate >= new Date(from) && meetingDate <= new Date(to)){
-					let appt = document.createElement('div');
-					appt.setAttribute("id",'appt');
-					let appt_info = document.createElement('div');
-					appt_info.setAttribute('id','appt_info');
-					let title = document.createElement('p');
-					title.setAttribute('id','title');
-					title.innerHTML = "Meeting";
-					appt_info.append(title);
-					let subtitle = document.createElement('p');
-					subtitle.setAttribute('id','subtitle');
-					subtitle.innerHTML = json[key].nom + json[key].prenom;
-					appt_info.append(subtitle);
-					appt.append(appt_info);
-					let appt_image = document.createElement('div');
-					appt_image.setAttribute('id','appt_image');
-					let image = document.createElement('img');
-					image.src = '/Atelier'+json[key].image;
-					image.style.width="30px";
-					appt_image.append(image);
-					appt.append(appt_image);
-					tile_content.append(appt);
-					delete json[key];
+			for(let x=0;x<4;x++){
+				let y =1;
+				let to ;
+				let from = year+"-"+NumericMonth+"-"+NumericDay+" "+date1+":"+x*15+":00";
+				if((x+1)*15 != 60){
+					to = year+"-"+NumericMonth+"-"+NumericDay+" "+date1+":"+(x+1)*15+":00";
+				}else{
+					to = year+"-"+NumericMonth+"-"+NumericDay+" "+date2+":00"+":00";
+				}
+				for(let key in json){
+					let meetingDate = new Date(json[key]);
+					if (meetingDate > new Date(from) && meetingDate < new Date(to)){
+						let sub_tile = document.createElement("div");
+						sub_tile.setAttribute("id","sub_title");
+						let hiddenInput = document.createElement("input");
+						hiddenInput.setAttribute("id","subTile_date");
+						hiddenInput.setAttribute("type","hidden");
+						hiddenInput.value = new Date(from).toLocaleString("en-GB",{
+							year:"numeric",
+							month:"long",
+							day:"numeric",
+							hour:"2-digit",
+							minute:"2-digit"
+						}).toString();
+						sub_tile.append(hiddenInput);
+						let appt = document.createElement('div');
+						appt.setAttribute("id",'appt');
+						sub_tile.append(appt);
+						tile_content.append(sub_tile);
+						delete json[key];
+						y = 0;
+						break;
+					}
+				}
+				if(y == 1){
+					let sub_tile = document.createElement("div");
+					sub_tile.setAttribute("id","sub_title");
+					let hiddenInput = document.createElement("input");
+					hiddenInput.setAttribute("id","subTile_date");
+					hiddenInput.setAttribute("type","hidden");
+					hiddenInput.value = new Date(from).toLocaleString("en-GB",{
+						year:"numeric",
+						month:"long",
+						day:"numeric",
+						hour:"2-digit",
+						minute:"2-digit"
+					}).toString();
+					sub_tile.append(hiddenInput);
+					sub_tile.setAttribute("onclick","selectSubTile(this)");
+					tile_content.append(sub_tile);
 				}
 			}
 			tile.append(tile_content);
@@ -175,37 +249,60 @@ function load(){
 			time.setAttribute("id","time");
 			let date1 = 13+j;
 			let date2 = 13+j+1;
-			let from = year+"-"+NumericMonth+"-"+NumericDay+" "+date1+":00"+":00";
-			let to = year+"-"+NumericMonth+"-"+NumericDay+" "+date2+":00"+":00";
 			time.innerHTML = date1+':00 , '+ date2+':00';
 			tile.append(time);
 			let tile_content = document.createElement('div');
 			tile_content.setAttribute("id","tile_content");
-			for(let key in json){
-				let meetingDate = new Date(key);
-				if (meetingDate >= new Date(from) && meetingDate <= new Date(to)){
-					let appt = document.createElement('div');
-					appt.setAttribute("id",'appt');
-					let appt_info = document.createElement('div');
-					appt_info.setAttribute('id','appt_info');
-					let title = document.createElement('p');
-					title.setAttribute('id','title');
-					title.innerHTML = "Meeting";
-					appt_info.append(title);
-					let subtitle = document.createElement('p');
-					subtitle.setAttribute('id','subtitle');
-					subtitle.innerHTML = json[key].nom + json[key].prenom;
-					appt_info.append(subtitle);
-					appt.append(appt_info);
-					let appt_image = document.createElement('div');
-					appt_image.setAttribute('id','appt_image');
-					let image = document.createElement('img');
-					image.src = '/Atelier'+json[key].image;
-					image.style.width="30px";
-					appt_image.append(image);
-					appt.append(appt_image);
-					tile_content.append(appt);
-					delete json[key];
+			for(let x=0;x<4;x++){
+				let y =1;
+				let to ;
+				let from = year+"-"+NumericMonth+"-"+NumericDay+" "+date1+":"+x*15+":00";
+				if((x+1)*15 != 60){
+					to = year+"-"+NumericMonth+"-"+NumericDay+" "+date1+":"+(x+1)*15+":00";
+				}else{
+					to = year+"-"+NumericMonth+"-"+NumericDay+" "+date2+":00"+":00";
+				}
+				for(let key in json){
+					let meetingDate = new Date(json[key]);
+					if (meetingDate > new Date(from) && meetingDate < new Date(to)){
+						let sub_tile = document.createElement("div");
+						sub_tile.setAttribute("id","sub_title");
+						let hiddenInput = document.createElement("input");
+						hiddenInput.setAttribute("id","subTile_date");
+						hiddenInput.setAttribute("type","hidden");
+						hiddenInput.value = new Date(from).toLocaleString("en-GB",{
+							year:"numeric",
+							month:"long",
+							day:"numeric",
+							hour:"2-digit",
+							minute:"2-digit"
+						}).toString();
+						sub_tile.append(hiddenInput);
+						let appt = document.createElement('div');
+						appt.setAttribute("id",'appt');
+						sub_tile.append(appt);
+						tile_content.append(sub_tile);
+						delete json[key];
+						y = 0;
+						break;
+					}
+				}
+				if(y == 1){
+					let sub_tile = document.createElement("div");
+					sub_tile.setAttribute("id","sub_title");
+					sub_tile.setAttribute("onclick","selectSubTile(this)");
+					let hiddenInput = document.createElement("input");
+					hiddenInput.setAttribute("id","subTile_date");
+					hiddenInput.setAttribute("type","hidden");
+					hiddenInput.value = new Date(from).toLocaleString("en-GB",{
+						year:"numeric",
+						month:"long",
+						day:"numeric",
+						hour:"2-digit",
+						minute:"2-digit"
+					}).toString();
+					sub_tile.append(hiddenInput);
+					tile_content.append(sub_tile);
 				}
 			}
 			tile.append(tile_content);
@@ -216,8 +313,35 @@ function load(){
 		
 	}
 }
+function selectSubTile(element){
+	let confirm = document.querySelector(".confirmMeetingSelection");
+	if(element.childNodes.length === 1){
+		document.querySelector(".selectCustomDate").querySelector(".tab_content").querySelectorAll("#sub_title").forEach((sub)=>{
+			sub.style.border = "none";
+		});
+		offsets = element.getBoundingClientRect();
+		let date = new Date(element.querySelector("#subTile_date").value);
+		confirm.querySelector("#date_day").innerHTML = date.toLocaleString("en-GB",{
+			day:"numeric",
+			month:"long",
+			year:"numeric",
+		});
+		confirm.querySelector("#date_time").innerHTML = date.toLocaleString("en-GB",{
+			hour:"2-digit",
+			minute:"2-digit",
+		});
+		confirm.style.top = (offsets.top - confirm.clientHeight - 20)+"px";
+		confirm.style.left = (offsets.left)+"px";
+		element.style.border = "3px solid blue";
+		confirm.style.display="flex";
+	}
+}
+function hideConfirmMeetingSelection(){
+	let confirm = document.querySelector(".confirmMeetingSelection");
+	confirm.style.display = "none";
+}
 let json;
-function getData(){
+function getData(email){
 	let xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function(){
 		if (this.readyState == 4 && this.status == 200) {
@@ -228,10 +352,9 @@ function getData(){
 			load();
 		}
 	};
-	xhr.open("GET","GetMeetings?email = s01@email.com");
+	xhr.open("GET","MeetingsManagement?secretary_email="+email);
 	xhr.send();
 }
-getData();
 function show_select_location(element){
 	let reservationId = element.parentNode.querySelector("#reservationID").value;
 	let xhr =new XMLHttpRequest();
@@ -251,10 +374,60 @@ function show_select_location(element){
 function closeSelectMap(){
 	document.querySelector(".view_Location").style.display="none";
 }
-function selectCustom(){
+function selectCustom(element,e){
+	e = window.event;
+	e.preventDefault();
 	if(document.querySelector(".selectCustomDate").style.display=="none"){
+		let email = element.parentNode.querySelector("#sec_email").value;
 		document.querySelector(".selectCustomDate").style.display = "flex";
+		getData(email);
 	}else{
 		document.querySelector(".selectCustomDate").style.display = "none";
 	}
+}
+let confirmation = document.querySelector(".confirmMeetingSelection");
+function ConfirmMeeting(){
+	let date = confirmation.querySelector("#date_day").innerHTML +" "+confirmation.querySelector("#date_time").innerHTML;
+	let dt = new Date(date).toLocaleString("en-GB",{
+		day:"numeric",
+		month:"long",
+		year:"numeric",
+		hour:"2-digit",
+		minute:"2-digit"
+	});
+	confirmation.style.display="none";
+	document.querySelector(".selectCustomDate").style.display="none";
+	clearChild(document.querySelector("#mapPopUp").querySelector("#meeting_wrapper"));
+	document.querySelector("#mapPopUp").querySelector("#meeting_wrapper").innerHTML = dt;
+	document.querySelector("#mapPopUp").querySelector("#MeetingdateInput").value = dt;
+}
+function bookMeeting(element,e){
+	e = window.event;
+	e.preventDefault();
+	let sec_email = element.parentNode.querySelector("#sec_email").value;
+	let meeting_Date = element.parentNode.querySelector("#MeetingdateInput").value;
+	let day = new Date(meeting_Date).toLocaleString("en-GB",{
+		day:"numeric",
+	});
+	let month = new Date(meeting_Date).toLocaleString("en-GB",{
+		month:"numeric",
+	});
+	if(month<10){month = "0" +month;}
+	let year = new Date(meeting_Date).toLocaleString("en-GB",{
+		year:"numeric",
+	});
+	let hours = new Date(meeting_Date).toLocaleString("en-GB",{
+		hour:"2-digit",
+		minute:"2-digit",
+	});
+	let date = year+"-"+month+"-"+ day +" "+ hours+":00";
+	let res = document.querySelector("#reservation_id_selected_payment").value;
+	let params = "sec_email="+sec_email+"&meeting_Date="+date+"&reservation="+res;
+	let xhr = new XMLHttpRequest();
+	xhr.onload = ()=>{
+		document.querySelector("#mapPopUp").querySelector("#cta").submit();
+	}
+	xhr.open("Post","MeetingsManagement");
+	xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	xhr.send(params);
 }

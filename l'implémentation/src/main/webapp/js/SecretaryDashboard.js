@@ -225,7 +225,7 @@ function getData(){
 			}
 		}
 	};
-	xhr.open("GET","GetMeetings?limit="+3);
+	xhr.open("GET","MeetingsManagement?limit="+3);
 	xhr.send();
 }
 getData();

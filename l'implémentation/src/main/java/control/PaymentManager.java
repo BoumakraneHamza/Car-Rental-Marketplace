@@ -48,20 +48,26 @@ public class PaymentManager extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("status", request.getParameter("status"));
 		String reservationId = request.getParameter("reservationId");
-		Stripe.apiKey = "sk_test_51L1HugBYa9gzCakFmWr011KOzYFiePCxyVhXA9wsXI22PAp62dGnQ6W4UxIliQ2mojOoCWLQwUkIiXlndsRYIx8m00Cgv9Zz7z";
-		String PI = request.getParameter("payment_intent");
-		PaymentIntent paymentIntent = null;
-		try {
-			paymentIntent =
-					  PaymentIntent.retrieve(
-							  PI
-					  );
-		} catch (StripeException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		System.out.println(reservationId);
+		if(request.getParameterMap().containsKey("payment_intent")) {
+			Stripe.apiKey = "sk_test_51L1HugBYa9gzCakFmWr011KOzYFiePCxyVhXA9wsXI22PAp62dGnQ6W4UxIliQ2mojOoCWLQwUkIiXlndsRYIx8m00Cgv9Zz7z";
+			String PI = request.getParameter("payment_intent");
+			PaymentIntent paymentIntent = null;
+			try {
+				paymentIntent =
+						  PaymentIntent.retrieve(
+								  PI
+						  );
+			} catch (StripeException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			DAO dao = new DAO();
+			dao.finishPayment(reservationId, paymentIntent.getPaymentMethod(),"completed");
+		}else {
+			DAO dao = new DAO();
+			dao.finishPayment(reservationId, "Meeting With secretary","pending");
 		}
-		DAO dao = new DAO();
-		dao.finishPayment(reservationId, paymentIntent.getPaymentMethod());
 		RequestDispatcher dispatcher = request.getRequestDispatcher("Dashboard");
 		dispatcher.include(request, response);
 	}

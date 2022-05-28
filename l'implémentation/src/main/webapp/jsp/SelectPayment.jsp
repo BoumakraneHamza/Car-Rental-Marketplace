@@ -244,6 +244,18 @@
 	<div class="tab_content">
 	</div>
 </div>
+<div class="confirmMeetingSelection" style="display:none">
+	<div id="tab_header">
+		<img style="cursor:pointer;" onclick="hideConfirmMeetingSelection()" src="${pageContext.request.contextPath}/assets/cancel.svg">
+	</div>
+	<div id="tab_content">
+		<p id="date_day">20 December 2022</p>
+		<p id="date_time">10:00 to 10:30</p> 	
+	</div>
+	<div id="cta">
+		<button onclick="ConfirmMeeting()" id="confirm">Save</button>
+	</div>
+</div>
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
    crossorigin="">

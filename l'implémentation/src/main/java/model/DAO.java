@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -254,7 +255,24 @@ public class DAO {
     	statement.close();
 		return user;
 	}
-	
+	public int BookMeeting(String client,String email , String Meeting_date) {
+		PreparedStatement statement;
+		String Query = "Insert into meetings values(?,?,?)";
+		int result = 0;
+		try {
+			connectDB();
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, client);
+			statement.setString(2, email);
+			System.out.println(Meeting_date);
+			statement.setString(3, Meeting_date);
+			result = statement.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println(result);
+		return result;
+	}
 	public User getClientInfo(String email) throws SQLException, InstantiationException, IllegalAccessException {
 		User user = null ;
 		String query = "SELECT * FROM client WHERE email = ?";
@@ -602,13 +620,13 @@ public class DAO {
 		}
 		return result ;
 	}
-	public void finishPayment(String reservationId,String pm) {
+	public void finishPayment(String reservationId,String pm,String status) {
 		String Query = "Update Billing set status = ? , method=? where reservationId = "+reservationId;
 		PreparedStatement statement ;
 		try {
 			connectDB();
 			statement = connection.prepareStatement(Query);
-			statement.setString(1, "completed");
+			statement.setString(1, status);
 			statement.setString(2, pm);
 			statement.executeUpdate();
 		}catch(Exception e) {
@@ -2051,6 +2069,27 @@ public class DAO {
 			e.printStackTrace();
 		}
 		return map;
+	}
+	public List<String> getUnknownMeetings(String email , String Date1 , String Date2){
+		List<String> MeetingsDates = new ArrayList<String>();
+		String Query = "Select date from meetings where secretary=? and date<= ? and date >= ?";
+		PreparedStatement statement;
+		ResultSet result;
+		try {
+			connectDB();
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, email);
+			statement.setString(2, Date2);
+			statement.setString(3, Date1);
+			result = statement.executeQuery();
+			while(result.next()) {
+				String date = result.getString("date");
+				MeetingsDates.add(date);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return MeetingsDates;
 	}
 	public HashMap<String ,User> getMeetingsWithClient(String email,String client_email){
 		HashMap<String ,User> map = new HashMap<>();
