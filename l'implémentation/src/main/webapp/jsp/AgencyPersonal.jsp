@@ -423,7 +423,6 @@
 		<button type="submit" id="delete"><img style="width:15px;" src="${pageContext.request.contextPath}/assets/delete-icon-white.svg"><p>Delete Account</p></button>
 	</div>
 </form>
-
 <script src="${pageContext.request.contextPath}/js/agency_personal.js"></script>
 <script src="${pageContext.request.contextPath}/js/ClientMain.js"></script>
 <c:choose>

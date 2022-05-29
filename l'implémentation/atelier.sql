@@ -71,7 +71,7 @@ CREATE TABLE `billing` (
 
 LOCK TABLES `billing` WRITE;
 /*!40000 ALTER TABLE `billing` DISABLE KEYS */;
-INSERT INTO `billing` VALUES (931,1060,0,'pending','pending to set'),(932,1010,0,'pending','pending to set'),(933,1060,0,'pending','pending to set'),(934,1010,0,'pending','pending to set'),(935,960,0,'pending','pending to set'),(936,1010,0,'pending','pending to set'),(937,1060,0,'pending','pending to set'),(938,960,0,'pending','Meeting With secretary'),(939,960,0,'pending','pending to set'),(940,1010,0,'pending','Meeting With secretary'),(941,1060,0,'pending','Meeting With secretary'),(942,1060,0,'pending','Meeting With secretary'),(943,1010,0,'pending','pending to set'),(944,960,0,'pending','pending to set'),(945,960,0,'pending','Meeting With secretary'),(946,1010,0,'pending','pending to set');
+INSERT INTO `billing` VALUES (931,1060,0,'pending','pending to set'),(932,1010,0,'pending','pending to set'),(933,1060,0,'pending','pending to set'),(934,1010,0,'pending','pending to set'),(935,960,0,'pending','pending to set'),(936,1010,0,'pending','pending to set'),(937,1060,0,'pending','pending to set'),(938,960,0,'pending','Meeting With secretary'),(939,960,0,'pending','pending to set'),(940,1010,0,'pending','Meeting With secretary'),(941,1060,0,'pending','Meeting With secretary'),(942,1060,0,'pending','Meeting With secretary'),(943,1010,0,'pending','pending to set'),(944,960,0,'pending','pending to set'),(945,960,0,'pending','Meeting With secretary'),(946,1010,0,'pending','pending to set'),(947,1060,0,'pending','Meeting With secretary');
 /*!40000 ALTER TABLE `billing` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -255,7 +255,6 @@ CREATE TABLE `depot` (
   `code` int NOT NULL AUTO_INCREMENT,
   `adress` varchar(45) NOT NULL,
   `capacite` int NOT NULL,
-  `capacite_libre` int NOT NULL,
   `agence_nom` varchar(45) NOT NULL,
   `garagiste_email` varchar(45) DEFAULT NULL,
   `lat` double DEFAULT NULL,
@@ -266,8 +265,7 @@ CREATE TABLE `depot` (
   KEY `fk_Depot_Utilisateur1_idx` (`garagiste_email`),
   KEY `agency_name_idx` (`agence_nom`),
   CONSTRAINT `agency_name` FOREIGN KEY (`agence_nom`) REFERENCES `agence` (`nom`),
-  CONSTRAINT `fk_garagiste` FOREIGN KEY (`garagiste_email`) REFERENCES `garagiste` (`email`),
-  CONSTRAINT `check_storage` CHECK (((`capacite` >= 0) and (`capacite_libre` >= 0) and (`capacite_libre` <= `capacite`)))
+  CONSTRAINT `fk_garagiste` FOREIGN KEY (`garagiste_email`) REFERENCES `garagiste` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -277,7 +275,7 @@ CREATE TABLE `depot` (
 
 LOCK TABLES `depot` WRITE;
 /*!40000 ALTER TABLE `depot` DISABLE KEYS */;
-INSERT INTO `depot` VALUES (1,'Guidjel District Setif Algeria',56,56,'Hertz','g01@email.com',36.1892751,5.403493,188),(2,'batna',15,14,'Hertz','g02@email.com',35.55216,6.17968,12),(3,'constantine',15,13,'agence02',NULL,36.265,6.5833,80),(11,'Tiaret District Tiaret Algeria',15,15,'Hertz','g03@email.com',35.3468431,1.3351707165070137,0),(12,'Ouled Derradj District M\'Sila Algeria',45,45,'Hertz',NULL,35.73696290663628,4.747322392462819,0),(13,'Setif District Setif Algeria',10,9,'agence02',NULL,36.182615350000006,5.4023142721312,4);
+INSERT INTO `depot` VALUES (1,'Guidjel District Setif Algeria',56,'Hertz','g01@email.com',36.1892751,5.403493,189),(2,'batna',15,'Hertz','g02@email.com',35.55216,6.17968,12),(3,'constantine',15,'agence02',NULL,36.265,6.5833,80),(11,'Bejaia District Bejaia Algeria',20,'Hertz',NULL,36.73397103451364,5.048895145822205,0),(13,'Setif District Setif Algeria',10,'agence02',NULL,36.182615350000006,5.4023142721312,4);
 /*!40000 ALTER TABLE `depot` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -329,7 +327,7 @@ CREATE TABLE `garagiste` (
 
 LOCK TABLES `garagiste` WRITE;
 /*!40000 ALTER TABLE `garagiste` DISABLE KEYS */;
-INSERT INTO `garagiste` VALUES ('g01@email.com','Boumakrane','Hamza','/assets/profile_pics/1email.png',1,'0000-00-00','Hertz'),('g02@email.com','Oussama','Ghodbane','/assets/profile_pics/g02email.jpeg',2,NULL,'Hertz'),('g03@email.com','Hakim ','Tebri','/assets/profile_pics/g03email.jpeg',11,NULL,'Hertz');
+INSERT INTO `garagiste` VALUES ('g01@email.com','Boumakrane','Hamza','/assets/profile_pics/1email.png',1,'0000-00-00','Hertz'),('g02@email.com','Oussama','Ghodbane','/assets/profile_pics/g02email.jpeg',2,NULL,'Hertz');
 /*!40000 ALTER TABLE `garagiste` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -395,7 +393,7 @@ CREATE TABLE `meetings` (
 
 LOCK TABLES `meetings` WRITE;
 /*!40000 ALTER TABLE `meetings` DISABLE KEYS */;
-INSERT INTO `meetings` VALUES ('1@email.com','s01@email.com','2022-05-28 08:41:00','Booking'),('1@email.com','s01@email.com','2022-05-29 08:16:00','Payment'),('1@email.com','s01@email.com','2022-05-29 08:46:00','Payment'),('1@email.com','s01@email.com','2022-05-30 08:01:00','Payment'),('1@email.com','s01@email.com','2022-05-30 08:16:00','Booking'),('1@email.com','s01@email.com','2022-05-30 08:31:00','Booking'),('1@email.com','s01@email.com','2022-05-30 08:46:00','Booking'),('1@email.com','s01@email.com','2022-05-31 08:01:00','Payment'),('1@email.com','s01@email.com','2022-05-31 09:16:00','Payment'),('1@email.com','s01@email.com','2022-06-01 08:01:00','Payment'),('1@email.com','s01@email.com','2022-06-01 11:31:00','Payment'),('1@email.com','s01@email.com','2022-06-02 08:01:00','Payment'),('Hamza@gmail.com','s01@email.com','2022-05-31 08:46:00','Booking'),('Hamza@gmail.com','s01@email.com','2022-06-01 08:31:00','Payment');
+INSERT INTO `meetings` VALUES ('1@email.com','s01@email.com','2022-05-28 08:41:00','Booking'),('1@email.com','s01@email.com','2022-05-29 08:16:00','Payment'),('1@email.com','s01@email.com','2022-05-29 08:46:00','Payment'),('1@email.com','s01@email.com','2022-05-30 08:01:00','Payment'),('1@email.com','s01@email.com','2022-05-30 08:16:00','Booking'),('1@email.com','s01@email.com','2022-05-30 08:31:00','Booking'),('1@email.com','s01@email.com','2022-05-30 08:46:00','Booking'),('1@email.com','s01@email.com','2022-05-30 15:46:00','Payment'),('1@email.com','s01@email.com','2022-05-31 08:01:00','Payment'),('1@email.com','s01@email.com','2022-05-31 09:16:00','Payment'),('1@email.com','s01@email.com','2022-06-01 08:01:00','Payment'),('1@email.com','s01@email.com','2022-06-01 11:31:00','Payment'),('1@email.com','s01@email.com','2022-06-02 08:01:00','Payment'),('Hamza@gmail.com','s01@email.com','2022-05-31 08:46:00','Booking'),('Hamza@gmail.com','s01@email.com','2022-06-01 08:31:00','Payment');
 /*!40000 ALTER TABLE `meetings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -480,7 +478,7 @@ CREATE TABLE `offices` (
 
 LOCK TABLES `offices` WRITE;
 /*!40000 ALTER TABLE `offices` DISABLE KEYS */;
-INSERT INTO `offices` VALUES (1,'Hertz','constantine',0,'s01@email.com','36.3664','6.6093','2022-12-10 10:00:00'),(2,'Hertz','Djelfa District Djelfa Algeria',0,'d09@email.com','34.6510735267218','3.248866793118921','2022-12-11 12:00:00'),(3,'Hertz','Setif',0,'Secretary@email.com','36.191','5.407','2022-12-12 13:00:00'),(4,'Hertz','M\'Sila District M\'Sila Algeria',0,'s02@email.com','35.698119264003076','4.556631683459123','2022-12-13 14:00:00'),(5,'Hertz','Kherrata District Bejaia Algeria',0,NULL,'36.44549','5.254379890609391','2022-12-14 15:00:00');
+INSERT INTO `offices` VALUES (1,'Hertz','Constantine District Constantine Algeria',0,'s01@email.com','36.3479208','6.629260552496815','2022-12-10 10:00:00'),(2,'Hertz','Djelfa District Djelfa Algeria',0,'d09@email.com','34.6510735267218','3.248866793118921','2022-12-11 12:00:00'),(3,'Hertz','Setif',0,'Secretary@email.com','36.191','5.407','2022-12-12 13:00:00'),(4,'Hertz','M\'Sila District M\'Sila Algeria',0,'s02@email.com','35.698119264003076','4.556631683459123','2022-12-13 14:00:00');
 /*!40000 ALTER TABLE `offices` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -561,7 +559,7 @@ CREATE TABLE `reservation` (
   KEY `fk_Locataire_has_Vehicule_Locataire1_idx` (`locataire_email`),
   CONSTRAINT `fk_Locataire_has_Vehicule_Locataire1` FOREIGN KEY (`locataire_email`) REFERENCES `client` (`email`),
   CONSTRAINT `fk_Locataire_has_Vehicule_Vehicule1` FOREIGN KEY (`vehicule_matricule`) REFERENCES `vehicule` (`matricule`)
-) ENGINE=InnoDB AUTO_INCREMENT=947 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=948 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -570,7 +568,7 @@ CREATE TABLE `reservation` (
 
 LOCK TABLES `reservation` WRITE;
 /*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
-INSERT INTO `reservation` VALUES (945,'1@email.com','202212521','2022-05-26','2022-05-31','en cours','/assets/documents/contracts/764.pdf','2022-05-29','setif'),(946,'1@email.com','202212520','2022-05-26','2022-05-31','en cours','/assets/documents/contracts/757.pdf','2022-05-29','setif');
+INSERT INTO `reservation` VALUES (945,'1@email.com','202212521','2022-05-26','2022-05-31','en cours','/assets/documents/contracts/764.pdf','2022-05-29','setif'),(946,'1@email.com','202212520','2022-05-26','2022-05-31','en cours','/assets/documents/contracts/757.pdf','2022-05-29','setif'),(947,'1@email.com','202212519','2022-05-26','2022-05-31','en cours','/assets/documents/contracts/775.pdf','2022-05-29','setif');
 /*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -733,7 +731,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('1@email.com','12345678','client'),('d01@email.com','12345678','directeur'),('d02@gmail.com','12345678','directeur'),('d09@email.com','azerty','secretary'),('g01@email.com','test','depot manager'),('g02@email.com','test','depot manager'),('g03@email.com','test','depot manager'),('Hamza@gmail.com','test','client'),('s01@email.com','12345678','secretary'),('s02@email.com','12345678','secretary'),('Secretary@email.com','Hamza','secretary'),('serviceClient@email.com','test','service_client');
+INSERT INTO `users` VALUES ('1@email.com','12345678','client'),('d01@email.com','12345678','directeur'),('d02@gmail.com','12345678','directeur'),('d09@email.com','azerty','secretary'),('g01@email.com','test','depot manager'),('g02@email.com','test','depot manager'),('Hamza@gmail.com','test','client'),('s01@email.com','12345678','secretary'),('s02@email.com','12345678','secretary'),('Secretary@email.com','Hamza','secretary'),('serviceClient@email.com','test','service_client');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -782,63 +780,9 @@ CREATE TABLE `vehicule` (
 
 LOCK TABLES `vehicule` WRITE;
 /*!40000 ALTER TABLE `vehicule` DISABLE KEYS */;
-INSERT INTO `vehicule` VALUES ('202212401','Peugot','e-208GT','2020 Peugeot e-208 GT Line | Faro Yellow',120,'Premium','/assets/car_pics/car02.jpg','{\"1\": \"/assets/car_pics/peugot208GT-sec.jpeg\", \"2\": \"/assets/car_pics/car02-sec01.jpg\"}','{\"1\": \"/assets/car_pics/car02.jpg\", \"2\": \"/assets/car_pics/peugot208GT-sec.jpeg\", \"3\": \"/assets/car_pics/car02-sec01.jpg\"}','unlimited','agence02',3,2022,'Yellow',2.8,4,4,1,0,0,0,0,''),('202212519','porsche','911','2021 Porsche 911 Turbo S Coupe',210,'premium','/assets/car_pics/car03.jpg','{\"1\": \"/assets/car_pics/car03-sec.jpg\", \"2\": \"/assets/car_pics/car03-sec01.jpg\"}','{\"1\": \"/assets/car_pics/car03.jpg\", \"2\": \"/assets/car_pics/car03-sec.jpg\", \"3\": \"/assets/car_pics/car03-sec01.jpg\"}','unlimited','Hertz',1,2019,'black',0,2,2,1,0,0,0,0,''),('202212520','mercedes','c-class','2016 Mercedes-Benz, C-Class , C205, coupe',200,'coupe','/assets/car_pics/mercedes-benz-c-class.jpg','{\"1\": \"/assets/car_pics/mercedes-benz-c-class01.jpg\", \"2\": \"/assets/car_pics/mercedes-benz-c-class02.jpg\"}','{\"1\": \"/assets/car_pics/mercedes-benz-c-class.jpg\", \"2\": \"/assets/car_pics/mercedes-benz-c-class01.jpg\", \"3\": \"/assets/car_pics/mercedes-benz-c-class02.jpg\"}','unlimited','Hertz',1,2020,'white',0,2,2,1,0,0,0,0,''),('202212521','renault','captur','2021 Renault Captur Zen',190,'suv','/assets/car_pics/RC01.jpg','{\"1\": \"/assets/car_pics/RC02.jpg\", \"2\": \"/assets/car_pics/RC03.jpg\"}','{\"1\": \"/assets/car_pics/RC01.jpg\", \"2\": \"/assets/car_pics/RC02.jpg\", \"3\": \"/assets/car_pics/RC03.jpg\"}','unlimited','Hertz',1,2021,'blue',0,4,4,1,0,0,0,0,''),('202212522','Mini','cooper Sl','2020 Mini Cooper S Hardtop Red',100,'Compact','/assets/car_pics/default01.jpg','{\"1\": \"/assets/car_pics/sec-image01.jpg\", \"2\": \"/assets/car_pics/sec-image02.jpg\"}','{\"1\": \"/assets/car_pics/default01.jpg\", \"2\": \"/assets/car_pics/sec-image01.jpg\", \"3\": \"/assets/car_pics/sec-image02.jpg\", \"4\": \"/assets/car_pics/sec-image03.jpg\"}','unlimited','Hertz',2,2021,'Red',3.2,2,2,1,0,0,0,0,''),('202212523','Audi','Berliner A3','2022 Audi A3 Berline 35 TFSI',135,'Sedan','/assets/car_pics/auditA3.jpg','{\"1\": \"/assets/car_pics/auditA3R01.jpg\", \"2\": \"/assets/car_pics/auditA3R02.jpg\", \"3\": \"/assets/car_pics/auditA3R03.jpg\"}','{\"1\": \"/assets/car_pics/auditA3.jpg\", \"2\": \"/assets/car_pics/auditA3R01.jpg\", \"3\": \"/assets/car_pics/auditA3R02.jpg\", \"4\": \"/assets/car_pics/auditA3R03.jpg\"}','unlimited','agence02',13,2022,'Black',2.3,4,4,2,0,0,0,0,'');
+INSERT INTO `vehicule` VALUES ('202212401','Peugot','e-208GT','2020 Peugeot e-208 GT Line | Faro Yellow',120,'Premium','/assets/car_pics/car02.jpg','{\"1\": \"/assets/car_pics/peugot208GT-sec.jpeg\", \"2\": \"/assets/car_pics/car02-sec01.jpg\"}','{\"1\": \"/assets/car_pics/car02.jpg\", \"2\": \"/assets/car_pics/peugot208GT-sec.jpeg\", \"3\": \"/assets/car_pics/car02-sec01.jpg\"}','unlimited','agence02',3,2022,'Yellow',2.8,4,4,1,0,0,0,0,'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum imperdiet felis vel tellus tempor, blandit vulputate felis eleifend. Donec ut libero scelerisque, fringilla tortor varius,Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum imperdiet felis vel tellus tempor, blandit vulputate felis eleifend. Donec ut libero scelerisque, fringilla tortor varius,Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum imperdiet felis vel tellus tempor, blandit vulputate felis eleifend. Donec ut libero scelerisque, fringilla tortor varius,'),('202212519','porsche','911','2021 Porsche 911 Turbo S Coupe',210,'premium','/assets/car_pics/car03.jpg','{\"1\": \"/assets/car_pics/car03-sec.jpg\", \"2\": \"/assets/car_pics/car03-sec01.jpg\"}','{\"1\": \"/assets/car_pics/car03.jpg\", \"2\": \"/assets/car_pics/car03-sec.jpg\", \"3\": \"/assets/car_pics/car03-sec01.jpg\"}','unlimited','Hertz',1,2019,'black',0,2,2,1,0,0,0,0,'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum imperdiet felis vel tellus tempor, blandit vulputate felis eleifend. Donec ut libero scelerisque, fringilla tortor varius,Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum imperdiet felis vel tellus tempor, blandit vulputate felis eleifend. Donec ut libero scelerisque, fringilla tortor varius,Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum imperdiet felis vel tellus tempor, blandit vulputate felis eleifend. Donec ut libero scelerisque, fringilla tortor varius,'),('202212520','mercedes','c-class','2016 Mercedes-Benz, C-Class , C205, coupe',200,'coupe','/assets/car_pics/mercedes-benz-c-class.jpg','{\"1\": \"/assets/car_pics/mercedes-benz-c-class01.jpg\", \"2\": \"/assets/car_pics/mercedes-benz-c-class02.jpg\"}','{\"1\": \"/assets/car_pics/mercedes-benz-c-class.jpg\", \"2\": \"/assets/car_pics/mercedes-benz-c-class01.jpg\", \"3\": \"/assets/car_pics/mercedes-benz-c-class02.jpg\"}','unlimited','Hertz',1,2020,'white',0,2,2,1,0,0,0,0,'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum imperdiet felis vel tellus tempor, blandit vulputate felis eleifend. Donec ut libero scelerisque, fringilla tortor varius,Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum imperdiet felis vel tellus tempor, blandit vulputate felis eleifend. Donec ut libero scelerisque, fringilla tortor varius,Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum imperdiet felis vel tellus tempor, blandit vulputate felis eleifend. Donec ut libero scelerisque, fringilla tortor varius,'),('202212521','renault','captur','2021 Renault Captur Zen',190,'suv','/assets/car_pics/RC01.jpg','{\"1\": \"/assets/car_pics/RC02.jpg\", \"2\": \"/assets/car_pics/RC03.jpg\"}','{\"1\": \"/assets/car_pics/RC01.jpg\", \"2\": \"/assets/car_pics/RC02.jpg\", \"3\": \"/assets/car_pics/RC03.jpg\"}','unlimited','Hertz',1,2021,'blue',0,4,4,1,0,0,0,0,'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum imperdiet felis vel tellus tempor, blandit vulputate felis eleifend. Donec ut libero scelerisque, fringilla tortor varius,Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum imperdiet felis vel tellus tempor, blandit vulputate felis eleifend. Donec ut libero scelerisque, fringilla tortor varius,Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum imperdiet felis vel tellus tempor, blandit vulputate felis eleifend. Donec ut libero scelerisque, fringilla tortor varius,'),('202212522','Mini','cooper Sl','2020 Mini Cooper S Hardtop Red',100,'Compact','/assets/car_pics/default01.jpg','{\"1\": \"/assets/car_pics/sec-image01.jpg\", \"2\": \"/assets/car_pics/sec-image02.jpg\"}','{\"1\": \"/assets/car_pics/default01.jpg\", \"2\": \"/assets/car_pics/sec-image01.jpg\", \"3\": \"/assets/car_pics/sec-image02.jpg\", \"4\": \"/assets/car_pics/sec-image03.jpg\"}','unlimited','Hertz',2,2021,'Red',3.2,2,2,1,0,0,0,0,'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum imperdiet felis vel tellus tempor, blandit vulputate felis eleifend. Donec ut libero scelerisque, fringilla tortor varius,Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum imperdiet felis vel tellus tempor, blandit vulputate felis eleifend. Donec ut libero scelerisque, fringilla tortor varius,Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum imperdiet felis vel tellus tempor, blandit vulputate felis eleifend. Donec ut libero scelerisque, fringilla tortor varius,'),('202212523','Audi','Berliner A3','2022 Audi A3 Berline 35 TFSI',135,'Sedan','/assets/car_pics/auditA3.jpg','{\"1\": \"/assets/car_pics/auditA3R01.jpg\", \"2\": \"/assets/car_pics/auditA3R02.jpg\", \"3\": \"/assets/car_pics/auditA3R03.jpg\"}','{\"1\": \"/assets/car_pics/auditA3.jpg\", \"2\": \"/assets/car_pics/auditA3R01.jpg\", \"3\": \"/assets/car_pics/auditA3R02.jpg\", \"4\": \"/assets/car_pics/auditA3R03.jpg\"}','unlimited','agence02',13,2022,'Black',2.3,4,4,2,0,0,0,0,'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum imperdiet felis vel tellus tempor, blandit vulputate felis eleifend. Donec ut libero scelerisque, fringilla tortor varius,Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum imperdiet felis vel tellus tempor, blandit vulputate felis eleifend. Donec ut libero scelerisque, fringilla tortor varius,Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum imperdiet felis vel tellus tempor, blandit vulputate felis eleifend. Donec ut libero scelerisque, fringilla tortor varius,');
 /*!40000 ALTER TABLE `vehicule` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `vehicule_AFTER_INSERT` AFTER INSERT ON `vehicule` FOR EACH ROW BEGIN
-UPDATE `atelier`.`depot` SET `capacite_libre` = `capacite_libre` - 1 WHERE (`code` = `NEW`.`depot_code` and agence_nom = NEW.agence);
-END */;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `vehicule_AFTER_UPDATE` AFTER UPDATE ON `vehicule` FOR EACH ROW BEGIN
-IF (`OLD`.`depot_code` != `NEW`.`depot_code`) THEN
-UPDATE `atelier`.`depot` SET `capacite_libre` = `capacite_libre` + 1 WHERE (`code` = `OLD`.`depot_code` and agence_nom = OLD.agence);
-UPDATE `atelier`.`depot` SET `capacite_libre` = `capacite_libre` - 1 WHERE (`code` = `NEW`.`depot_code` and agence_nom = NEW.agence);
-END IF;
-END */;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `vehicule_AFTER_DELETE` AFTER DELETE ON `vehicule` FOR EACH ROW BEGIN
-UPDATE `atelier`.`depot` SET `capacite_libre` = `capacite_libre` + 1 WHERE (`code` = `OLD`.`depot_code`and agence_nom = OLD.agence);
-END */;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Dumping events for database 'atelier'
@@ -901,4 +845,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-29  7:13:07
+-- Dump completed on 2022-05-29 22:02:20

@@ -850,7 +850,15 @@ public class DAO {
 				depot.setCode(result.getString("code"));
 				depot.setAdress(result.getString("adress"));
 				depot.setCapacite(result.getInt("capacite"));
-				depot.setCapacite_libre(result.getInt("capacite_libre"));
+				Query = "Select count(matricule) as count from vehicule where depot_code =? and Agence=?";
+				ResultSet set ;
+				PreparedStatement statement2 = connection.prepareStatement(Query);
+				statement2.setString(1,depot.getCode());
+				statement2.setString(2,AgencyName);
+				set = statement2.executeQuery();
+				if(set.next()) {
+					depot.setCapacite_libre(result.getInt("capacite") - set.getInt("count"));
+				}
 				depot.setAgence_nom(result.getString("agence_nom"));
 				depot.setEmployee_email(result.getString("garagiste_email"));
 				depot.setLat(result.getString("lat"));
@@ -941,8 +949,16 @@ public class DAO {
 				depot.setCode(result.getString("code"));
 				depot.setAdress(result.getString("adress"));
 				depot.setCapacite(result.getInt("capacite"));
-				depot.setCapacite_libre(result.getInt("capacite_libre"));
 				depot.setAgence_nom(result.getString("agence_nom"));
+				Query = "Select count(matricule) as count from vehicule where depot_code =? and Agence=?";
+				ResultSet set ;
+				PreparedStatement statement2 = connection.prepareStatement(Query);
+				statement2.setString(1,depot.getCode());
+				statement2.setString(2,depot.getAgence_nom());
+				set = statement2.executeQuery();
+				if(set.next()) {
+					depot.setCapacite_libre(result.getInt("capacite") - set.getInt("count"));
+				}
 				depot.setEmployee_email(result.getString("garagiste_email"));
 				depot.setLat(result.getString("lat"));
 				depot.setLon(result.getString("lon"));
@@ -1384,17 +1400,16 @@ public class DAO {
 		int result = 0;
 		try {
 			connectDB();
-			Query = "INSERT INTO `atelier`.`depot` (`adress`, `capacite`, `capacite_libre`, `agence_nom`, `garagiste_email`, `lat`, `lon`) \r\n" 
+			Query = "INSERT INTO `atelier`.`depot` (`adress`, `capacite`, `agence_nom`, `garagiste_email`, `lat`, `lon`) \r\n" 
 					+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
 			statement = connection.prepareStatement(Query);
 			
 			statement.setString(1, depot.getAdress());
 			statement.setInt(2, depot.getCapacite());
-			statement.setInt(3, depot.getCapacite_libre());
-			statement.setString(4, depot.getAgence_nom());
-			statement.setString(5, depot.getGaragiste_email());
-			statement.setString(6, depot.getLat());
-			statement.setString(7, depot.getLon());
+			statement.setString(3, depot.getAgence_nom());
+			statement.setString(4, depot.getGaragiste_email());
+			statement.setString(5, depot.getLat());
+			statement.setString(6, depot.getLon());
 			
 			result = statement.executeUpdate();
 			
@@ -1481,8 +1496,16 @@ public class DAO {
 					building = new Depot();
 					building.setCode(result.getString("code"));
 					building.setAdress(result.getString("adress"));
+					Query = "Select count(matricule) as count from vehicule where depot_code =? and Agence=?";
+					ResultSet set ;
+					PreparedStatement statement2 = connection.prepareStatement(Query);
+					statement2.setString(1,code);
+					statement2.setString(2,agence);
+					set = statement2.executeQuery();
+					if(set.next()) {
+						((Depot)building).setCapacite_libre(result.getInt("capacite") - set.getInt("count"));
+					}
 					((Depot)building).setCapacite(result.getInt("capacite"));
-					((Depot)building).setCapacite_libre(result.getInt("capacite_libre"));
 					building.setAgence_nom(result.getString("agence_nom"));
 					building.setEmployee_email(result.getString("garagiste_email"));
 					building.setLat(result.getString("lat"));
@@ -1529,29 +1552,31 @@ public class DAO {
 			connectDB();
 			if(building.getType().equals("depot")) {
 				Query = "UPDATE `atelier`.`depot` \r\n"
-						+ "SET `adress` = ?, `garagiste_email` = ?, `lat` = ?, `lon` = ?, `Bookings` = ?, `capacite` = ?, `capacite_libre` = ?\r\n"
+						+ "SET `adress` = ?, `garagiste_email` = ?, `lat` = ?, `lon` = ?, `capacite` = ?\r\n"
 						+ "WHERE (`code` = ?) and (`agence_nom` = ?)";
 				statement = connection.prepareStatement(Query);
 				
-				statement.setInt(6, ((Depot)building).getCapacite());
-				statement.setInt(7, ((Depot)building).getCapacite_libre());
-				statement.setString(8, building.getCode());
-				statement.setString(9, building.getAgence_nom());
+				statement.setInt(5, ((Depot)building).getCapacite());
+				statement.setString(6, building.getCode());
+				statement.setString(7, building.getAgence_nom());
 			} else {
 				Query = "UPDATE `atelier`.`offices` \r\n"
-						+ "SET `address` = ?, `email_secretaire` = ?, `lat` = ?, `lon` = ?,`Bookings` = ?\r\n"
+						+ "SET `address` = ?, `email_secretaire` = ?, `lat` = ?, `lon` = ?\r\n"
 						+ "WHERE (`code` = ?) and (`agency_name` = ?)";
 				statement = connection.prepareStatement(Query);
 				
-				statement.setString(6, building.getCode());
-				statement.setString(7, building.getAgence_nom());
+				statement.setString(5, building.getCode());
+				statement.setString(6, building.getAgence_nom());
 			}
 			
 			statement.setString(1, building.getAdress());
-			statement.setString(2, building.getEmployee_email());
+			String email = null;
+			if(building.getEmployee_email().length() > 0) {
+				email = building.getEmployee_email();
+			}
+			statement.setString(2, email);
 			statement.setString(3, building.getLat());
 			statement.setString(4, building.getLon());
-			statement.setInt(5, building.getBookings());
 			
 			result = statement.executeUpdate();
 			

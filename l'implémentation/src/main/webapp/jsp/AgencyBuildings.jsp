@@ -238,6 +238,12 @@
 								<p id="reviews_counter">(205 reviews)</p>
 							</div>
 						</div>
+						<div id="pop_up_description"></div>
+						<div id="pop_up_cta">
+							<button id="edit"><img src="${pageContext.request.contextPath}/assets/pen-white.svg"><p>Edit</p></button>
+							<button id="move"><img style="width: 13px;" src="${pageContext.request.contextPath}/assets/move-icon-white.svg"><p>Move</p></button>
+							<button id="delete"><img src="${pageContext.request.contextPath}/assets/delete-icon-white.svg"><p>Delete</p></button>
+						</div>
 					</div>
 				</div>
 			</div>

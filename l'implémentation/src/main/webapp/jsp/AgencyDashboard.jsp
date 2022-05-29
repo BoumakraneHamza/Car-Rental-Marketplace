@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib   uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -317,150 +318,20 @@
 				<p>Status</p>
 			</div>
 			<div id="team_list">
-				<div id="employee">
-					<div id="employee_image">
-						<img style="width:50px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
+				<c:forEach items="${employees}" var="employee">
+					<div id="employee">
+						<div id="employee_image">
+							<img style="width:50px;height: 50px;object-fit: cover;border-radius: 50%;" src="${pageContext.request.contextPath}${employee.image}">
+						</div>
+						<div id="employee_info">
+							<p id="employee_name">${employee.nom} ${employee.prenom}</p>
+							<p id="employement">${employee.type}</p>
+						</div>
+						<div id="employee_status">
+							<img style="width:25px; margin-right:10px;" src="${pageContext.request.contextPath}/assets/check-circle-not-fill.svg"><p id="status">Online</p>
+						</div>
 					</div>
-					<div id="employee_info">
-						<p id="employee_name">Nathanial Olson</p>
-						<p id="employement">Depot Manager</p>
-					</div>
-					<div id="employee_status">
-						<img style="width:25px; margin-right:10px;" src="${pageContext.request.contextPath}/assets/check-circle-not-fill.svg"><p id="status">Online</p>
-					</div>
-				</div>
-				<div id="employee">
-					<div id="employee_image">
-						<img style="width:50px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
-					</div>
-					<div id="employee_info">
-						<p id="employee_name">Nathanial Olson</p>
-						<p id="employement">Depot Manager</p>
-					</div>
-					<div id="employee_status">
-						<img style="width:25px; margin-right:10px;" src="${pageContext.request.contextPath}/assets/check-circle-not-fill.svg"><p id="status">Online</p>
-					</div>
-				</div>
-				<div id="employee">
-					<div id="employee_image">
-						<img style="width:50px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
-					</div>
-					<div id="employee_info">
-						<p id="employee_name">Nathanial Olson</p>
-						<p id="employement">Depot Manager</p>
-					</div>
-					<div id="employee_status">
-						<img style="width:25px; margin-right:10px;" src="${pageContext.request.contextPath}/assets/check-circle-not-fill.svg"><p id="status">Online</p>
-					</div>
-				</div>
-				<div id="employee">
-					<div id="employee_image">
-						<img style="width:50px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
-					</div>
-					<div id="employee_info">
-						<p id="employee_name">Nathanial Olson</p>
-						<p id="employement">Depot Manager</p>
-					</div>
-					<div id="employee_status">
-						<img style="width:25px; margin-right:10px;" src="${pageContext.request.contextPath}/assets/check-circle-not-fill.svg"><p id="status">Online</p>
-					</div>
-				</div>
-				<div id="employee">
-					<div id="employee_image">
-						<img style="width:50px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
-					</div>
-					<div id="employee_info">
-						<p id="employee_name">Nathanial Olson</p>
-						<p id="employement">Depot Manager</p>
-					</div>
-					<div id="employee_status">
-						<img style="width:25px; margin-right:10px;" src="${pageContext.request.contextPath}/assets/check-circle-not-fill.svg"><p id="status">Online</p>
-					</div>
-				</div>
-				<div id="employee">
-					<div id="employee_image">
-						<img style="width:50px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
-					</div>
-					<div id="employee_info">
-						<p id="employee_name">Nathanial Olson</p>
-						<p id="employement">Depot Manager</p>
-					</div>
-					<div id="employee_status">
-						<img style="width:25px; margin-right:10px;" src="${pageContext.request.contextPath}/assets/check-circle-not-fill.svg"><p id="status">Online</p>
-					</div>
-				</div>
-				<div id="employee">
-					<div id="employee_image">
-						<img style="width:50px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
-					</div>
-					<div id="employee_info">
-						<p id="employee_name">Nathanial Olson</p>
-						<p id="employement">Depot Manager</p>
-					</div>
-					<div id="employee_status">
-						<img style="width:25px; margin-right:10px;" src="${pageContext.request.contextPath}/assets/check-circle-not-fill.svg"><p id="status">Online</p>
-					</div>
-				</div>
-				<div id="employee">
-					<div id="employee_image">
-						<img style="width:50px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
-					</div>
-					<div id="employee_info">
-						<p id="employee_name">Nathanial Olson</p>
-						<p id="employement">Depot Manager</p>
-					</div>
-					<div id="employee_status">
-						<img style="width:25px; margin-right:10px;" src="${pageContext.request.contextPath}/assets/check-circle-not-fill.svg"><p id="status">Online</p>
-					</div>
-				</div>
-				<div id="employee">
-					<div id="employee_image">
-						<img style="width:50px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
-					</div>
-					<div id="employee_info">
-						<p id="employee_name">Nathanial Olson</p>
-						<p id="employement">Depot Manager</p>
-					</div>
-					<div id="employee_status">
-						<img style="width:25px; margin-right:10px;" src="${pageContext.request.contextPath}/assets/check-circle-not-fill.svg"><p id="status">Online</p>
-					</div>
-				</div>
-				<div id="employee">
-					<div id="employee_image">
-						<img style="width:50px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
-					</div>
-					<div id="employee_info">
-						<p id="employee_name">Nathanial Olson</p>
-						<p id="employement">Depot Manager</p>
-					</div>
-					<div id="employee_status">
-						<img style="width:25px; margin-right:10px;" src="${pageContext.request.contextPath}/assets/check-circle-not-fill.svg"><p id="status">Online</p>
-					</div>
-				</div>
-				<div id="employee">
-					<div id="employee_image">
-						<img style="width:50px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
-					</div>
-					<div id="employee_info">
-						<p id="employee_name">Nathanial Olson</p>
-						<p id="employement">Depot Manager</p>
-					</div>
-					<div id="employee_status">
-						<img style="width:25px; margin-right:10px;" src="${pageContext.request.contextPath}/assets/check-circle-not-fill.svg"><p id="status">Online</p>
-					</div>
-				</div>
-				<div id="employee">
-					<div id="employee_image">
-						<img style="width:50px" src="${pageContext.request.contextPath}/assets/profile_pics/1email.png">
-					</div>
-					<div id="employee_info">
-						<p id="employee_name">Nathanial Olson</p>
-						<p id="employement">Depot Manager</p>
-					</div>
-					<div id="employee_status">
-						<img style="width:25px; margin-right:10px;" src="${pageContext.request.contextPath}/assets/check-circle-not-fill.svg"><p id="status">Online</p>
-					</div>
-				</div>
+				</c:forEach>
 			</div>
 		</div>
 	</div>

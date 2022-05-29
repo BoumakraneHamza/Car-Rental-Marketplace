@@ -97,9 +97,7 @@ public class BuildingManagement extends HttpServlet {
 				Building building;
 				if (request.getParameter("type").equals("depot")) {
 					building = new Depot();
-					
 					((Depot)building).setCapacite(Integer.parseInt(request.getParameter("capacity")));
-					((Depot)building).setCapacite_libre(Integer.parseInt(request.getParameter("capacity")));
 				} else {
 					building = new Office();
 				}

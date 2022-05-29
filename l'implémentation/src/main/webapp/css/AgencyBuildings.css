@@ -567,6 +567,59 @@
     font-weight: 500;
     color: #C4D4D4;
 }
+.sidebar .car_hover_popUp #car_info #pop_up_description {
+    font-size: 13px;
+    max-height: 55px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 10px 0px;
+}
+.sidebar .car_hover_popUp #car_info #pop_up_cta {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 0px 10px 0px 0px;
+    margin-top: 5px;
+}
+.sidebar .car_hover_popUp #car_info #pop_up_cta button{
+	display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 82px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+    gap: 5px;
+    cursor: pointer;
+}
+.sidebar .car_hover_popUp #car_info #pop_up_cta #edit{
+	background: #0071ff;
+    border: none;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+}
+.sidebar .car_hover_popUp #car_info #pop_up_cta #move{
+	background:#96c841;
+	border: none;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+}
+.sidebar .car_hover_popUp #car_info #pop_up_cta #delete{
+	background:#e12d39;
+	border: none;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+}
 .hidden{
 	display:none;
 }
