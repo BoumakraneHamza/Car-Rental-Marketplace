@@ -682,6 +682,54 @@ public class DAO {
 		}
 		return reservation;
 	}
+	public boolean verifiyFollowing (String AgencyName , String ClientEmail) {
+		boolean result = false ; 
+		String Query = "SELECT EXISTS(SELECT * FROM follow WHERE clientemail = ? and agencyName = ?) as result";
+		PreparedStatement statement ;
+		ResultSet set ;
+		try {
+			connectDB();
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, ClientEmail);
+			statement.setString(2, AgencyName);
+			set = statement.executeQuery();
+			if(set.next()) {
+				if(Integer.parseInt(set.getString("result"))==1) {
+					result = true;
+				}
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result ;
+	}
+	public int FollowAgency(String AgencyName , String clientEmail) {
+		int result = 0 ; 
+		String Query = "SELECT EXISTS(SELECT * FROM follow WHERE clientemail = ? and agencyName = ?) as result";
+		PreparedStatement statement ;
+		ResultSet set ;
+		try {
+			connectDB();
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, clientEmail);
+			statement.setString(2, AgencyName);
+			set = statement.executeQuery();
+			if(set.next()) {
+				if(Integer.parseInt(set.getString("result"))==1) {
+					Query = "Delete from follow where clientemail = ? and agencyName = ?";
+				}else {
+					Query = "Insert into follow values(?,?)";
+				}
+				statement = connection.prepareStatement(Query);
+				statement.setString(1, clientEmail);
+				statement.setString(2, AgencyName);
+				result = statement.executeUpdate();
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return result ;
+	}
 	public ArrayList<Office> getAvailableOffices(String Agency_name){
 		ArrayList<Office> offices = new ArrayList<Office>();
 		PreparedStatement statement ;

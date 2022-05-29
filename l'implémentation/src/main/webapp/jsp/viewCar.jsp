@@ -146,8 +146,16 @@
 							</div>
 						</div>
 						<div id="cta">
-							<div id="image_wrapper">
-								<img style="width: 18px;" src="${pageContext.request.contextPath}/assets/follow-icon.svg">
+							<input type="hidden" id="agencyName" value="${vehicule.getAgence()}">
+							<div id="image_wrapper" onclick="followAgency(this)">
+								<c:choose>
+									<c:when test="${following == false}">
+										<img style="width: 18px;" src="${pageContext.request.contextPath}/assets/follow-icon.svg">
+									</c:when>
+									<c:otherwise>
+										<img style="width: 18px;" src="${pageContext.request.contextPath}/assets/check-round-white.svg">
+									</c:otherwise>
+								</c:choose>
 							</div>
 							<div id="image_wrapper">
 								<img style="width: 18px;" src="${pageContext.request.contextPath}/assets/message-icon-purple.svg">

@@ -71,7 +71,7 @@ CREATE TABLE `billing` (
 
 LOCK TABLES `billing` WRITE;
 /*!40000 ALTER TABLE `billing` DISABLE KEYS */;
-INSERT INTO `billing` VALUES (931,1060,0,'pending','pending to set'),(932,1010,0,'pending','pending to set'),(933,1060,0,'pending','pending to set'),(934,1010,0,'pending','pending to set'),(935,960,0,'pending','pending to set'),(936,1010,0,'pending','pending to set'),(937,1060,0,'pending','pending to set'),(938,960,0,'pending','Meeting With secretary'),(939,960,0,'pending','pending to set'),(940,1010,0,'pending','Meeting With secretary'),(941,1060,0,'pending','Meeting With secretary'),(942,1060,0,'pending','Meeting With secretary'),(943,1010,0,'pending','pending to set'),(944,960,0,'pending','pending to set'),(945,960,0,'pending','Meeting With secretary'),(946,1010,0,'pending','pending to set'),(947,1060,0,'pending','Meeting With secretary');
+INSERT INTO `billing` VALUES (931,1060,0,'pending','pending to set'),(932,1010,0,'pending','pending to set'),(933,1060,0,'pending','pending to set'),(934,1010,0,'pending','pending to set'),(935,960,0,'pending','pending to set'),(936,1010,0,'pending','pending to set'),(937,1060,0,'pending','pending to set'),(938,960,0,'pending','Meeting With secretary'),(939,960,0,'pending','pending to set'),(940,1010,0,'pending','Meeting With secretary'),(941,1060,0,'pending','Meeting With secretary'),(942,1060,0,'pending','Meeting With secretary'),(943,1010,0,'pending','pending to set'),(944,960,0,'pending','pending to set'),(945,960,0,'pending','Meeting With secretary'),(946,1010,0,'pending','pending to set'),(947,1060,0,'pending','Meeting With secretary'),(948,685,0,'completed','pm_1L4tpcBYa9gzCakFYkpPrTbN');
 /*!40000 ALTER TABLE `billing` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -275,7 +275,7 @@ CREATE TABLE `depot` (
 
 LOCK TABLES `depot` WRITE;
 /*!40000 ALTER TABLE `depot` DISABLE KEYS */;
-INSERT INTO `depot` VALUES (1,'Guidjel District Setif Algeria',56,'Hertz','g01@email.com',36.1892751,5.403493,189),(2,'batna',15,'Hertz','g02@email.com',35.55216,6.17968,12),(3,'constantine',15,'agence02',NULL,36.265,6.5833,80),(11,'Bejaia District Bejaia Algeria',20,'Hertz',NULL,36.73397103451364,5.048895145822205,0),(13,'Setif District Setif Algeria',10,'agence02',NULL,36.182615350000006,5.4023142721312,4);
+INSERT INTO `depot` VALUES (1,'Guidjel District Setif Algeria',56,'Hertz','g01@email.com',36.1892751,5.403493,189),(2,'batna',15,'Hertz','g02@email.com',35.55216,6.17968,12),(3,'constantine',15,'agence02',NULL,36.265,6.5833,80),(11,'Bejaia District Bejaia Algeria',20,'Hertz',NULL,36.73397103451364,5.048895145822205,0),(13,'Setif District Setif Algeria',10,'agence02',NULL,36.182615350000006,5.4023142721312,5);
 /*!40000 ALTER TABLE `depot` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -298,6 +298,33 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+--
+-- Table structure for table `follow`
+--
+
+DROP TABLE IF EXISTS `follow`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `follow` (
+  `clientemail` varchar(45) NOT NULL,
+  `agencyName` varchar(45) NOT NULL,
+  PRIMARY KEY (`clientemail`,`agencyName`),
+  KEY `followingagency_idx` (`agencyName`),
+  CONSTRAINT `followingagency` FOREIGN KEY (`agencyName`) REFERENCES `agence` (`nom`),
+  CONSTRAINT `followingclient` FOREIGN KEY (`clientemail`) REFERENCES `client` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `follow`
+--
+
+LOCK TABLES `follow` WRITE;
+/*!40000 ALTER TABLE `follow` DISABLE KEYS */;
+INSERT INTO `follow` VALUES ('1@email.com','Hertz');
+/*!40000 ALTER TABLE `follow` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `garagiste`
@@ -559,7 +586,7 @@ CREATE TABLE `reservation` (
   KEY `fk_Locataire_has_Vehicule_Locataire1_idx` (`locataire_email`),
   CONSTRAINT `fk_Locataire_has_Vehicule_Locataire1` FOREIGN KEY (`locataire_email`) REFERENCES `client` (`email`),
   CONSTRAINT `fk_Locataire_has_Vehicule_Vehicule1` FOREIGN KEY (`vehicule_matricule`) REFERENCES `vehicule` (`matricule`)
-) ENGINE=InnoDB AUTO_INCREMENT=948 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=949 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -568,7 +595,7 @@ CREATE TABLE `reservation` (
 
 LOCK TABLES `reservation` WRITE;
 /*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
-INSERT INTO `reservation` VALUES (945,'1@email.com','202212521','2022-05-26','2022-05-31','en cours','/assets/documents/contracts/764.pdf','2022-05-29','setif'),(946,'1@email.com','202212520','2022-05-26','2022-05-31','en cours','/assets/documents/contracts/757.pdf','2022-05-29','setif'),(947,'1@email.com','202212519','2022-05-26','2022-05-31','en cours','/assets/documents/contracts/775.pdf','2022-05-29','setif');
+INSERT INTO `reservation` VALUES (947,'1@email.com','202212519','2022-05-26','2022-05-31','en cours','/assets/documents/contracts/775.pdf','2022-05-29','setif'),(948,'1@email.com','202212523','2022-05-26','2022-05-31','en cours','/assets/documents/contracts/772.pdf','2022-05-29','setif');
 /*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -845,4 +872,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-29 22:02:20
+-- Dump completed on 2022-05-29 23:16:17

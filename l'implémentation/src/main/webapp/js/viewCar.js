@@ -85,7 +85,7 @@ function setLoading(isLoading) {
 function GalleryDisplay(element){
 	if(document.querySelector(".PhotoCarGallery").style.display=="none"){
 		let matricule = element.parentNode.querySelector("#carMatricule").value;
-		let param = "matricule="+matricule;
+		let param = "required_action=viewGallery&matricule="+matricule;
 		let xhr = new XMLHttpRequest();
 		xhr.onload =()=>{
 			if(xhr.status == 200 && xhr.readyState == 4){
@@ -125,4 +125,17 @@ function GalleryDisplay(element){
 	}else{
 		document.querySelector(".PhotoCarGallery").style.display = "none";
 	}
+}
+function followAgency(element){
+	let agencyName = element.parentNode.querySelector("#agencyName").value;
+	let param = "required_action=followAgency&agencyName="+agencyName;
+	let xhr = new XMLHttpRequest();
+	xhr.onload =()=>{
+		if(xhr.status == 200 && xhr.readyState == 4){
+			element.querySelector("img").src="/Atelier/assets/check-round-white.svg";
+		}
+	}
+	xhr.open("POST","ViewCar");
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.send(param);
 }

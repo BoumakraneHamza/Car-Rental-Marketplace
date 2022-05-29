@@ -89,25 +89,29 @@ public class ReservationList extends HttpServlet {
 				e.printStackTrace();
 			}
 			Stripe.apiKey = "sk_test_51L1HugBYa9gzCakFmWr011KOzYFiePCxyVhXA9wsXI22PAp62dGnQ6W4UxIliQ2mojOoCWLQwUkIiXlndsRYIx8m00Cgv9Zz7z";
-
-			PaymentMethod paymentMethod = null;
-			try {
-				paymentMethod =
-				  PaymentMethod.retrieve(
-				    reservation.getPayment().getMethod()
-				  );
-			} catch (StripeException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			CreditCard card = new CreditCard();
-			card.setCardNumber(paymentMethod.getCard().getLast4());
-			card.setExp_month(paymentMethod.getCard().getExpMonth().toString());
-			card.setExp_year(paymentMethod.getCard().getExpYear().toString());
 			String res = gson.toJson(reservation);
-			String cardRes = gson.toJson(card);
-			PrintWriter out = response.getWriter();
-			out.print("["+res+","+cardRes+"]");
+			if(reservation.getPayment().getMethod().substring(0, 2).equals("pm")) {
+				PaymentMethod paymentMethod = null;
+				try {
+					paymentMethod =
+					  PaymentMethod.retrieve(
+					    reservation.getPayment().getMethod()
+					  );
+				} catch (StripeException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				CreditCard card = new CreditCard();
+				card.setCardNumber(paymentMethod.getCard().getLast4());
+				card.setExp_month(paymentMethod.getCard().getExpMonth().toString());
+				card.setExp_year(paymentMethod.getCard().getExpYear().toString());
+				String cardRes = gson.toJson(card);
+				PrintWriter out = response.getWriter();
+				out.print("["+res+","+cardRes+"]");
+			}else {
+				PrintWriter out = response.getWriter();
+				out.print("["+res+"]");
+			}
 		}
 	
 	}

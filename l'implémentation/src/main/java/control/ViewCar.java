@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 
 import model.CarFilter;
 import model.DAO;
+import model.User;
 import model.Vehicule;
 
 /**
@@ -38,6 +39,7 @@ public class ViewCar extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		User user = (User) request.getSession().getAttribute("user");
 		CarFilter filter = new CarFilter();
 		String matricule = null;
 		if(request.getParameterMap().containsKey("car")) {
@@ -61,6 +63,12 @@ public class ViewCar extends HttpServlet {
 		request.setAttribute("price", daysBetween * vehicule.getPLJ());
 		request.setAttribute("vehicule", vehicule);
 		request.setAttribute("filter", filter);
+		if(user != null) {
+			request.setAttribute("following", dao.verifiyFollowing(vehicule.getAgence(), user.getEmail()));
+		}else {
+			request.setAttribute("following", false);
+		}
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/viewCar.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -69,15 +77,30 @@ public class ViewCar extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String Matricule = request.getParameter("matricule");
-		DAO dao = new DAO();
-		Vehicule vehicule = new Vehicule();
-		vehicule = dao.getVehicule(Matricule);
-		Gson gson=  new Gson();
-		String result = gson.toJson(vehicule);
-		int size = vehicule.getAllImages().length();
-		PrintWriter out = response.getWriter();
-		out.write("["+result+","+size+"]");
+		User user = (User) request.getSession().getAttribute("user");
+		if(request.getParameterMap().containsKey("required_action")) {
+			if(request.getParameter("required_action").equals("viewGallery")){
+				String Matricule = request.getParameter("matricule");
+				DAO dao = new DAO();
+				Vehicule vehicule = new Vehicule();
+				vehicule = dao.getVehicule(Matricule);
+				Gson gson=  new Gson();
+				String result = gson.toJson(vehicule);
+				int size = vehicule.getAllImages().length();
+				PrintWriter out = response.getWriter();
+				out.write("["+result+","+size+"]");
+			}else if(request.getParameter("required_action").equals("followAgency")) {
+				String clientEmail = user.getEmail();
+				String agencyName = request.getParameter("agencyName");
+				DAO dao = new DAO();
+				if(dao.FollowAgency(agencyName, clientEmail) == 1) {
+					response.setStatus(200);
+				}else {
+					response.setStatus(300);
+				}
+			}
+		}
+		
 	}
 
 }
