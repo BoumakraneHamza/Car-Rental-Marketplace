@@ -2,6 +2,7 @@ package control;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -19,6 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 import model.DAO;
+import model.Meeting;
 import model.User;
 
 /**
@@ -48,14 +50,14 @@ public class MeetingsManagement extends HttpServlet {
 				ObjectMapper mapper = new ObjectMapper();
 				PrintWriter out = response.getWriter();
 				if (request.getParameterMap().containsKey("client_email")) {
-					HashMap<String,User> Meetings = new HashMap<>();
+					HashMap<String,Meeting> Meetings = new HashMap<>();
 					Meetings = dao.getMeetingsWithClient(user.getEmail(), request.getParameter("client_email"));
 					String MeetingString = mapper.writeValueAsString(Meetings);
 					out.write(MeetingString);
 				}else {
 					String limit = request.getParameter("limit");
-					HashMap<String,User> Calendar = new HashMap<>();
-					HashMap<String,User> Upcoming = new HashMap<>();
+					HashMap<String,Meeting> Calendar = new HashMap<>();
+					HashMap<String,Meeting> Upcoming = new HashMap<>();
 					Calendar = dao.getMeetings(user.getEmail());
 					Upcoming = dao.getUpcomingMeetings(user.getEmail(),limit);
 					String CalendarString = mapper.writeValueAsString(Calendar);
@@ -89,18 +91,41 @@ public class MeetingsManagement extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) request.getSession().getAttribute("user");
 		if (user != null) {
-			String email = request.getParameter("sec_email");
-			String Meeting_date = request.getParameter("meeting_Date");
-			String reservationId = request.getParameter("reservation");
-			DAO dao = new DAO();
-			if(dao.BookMeeting(user.getEmail(), email, Meeting_date) == 1) {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("PaymentManager");
-				request.setAttribute("status", "success");
-				request.setAttribute("reservationId", reservationId);
-				dispatcher.forward(request, response);
-			}else{
-				response.setStatus(300);
+			if(user.getType().equals("client")) {
+				String email = request.getParameter("sec_email");
+				String Meeting_date = request.getParameter("meeting_Date");
+				String reservationId = request.getParameter("reservation");
+				DAO dao = new DAO();
+				if(dao.BookMeeting(user.getEmail(), email, Meeting_date,"Payment") == 1) {
+					RequestDispatcher dispatcher = request.getRequestDispatcher("PaymentManager");
+					request.setAttribute("status", "success");
+					request.setAttribute("reservationId", reservationId);
+					dispatcher.forward(request, response);
+				}else{
+					response.setStatus(300);
+				}	
+			}else if(user.getType().equals("secretary")) {
+				String client_email = request.getParameter("client_email");
+				String meeting_type = request.getParameter("meeting_type");
+				String date = request.getParameter("meeting_Date");
+				DAO dao = new DAO();
+				if(dao.BookMeeting(client_email, user.getEmail(), date,meeting_type) == 1) {
+					User client = null;
+					try {
+						client = dao.getClientInfo(client_email);
+					} catch (InstantiationException | IllegalAccessException | SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					Gson gson = new Gson();
+					String clientInfo = gson.toJson(client);
+					PrintWriter out = response.getWriter();
+					out.write(clientInfo);
+				}else{
+					response.setStatus(300);
+				}	
 			}
+			
 		}
 	}
 }

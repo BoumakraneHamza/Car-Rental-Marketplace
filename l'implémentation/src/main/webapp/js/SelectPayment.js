@@ -242,6 +242,7 @@ function load(){
 			tile.append(tile_content);
 			day_calendar.append(tile);
 		}
+		//this outer loop is responsible for iterating through the tiles between 13:00 and 17:00
 		for (let j=0;j<4;j++){
 			let tile = document.createElement('div');
 			tile.setAttribute("id","tile");
@@ -253,6 +254,7 @@ function load(){
 			tile.append(time);
 			let tile_content = document.createElement('div');
 			tile_content.setAttribute("id","tile_content");
+			//this inner intermediary loop is responsible for creating the sub-tiles for it tile
 			for(let x=0;x<4;x++){
 				let y =1;
 				let to ;
@@ -262,6 +264,7 @@ function load(){
 				}else{
 					to = year+"-"+NumericMonth+"-"+NumericDay+" "+date2+":00"+":00";
 				}
+				//this inner loop verifies if a value is compatible with the tile values
 				for(let key in json){
 					let meetingDate = new Date(json[key]);
 					if (meetingDate > new Date(from) && meetingDate < new Date(to)){
@@ -416,7 +419,7 @@ function bookMeeting(element,e){
 	let year = new Date(meeting_Date).toLocaleString("en-GB",{
 		year:"numeric",
 	});
-	let hours = new Date(meeting_Date).toLocaleString("en-GB",{
+	let hours = new Date(new Date(meeting_Date).getTime() + 60000).toLocaleString("en-GB",{
 		hour:"2-digit",
 		minute:"2-digit",
 	});

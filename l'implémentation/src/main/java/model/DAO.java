@@ -255,17 +255,17 @@ public class DAO {
     	statement.close();
 		return user;
 	}
-	public int BookMeeting(String client,String email , String Meeting_date) {
+	public int BookMeeting(String client,String email , String Meeting_date,String meeting_type) {
 		PreparedStatement statement;
-		String Query = "Insert into meetings values(?,?,?)";
+		String Query = "Insert into meetings values(?,?,?,?)";
 		int result = 0;
 		try {
 			connectDB();
 			statement = connection.prepareStatement(Query);
 			statement.setString(1, client);
 			statement.setString(2, email);
-			System.out.println(Meeting_date);
 			statement.setString(3, Meeting_date);
+			statement.setString(4, meeting_type);
 			result = statement.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -2049,8 +2049,8 @@ public class DAO {
 		}
 		return requests;
 	}
-	public HashMap<String ,User> getMeetings(String email){
-		HashMap<String ,User> map = new HashMap<>();
+	public HashMap<String ,Meeting> getMeetings(String email){
+		HashMap<String ,Meeting> map = new HashMap<>();
 		String Query = "Select * from meetings where secretary=?";
 		PreparedStatement statement;
 		ResultSet result;
@@ -2061,9 +2061,13 @@ public class DAO {
 			result = statement.executeQuery();
 			while(result.next()) {
 				User user = new User();
+				Meeting meeting = new Meeting();
 				user = getClientInfo(result.getString("client"));
+				meeting.setClient(user);
 				String date = result.getString("date");
-				map.put(date, user);
+				meeting.setMeetingDate(date);
+				meeting.setMeetingType(result.getString("type"));
+				map.put(date, meeting);
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -2091,8 +2095,8 @@ public class DAO {
 		}
 		return MeetingsDates;
 	}
-	public HashMap<String ,User> getMeetingsWithClient(String email,String client_email){
-		HashMap<String ,User> map = new HashMap<>();
+	public HashMap<String ,Meeting> getMeetingsWithClient(String email,String client_email){
+		HashMap<String ,Meeting> map = new HashMap<>();
 		String Query = "Select * from meetings where secretary=? and client = ?";
 		PreparedStatement statement;
 		ResultSet result;
@@ -2104,17 +2108,21 @@ public class DAO {
 			result = statement.executeQuery();
 			while(result.next()) {
 				User user = new User();
+				Meeting meeting = new Meeting();
 				user = getClientInfo(result.getString("client"));
+				meeting.setClient(user);
 				String date = result.getString("date");
-				map.put(date, user);
+				meeting.setMeetingDate(date);
+				meeting.setMeetingType(result.getString("type"));
+				map.put(date, meeting);
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		return map;
 	}
-	public HashMap<String ,User> getUpcomingMeetings(String email ,String limit){
-		HashMap<String ,User> map = new HashMap<>();
+	public HashMap<String ,Meeting> getUpcomingMeetings(String email ,String limit){
+		HashMap<String ,Meeting> map = new HashMap<>();
 		String Query = "Select * from meetings where secretary=? and date > ? Order By date asc limit "+limit;
 		 LocalDateTime now = LocalDateTime.now(); 
 		 String Time = now.toString();
@@ -2128,9 +2136,13 @@ public class DAO {
 			result = statement.executeQuery();
 			while(result.next()) {
 				User user = new User();
+				Meeting meeting = new Meeting();
 				user = getClientInfo(result.getString("client"));
+				meeting.setClient(user);
 				String date = result.getString("date");
-				map.put(date, user);
+				meeting.setMeetingDate(date);
+				meeting.setMeetingType(result.getString("type"));
+				map.put(date, meeting);
 			}
 		}catch(Exception e) {
 			e.printStackTrace();

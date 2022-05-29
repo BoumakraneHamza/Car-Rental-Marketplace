@@ -252,6 +252,29 @@
 	</div>
 	</div>
 </div>
+<div class="confirmMeetingSelection" id="tab" style="display:none">
+	<div id="tab_header">
+		<p id="title">Book a Meeting</p>
+		<div id="image_wrapper" onclick="hideConfirmMeetingSelection()">
+			<img style="cursor:pointer;"  src="${pageContext.request.contextPath}/assets/cancel.svg">
+		</div>
+	</div>
+	<div id="tab_content">
+		<div id="meeting_type">
+			<input type="hidden" id="selected_Option" value="">
+			<div class="option selected" id="Sign Up" onclick="selectConfirmMeetingType(this)"><p>Sign up</p></div>
+			<div class="option" id="Payment" onclick="selectConfirmMeetingType(this)"><p>Payment</p></div>
+			<div class="option" id="Booking" onclick="selectConfirmMeetingType(this)"><p>Booking</p></div>
+		</div>
+		<div id="time">
+			<p id="Date_time"></p>
+		</div>
+		<input type="text" name="email" id="client_email" placeholder="client email">
+	</div>
+	<div id="cta">
+		<button onclick="bookMeeting()" id="confirm">Save</button>
+	</div>
+</div>
 <script src="${pageContext.request.contextPath}/js/ClientMain.js"></script>
 <script src="${pageContext.request.contextPath}/js/SecretarySchedule.js"></script>
 <%@include file="/jsp/dropdownList.jsp"%>

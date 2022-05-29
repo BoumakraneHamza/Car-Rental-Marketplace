@@ -97,7 +97,7 @@
 						<div id="tab_content">
 						<div id="main_content">
 							<div id="client_image">
-								<img style="width:185px;" src="${pageContext.request.contextPath}${map.get(key).image}">
+								<img style="width:185px;" src="${pageContext.request.contextPath}${map.get(key).client.image}">
 							</div>
 							<div id="client_main_info">
 								<div id="tile">
@@ -106,7 +106,7 @@
 								</div>
 								<div id="tile">
 									<p id="title">N° warnings :</p>
-									<p id="value">${map.get(key).alert}</p>
+									<p id="value">${map.get(key).client.alert}</p>
 								</div>
 							</div>
 						</div>
@@ -114,12 +114,12 @@
 							<div id="content_header">
 								<div id="left">
 									<div id="renter_name_status">
-										<div id="Renter_name" onclick="showProfile(this)"><p>${map.get(key).nom} ${map.get(key).prenom}</p><input id="client_email" type="hidden" value="${map.get(key).email}"></div>
+										<div id="Renter_name" onclick="showProfile(this)"><p>${map.get(key).client.nom} ${map.get(key).client.prenom}</p><input id="client_email" type="hidden" value="${map.get(key).client.email}"></div>
 										<div id="status"><img style="width:20px;" src="${pageContext.request.contextPath}/assets/check-circle-not-fill.svg"><p id="value">Active</p></div>
 									</div>
 									<div id="renter_age_gender">
 										<p id="Age">${age} Yrs,</p>
-										<p id="gender"> ${map.get(key).sexe}</p>
+										<p id="gender"> ${map.get(key).client.sexe}</p>
 									</div>
 								</div>
 								<div id="right">
@@ -150,13 +150,13 @@
 								<div id="left">
 									<div id="tile">
 										<p id="title">Customer Phone</p>
-										<p id="value">${map.get(key).telephone}</p>
+										<p id="value">${map.get(key).client.telephone}</p>
 									</div>
 								</div>
 								<div id="right">
 									<div id="tile">
 										<p id="title">Customer Email</p>
-										<p id="value">${map.get(key).email}</p>
+										<p id="value">${map.get(key).client.email}</p>
 									</div>
 								</div>
 							</div>
@@ -177,7 +177,7 @@
 								</div>
 								<div id="tile">
 									<p id="title">N° warnings :</p>
-									<p id="value">${map.get(key).alert}</p>
+									<p id="value">${map.get(key).client.alert}</p>
 								</div>
 							</div>
 						</div>
@@ -185,12 +185,12 @@
 							<div id="content_header">
 								<div id="left">
 									<div id="renter_name_status">
-										<div id="Renter_name" onclick="showProfile(this)"><p>${map.get(key).nom} ${map.get(key).prenom}</p><input id="client_email" type="hidden" value="${map.get(key).email}"></div>
+										<div id="Renter_name" onclick="showProfile(this)"><p>${map.get(key).client.nom} ${map.get(key).client.prenom}</p><input id="client_email" type="hidden" value="${map.get(key).client.email}"></div>
 										<div id="status"><img style="width:20px;" src="${pageContext.request.contextPath}/assets/check-circle-not-fill.svg"><p id="value">Active</p></div>
 									</div>
 									<div id="renter_age_gender">
 										<p id="Age">${age} Yrs,</p>
-										<p id="gender"> ${map.get(key).sexe}</p>
+										<p id="gender"> ${map.get(key).client.sexe}</p>
 									</div>
 								</div>
 								<div id="right">
@@ -221,13 +221,13 @@
 								<div id="left">
 									<div id="tile">
 										<p id="title">Customer Phone</p>
-										<p id="value">${map.get(key).telephone}</p>
+										<p id="value">${map.get(key).client.telephone}</p>
 									</div>
 								</div>
 								<div id="right">
 									<div id="tile">
 										<p id="title">Customer Email</p>
-										<p id="value">${map.get(key).email}</p>
+										<p id="value">${map.get(key).client.email}</p>
 									</div>
 								</div>
 							</div>

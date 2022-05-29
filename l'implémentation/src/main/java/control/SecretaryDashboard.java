@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.DAO;
+import model.Meeting;
 import model.User;
 
 /**
@@ -37,7 +38,7 @@ public class SecretaryDashboard extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) request.getSession().getAttribute("user");
 		if (user != null) {
-			HashMap<String,User> map = new HashMap<>();
+			HashMap<String,Meeting> map = new HashMap<>();
 			DAO dao = new DAO();
 			map = dao.getUpcomingMeetings(user.getEmail(), "1");
 			String counter = null;
@@ -45,9 +46,9 @@ public class SecretaryDashboard extends HttpServlet {
 			request.setAttribute("map", map);
 			int age = 0;
 			for (String key : map.keySet()) {
-				LocalDate BirthDate = LocalDate.parse(map.get(key).getDate_naissance(), formatter);
+				LocalDate BirthDate = LocalDate.parse(map.get(key).getClient().getDate_naissance(), formatter);
 				age = Period.between(BirthDate, LocalDate.now()).getYears();
-				counter = dao.GetReservationCounter(map.get(key).getEmail());
+				counter = dao.GetReservationCounter(map.get(key).getClient().getEmail());
 			}
 			request.setAttribute("counter", counter);
 			request.setAttribute("age", age);

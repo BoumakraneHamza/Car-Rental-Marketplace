@@ -134,7 +134,7 @@ function create_Upcoming_Acts(){
 			const email = document.createElement("input");
 			email.setAttribute("type","hidden");
 			email.setAttribute("id","client_email");
-			email.setAttribute("value",ApptArray[0].email);
+			email.setAttribute("value",ApptArray[0].client.email);
 			appt.append(email);
 			const apptTime = document.createElement('div');
 			apptTime.setAttribute("id","time");
@@ -151,11 +151,11 @@ function create_Upcoming_Acts(){
 			appt_info.setAttribute("id","appt_info");
 			const title = document.createElement('p');
 			title.setAttribute('id','title');
-			title.innerHTML = "Meeting";
+			title.innerHTML = ApptArray[0].meetingType;
 			appt_info.append(title);
 			const subtitle = document.createElement('p');
 			subtitle.setAttribute('id','subtitle');
-			subtitle.innerHTML = ApptArray[0].nom +" "+ApptArray[0].prenom;
+			subtitle.innerHTML = ApptArray[0].client.nom +" "+ApptArray[0].client.prenom;
 			appt_info.append(subtitle);
 			appt.append(appt_info);
 			const image_wrapper = document.createElement("div");
@@ -164,7 +164,7 @@ function create_Upcoming_Acts(){
 			client_image.setAttribute("id","client_image");
 			const image = document.createElement('img');
 			image.style.width="50px";
-			image.src="/Atelier"+ApptArray[0].image;
+			image.src="/Atelier"+ApptArray[0].client.image;
 			client_image.append(image);
 			image_wrapper.append(client_image);
 			appt.append(image_wrapper);
