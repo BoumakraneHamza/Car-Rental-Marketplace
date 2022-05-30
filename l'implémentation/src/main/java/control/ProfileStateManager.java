@@ -96,7 +96,6 @@ public class ProfileStateManager extends HttpServlet {
 		User user = (User) request.getSession().getAttribute("user");
 		if (user != null) {
 			DAO dao = new DAO();
-			request.setAttribute("user", user);
 			Employee employee = new Employee();
 			employee.setNom(request.getParameter("nom"));
 			employee.setPrenom(request.getParameter("prenom"));
@@ -110,6 +109,14 @@ public class ProfileStateManager extends HttpServlet {
 		    employee.setImage(databasePath);
 		    int result = dao.CompleteEmployeeRegistration(employee);
 		    if(result == 1) {
+		    	request.getSession().removeAttribute("user");
+		    	try {
+					user = dao.checkLogin(user.getEmail(), user.getPassword());
+				} catch (InstantiationException | IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		    	request.getSession().setAttribute("user", user);
 				doGet(request, response);
 		    }
 		}else {

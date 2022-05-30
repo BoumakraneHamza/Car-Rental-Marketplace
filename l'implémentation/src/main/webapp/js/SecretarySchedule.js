@@ -481,7 +481,7 @@ function bookMeeting(){
 	});
 	let option = confirm.querySelector("#selected_Option").value;
 	let date = year+"-"+month+"-"+ day +" "+ hours+":00";
-	let params = "client_email="+client_email+"&meeting_Date="+date+"&meeting_type="+option;
+	let params = "required_action=add_meeting&client_email="+client_email+"&meeting_Date="+date+"&meeting_type="+option;
 	let xhr = new XMLHttpRequest();
 	xhr.onload = ()=>{
 		if(xhr.status == 200 && xhr.readyState == 4){

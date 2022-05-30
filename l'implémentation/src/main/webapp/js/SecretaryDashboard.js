@@ -229,3 +229,73 @@ function getData(){
 	xhr.send();
 }
 getData();
+function start_Meeting(){
+	let xhr =new XMLHttpRequest();
+	let params = "required_action=start_meeting";
+	xhr.onload = ()=>{
+		if (xhr.status == 200 && xhr.readyState == 4){
+			let json = JSON.parse(xhr.responseText);
+			console.log(json);
+		}
+	}
+	xhr.open("Post","MeetingsManagement");
+	xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	xhr.send(params);
+}
+let confirmPayBtn = document.querySelector(".confirmPayment").querySelector("#confirmationBTN");
+let checkbox = document.querySelector(".confirmPayment").querySelector("#term_confirmation");
+checkbox.addEventListener("click",()=>{
+	if(checkbox.checked == true){
+		console.log("checked");
+		confirmPayBtn.disabled = false;
+	}else{
+		confirmPayBtn.disabled = true;
+	}
+	
+})
+function PaymentDisplayManagement(element){
+	if(document.querySelector(".confirmPayment").style.display == "none"){
+		let xhr = new XMLHttpRequest();
+		let reservationId = element.parentNode.querySelector("#reservationId").value;
+		let param = "required_action=confirm_payment&reservationId="+reservationId;
+		let confirmPayment = document.querySelector(".confirmPayment");
+		xhr.onload = ()=>{
+			if(xhr.status == 200 && xhr.readyState == 4){
+				let data = JSON.parse(xhr.responseText);
+				let json = data[0];
+				let address = data[1];
+				console.log(json);
+				confirmPayment.querySelector("#booking_id").innerHTML = "Booking N° "+json["Id"];
+				confirmPayment.querySelector("#total_price").innerHTML = json["payment"]["Total"];
+				confirmPayment.querySelector("#car_name").innerHTML = json["vehicule"]["marque"]+" "+json["vehicule"]["modele"];
+				confirmPayment.querySelector("#pick_up").innerHTML = json["pick_up_date"];
+				confirmPayment.querySelector("#return_date").innerHTML = json["return_date"];
+				confirmPayment.querySelector("#car_wrapper").querySelector("img").src ="/Atelier"+ json["vehicule"]["image"];
+				confirmPayment.querySelector("#depot").innerHTML ="Depot "+ json["vehicule"]["depot_code"];
+				confirmPayment.querySelector("#addresse").innerHTML = address;
+				confirmPayment.querySelector("#reservation_id").value = json["Id"];
+				document.querySelector(".confirmPayment").style.display = "flex";
+			}else if(xhr.status == 300){
+				console.log("booking already paid");
+			}	
+		}
+		xhr.open("POST","MeetingsManagement");
+		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+		xhr.send(param);
+	}else{
+		document.querySelector(".confirmPayment").style.display = "none";
+	}	
+}
+function FinishPayment(element){
+	let reservation_id = element.parentNode.querySelector("#reservation_id").value;
+	let xhr = new XMLHttpRequest();
+	let params = "required_action=finish_payment&reservation_id="+reservation_id;
+	xhr.onload = ()=>{
+		if(xhr.status == 200 && xhr.readyState == 4){
+			document.querySelector(".confirmPayment").style.display = "none";
+		}	
+	}
+	xhr.open("POST","MeetingsManagement");
+	xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	xhr.send(params);
+}

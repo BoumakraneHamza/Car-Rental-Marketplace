@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,7 +19,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 import model.DAO;
+import model.Depot;
 import model.Meeting;
+import model.Reservation;
 import model.User;
 
 /**
@@ -96,7 +97,7 @@ public class MeetingsManagement extends HttpServlet {
 				String Meeting_date = request.getParameter("meeting_Date");
 				String reservationId = request.getParameter("reservation");
 				DAO dao = new DAO();
-				if(dao.BookMeeting(user.getEmail(), email, Meeting_date,"Payment") == 1) {
+				if(dao.BookMeeting(user.getEmail(), email, Meeting_date,"Payment",reservationId) == 1) {
 					RequestDispatcher dispatcher = request.getRequestDispatcher("PaymentManager");
 					request.setAttribute("status", "success");
 					request.setAttribute("reservationId", reservationId);
@@ -105,25 +106,79 @@ public class MeetingsManagement extends HttpServlet {
 					response.setStatus(300);
 				}	
 			}else if(user.getType().equals("secretary")) {
-				String client_email = request.getParameter("client_email");
-				String meeting_type = request.getParameter("meeting_type");
-				String date = request.getParameter("meeting_Date");
-				DAO dao = new DAO();
-				if(dao.BookMeeting(client_email, user.getEmail(), date,meeting_type) == 1) {
-					User client = null;
-					try {
-						client = dao.getClientInfo(client_email);
-					} catch (InstantiationException | IllegalAccessException | SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+				if (request.getParameter("required_action").equals("add_meeting")) {
+					String client_email = request.getParameter("client_email");
+					String meeting_type = request.getParameter("meeting_type");
+					String date = request.getParameter("meeting_Date");
+					DAO dao = new DAO();
+					if(dao.BookMeeting(client_email, user.getEmail(), date,meeting_type,null) == 1) {
+						User client = null;
+						try {
+							client = dao.getClientInfo(client_email);
+						} catch (InstantiationException | IllegalAccessException | SQLException e) {
+							e.printStackTrace();
+						}
+						Gson gson = new Gson();
+						String clientInfo = gson.toJson(client);
+						PrintWriter out = response.getWriter();
+						out.write(clientInfo);
+					}else{
+						response.setStatus(300);
 					}
-					Gson gson = new Gson();
-					String clientInfo = gson.toJson(client);
+				}else if(request.getParameter("required_action").equals("start_meeting")) {
+					HashMap<String,Meeting> map = new HashMap<>();
+					String Action_response = null;
+					Reservation reservation = null;
+					DAO dao = new DAO();
+					map = dao.getUpcomingMeetings(user.getEmail(), "1");
+					for(String key : map.keySet()) {
+						if(map.get(key).getMeetingType().equals("Payment")) {
+							if(map.get(key).getBooking_Id() != null) {
+								try {
+									reservation = dao.getReservation(map.get(key).getBooking_Id());
+									Action_response = "initiate_Payment";
+									System.out.println("got reservation info");
+								} catch (InstantiationException | IllegalAccessException e) {
+									e.printStackTrace();
+								}
+							}else {
+								Action_response = "authenticate";
+							}
+						}
+					}
 					PrintWriter out = response.getWriter();
-					out.write(clientInfo);
-				}else{
-					response.setStatus(300);
-				}	
+					Gson gson = new Gson();
+					String reservationJson = gson.toJson(reservation);
+					Action_response = gson.toJson(Action_response);
+					out.write("["+Action_response+","+reservationJson+"]");
+				}else if(request.getParameter("required_action").equals("confirm_payment")) {
+					String reservationId = request.getParameter("reservationId");
+					Depot depot = new Depot();
+					DAO dao = new DAO();
+					Reservation reservation = null;
+					if(dao.checkIfPaid(reservationId)) {
+						response.setStatus(300);
+					}else {
+						try {
+						reservation = dao.getReservation(Integer.parseInt(reservationId));
+						depot = dao.getDepotInfo(reservation.getVehicule().getAgence(), reservation.getVehicule().getDepot_code());
+						
+						} catch (NumberFormatException | InstantiationException | IllegalAccessException e) {
+							e.printStackTrace();
+						}
+						Gson gson = new Gson();
+						String result = gson.toJson(reservation);
+						String depotAddress = gson.toJson(depot.getAdress());
+						PrintWriter out = response.getWriter();
+						out.write("["+result+","+depotAddress+"]");
+					}
+					
+				}else if(request.getParameter("required_action").equals("finish_payment")) {
+					String reservation_id = request.getParameter("reservation_id");
+					System.out.println(reservation_id);
+					DAO dao = new DAO();
+					dao.finishPayment(reservation_id, "Meeting with secretary", "completed");
+				}
 			}
 			
 		}

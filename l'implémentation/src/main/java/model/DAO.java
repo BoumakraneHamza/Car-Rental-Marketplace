@@ -118,7 +118,7 @@ public class DAO {
 			statement.setString(1, employee.getEmail());
 			result = statement.executeQuery();
 			if(result.next()) {
-				if(result.getString("nom") == null) {
+				if(result.getString("nom") == null || result.getString("nom").isEmpty()) {
 					newAccount = true;
 				}
 			}	
@@ -255,9 +255,9 @@ public class DAO {
     	statement.close();
 		return user;
 	}
-	public int BookMeeting(String client,String email , String Meeting_date,String meeting_type) {
+	public int BookMeeting(String client,String email , String Meeting_date,String meeting_type,String reservationId) {
 		PreparedStatement statement;
-		String Query = "Insert into meetings values(?,?,?,?)";
+		String Query = "Insert into meetings values(?,?,?,?,?)";
 		int result = 0;
 		try {
 			connectDB();
@@ -266,6 +266,7 @@ public class DAO {
 			statement.setString(2, email);
 			statement.setString(3, Meeting_date);
 			statement.setString(4, meeting_type);
+			statement.setString(5, reservationId);
 			result = statement.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -633,6 +634,28 @@ public class DAO {
 			e.printStackTrace();
 		}
 	}
+	public boolean checkIfPaid(String reservationId) {
+		String Query;
+		PreparedStatement statement;
+		ResultSet result;
+		boolean paid = false;
+		try {
+			connectDB();
+			Query = "select status from billing where reservationId=?";
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, reservationId);
+			result = statement.executeQuery();
+			if(result.next()) {
+				if(result.getString("status").equals("completed")) {
+					paid = true;
+				}
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return paid;
+	}
 	public Reservation getReservation(int id) throws InstantiationException, IllegalAccessException{
 		String Query;
 		PreparedStatement statement;
@@ -660,6 +683,7 @@ public class DAO {
 				vehicule.setMarque(result.getString("marque"));
 				vehicule.setModele(result.getString("modele"));
 				vehicule.setPLJ(result.getInt("PLJ"));
+				vehicule.setDepot_code(result.getString("depot_code"));
 				vehicule.setImage(result.getString("v.image"));
 				reservation.setVehicule(vehicule);
 				
@@ -2212,6 +2236,10 @@ public class DAO {
 				Meeting meeting = new Meeting();
 				user = getClientInfo(result.getString("client"));
 				meeting.setClient(user);
+				String bookingId = result.getString("booking_id");
+				if(bookingId != null) {
+					meeting.setBooking_Id(Integer.parseInt(bookingId));
+				}
 				String date = result.getString("date");
 				meeting.setMeetingDate(date);
 				meeting.setMeetingType(result.getString("type"));

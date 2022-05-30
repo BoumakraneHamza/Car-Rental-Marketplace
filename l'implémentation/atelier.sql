@@ -71,7 +71,7 @@ CREATE TABLE `billing` (
 
 LOCK TABLES `billing` WRITE;
 /*!40000 ALTER TABLE `billing` DISABLE KEYS */;
-INSERT INTO `billing` VALUES (931,1060,0,'pending','pending to set'),(932,1010,0,'pending','pending to set'),(933,1060,0,'pending','pending to set'),(934,1010,0,'pending','pending to set'),(935,960,0,'pending','pending to set'),(936,1010,0,'pending','pending to set'),(937,1060,0,'pending','pending to set'),(938,960,0,'pending','Meeting With secretary'),(939,960,0,'pending','pending to set'),(940,1010,0,'pending','Meeting With secretary'),(941,1060,0,'pending','Meeting With secretary'),(942,1060,0,'pending','Meeting With secretary'),(943,1010,0,'pending','pending to set'),(944,960,0,'pending','pending to set'),(945,960,0,'pending','Meeting With secretary'),(946,1010,0,'pending','pending to set'),(947,1060,0,'pending','Meeting With secretary'),(948,685,0,'completed','pm_1L4tpcBYa9gzCakFYkpPrTbN');
+INSERT INTO `billing` VALUES (931,1060,0,'pending','pending to set'),(932,1010,0,'pending','pending to set'),(933,1060,0,'pending','pending to set'),(934,1010,0,'pending','pending to set'),(935,960,0,'pending','pending to set'),(936,1010,0,'pending','pending to set'),(937,1060,0,'pending','pending to set'),(938,960,0,'pending','Meeting With secretary'),(939,960,0,'pending','pending to set'),(940,1010,0,'pending','Meeting With secretary'),(941,1060,0,'pending','Meeting With secretary'),(942,1060,0,'pending','Meeting With secretary'),(943,1010,0,'pending','pending to set'),(944,960,0,'pending','pending to set'),(945,960,0,'pending','Meeting With secretary'),(946,1010,0,'pending','pending to set'),(947,1060,0,'pending','Meeting With secretary'),(948,685,0,'completed','pm_1L4tpcBYa9gzCakFYkpPrTbN'),(949,685,0,'pending','pending to set'),(950,685,0,'pending','pending to set'),(951,685,0,'pending','pending to set'),(952,685,0,'pending','Meeting With secretary'),(953,685,0,'pending','Meeting With secretary'),(954,1060,0,'pending','Meeting With secretary'),(955,685,0,'pending','Meeting With secretary'),(956,1060,0,'completed','Meeting with secretary');
 /*!40000 ALTER TABLE `billing` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -275,7 +275,7 @@ CREATE TABLE `depot` (
 
 LOCK TABLES `depot` WRITE;
 /*!40000 ALTER TABLE `depot` DISABLE KEYS */;
-INSERT INTO `depot` VALUES (1,'Guidjel District Setif Algeria',56,'Hertz','g01@email.com',36.1892751,5.403493,189),(2,'batna',15,'Hertz','g02@email.com',35.55216,6.17968,12),(3,'constantine',15,'agence02',NULL,36.265,6.5833,80),(11,'Bejaia District Bejaia Algeria',20,'Hertz',NULL,36.73397103451364,5.048895145822205,0),(13,'Setif District Setif Algeria',10,'agence02',NULL,36.182615350000006,5.4023142721312,5);
+INSERT INTO `depot` VALUES (1,'Guidjel District Setif Algeria',56,'Hertz','g01@email.com',36.1892751,5.403493,191),(2,'batna',15,'Hertz','g02@email.com',35.55216,6.17968,12),(3,'constantine',15,'agence02',NULL,36.265,6.5833,80),(11,'Bejaia District Bejaia Algeria',20,'Hertz',NULL,36.73397103451364,5.048895145822205,0),(13,'Setif District Setif Algeria',10,'agence02',NULL,36.182615350000006,5.4023142721312,11);
 /*!40000 ALTER TABLE `depot` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -322,7 +322,7 @@ CREATE TABLE `follow` (
 
 LOCK TABLES `follow` WRITE;
 /*!40000 ALTER TABLE `follow` DISABLE KEYS */;
-INSERT INTO `follow` VALUES ('1@email.com','Hertz');
+INSERT INTO `follow` VALUES ('1@email.com','agence02'),('1@email.com','Hertz');
 /*!40000 ALTER TABLE `follow` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -407,6 +407,7 @@ CREATE TABLE `meetings` (
   `secretary` varchar(45) NOT NULL,
   `date` datetime NOT NULL,
   `type` varchar(45) NOT NULL,
+  `booking_id` int DEFAULT NULL,
   PRIMARY KEY (`client`,`date`),
   KEY `secretary_idx` (`secretary`),
   CONSTRAINT `client` FOREIGN KEY (`client`) REFERENCES `client` (`email`),
@@ -420,7 +421,7 @@ CREATE TABLE `meetings` (
 
 LOCK TABLES `meetings` WRITE;
 /*!40000 ALTER TABLE `meetings` DISABLE KEYS */;
-INSERT INTO `meetings` VALUES ('1@email.com','s01@email.com','2022-05-28 08:41:00','Booking'),('1@email.com','s01@email.com','2022-05-29 08:16:00','Payment'),('1@email.com','s01@email.com','2022-05-29 08:46:00','Payment'),('1@email.com','s01@email.com','2022-05-30 08:01:00','Payment'),('1@email.com','s01@email.com','2022-05-30 08:16:00','Booking'),('1@email.com','s01@email.com','2022-05-30 08:31:00','Booking'),('1@email.com','s01@email.com','2022-05-30 08:46:00','Booking'),('1@email.com','s01@email.com','2022-05-30 15:46:00','Payment'),('1@email.com','s01@email.com','2022-05-31 08:01:00','Payment'),('1@email.com','s01@email.com','2022-05-31 09:16:00','Payment'),('1@email.com','s01@email.com','2022-06-01 08:01:00','Payment'),('1@email.com','s01@email.com','2022-06-01 11:31:00','Payment'),('1@email.com','s01@email.com','2022-06-02 08:01:00','Payment'),('Hamza@gmail.com','s01@email.com','2022-05-31 08:46:00','Booking'),('Hamza@gmail.com','s01@email.com','2022-06-01 08:31:00','Payment');
+INSERT INTO `meetings` VALUES ('1@email.com','s01@email.com','2022-05-31 08:46:00','Payment',956);
 /*!40000 ALTER TABLE `meetings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -496,7 +497,7 @@ CREATE TABLE `offices` (
   KEY `fk_secretary_idx` (`email_secretaire`),
   CONSTRAINT `fk_agency` FOREIGN KEY (`agency_name`) REFERENCES `agence` (`nom`),
   CONSTRAINT `fk_secretary` FOREIGN KEY (`email_secretaire`) REFERENCES `secretary` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -505,7 +506,7 @@ CREATE TABLE `offices` (
 
 LOCK TABLES `offices` WRITE;
 /*!40000 ALTER TABLE `offices` DISABLE KEYS */;
-INSERT INTO `offices` VALUES (1,'Hertz','Constantine District Constantine Algeria',0,'s01@email.com','36.3479208','6.629260552496815','2022-12-10 10:00:00'),(2,'Hertz','Djelfa District Djelfa Algeria',0,'d09@email.com','34.6510735267218','3.248866793118921','2022-12-11 12:00:00'),(3,'Hertz','Setif',0,'Secretary@email.com','36.191','5.407','2022-12-12 13:00:00'),(4,'Hertz','M\'Sila District M\'Sila Algeria',0,'s02@email.com','35.698119264003076','4.556631683459123','2022-12-13 14:00:00');
+INSERT INTO `offices` VALUES (1,'Hertz','Constantine District Constantine Algeria',0,'s01@email.com','36.3479208','6.629260552496815','2022-12-10 10:00:00'),(2,'Hertz','Djelfa District Djelfa Algeria',0,'d09@email.com','34.6510735267218','3.248866793118921','2022-12-11 12:00:00'),(3,'Hertz','Setif',0,'Secretary@email.com','36.191','5.407','2022-12-12 13:00:00'),(4,'Hertz','M\'Sila District M\'Sila Algeria',0,'s02@email.com','35.698119264003076','4.556631683459123','2022-12-13 14:00:00'),(13,'agence02','constantine',0,'s03@email.com','36.3479208','6.7',NULL);
 /*!40000 ALTER TABLE `offices` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -586,7 +587,7 @@ CREATE TABLE `reservation` (
   KEY `fk_Locataire_has_Vehicule_Locataire1_idx` (`locataire_email`),
   CONSTRAINT `fk_Locataire_has_Vehicule_Locataire1` FOREIGN KEY (`locataire_email`) REFERENCES `client` (`email`),
   CONSTRAINT `fk_Locataire_has_Vehicule_Vehicule1` FOREIGN KEY (`vehicule_matricule`) REFERENCES `vehicule` (`matricule`)
-) ENGINE=InnoDB AUTO_INCREMENT=949 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=957 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -595,7 +596,7 @@ CREATE TABLE `reservation` (
 
 LOCK TABLES `reservation` WRITE;
 /*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
-INSERT INTO `reservation` VALUES (947,'1@email.com','202212519','2022-05-26','2022-05-31','en cours','/assets/documents/contracts/775.pdf','2022-05-29','setif'),(948,'1@email.com','202212523','2022-05-26','2022-05-31','en cours','/assets/documents/contracts/772.pdf','2022-05-29','setif');
+INSERT INTO `reservation` VALUES (956,'1@email.com','202212519','2022-05-26','2022-05-31','en cours','/assets/documents/contracts/779.pdf','2022-05-30','setif');
 /*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -688,7 +689,7 @@ CREATE TABLE `secretary` (
 
 LOCK TABLES `secretary` WRITE;
 /*!40000 ALTER TABLE `secretary` DISABLE KEYS */;
-INSERT INTO `secretary` VALUES ('d09@email.com',NULL,NULL,'/assets/profile_pics/default.png',2,'Hertz'),('s01@email.com','secr','secretary','/assets/profile_pics/1email.png',1,'Hertz'),('s02@email.com','secretary','secr','/assets/profile_pics/1email.png',2,'Hertz'),('Secretary@email.com','2','Hamza','/assets/profile_pics/Secretaryemail.jpeg',3,'Hertz');
+INSERT INTO `secretary` VALUES ('d09@email.com',NULL,NULL,'/assets/profile_pics/default.png',2,'Hertz'),('s01@email.com','secr','secretary','/assets/profile_pics/1email.png',1,'Hertz'),('s02@email.com','secretary','secr','/assets/profile_pics/1email.png',2,'Hertz'),('s03@email.com','Secretary','01','/assets/profile_pics/s03email.jpeg',13,'agence02'),('Secretary@email.com','2','Hamza','/assets/profile_pics/Secretaryemail.jpeg',3,'Hertz');
 /*!40000 ALTER TABLE `secretary` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -758,7 +759,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('1@email.com','12345678','client'),('d01@email.com','12345678','directeur'),('d02@gmail.com','12345678','directeur'),('d09@email.com','azerty','secretary'),('g01@email.com','test','depot manager'),('g02@email.com','test','depot manager'),('Hamza@gmail.com','test','client'),('s01@email.com','12345678','secretary'),('s02@email.com','12345678','secretary'),('Secretary@email.com','Hamza','secretary'),('serviceClient@email.com','test','service_client');
+INSERT INTO `users` VALUES ('1@email.com','12345678','client'),('d01@email.com','12345678','directeur'),('d02@gmail.com','12345678','directeur'),('d09@email.com','azerty','secretary'),('g01@email.com','test','depot manager'),('g02@email.com','test','depot manager'),('Hamza@gmail.com','test','client'),('s01@email.com','12345678','secretary'),('s02@email.com','12345678','secretary'),('s03@email.com','test','secretary'),('Secretary@email.com','Hamza','secretary'),('serviceClient@email.com','test','service_client');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -872,4 +873,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-29 23:16:17
+-- Dump completed on 2022-05-30 20:43:31

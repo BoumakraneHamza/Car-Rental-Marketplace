@@ -3,6 +3,7 @@ package control;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.hslf.util.LocaleDateFormat;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 import com.google.gson.Gson;
@@ -110,6 +112,13 @@ public class BookingManagement extends HttpServlet {
 						e.printStackTrace();
 					}
 					offices = dao.getAvailableOffices(reservation.getVehicule().getAgence());
+					for(Office office : offices) {
+						if(office.getAvailableTime() == null) {
+							DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+							LocalDateTime dt = LocalDateTime.now().plusHours(2);
+							office.setAvailableTime(dt.format(format));
+						}
+					}
 					Gson gson = new Gson();
 					String result = gson.toJson(offices);
 					int size = offices.size();

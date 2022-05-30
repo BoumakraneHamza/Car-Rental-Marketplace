@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ClientMain.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/circleProgressBar.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/SecretaryDashboard.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/checkbox.css">
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
 <title>Dashboard</title>
@@ -123,8 +124,16 @@
 									</div>
 								</div>
 								<div id="right">
-									<button id="start_appt"><img style="width:25px;" src="${pageContext.request.contextPath}/assets/open-circle.svg"><p id="title">Start Appointment</p></button>	
-								</div>
+									<input type="hidden" id="reservationId" value="${map.get(key).booking_Id}">
+									<c:choose>
+										<c:when test="${map.get(key).getMeetingType() == 'Booking'}">
+											<button id="start_appt" onclick="start_Meeting()"><img style="width:25px;" src="${pageContext.request.contextPath}/assets/open-circle.svg"><p id="title">Start Appointment</p></button>	
+										</c:when>
+										<c:otherwise>
+											<button id="start_appt" onclick="PaymentDisplayManagement(this)"><img style="width:25px;" src="${pageContext.request.contextPath}/assets/open-circle.svg"><p id="title">Confirm Payment</p></button>	
+										</c:otherwise>
+									</c:choose>
+									</div>
 							</div>
 							<div id="content_middle">
 								<div id="left">
@@ -135,14 +144,14 @@
 								</div>
 								<div id="middle">
 									<div id="tile">
-										<p id="title">Expiry Date (DD/MM/YY)</p>
+										<p id="title">Expiry Date </p>
 										<p id="value">11 Dec 2022</p>
 									</div>
 								</div>
 								<div id="right">
 									<div id="tile">
 										<p id="title">Referring Booking</p>
-										<p id="value" class="booking">Booking N° 203</p>
+										<p id="value" class="booking">Booking N° ${map.get(key).booking_Id}</p>
 									</div>
 								</div>
 							</div>
@@ -397,20 +406,82 @@
 		<button type="submit" id="submit_Btn" ><p>authenticate</p><img src="${pageContext.request.contextPath}/assets/arrow-right.svg"></button>
 </form>
 <c:choose>
-		<c:when test="${status.equals('success')}">
-			<style>
-				.content{
-					filter:blur(5px);
-				}
-			</style>
-			<div id="booking_completed">
-				<img style="width:100px;" src="${pageContext.request.contextPath}/assets/check-illustration.svg">
-				<p id="title">Booking Completed</p>
-				<p id="subtitle">Congrats! Your Booking successfully done</p>
-				<button id="ok" onclick="deleteUnBlur()"><p>Ok</p></button>
+	<c:when test="${status.equals('success')}">
+		<style>
+			.content{
+				filter:blur(5px);
+			}
+		</style>
+		<div id="booking_completed">
+			<img style="width:100px;" src="${pageContext.request.contextPath}/assets/check-illustration.svg">
+			<p id="title">Booking Completed</p>
+			<p id="subtitle">Congrats! Your Booking successfully done</p>
+			<button id="ok" onclick="deleteUnBlur()"><p>Ok</p></button>
+		</div>
+	</c:when>
+</c:choose>
+<div class="confirmPayment" style="display:none;">
+	<div id="tab_header">
+		<p id="title">Confirm Payment</p>
+		<img onclick="PaymentDisplayManagement()" style="width: 11px;cursor: pointer;" src="${pageContext.request.contextPath}/assets/cancel.svg">
+	</div>
+	<div id="tab_content">
+		<div id="left_section">
+			<div id="secondary_header">
+				<p id="booking_id">Booking N° 967</p>
 			</div>
-		</c:when>
-	</c:choose>
+			<div id="total_wrapper">
+				<div id="price">
+					<p>Total Amount</p>
+					<div id="amount">
+						<p>$</p>
+						<p id="total_price">1210</p>
+					</div>
+				</div>
+				<div id="item">
+					<p id="car_name">Audit A3</p>
+					<div id="detail"><p id="duration">6 days </p>@<p id="plj">$ 120</p></div>
+				</div>
+			</div>
+			<div id="cta">
+				<div id="terms">
+					<input id="term_confirmation" type="checkbox">
+					<p id="terms_text">i do confirm the payment of the client for the booking</p>
+				</div>
+				<input type="hidden" id="reservation_id">
+				<button disabled onclick="FinishPayment(this)" id="confirmationBTN">Confirm Payment</button>
+			</div>
+		</div>
+		<div id="right_section">
+			<div id="car_wrapper">
+				<img style="width: 400px;height: 248px;object-fit: cover;" src="${pageContext.request.contextPath}/assets/car_pics/auditA3.jpg">
+			</div>
+			<div id="info_wrapper">
+				<div id="section">
+					<div id="tile">
+						<p>Pick up depot</p>
+						<p class="value" id="depot">Depot 01</p>
+					</div>
+					<div id="tile">
+						<p>Depot address</p>
+						<p class="value" id="addresse">Constantine - Algeria 20012301</p>
+					</div>
+					
+				</div>
+				<div id="section">
+					<div id="tile">
+						<p>Pick up date</p>
+						<p class="value" id="pick_up">10 Dec 2022</p>
+					</div>
+					<div id="tile">
+						<p>Return date</p>
+						<p class="value" id="return_date">20 Dec 2022</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 <script src="${pageContext.request.contextPath}/js/ClientMain.js"></script>
 <script src="${pageContext.request.contextPath}/js/SecretaryDashboard.js"></script>
 <%@include file="/jsp/dropdownList.jsp"%>

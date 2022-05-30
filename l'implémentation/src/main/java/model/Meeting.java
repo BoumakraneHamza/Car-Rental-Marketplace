@@ -1,12 +1,20 @@
 package model;
 
+
 public class Meeting {
 
 	private User client ;
 	private String MeetingType;
 	private String MeetingDate;
 	private String secretary;
-	
+	private Integer booking_Id;
+
+	public Integer getBooking_Id() {
+		return booking_Id;
+	}
+	public void setBooking_Id(int booking_Id) {
+		this.booking_Id = booking_Id;
+	}
 	public User getClient() {
 		return client;
 	}
