@@ -77,7 +77,6 @@ public class BuildingManagement extends HttpServlet {
 					
 					depot.setAdress(request.getParameter("address"));
 					depot.setCapacite(Integer.parseInt(request.getParameter("capacity")));
-					depot.setCapacite_libre(Integer.parseInt(request.getParameter("capacity")));
 					depot.setAgence_nom(user.getNom());
 					depot.setLat(request.getParameter("lat"));
 					depot.setLon(request.getParameter("lon"));

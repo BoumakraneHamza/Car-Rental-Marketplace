@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `atelier` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `atelier`;
--- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.28, for Win64 (x86_64)
 --
 -- Host: localhost    Database: atelier
 -- ------------------------------------------------------
--- Server version	8.0.27
+-- Server version	8.0.28
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -256,16 +256,12 @@ CREATE TABLE `depot` (
   `adress` varchar(45) NOT NULL,
   `capacite` int NOT NULL,
   `agence_nom` varchar(45) NOT NULL,
-  `garagiste_email` varchar(45) DEFAULT NULL,
   `lat` double DEFAULT NULL,
   `lon` double DEFAULT NULL,
   `Bookings` int DEFAULT '0',
   PRIMARY KEY (`code`,`agence_nom`),
-  UNIQUE KEY `garagiste_email_UNIQUE` (`garagiste_email`),
-  KEY `fk_Depot_Utilisateur1_idx` (`garagiste_email`),
   KEY `agency_name_idx` (`agence_nom`),
-  CONSTRAINT `agency_name` FOREIGN KEY (`agence_nom`) REFERENCES `agence` (`nom`),
-  CONSTRAINT `fk_garagiste` FOREIGN KEY (`garagiste_email`) REFERENCES `garagiste` (`email`)
+  CONSTRAINT `agency_name` FOREIGN KEY (`agence_nom`) REFERENCES `agence` (`nom`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -275,7 +271,7 @@ CREATE TABLE `depot` (
 
 LOCK TABLES `depot` WRITE;
 /*!40000 ALTER TABLE `depot` DISABLE KEYS */;
-INSERT INTO `depot` VALUES (1,'Guidjel District Setif Algeria',56,'Hertz','g01@email.com',36.1892751,5.403493,191),(2,'batna',15,'Hertz','g02@email.com',35.55216,6.17968,12),(3,'constantine',15,'agence02',NULL,36.265,6.5833,80),(11,'Bejaia District Bejaia Algeria',20,'Hertz',NULL,36.73397103451364,5.048895145822205,0),(13,'Setif District Setif Algeria',10,'agence02',NULL,36.182615350000006,5.4023142721312,11);
+INSERT INTO `depot` VALUES (1,'Guidjel District Setif Algeria',56,'Hertz',36.1892751,5.403493,191),(2,'batna',15,'Hertz',35.55216,6.17968,12),(3,'constantine',15,'agence02',36.265,6.5833,80),(11,'Bejaia District Bejaia Algeria',20,'Hertz',36.73397103451364,5.048895145822205,0),(13,'Setif District Setif Algeria',10,'agence02',36.182615350000006,5.4023142721312,11);
 /*!40000 ALTER TABLE `depot` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -287,11 +283,8 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `depot_AFTER_UPDATE` AFTER UPDATE ON `depot` FOR EACH ROW BEGIN
-if(old.garagiste_email != null && old.garagiste_email != new.garagiste_email)THEN
-	update garagiste set working_location = null where email = old.garagiste_email;
-end if;
-update garagiste set working_location = old.code where email = new.garagiste_email;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `depot_BEFORE_DELETE` BEFORE DELETE ON `depot` FOR EACH ROW BEGIN
+UPDATE `atelier`.`garagiste` SET `working_location` = NULL WHERE (`working_location` = OLD.`code`);
 END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -357,26 +350,6 @@ LOCK TABLES `garagiste` WRITE;
 INSERT INTO `garagiste` VALUES ('g01@email.com','Boumakrane','Hamza','/assets/profile_pics/1email.png',1,'0000-00-00','Hertz'),('g02@email.com','Oussama','Ghodbane','/assets/profile_pics/g02email.jpeg',2,NULL,'Hertz');
 /*!40000 ALTER TABLE `garagiste` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `garagiste_BEFORE_UPDATE` BEFORE UPDATE ON `garagiste` FOR EACH ROW BEGIN
-if(old.working_location != new.working_location)then
-update depot set garagiste_email = null where depot.code = old.working_location;
-update depot set garagiste_email = new.email where depot.code = new.working_location;
-end if;
-END */;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -873,4 +846,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-30 20:43:31
+-- Dump completed on 2022-05-31  2:17:39

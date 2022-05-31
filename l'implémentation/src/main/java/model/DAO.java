@@ -910,9 +910,10 @@ public class DAO {
 		ResultSet result;
 		try {
 			connectDB();
-			Query = "select * \r\n"
-					+ "from depot \r\n"
-					+ "where agence_nom  = ?";
+			Query = "SELECT d.*, g.`email` AS `garagiste_email` \r\n"
+					+ "FROM `depot` AS d LEFT JOIN `garagiste` AS g \r\n"
+					+ "ON d.`code` = g.`working_location`\r\n"
+					+ "WHERE `agence_nom` = ?";
 			statement = connection.prepareStatement(Query);
 			statement.setString(1, AgencyName);
 			result = statement.executeQuery();
@@ -964,7 +965,6 @@ public class DAO {
 			}
 			statement.close();
 		} catch (SQLException | InstantiationException | IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return buildings;
@@ -1012,7 +1012,10 @@ public class DAO {
 		ResultSet result; 
 		try {
 			connectDB();
-			Query = "select * from depot where agence_nom = ? and code = ? limit 1";
+			Query = "SELECT d.*, g.`email` AS `garagiste_email` \r\n"
+					+ "FROM `depot` AS d LEFT JOIN `garagiste` AS g \r\n"
+					+ "ON d.`code` = g.`working_location`\r\n"
+					+ "WHERE d.`agence_nom` = ? AND d.`code` = ?";
 			statement = connection.prepareStatement(Query);
 			statement.setString(1, AgencyName);
 			statement.setString(2, depot_code);
@@ -1062,9 +1065,11 @@ public class DAO {
 		try {
 			if(Type.equals("depot manager")) {
 				connectDB();
-				Query = "select * \r\n"
-						+ "from depot \r\n"
-						+ "where agence_nom  = ? and garagiste_email is null";
+				Query = "SELECT d.*, g.`email` AS `garagiste_email`, count(matricule) AS `used_capacite`\r\n"
+						+ "FROM `depot` AS d LEFT JOIN `garagiste` AS g ON d.`code` = g.`working_location`\r\n"
+						+ "LEFT JOIN `vehicule` AS `v` ON d.`code` = v.`depot_code` AND d.`agence_nom` = v.`Agence`\r\n"
+						+ "WHERE d.`agence_nom` = ? AND g.`email` IS NULL\r\n"
+						+ "GROUP BY d.`code`";
 				statement = connection.prepareStatement(Query);
 				statement.setString(1, AgencyName);
 				result = statement.executeQuery();
@@ -1074,7 +1079,7 @@ public class DAO {
 					depot.setCode("Depot "+result.getString("code"));
 					depot.setAdress(result.getString("adress"));
 					depot.setCapacite(result.getInt("capacite"));
-					depot.setCapacite_libre(result.getInt("capacite_libre"));
+					depot.setCapacite_libre(result.getInt("capacite") - result.getInt("used_capacite"));
 					depot.setAgence_nom(result.getString("agence_nom"));
 					depot.setLat(result.getString("lat"));
 					depot.setLon(result.getString("lon"));
@@ -1108,7 +1113,6 @@ public class DAO {
 			}
 			statement.close();
 		} catch (SQLException | InstantiationException | IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return buildings;
@@ -1121,13 +1125,15 @@ public class DAO {
 		try {
 			connectDB();
 			if(type.equals("depot")) {
-				Query = "Select * from garagiste where agency_name = ? and email not in(Select garagiste_email from depot where agence_nom = ? and garagiste_email is not null);";
+				Query = "Select * from garagiste where agency_name = ? and working_location is null";
+				statement = connection.prepareStatement(Query);
+				statement.setString(1, agence);
 			}else {
 				Query = "Select * from secretary where agency_name = ? and email not in(Select email_secretaire from offices where agency_name = ? and email_secretaire is not null);";
+				statement = connection.prepareStatement(Query);
+				statement.setString(1, agence);
+				statement.setString(2, agence);
 			}
-			statement = connection.prepareStatement(Query);
-			statement.setString(1, agence);
-			statement.setString(2, agence);
 			result = statement.executeQuery();
 			while(result.next()) {
 				Employee employee = new Employee();
@@ -1171,7 +1177,6 @@ public class DAO {
 				employee.setType(type);
 			}
 		} catch (SQLException | InstantiationException | IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return employee;
@@ -1244,9 +1249,10 @@ public class DAO {
 		try {
 			for(List<String> key : VehiculeMap.keySet()) {
 				connectDB();
-				Query = "select * \r\n"
-						+ "from depot \r\n"
-						+ "where agence_nom = ? and code = ? limit 1";
+				Query = "SELECT d.*, g.`email` AS `garagiste_email`, count(matricule) AS `used_capacite`\r\n"
+						+ "FROM `depot` AS d LEFT JOIN `garagiste` AS g ON d.`code` = g.`working_location`\r\n"
+						+ "LEFT JOIN `vehicule` AS `v` ON d.`code` = v.`depot_code` AND d.`agence_nom` = v.`Agence`\r\n"
+						+ "WHERE d.`agence_nom` = ? AND d.`code` = ? GROUP BY d.`code`";
 				statement = connection.prepareStatement(Query);
 				statement.setString(1, key.get(1));
 				statement.setString(2, key.get(0));
@@ -1256,7 +1262,7 @@ public class DAO {
 					depot.setCode(result.getString("code"));
 					depot.setAdress(result.getString("adress"));
 					depot.setCapacite(result.getInt("capacite"));
-					depot.setCapacite_libre(result.getInt("capacite_libre"));
+					depot.setCapacite_libre(result.getInt("capacite") - result.getInt("used_capacite"));
 					depot.setAgence_nom(result.getString("agence_nom"));
 					depot.setGaragiste_email(result.getString("garagiste_email"));
 					depot.setLat(result.getString("lat"));
@@ -1267,8 +1273,7 @@ public class DAO {
 				statement.close();
 		}
 		}catch (Exception e) {
-			System.out.println(e);
-			
+			e.printStackTrace();
 		}
 		return depots;
 	}
@@ -1472,19 +1477,17 @@ public class DAO {
 		int result = 0;
 		try {
 			connectDB();
-			Query = "INSERT INTO `atelier`.`depot` (`adress`, `capacite`, `agence_nom`, `garagiste_email`, `lat`, `lon`) \r\n" 
-					+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
+			Query = "INSERT INTO `atelier`.`depot` (`adress`, `capacite`, `agence_nom`, `lat`, `lon`) \r\n" 
+					+ "VALUES (?, ?, ?, ?, ?)";
 			statement = connection.prepareStatement(Query);
 			
 			statement.setString(1, depot.getAdress());
 			statement.setInt(2, depot.getCapacite());
 			statement.setString(3, depot.getAgence_nom());
-			statement.setString(4, depot.getGaragiste_email());
-			statement.setString(5, depot.getLat());
-			statement.setString(6, depot.getLon());
+			statement.setString(4, depot.getLat());
+			statement.setString(5, depot.getLon());
 			
 			result = statement.executeUpdate();
-			
 			
 			statement.close();
 		}catch (SQLException | InstantiationException | IllegalAccessException e) {
@@ -1554,9 +1557,10 @@ public class DAO {
 			connectDB();
 			System.out.println(type);
 			if(type.equals("depot")) {
-				Query = "SELECT * \r\n"
-						+ "FROM atelier.depot \r\n"
-						+ "WHERE code = ? and agence_nom = ?";
+				Query = "SELECT d.*, g.`email` AS `garagiste_email` \r\n"
+						+ "FROM `depot` AS d LEFT JOIN `garagiste` AS g \r\n"
+						+ "ON d.`code` = g.`working_location`\r\n"
+						+ "WHERE d.`code` = ? AND d.`agence_nom` = ?";
 				
 				statement = connection.prepareStatement(Query);
 				statement.setString(1, code);
@@ -1624,33 +1628,50 @@ public class DAO {
 			connectDB();
 			if(building.getType().equals("depot")) {
 				Query = "UPDATE `atelier`.`depot` \r\n"
-						+ "SET `adress` = ?, `garagiste_email` = ?, `lat` = ?, `lon` = ?, `capacite` = ?\r\n"
+						+ "SET `adress` = ?, `lat` = ?, `lon` = ?, `capacite` = ?\r\n"
 						+ "WHERE (`code` = ?) and (`agence_nom` = ?)";
 				statement = connection.prepareStatement(Query);
 				
-				statement.setInt(5, ((Depot)building).getCapacite());
-				statement.setString(6, building.getCode());
-				statement.setString(7, building.getAgence_nom());
+				statement.setString(1, building.getAdress());
+				statement.setString(2, building.getLat());
+				statement.setString(3, building.getLon());
+				statement.setInt(4, ((Depot)building).getCapacite());
+				statement.setString(5, building.getCode());
+				statement.setString(6, building.getAgence_nom());
 			} else {
 				Query = "UPDATE `atelier`.`offices` \r\n"
 						+ "SET `address` = ?, `email_secretaire` = ?, `lat` = ?, `lon` = ?\r\n"
 						+ "WHERE (`code` = ?) and (`agency_name` = ?)";
 				statement = connection.prepareStatement(Query);
 				
+				statement.setString(1, building.getAdress());
+				String email = null;
+				if(building.getEmployee_email().length() > 0) {
+					email = building.getEmployee_email();
+				}
+				statement.setString(2, email);
+				statement.setString(3, building.getLat());
+				statement.setString(4, building.getLon());
 				statement.setString(5, building.getCode());
 				statement.setString(6, building.getAgence_nom());
+				
 			}
-			
-			statement.setString(1, building.getAdress());
-			String email = null;
-			if(building.getEmployee_email().length() > 0) {
-				email = building.getEmployee_email();
-			}
-			statement.setString(2, email);
-			statement.setString(3, building.getLat());
-			statement.setString(4, building.getLon());
 			
 			result = statement.executeUpdate();
+			
+			if (building.getType().equals("depot")) {
+				Query = "UPDATE `atelier`.`garagiste` SET `working_location` = NULL WHERE (`working_location` = ?)";
+				statement = connection.prepareStatement(Query);
+				statement.setString(1, building.getCode());
+				statement.executeUpdate();
+				
+				Query = "UPDATE `atelier`.`garagiste` SET `working_location` = ? WHERE (`email` = ?)";
+				statement = connection.prepareStatement(Query);
+				statement.setString(1, building.getCode());
+				statement.setString(2, building.getEmployee_email());
+				statement.executeUpdate();
+			}
+			
 			
 			statement.close();
 		}catch (SQLException | InstantiationException | IllegalAccessException e) {
@@ -1964,16 +1985,15 @@ public class DAO {
 				statement.setString(3, employee.getAgencyName());
 				result = statement.executeUpdate();	
 				if(result == 1) {
-					if (employee.getType().equals("depot manager")) {
-					Query = "Update depot set garagiste_email = ? where code=?";
-					} else {
+					if (employee.getType().equals("secretary")) {
 					Query = "Update offices set email_secretaire = ? where code=?";
-					}
+					
 					statement = connection.prepareStatement(Query);
 					statement.setString(1, employee.getEmail());
 					statement.setString(2, employee.getWorkingLocation());
 					result = statement.executeUpdate();
-					statement.close();	
+					statement.close();
+					}
 				}	
 			}
 		}catch (SQLException | InstantiationException | IllegalAccessException e) {
@@ -1995,9 +2015,7 @@ public class DAO {
 			statement = connection.prepareStatement(Query);
 			statement.setString(1, email);
 			statement.executeUpdate();
-			if (AccountType.equals("depot manager")) {
-				Query = "Update depot set garagiste_email = NULL where garagiste_email = ? limit 1";
-			}else {
+			if (AccountType.equals("secretary")) {
 				Query = "Update offices set email_secretaire = NULL where email_secretaire = ? limit 1";
 			}
 			statement = connection.prepareStatement(Query);

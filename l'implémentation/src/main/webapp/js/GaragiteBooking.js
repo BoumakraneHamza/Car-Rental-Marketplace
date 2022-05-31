@@ -33,9 +33,9 @@ function showReservations(reserv) {
 	reservation.setAttribute('id','booking');
 	
 	reservation.innerHTML = '<span>'+reserv.renterName+'</span>\n\
-							<span>'+reserv.carName+'</span>\n\
-							<span>'+reserv.pick_up_date+', '+reserv.pick_up_hour+'</span>\n\
-							<span>'+reserv.return_date+', '+reserv.return_hour+'</span>';
+							<span>'+reserv.vehicule.marque+' '+reserv.vehicule.modele+'</span>\n\
+							<span>'+reserv.pick_up_date+'</span>\n\
+							<span>'+reserv.return_date+'</span>';
 	
 	const bookingList = document.getElementById("reservationsContainer");
 	bookingList.appendChild(reservation);
