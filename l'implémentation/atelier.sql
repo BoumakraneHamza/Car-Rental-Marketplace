@@ -35,7 +35,8 @@ CREATE TABLE `agence` (
   PRIMARY KEY (`nom`),
   UNIQUE KEY `num_register_UNIQUE` (`num_register`),
   KEY `fk_Agence_Utilisateur1_idx` (`email_compte`),
-  CONSTRAINT `fk_Agence_Utilisateur1` FOREIGN KEY (`email_compte`) REFERENCES `users` (`email`)
+  CONSTRAINT `fk_Agence_Utilisateur1` FOREIGN KEY (`email_compte`) REFERENCES `users` (`email`),
+  CONSTRAINT `positive_follow_num` CHECK ((`number_followers` >= 0))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -45,7 +46,7 @@ CREATE TABLE `agence` (
 
 LOCK TABLES `agence` WRITE;
 /*!40000 ALTER TABLE `agence` DISABLE KEYS */;
-INSERT INTO `agence` VALUES ('agence02',52165,'batna','d02@gmail.com','030102301087','/assets/agency_pics/hertz-logo.png',1),('Hertz',1231231,'constantine','d01@email.com','012031023011','/assets/agency_pics/hertz-logo.png',-1);
+INSERT INTO `agence` VALUES ('agence02',52165,'batna','d02@gmail.com','030102301087','/assets/agency_pics/hertz-logo.png',1),('Hertz',1231231,'constantine','d01@email.com','012031023011','/assets/agency_pics/hertz-logo.png',1);
 /*!40000 ALTER TABLE `agence` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -345,8 +346,12 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `follow_BEFORE_DELETE` BEFORE DELETE ON `follow` FOR EACH ROW BEGIN
-update agence set number_followers = number_followers -1 where nom = old.agencyName;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `follow_AFTER_DELETE` AFTER DELETE ON `follow` FOR EACH ROW BEGIN
+IF (SELECT `number_followers` FROM `agence` WHERE `nom` = OLD.`agencyName`) <= 0 THEN
+UPDATE `agence` SET `number_followers` = 0 WHERE `nom` = OLD.`agencyName`;
+ELSE
+UPDATE `agence` SET `number_followers` = `number_followers` - 1 WHERE `nom` = OLD.`agencyName`;
+END IF;
 END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -880,4 +885,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-31  2:17:39
+-- Dump completed on 2022-06-01 12:17:51
