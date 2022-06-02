@@ -5,6 +5,9 @@ import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -93,10 +96,11 @@ public class ViewCar extends HttpServlet {
 				String clientEmail = user.getEmail();
 				String agencyName = request.getParameter("agencyName");
 				DAO dao = new DAO();
-				if(dao.FollowAgency(agencyName, clientEmail) == 1) {
+				String action = dao.FollowAgency(agencyName, clientEmail);
+				if(action != null &&action.equals("delete")) {
+					response.setStatus(202);
+				}else if(action != null){
 					response.setStatus(200);
-				}else {
-					response.setStatus(300);
 				}
 			}
 		}

@@ -73,6 +73,8 @@ public class DAO {
 	            }
 	            else if(result.getString("type").equals("secretary")) {
 	            	user = getSecretaire(result.getString("email"));
+	            }else if(result.getString("type").equals("owner")) {
+	            	user = getOwner(result.getString("email"));
 	            }
 	            user.setPassword(password);
 	        }
@@ -200,6 +202,29 @@ public class DAO {
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
+		}
+		return user;
+	}
+	public User getOwner(String email) {
+		User user = null ;
+		String Query = "Select * from admin where email = ? limit 1";
+		PreparedStatement statement;
+		ResultSet result ;
+		try {
+			connectDB();
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, email);
+			result = statement.executeQuery();
+			if (result.next()) {
+				user = new User();
+				user.setType("owner");
+				user.setNom(result.getString("nom"));
+				user.setPrenom(result.getString("prenom"));
+				user.setImage(result.getString("image"));
+				user.setEmail(email);
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
 		}
 		return user;
 	}
@@ -727,8 +752,8 @@ public class DAO {
 		}
 		return result ;
 	}
-	public int FollowAgency(String AgencyName , String clientEmail) {
-		int result = 0 ; 
+	public String FollowAgency(String AgencyName , String clientEmail) {
+		String affectedAction = null;
 		String Query = "SELECT EXISTS(SELECT * FROM follow WHERE clientemail = ? and agencyName = ?) as result";
 		PreparedStatement statement ;
 		ResultSet set ;
@@ -741,18 +766,20 @@ public class DAO {
 			if(set.next()) {
 				if(Integer.parseInt(set.getString("result"))==1) {
 					Query = "Delete from follow where clientemail = ? and agencyName = ?";
+					affectedAction = "delete";
 				}else {
 					Query = "Insert into follow values(?,?)";
+					affectedAction = "insert";
 				}
 				statement = connection.prepareStatement(Query);
 				statement.setString(1, clientEmail);
 				statement.setString(2, AgencyName);
-				result = statement.executeUpdate();
+				statement.executeUpdate();
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		return result ;
+		return affectedAction ;
 	}
 	public ArrayList<Office> getAvailableOffices(String Agency_name){
 		ArrayList<Office> offices = new ArrayList<Office>();
@@ -965,6 +992,7 @@ public class DAO {
 			}
 			statement.close();
 		} catch (SQLException | InstantiationException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return buildings;
@@ -1113,6 +1141,7 @@ public class DAO {
 			}
 			statement.close();
 		} catch (SQLException | InstantiationException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return buildings;
@@ -1177,6 +1206,7 @@ public class DAO {
 				employee.setType(type);
 			}
 		} catch (SQLException | InstantiationException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return employee;
@@ -1274,6 +1304,7 @@ public class DAO {
 		}
 		}catch (Exception e) {
 			e.printStackTrace();
+			
 		}
 		return depots;
 	}
@@ -1489,6 +1520,7 @@ public class DAO {
 			
 			result = statement.executeUpdate();
 			
+			
 			statement.close();
 		}catch (SQLException | InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
@@ -1652,27 +1684,22 @@ public class DAO {
 				statement.setString(2, email);
 				statement.setString(3, building.getLat());
 				statement.setString(4, building.getLon());
-				statement.setString(5, building.getCode());
-				statement.setString(6, building.getAgence_nom());
-				
 			}
 			
 			result = statement.executeUpdate();
-			
+
 			if (building.getType().equals("depot")) {
 				Query = "UPDATE `atelier`.`garagiste` SET `working_location` = NULL WHERE (`working_location` = ?)";
 				statement = connection.prepareStatement(Query);
 				statement.setString(1, building.getCode());
 				statement.executeUpdate();
-				
+
 				Query = "UPDATE `atelier`.`garagiste` SET `working_location` = ? WHERE (`email` = ?)";
 				statement = connection.prepareStatement(Query);
 				statement.setString(1, building.getCode());
 				statement.setString(2, building.getEmployee_email());
 				statement.executeUpdate();
 			}
-			
-			
 			statement.close();
 		}catch (SQLException | InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
@@ -1986,13 +2013,13 @@ public class DAO {
 				result = statement.executeUpdate();	
 				if(result == 1) {
 					if (employee.getType().equals("secretary")) {
-					Query = "Update offices set email_secretaire = ? where code=?";
-					
-					statement = connection.prepareStatement(Query);
-					statement.setString(1, employee.getEmail());
-					statement.setString(2, employee.getWorkingLocation());
-					result = statement.executeUpdate();
-					statement.close();
+						Query = "Update offices set email_secretaire = ? where code=?";
+						
+						statement = connection.prepareStatement(Query);
+						statement.setString(1, employee.getEmail());
+						statement.setString(2, employee.getWorkingLocation());
+						result = statement.executeUpdate();
+						statement.close();	
 					}
 				}	
 			}
@@ -2017,10 +2044,10 @@ public class DAO {
 			statement.executeUpdate();
 			if (AccountType.equals("secretary")) {
 				Query = "Update offices set email_secretaire = NULL where email_secretaire = ? limit 1";
+				statement = connection.prepareStatement(Query);
+				statement.setString(1, email);
+				statement.executeUpdate();
 			}
-			statement = connection.prepareStatement(Query);
-			statement.setString(1, email);
-			statement.executeUpdate();
 			if (AccountType.equals("depot manager"))
 				Query = "DELETE FROM `atelier`.`garagiste` WHERE (`email` = ?)";
 			else

@@ -1,0 +1,217 @@
+.main-frame {
+    width: calc(100vw - 50px);
+    height: calc(100vh - 55px);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    background:#fff;
+}
+.main_content {
+    width: 65%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.main_content .best_performing_agencies {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding: 10px 30px;
+    gap: 20px;
+    height: 112px;
+}
+.main_content .best_performing_agencies #agency {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    cursor: pointer;
+    gap: 8px;
+}
+.main_content .best_performing_agencies #agency #image_wrapper {
+    width: 70px;
+    height: 70px;
+    overflow: hidden;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    border: 3px solid #0f56b3;
+}
+.main_content .best_performing_agencies #agency #image_wrapper img{
+    width: 60px;
+    height: 60px;
+    background: #fff;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #f5f5f5;
+}
+.main_content .best_performing_agencies #agency #agency_name {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 14px;
+}
+.main_content .Monthly_performance {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 10px;
+}
+.main_content .Monthly_performance #tab_title {
+    padding: 10px 30px 0px;
+    font-weight: 500;
+    font-size:15px;
+}
+.main_content .Monthly_performance .performance_list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding: 0px 30px 10px 30px;
+    justify-content: space-between;
+}
+.main_content .Monthly_performance .performance_list .metric {
+    width: 32%;
+    border: 2px solid #E4E4E4;
+    padding: 13px 10px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 10px;
+    height: 101px;
+}
+.main_content .Monthly_performance .performance_list .metric #title {
+    font-size: 15px;
+    font-weight: 500;
+}
+.main_content .Monthly_performance .performance_list .metric #stat {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 10px;
+    align-items: flex-end;
+}
+.main_content .Monthly_performance .performance_list .metric #stat #value {
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 30px;
+}
+.main_content .Monthly_performance .performance_list .metric #stat #exchange {
+    color: #fec04d;
+    font-weight: 500;
+    font-size: 17px;
+}
+.main_content .analytics {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 10px;
+    padding: 10px 30px;
+}
+.main_content .analytics #tab_title {
+    font-size: 16px;
+    font-weight: 500;
+}
+.main_content .analytics .content_wrapper {
+    display: grid;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+}
+.main_content .analytics .content_wrapper .section {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.main_content .analytics .content_wrapper .section .graph_stat {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 10px;
+    border: 1px solid #E4E4E4;
+    padding: 10px;
+    border-radius: 5px;
+}
+.main_content .analytics .content_wrapper .section .graph_stat #graph_title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #145ab5;
+}
+.main_content .analytics .content_wrapper .section .location_stat {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 15px;
+    margin-top: 15px;
+}
+.main_content .analytics .content_wrapper .section .location_stat #sec_tab_title {
+    font-size: 15px;
+    font-weight: 500;
+}
+.main_content .analytics .content_wrapper .section .location_stat #location_list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 20px;
+}
+.main_content .analytics .content_wrapper .section .location_stat #location_list #location {
+    border: 1px solid #E4E4E4;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding: 10px;
+    max-width: 110px;
+    gap: 10px;
+    border-radius: 10px;
+}
+.main_content .analytics .content_wrapper .section .location_stat #location_list #location #tab_header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+}
+.main_content .analytics .content_wrapper .section .location_stat #location_list #location #tab_header  #image_wrapper {
+    background: #eee;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.main_content .analytics .content_wrapper .section .location_stat #location_list #location #tab_header  #image_wrapper img{
+	width: 8px;
+}
+.main_content .analytics .content_wrapper .section .location_stat #location_list #location #visits {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    font-size: 13px;
+    font-weight: 500;
+    align-items: flex-end;
+    gap: 5px;
+}
+.main_content .analytics .content_wrapper .section .location_stat #location_list #location #visits #couter {
+    font-size: 27px;
+    font-weight: 600;
+    line-height: 27px;
+    color: #fec24e;
+}
+.main_content .analytics .content_wrapper .section .location_stat #location_list #location #locationAddress {
+    font-size: 14px;
+    font-weight: 500;
+}

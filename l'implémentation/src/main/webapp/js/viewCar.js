@@ -133,6 +133,8 @@ function followAgency(element){
 	xhr.onload =()=>{
 		if(xhr.status == 200 && xhr.readyState == 4){
 			element.querySelector("img").src="/Atelier/assets/check-round-white.svg";
+		}else if(xhr.status == 202 && xhr.readyState == 4){
+			element.querySelector("img").src="/Atelier/assets/follow-icon.svg";
 		}
 	}
 	xhr.open("POST","ViewCar");

@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 
 import model.DAO;
 import model.User;
-
 /**
  * Servlet implementation class Login
  */

@@ -1,7 +1,6 @@
 package control;
 
 import java.io.IOException;
-import java.util.Random;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,8 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.DAO;
-import model.InboxReturn;
 import model.User;
 
 /**
@@ -37,7 +34,6 @@ public class Dashboard extends HttpServlet {
 		User user = (User) request.getSession().getAttribute("user");
 		if (user != null) {
 			request.setAttribute("user", user);
-			DAO dao = new DAO();
 			String url = "";
 			
 			if (user.getType().equals("client")) {
@@ -55,6 +51,9 @@ public class Dashboard extends HttpServlet {
 			} else if(user.getType().equals("depot manager") || user.getType().equals("secretary")) {
 				url = url + "/Atelier/";
 				url = url + "ProfileStateManager";
+				response.sendRedirect(url);
+			} else if(user.getType().equals("owner")) {
+				url = url + "/Atelier/OwnerDashboard";
 				response.sendRedirect(url);
 			}
 		} else {
