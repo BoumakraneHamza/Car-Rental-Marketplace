@@ -38,7 +38,24 @@ public class DAO {
 		}
 		return connection;
 	}
-	
+	public void addClientWithGoogleSignIn(User user) {
+		String Query = "insert into client(nom ,prenom,email,image) values(?,?,?,?)";
+		PreparedStatement statement ; 
+		try {
+			connectDB();
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, user.getNom());
+			statement.setString(2, user.getPrenom());
+			statement.setString(3, user.getEmail());
+			statement.setString(4, user.getImage());
+			statement.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public void checkIfAlreadySignUpGoogle(String id) {
+		
+	}
 	public User checkLogin(String email, String password)
 			throws InstantiationException, IllegalAccessException {
 		
@@ -1515,8 +1532,8 @@ public class DAO {
 			statement.setString(1, depot.getAdress());
 			statement.setInt(2, depot.getCapacite());
 			statement.setString(3, depot.getAgence_nom());
-			statement.setString(4, depot.getLat());
-			statement.setString(5, depot.getLon());
+			statement.setString(5, depot.getLat());
+			statement.setString(6, depot.getLon());
 			
 			result = statement.executeUpdate();
 			

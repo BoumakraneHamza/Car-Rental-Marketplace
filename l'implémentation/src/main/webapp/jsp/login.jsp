@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css">
 <script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="https://unpkg.com/jwt-decode/build/jwt-decode.js"></script>
 <title>login</title>
 </head>
 <body>
@@ -22,7 +23,12 @@
 				<p>login with</p>
 				</div>
 				<div class="login-btns">
-					<button style="margin-right:15px;"><img src="${pageContext.request.contextPath}/assets/Google__logo.svg">Google</button>
+					<script src="https://accounts.google.com/gsi/client" async defer></script>
+				    <div id="g_id_onload"
+				         data-client_id="106464428031-pbhd3l5gbcgedmjei3rl7t01v0b4jovl.apps.googleusercontent.com"
+				         data-callback="handleCredentialResponse">
+				    </div>
+				    <div class="g_id_signin" data-type="standard"></div>
 					<button><img id="facebook" src="${pageContext.request.contextPath}/assets/facebook.svg">Facebook</button>
 				</div>
 				<div class="line">
