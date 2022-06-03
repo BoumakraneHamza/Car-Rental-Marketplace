@@ -215,3 +215,240 @@
     font-size: 14px;
     font-weight: 500;
 }
+.side_bar {
+    width: 35%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.side_bar .Progress {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding: 10px;
+    gap:7px;
+}
+.side_bar .Progress #tab_header {
+	display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    padding-left: 15px;
+}
+.side_bar .Progress #tab_header #image_wrapper {
+    width: 30px;
+    height: 30px;
+    background: #eee;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.side_bar .Progress #tab_content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 10px;
+}
+.side_bar .Progress #tab_content #section {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 10px;
+    align-items: center;
+}
+.side_bar .Progress #tab_content #section #section_progress {
+    border: 1px solid #E4E4E4;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    border-radius: 10px;
+    width: 200px;
+    align-items: center;
+    gap:15px;
+}
+.side_bar .Progress #tab_content #section #section_progress #card_title {
+    font-size: 15px;
+    font-weight: 600;
+}
+.side_bar .Progress #tab_content #section #section_progress #card_circle {
+    position: relative;
+}
+.side_bar .Progress #tab_content #section #section_progress #card_circle span.label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 19px;
+    font-weight: 600;
+	z-index: 1;
+}
+.side_bar .Progress #tab_content #section #section_progress .pie {
+	width: 100px;
+    height: 100px;
+    background: conic-gradient(#fec24e 210deg , #eaf1ff 210deg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.side_bar .Progress #tab_content #section #section_progress .pie:after{
+	content: "";
+    width: 80%;
+    height: 80%;
+    position: absolute;
+    box-sizing: border-box;
+    border-radius: 50%;
+    background: #fff;
+}
+.side_bar .Progress #tab_content #section #section_progress #card_desc {
+    font-size: 15px;
+    font-weight: 600;
+    color: #345cb6;
+}
+.side_bar .Progress #tab_content #section .section_data_list {
+    display: flex;
+    gap: 10px;
+}
+.side_bar .Progress #tab_content #section .section_data {
+	border: 1px solid #E4E4E4;
+    padding: 10px;
+    border-radius: 10px;
+    width: 125px;
+}
+.side_bar .Progress #tab_content #section .section_data #card_header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+}
+.side_bar .Progress #tab_content #section .section_data #card_header #value {
+    font-size: 20px;
+    font-weight: 600;
+}
+.side_bar .Progress #tab_content #section .section_data #card_content {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.side_bar .Progress #tab_content #section .section_data #card_content #task_type {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ac8181;
+}
+.side_bar .Progress #tab_content #section .section_data #card_content #status {
+    font-size: 14px;
+    font-weight: 500;
+    color: #C4C4C4;
+}
+.side_bar .Progress #tab_content #section .section_data_long {
+    width: 100%;
+    border: 1px solid #E4E4E4;
+    border-radius: 10px;
+    padding: 16PX;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 19px;
+}
+.side_bar .Progress #tab_content #section .section_data_long #card_header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+}
+.side_bar .Progress #tab_content #section .section_data_long #card_header #value {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 20px;
+}
+.side_bar .Progress #tab_content #section .section_data_long #card_content {
+    display: flex;
+    gap: 10px;
+}
+.side_bar .Progress #tab_content #section .section_data_long #card_content #task_type {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ac8181;
+}
+.side_bar .Progress #tab_content #section .section_data_long #card_content #status {
+    font-size: 14px;
+    font-weight: 500;
+    color: #C4C4C4;
+}
+.side_bar .recent_Activities {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding: 10px 30px;
+    gap: 10px;
+}
+.side_bar .recent_Activities #tab_title {
+    font-size: 15px;
+    font-weight: 500;
+}
+.side_bar .recent_Activities #activities_list {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 10px;
+}
+.side_bar .recent_Activities #activities_list #activity {
+    display: flex;
+    gap: 10px;
+    border: 1px solid #E4E4E4;
+    padding: 10Px;
+    width: 100%;
+    border-radius: 10px;
+    align-items: center;
+}
+.side_bar .recent_Activities #activities_list #activity #image_wrapper {
+    border: 3px solid #E4E4E4;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+}
+.side_bar .recent_Activities #activities_list #activity #activity_info {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 5px;
+	width: calc(100% - 90px);
+    justify-content: space-between;
+}
+.side_bar .recent_Activities #activities_list #activity #activity_info #tab_activity {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+}
+.side_bar .recent_Activities #activities_list #activity #activity_info #tab_activity #actor_name {
+    font-size: 17px;
+    font-weight: 600;
+}
+.side_bar .recent_Activities #activities_list #activity #activity_info #tab_activity #time {
+    font-size: 16px;
+    color: #C4C4C4;
+}
+.side_bar .recent_Activities #activities_list #activity #activity_info #tab_content {
+    font-size: 16px;
+}

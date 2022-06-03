@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib   uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +14,14 @@
 	<div class="tile" onclick="location.href='/Atelier/ViewProfile'">
 		<div class="viewProfile">
 			<div id="profile_image">
-				<img style="width:60px;" src="${pageContext.request.contextPath}${user.image}">
+				<c:choose>
+					<c:when test="${user.image.substring(0,5).equals(\"https\")}">
+						<img src="${user.image}">
+					</c:when>
+					<c:otherwise>
+						<img src="${pageContext.request.contextPath}${user.image}">
+					</c:otherwise>
+				</c:choose>
 			</div>
 			<div class="text">
 				<div id="full_name">

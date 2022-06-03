@@ -119,10 +119,13 @@ form{
     align-items: center;
 }
 .frame .content #login .login-btns {
-    display: flex;
+	display: flex;
     flex-direction: row;
     align-items: center;
     margin: 10px 0px 10px 0px;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: nowrap;
 }
 .frame .content #login form #checkbox {
     display: flex;

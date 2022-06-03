@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib   uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +20,14 @@
 	<div class="user">
 	<img id="notification" src="${pageContext.request.contextPath}/assets/notification.svg">
 	<div id="user-image">
-		<img style="width: 40px;" src="${pageContext.request.contextPath}${user.image}">
+		<c:choose>
+			<c:when test="${user.image.substring(0,5).equals(\"https\")}">
+				<img style="width: 40px;" src="${user.image}">
+			</c:when>
+			<c:otherwise>
+				<img style="width: 40px;" src="${pageContext.request.contextPath}${user.image}">
+			</c:otherwise>
+		</c:choose>
 	</div>
 		<div id="user-info">
 			<p id="full-name">${user.nom} ${user.prenom}</p>

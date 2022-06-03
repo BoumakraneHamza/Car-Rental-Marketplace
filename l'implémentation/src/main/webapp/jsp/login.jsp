@@ -29,7 +29,6 @@
 				         data-callback="handleCredentialResponse">
 				    </div>
 				    <div class="g_id_signin" data-type="standard"></div>
-					<button><img id="facebook" src="${pageContext.request.contextPath}/assets/facebook.svg">Facebook</button>
 				</div>
 				<div class="line">
 				<div id="line"></div>
