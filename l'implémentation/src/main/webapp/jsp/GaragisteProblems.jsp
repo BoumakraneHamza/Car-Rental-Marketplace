@@ -53,7 +53,6 @@
 		<div id="dropdownlist">
 			<img src="${pageContext.request.contextPath}/assets/angle-down-solid.svg">
 		</div>
-		
 	</div>
 </div>
 <div class="content">

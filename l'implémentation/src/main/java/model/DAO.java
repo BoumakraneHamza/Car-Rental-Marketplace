@@ -56,6 +56,26 @@ public class DAO {
 	public void checkIfAlreadySignUpGoogle(String id) {
 		
 	}
+	public boolean EmailAlreadyExist(String email) {
+		String Query = "SELECT EXISTS(SELECT * FROM atelier.users WHERE email = ?) as result";
+		boolean exist = false;
+		PreparedStatement statement;
+		ResultSet result;
+		try {
+			connectDB();
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, email);
+			result = statement.executeQuery();
+			if(result.next()) {
+				if(result.getString("result").equals("1")) {
+					exist = true;
+				}
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return exist;
+	}
 	public User checkLogin(String email, String password)
 			throws InstantiationException, IllegalAccessException {
 		
@@ -168,6 +188,48 @@ public class DAO {
 			e.printStackTrace();
 		}
 		return result;
+	}
+	public void addClient(User user) {
+		String Query = "Insert into client values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		PreparedStatement statement;
+		try {
+			connectDB();
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, user.getNom());
+			statement.setString(2, user.getPrenom());
+			statement.setString(3, user.getNum_carte());
+			statement.setString(4, user.getEmail());
+			statement.setString(5, user.getTelephone());
+			statement.setString(6, user.getDate_naissance());
+			statement.setString(7, user.getSexe());
+			statement.setString(8, "regulier");
+			statement.setString(9, "0");
+			statement.setString(10, user.getImage());
+			statement.setString(11, "@"+user.getNom());
+			statement.setString(12, user.getLat());
+			statement.setString(13, user.getLon());
+			statement.setString(14, user.getAccountCreated());
+			statement.setString(15, user.getAddress());
+			statement.setString(16, null);
+			statement.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	public void addUser(User user) {
+		String Query = "Insert into users values(?,?,?)";
+		PreparedStatement statement ;
+		try {
+			connectDB();
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, user.getEmail());
+			statement.setString(2, user.getPassword());
+			statement.setString(3, "client");
+			statement.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	public User getAgencyDirecteurInfo(String email) throws SQLException {
 		User user = null ;
@@ -945,7 +1007,31 @@ public class DAO {
 		}
 		return null;
 	}
-	
+	public ArrayList<Agence> getMostBookedAgencies(){
+		ArrayList<Agence> Agencies = new ArrayList<Agence>();
+		String Query = "select distinct nom from agence as g , depot as d where g.nom = d.agence_nom order by d.Bookings desc limit 10;";
+		PreparedStatement statement ;
+		ResultSet result;
+		try {
+			connectDB();
+			statement = connection.prepareStatement(Query);
+			result = statement.executeQuery();
+			while(result.next()) {
+				Query = "Select * from agence where nom = ?";
+				statement = connection.prepareStatement(Query);
+				statement.setString(1, result.getString(1));
+				ResultSet set = statement.executeQuery();
+				if(set.next()) {
+					Agence agence = new Agence();
+					agence.setImage(set.getString("photo"));
+					agence.setName(set.getString("nom"));
+					Agencies.add(agence);
+				}
+			}
+		}catch(Exception e) {
+			e.printStackTrace();		}
+		return Agencies;
+	}
 	public ArrayList<Building> getAgencyBuildings(String AgencyName) {
 		String Query;
 		ArrayList<Building> buildings = new ArrayList<Building>();
@@ -1099,6 +1185,55 @@ public class DAO {
 			e.printStackTrace();
 		}
 		return depot ;
+	}
+	public ArrayList<Depot> getDepotsWithAvailableSpace(String AgencyName){
+		String Query = "select * from depot as d where capacite - ( select count(matricule) from vehicule "
+						+ "where Agence = d.agence_nom and depot_code = d.code) > 0 and agence_nom = ?";
+		PreparedStatement statement;
+		ResultSet result;
+		ArrayList<Depot> depots = new ArrayList<Depot>();
+		try {
+			connectDB();
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, AgencyName);
+			result = statement.executeQuery();
+			while(result.next()) {
+				Depot depot = new Depot();
+				depot.setCode(result.getString("code"));
+				depot.setAdress(result.getString("address"));
+				depot.setCapacite(result.getInt("capacite"));
+				depot.setBookings(result.getInt("Bookings"));
+				depot.setLat(result.getString("lat"));
+				depot.setLon(result.getString("lon"));
+				depots.add(depot);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return depots;
+	}
+	public boolean HasAvailableSpace(String AgencyName , String depotCode) {
+		String Query ="select exists (select * from depot as d where capacite - "
+				+ "( select count(matricule) from vehicule where Agence = d.agence_nom "
+				+ "and depot_code = d.code) > 0 and agence_nom = ? and code=?)as counter";
+		boolean Available = false;
+		PreparedStatement statement;
+		ResultSet result;
+		try {
+			connectDB();
+			statement = connection.prepareStatement(Query);
+			statement.setString(1, AgencyName);
+			statement.setString(2, depotCode);
+			result = statement.executeQuery();
+			if(result.next()) {
+				if(result.getString("counter").equals("1")) {
+					Available = true;
+				}
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return Available;
 	}
 	//this method return the building where there is no employee
 	public ArrayList<Building> getAvailableAgencyBuildings(String AgencyName,String Type) {

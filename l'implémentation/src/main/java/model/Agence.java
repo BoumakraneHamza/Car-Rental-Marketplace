@@ -4,6 +4,7 @@ public class Agence {
 	private String name ; 
 	private String phone ; 
 	private String Address ; 
+	private String image;
 	
 	public String getAddress() {
 		return Address;
@@ -14,6 +15,9 @@ public class Agence {
 	public String getPhone() {
 		return phone;
 	}
+	public String getImage() {
+		return image;
+	}
 	public void setAddress(String address) {
 		Address = address;
 	}
@@ -22,5 +26,8 @@ public class Agence {
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+	public void setImage(String image) {
+		this.image = image;
 	}
 }

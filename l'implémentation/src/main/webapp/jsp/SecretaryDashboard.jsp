@@ -105,7 +105,14 @@
 						<div id="tab_content">
 						<div id="main_content">
 							<div id="client_image">
-								<img style="width:185px;" src="${pageContext.request.contextPath}${map.get(key).client.image}">
+							<c:choose>
+								<c:when test="${map.get(key).client.image.substring(0,5).equals(\"https\")}">
+									<img style="width:185px;" src="${map.get(key).client.image}">
+								</c:when>
+								<c:otherwise>
+									<img style="width:185px;" src="${pageContext.request.contextPath}${map.get(key).client.image}">
+								</c:otherwise>
+							</c:choose>
 							</div>
 							<div id="client_main_info">
 								<div id="tile">
@@ -126,7 +133,14 @@
 										<div id="status"><img style="width:20px;" src="${pageContext.request.contextPath}/assets/check-circle-not-fill.svg"><p id="value">Active</p></div>
 									</div>
 									<div id="renter_age_gender">
-										<p id="Age">${age} Yrs,</p>
+										<c:choose>
+											<c:when test="${age != 0}">
+												<p id="Age">${age} Yrs,</p>
+											</c:when>
+											<c:otherwise>
+												<p id="Age">Age :Not available</p>
+											</c:otherwise>
+										</c:choose>
 										<p id="gender"> ${map.get(key).client.sexe}</p>
 									</div>
 								</div>

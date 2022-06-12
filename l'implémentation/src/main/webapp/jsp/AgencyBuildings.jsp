@@ -6,6 +6,7 @@
 <head>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ClientMain.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/AgencyBuildings.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/checkbox.css">
 <script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <meta charset="UTF-8">
 <title>Buildings</title>
@@ -221,7 +222,8 @@
 					<img src="${pageContext.request.contextPath}/assets/angle-down-solid.svg">
 				</div>
 			</div>
-			<div id="add_car">
+			<div id="add_car" onclick="showAddCar(this)">
+				<input type="hidden" id="depot_code">
 				<img style="width: 12px;" src="${pageContext.request.contextPath}/assets/add-black.svg">
 				<p>Add new car</p>
 			</div>
@@ -364,6 +366,108 @@
 		</div>
 	</div>
 </div>
+<form class="add_car_wrapper" action="CarManagement" method="post" style="display:none;" enctype = "multipart/form-data">
+	<input type="hidden" name="required_action" value="add_car">
+	<input type="hidden" name="depot_code" id="depot_code">
+	<div class="tab_header">
+		<label for="custom_sec_image" id="edit"><img style="width:15px;" src="${pageContext.request.contextPath}/assets/pen-white.svg"></label>
+		<div id="image_wrapper" onclick="hideAddCar()">
+			<img style="width:10px;" src="${pageContext.request.contextPath}/assets/cancel-black.svg">
+		</div>
+	</div>
+	<div class="image_wrapper">
+			<input type="hidden" id="carMatricule" value="${vehicule.matricule}">
+			<div id="main_image">
+				<label for="customMainImage" id="icon_wrapper">
+					<img style="width:15px;" src="${pageContext.request.contextPath}/assets/pen-white.svg">
+				</label>
+				<input required name="main_image" type="file" accept="Image/*" onchange="readURL(this)" id="customMainImage">
+				<img id="car_main_image" style="width: -webkit-fill-available;height: -webkit-fill-available;object-fit: cover;" src="${pageContext.request.contextPath}/assets/car_pics/auditA3.jpg">
+			</div>
+			<div id="sec_images">
+				<input required name="sec_images" onchange="readURL(this)"  type="file" id="custom_sec_image" accept="Image/*" multiple="multiple">
+				<img id="sec_image" src="${pageContext.request.contextPath}/assets/car_pics/auditA3.jpg">
+				<img id="sec_image" src="${pageContext.request.contextPath}/assets/car_pics/auditA3.jpg">
+			</div>
+		</div>
+		<div class="banner">
+			<div id="car_header">
+				<div id="left">
+					<input required type="text" id="car_marque" name="car_marque" placeholder="Car Marque">
+					<input required type="text" id="car_model" name="car_model" placeholder="Car Model">
+					<input required type="text" id="car_Full_name" name="car_fullName" placeholder="Car full name">
+				</div>
+				<div id="price"><input required value="10" type="number" id="plj" name="plj" step="10"><p id="unit">day</p></div>
+			</div>
+			<div class="features"></div>
+		</div>
+		<div class="info_wrapper">
+			<div class="car_features">
+				<p id="tab_header">Whats's include</p>
+				<div class="features-list">
+					<div id="feature">
+						<div id="icon_wrapper">
+							<img style="width:20px;" src="${pageContext.request.contextPath}/assets/car-icon.svg">
+						</div>
+						<div id="text_wrapper">
+							<select required name="body_type">
+								<option value="suv">SUV</option>
+								<option value="compact">Compact</option>
+								<option value="sedan">Sedan</option>
+								<option value="coupe">Coupe</option>
+							</select>
+							<p id="subtitle">Body type</p>
+						</div>
+					</div>
+					<div id="feature">
+						<div id="icon_wrapper">
+							<img style="width:16px;" src="${pageContext.request.contextPath}/assets/suit-case-icon.svg">
+						</div>
+						<div id="text_wrapper">
+							<input required type="number" name="cases" id="feature_insert" placeholder="suite cases">
+							<p id="subtitle">Suite cases</p>
+						</div>
+					</div>
+					<div id="feature">
+						<div id="icon_wrapper">
+							<img style="width:20px;" src="${pageContext.request.contextPath}/assets/car-doors-icon.svg">
+						</div>
+						<div id="text_wrapper">
+							<input required type="number" name="doors" id="feature_insert" placeholder="doors">
+							<p id="subtitle">Car doors</p>
+						</div>
+					</div>
+					<div id="feature">
+						<div id="icon_wrapper">
+							<img style="width:20px;" src="${pageContext.request.contextPath}/assets/gas-pump-icon.svg">
+						</div>
+						<div id="text_wrapper">
+							<select required name="mileage">
+								<option value="limited">limited</option>
+								<option value="unlimited">unlimited</option>
+							</select>
+							<p id="subtitle">Car mileage</p>
+						</div>
+					</div>
+				</div>
+				<div class="car_description">
+					<p id="tab_header">Car description</p>
+					<textarea required id="car_description" name="car_description"></textarea>
+				</div>
+			</div>
+			<div class="car_owner">
+				<div id="owner">
+					<div id="row">
+						<input required type="number" name="year" id="year" placeholder="year" min="1900" max="2022" step="1" value="2022" />
+						<input required type="text" name="color" id="color" placeholder="color">
+					</div>
+				</div>
+				<div id="insurance">
+					<button id="saveCar" type="submit">Save Car</button>
+				</div>
+			</div>
+		</div>
+</form>
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
    crossorigin=""></script>

@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/checkbox.css">
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <script src="https://unpkg.com/jwt-decode/build/jwt-decode.js"></script>
 <title>login</title>

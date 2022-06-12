@@ -46,7 +46,7 @@ public class Dashboard extends HttpServlet {
 				response.sendRedirect(url);
 			} else if(user.getType().equals("service_client")){
 				url = url + "/Atelier/";
-				url = url + "jsp/ServiceClientDashboard.jsp";
+				url = url + "ServiceClient";
 				response.sendRedirect(url);
 			} else if(user.getType().equals("depot manager") || user.getType().equals("secretary")) {
 				url = url + "/Atelier/";

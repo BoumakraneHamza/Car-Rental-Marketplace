@@ -41,82 +41,22 @@
 </div>
 <div class="content">
 	<div class="menu">
-		<div class="menu-tab" style="background: #C5DCFA;" onclick="location.href='${pageContext.request.contextPath}/CarSearch'">
+		<div class="menu-tab" style="background: #C5DCFA;" onclick="location.href='${pageContext.request.contextPath}/Dashboard'">
 			<img style="width:20px;" src="${pageContext.request.contextPath}/assets/home-icon-purple.svg">
 			<p style="color:#0F56B3;" id="title">Explore</p>
-		</div>
-		<div class="menu-tab" onclick="location.href='${pageContext.request.contextPath}/ReservationList'">
-			<img style="width:21px;" src="${pageContext.request.contextPath}/assets/ledger.svg">
-			<p id="title">Bookings</p>
-		</div>
-		<div class="menu-tab" onclick="location.href='${pageContext.request.contextPath}/ClientPayment'">
-			<img style="width:21px;" src="${pageContext.request.contextPath}/assets/payment-icon.svg">
-			<p id="title">Payment</p>
 		</div>
 	</div>
 	<div class="main-frame">
 		<div class="main_content">
 			<div class="best_performing_agencies">
-				<div id="agency">
-					<div id="image_wrapper">
-						<img src="${pageContext.request.contextPath}/assets/agency_pics/hertz-logo.png">
+				<c:forEach items="${agencies}" var="agency">
+					<div id="agency">
+						<div id="image_wrapper">
+							<img src="${pageContext.request.contextPath}${agency.image}">
+						</div>
+						<p id="agency_name">${agency.getName()}</p>
 					</div>
-					<p id="agency_name">Hertz</p>
-				</div>
-				<div id="agency">
-					<div id="image_wrapper">
-						<img src="${pageContext.request.contextPath}/assets/agency_pics/hertz-logo.png">
-					</div>
-					<p id="agency_name">Hertz</p>
-				</div>
-				<div id="agency">
-					<div id="image_wrapper">
-						<img src="${pageContext.request.contextPath}/assets/agency_pics/hertz-logo.png">
-					</div>
-					<p id="agency_name">Hertz</p>
-				</div>
-				<div id="agency">
-					<div id="image_wrapper">
-						<img src="${pageContext.request.contextPath}/assets/agency_pics/hertz-logo.png">
-					</div>
-					<p id="agency_name">Hertz</p>
-				</div>
-				<div id="agency">
-					<div id="image_wrapper">
-						<img src="${pageContext.request.contextPath}/assets/agency_pics/hertz-logo.png">
-					</div>
-					<p id="agency_name">Hertz</p>
-				</div>
-				<div id="agency">
-					<div id="image_wrapper">
-						<img src="${pageContext.request.contextPath}/assets/agency_pics/hertz-logo.png">
-					</div>
-					<p id="agency_name">Hertz</p>
-				</div>
-				<div id="agency">
-					<div id="image_wrapper">
-						<img src="${pageContext.request.contextPath}/assets/agency_pics/hertz-logo.png">
-					</div>
-					<p id="agency_name">Hertz</p>
-				</div>
-				<div id="agency">
-					<div id="image_wrapper">
-						<img src="${pageContext.request.contextPath}/assets/agency_pics/hertz-logo.png">
-					</div>
-					<p id="agency_name">Hertz</p>
-				</div>
-				<div id="agency">
-					<div id="image_wrapper">
-						<img src="${pageContext.request.contextPath}/assets/agency_pics/hertz-logo.png">
-					</div>
-					<p id="agency_name">Hertz</p>
-				</div>
-				<div id="agency">
-					<div id="image_wrapper">
-						<img src="${pageContext.request.contextPath}/assets/agency_pics/hertz-logo.png">
-					</div>
-					<p id="agency_name">Hertz</p>
-				</div>
+				</c:forEach>
 			</div>
 			<div class="Monthly_performance">
 				<p id="tab_title">30 days performance</p>
@@ -303,6 +243,8 @@
 						</div>
 					</div>
 				</div>
+			</div>
+			<div class="promotionCodes">
 			</div>
 			<div class="recent_Activities">
 				<p id="tab_title">Recent Activities</p>

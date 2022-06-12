@@ -46,8 +46,10 @@ public class SecretaryDashboard extends HttpServlet {
 			request.setAttribute("map", map);
 			int age = 0;
 			for (String key : map.keySet()) {
-				LocalDate BirthDate = LocalDate.parse(map.get(key).getClient().getDate_naissance(), formatter);
-				age = Period.between(BirthDate, LocalDate.now()).getYears();
+				if(map.get(key).getClient().getDate_naissance() != null) {
+					LocalDate BirthDate = LocalDate.parse(map.get(key).getClient().getDate_naissance(), formatter);
+					age = Period.between(BirthDate, LocalDate.now()).getYears();
+				}
 				counter = dao.GetReservationCounter(map.get(key).getClient().getEmail());
 			}
 			request.setAttribute("counter", counter);

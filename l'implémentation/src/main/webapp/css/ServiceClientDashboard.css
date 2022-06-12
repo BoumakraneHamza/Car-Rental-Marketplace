@@ -23,8 +23,8 @@
     width: -webkit-fill-available;
 }
 .requests .tab_header #tab_header_title {
-    font-size: 18px;
-    font-weight: 500;
+	font-size: 15px;
+    font-weight: 600;
 }
 .requests .tab_header #cta {
     height: fit-content;
@@ -50,7 +50,7 @@
     border: none;
     width: 120px;
     height: 40px;
-    background: #b8b08d;
+    background: #0071ff;
     border-radius: 5px;
     display: flex;
     color: #fff;
@@ -63,7 +63,7 @@
     justify-content: center;
 }
 .requests .request_list {
-    padding: 0px 15px;
+    padding: 15px;
 }
 .request_list #request {
    	display: flex;
@@ -148,6 +148,25 @@
     height: calc(100vh - 75px);
     background: #fff;
     border: 2px solid #E4E4E4;
+}
+.email-content .email_content_content {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.email-content .email_content_content #no-messages {
+    width: fit-content;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    text-align: center;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 15px;
 }
 #response_done {
     width: fit-content;

@@ -89,11 +89,11 @@
 		<div class="email-content">
 			<div class="email_content_content">
 				<c:choose>
-					<c:when test="${requests.size()>0}">
+					<c:when test="${requests.size() > 0}">
 					<style>
-					#no-messages{
-						display:none;
-					}
+						#no-messages{
+							display:none;
+						}
 					</style>
 					</c:when>
 					<c:otherwise>
@@ -105,7 +105,7 @@
 					</c:otherwise>
 				</c:choose>
 				<div id="no-messages">
-					<img src="${pageContext.request.contextPath}/assets/No_messages.svg">
+					<img style="width: 140px;" src="${pageContext.request.contextPath}/assets/No_messages.svg">
 					<p>No new Messages</p>
 				</div>
 				<div id="response_done">

@@ -99,7 +99,6 @@ CREATE TABLE `billing` (
 
 LOCK TABLES `billing` WRITE;
 /*!40000 ALTER TABLE `billing` DISABLE KEYS */;
-INSERT INTO `billing` VALUES (931,1060,0,'pending','pending to set'),(932,1010,0,'pending','pending to set'),(933,1060,0,'pending','pending to set'),(934,1010,0,'pending','pending to set'),(935,960,0,'pending','pending to set'),(936,1010,0,'pending','pending to set'),(937,1060,0,'pending','pending to set'),(938,960,0,'pending','Meeting With secretary'),(939,960,0,'pending','pending to set'),(940,1010,0,'pending','Meeting With secretary'),(941,1060,0,'pending','Meeting With secretary'),(942,1060,0,'pending','Meeting With secretary'),(943,1010,0,'pending','pending to set'),(944,960,0,'pending','pending to set'),(945,960,0,'pending','Meeting With secretary'),(946,1010,0,'pending','pending to set'),(947,1060,0,'pending','Meeting With secretary'),(948,685,0,'completed','pm_1L4tpcBYa9gzCakFYkpPrTbN'),(949,685,0,'pending','pending to set'),(950,685,0,'pending','pending to set'),(951,685,0,'pending','pending to set'),(952,685,0,'pending','Meeting With secretary'),(953,685,0,'pending','Meeting With secretary'),(954,1060,0,'pending','Meeting With secretary'),(955,685,0,'pending','Meeting With secretary'),(956,1060,0,'completed','Meeting with secretary');
 /*!40000 ALTER TABLE `billing` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -198,26 +197,9 @@ CREATE TABLE `client` (
 
 LOCK TABLES `client` WRITE;
 /*!40000 ALTER TABLE `client` DISABLE KEYS */;
-INSERT INTO `client` VALUES ('Nathanial ','Olson',549837,'1@email.com','111111111111','2001-01-01','male','regulier',0,'/assets/profile_pics/1email.png','@olson','36.1889','5.4039','2022-02-10','setif-algeria','cus_LjRtnEp6Wil43W'),('Hamza','Boumakrane',123131,'Hamza@gmail.com','12312310','2001-04-02','male','regulier',0,'/assets/profile_pics/hamzagmail.jpg','@Hamza','35.5468','6.162','2022-04-20','batna-algeria','cus_LjUOVE3WMIDMo0'),('Boumakrane','Hamza',0,'hamzaboumakrane@gmail.com','0',NULL,NULL,'regulier',0,'https://lh3.googleusercontent.com/a/AATXAJwcGsBKProSaJqzUsmTpaWlxpXhB3CQmS3Z3fmP=s96-c',NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `client` VALUES ('Hamza','NewAccount',2130103010,'02@email.com','10203102301','2001-04-02','male','regulier',0,'/assets/profile_pics/220611102535635.jpeg','@Hamza','35.702418886472444','4.523486362663717','2022-06-11','M\'Sila District M\'Sila Algeria','cus_Lr9rV85oCm8hzF'),('Nathanial ','Olson',549837,'1@email.com','111111111111','2001-01-01','male','regulier',0,'/assets/profile_pics/1email.png','@olson','36.1889','5.4039','2022-02-10','setif-algeria','cus_LjRtnEp6Wil43W'),('Hamza','Boumakrane',123131,'Hamza@gmail.com','12312310','2001-04-02','male','regulier',0,'/assets/profile_pics/hamzagmail.jpg','@Hamza','35.5468','6.162','2022-04-20','batna-algeria','cus_LjUOVE3WMIDMo0');
 /*!40000 ALTER TABLE `client` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `client_AFTER_INSERT` AFTER INSERT ON `client` FOR EACH ROW BEGIN
-INSERT INTO `atelier`.`users` (`email`, `mot_pass`, `type`) VALUES (NEW.`email`, 12345678, 'client');
-END */;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -267,7 +249,7 @@ CREATE TABLE `conversation` (
 
 LOCK TABLES `conversation` WRITE;
 /*!40000 ALTER TABLE `conversation` DISABLE KEYS */;
-INSERT INTO `conversation` VALUES (23,'Problem with the contract signature','1@email.com','serviceClient@email.com','2022-04-22 19:04:05','Problem Report',0),(24,'New Problem ','1@email.com','serviceClient@email.com','2022-04-22 19:04:11','Reclamation',0),(25,'Hello world ','serviceClient@email.com','1@email.com','2022-04-20 19:46:37','Reclamation',0),(32,'Bug with Pdf files','1@email.com','serviceClient@email.com','2022-04-23 01:09:28','Bug Report',0),(67,'Title','s01@email.com','serviceClient@email.com','2022-04-30 18:08:01','Miss conduct',1),(68,'Garagiste Title','g01@email.com','serviceClient@email.com','2022-04-30 18:44:11','Miss conduct',1);
+INSERT INTO `conversation` VALUES (23,'Problem with the contract signature','1@email.com','serviceClient@email.com','2022-04-22 19:04:05','Problem Report',0),(24,'New Problem ','1@email.com','serviceClient@email.com','2022-04-22 19:04:11','Reclamation',0),(25,'Hello world ','serviceClient@email.com','1@email.com','2022-04-20 19:46:37','Reclamation',0),(32,'Bug with Pdf files','1@email.com','serviceClient@email.com','2022-04-23 01:09:28','Bug Report',0),(67,'Client miss conduct during Meeting','s01@email.com','serviceClient@email.com','2022-04-30 18:08:01','Miss conduct',1),(68,'Client missed booking ','g01@email.com','serviceClient@email.com','2022-04-30 18:44:11','Miss conduct',1);
 /*!40000 ALTER TABLE `conversation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -298,7 +280,7 @@ CREATE TABLE `depot` (
 
 LOCK TABLES `depot` WRITE;
 /*!40000 ALTER TABLE `depot` DISABLE KEYS */;
-INSERT INTO `depot` VALUES (1,'Guidjel District Setif Algeria',56,'Hertz',36.1892751,5.403493,191),(2,'batna',15,'Hertz',35.55216,6.17968,12),(3,'constantine',15,'agence02',36.265,6.5833,80),(11,'Bejaia District Bejaia Algeria',20,'Hertz',36.73397103451364,5.048895145822205,0),(13,'Setif District Setif Algeria',10,'agence02',36.182615350000006,5.4023142721312,11);
+INSERT INTO `depot` VALUES (1,'Guidjel District Setif Algeria',25,'Hertz',36.1892751,5.403493,193),(2,'batna',15,'Hertz',35.55216,6.17968,12),(3,'constantine',15,'agence02',36.265,6.5833,80),(11,'Bejaia District Bejaia Algeria',20,'Hertz',36.73397103451364,5.048895145822205,0),(13,'Setif District Setif Algeria',10,'agence02',36.182615350000006,5.4023142721312,11);
 /*!40000 ALTER TABLE `depot` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -411,7 +393,7 @@ CREATE TABLE `garagiste` (
 
 LOCK TABLES `garagiste` WRITE;
 /*!40000 ALTER TABLE `garagiste` DISABLE KEYS */;
-INSERT INTO `garagiste` VALUES ('g01@email.com','Boumakrane','Hamza','/assets/profile_pics/1email.png',1,'0000-00-00','Hertz'),('g02@email.com','Oussama','Ghodbane','/assets/profile_pics/g02email.jpeg',2,NULL,'Hertz');
+INSERT INTO `garagiste` VALUES ('g01@email.com','Boumakrane','Hamza','/assets/profile_pics/1email.png',NULL,'0000-00-00','Hertz'),('g02@email.com','Oussama','Ghodbane','/assets/profile_pics/g02email.jpeg',2,NULL,'Hertz');
 /*!40000 ALTER TABLE `garagiste` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -508,7 +490,7 @@ CREATE TABLE `messages` (
 
 LOCK TABLES `messages` WRITE;
 /*!40000 ALTER TABLE `messages` DISABLE KEYS */;
-INSERT INTO `messages` VALUES (32,23,'1@email.com','serviceClient@email.com','Hello I have a problem with the pdf signature not showing even though I signed the contract thank you ','2022-04-17 13:05:59','read'),(33,24,'1@email.com','serviceClient@email.com','Hello Bye','2022-04-17 18:50:19','read'),(34,24,'1@email.com','serviceClient@email.com','Hello again bye','2022-04-17 19:10:52','read'),(104,23,'serviceClient@email.com','1@email.com','ff','2022-04-22 19:04:05','read'),(105,24,'serviceClient@email.com','1@email.com','ff','2022-04-22 19:04:11','read'),(106,32,'1@email.com','serviceClient@email.com','I found a bug with the pdf system Bye ','2022-04-23 01:08:58','read'),(107,32,'serviceClient@email.com','1@email.com','Fixing it','2022-04-23 01:09:28','read'),(142,67,'s01@email.com','serviceClient@email.com','CEO','2022-04-30 18:08:01','not read'),(143,68,'g01@email.com','serviceClient@email.com','Garagiste First Request','2022-04-30 18:44:11','not read');
+INSERT INTO `messages` VALUES (32,23,'1@email.com','serviceClient@email.com','Hello I have a problem with the pdf signature not showing even though I signed the contract thank you ','2022-04-17 13:05:59','read'),(33,24,'1@email.com','serviceClient@email.com','Hello Bye','2022-04-17 18:50:19','read'),(34,24,'1@email.com','serviceClient@email.com','Hello again bye','2022-04-17 19:10:52','read'),(104,23,'serviceClient@email.com','1@email.com','ff','2022-04-22 19:04:05','read'),(105,24,'serviceClient@email.com','1@email.com','ff','2022-04-22 19:04:11','read'),(106,32,'1@email.com','serviceClient@email.com','I found a bug with the pdf system Bye ','2022-04-23 01:08:58','read'),(107,32,'serviceClient@email.com','1@email.com','Fixing it','2022-04-23 01:09:28','read'),(142,67,'s01@email.com','serviceClient@email.com','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et nulla vel ligula posuere rutrum. Vivamus iaculis, ipsum non sollicitudin tempus, orci nulla commodo metus, vulputate dapibus felis justo vitae massa.','2022-04-30 18:08:01','not read'),(143,68,'g01@email.com','serviceClient@email.com','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et nulla vel ligula posuere rutrum. Vivamus iaculis, ipsum non sollicitudin tempus, orci nulla commodo metus, vulputate dapibus felis justo vitae massa.','2022-04-30 18:44:11','not read');
 /*!40000 ALTER TABLE `messages` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -591,7 +573,7 @@ CREATE TABLE `recentsearch` (
 
 LOCK TABLES `recentsearch` WRITE;
 /*!40000 ALTER TABLE `recentsearch` DISABLE KEYS */;
-INSERT INTO `recentsearch` VALUES ('1@email.com','setif','2022-05-26','2022-05-31','36.1892751','5.403493'),('Hamza@gmail.com','constantine','2022-05-23','2022-05-27',NULL,NULL);
+INSERT INTO `recentsearch` VALUES ('02@email.com','setif','2022-06-11','2022-06-25','36.1892751','5.403493'),('1@email.com','setif','2022-05-26','2022-05-31','36.1892751','5.403493'),('Hamza@gmail.com','constantine','2022-05-23','2022-05-27',NULL,NULL);
 /*!40000 ALTER TABLE `recentsearch` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -643,7 +625,7 @@ CREATE TABLE `reservation` (
   KEY `fk_Locataire_has_Vehicule_Locataire1_idx` (`locataire_email`),
   CONSTRAINT `fk_Locataire_has_Vehicule_Locataire1` FOREIGN KEY (`locataire_email`) REFERENCES `client` (`email`),
   CONSTRAINT `fk_Locataire_has_Vehicule_Vehicule1` FOREIGN KEY (`vehicule_matricule`) REFERENCES `vehicule` (`matricule`)
-) ENGINE=InnoDB AUTO_INCREMENT=957 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=959 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -652,7 +634,6 @@ CREATE TABLE `reservation` (
 
 LOCK TABLES `reservation` WRITE;
 /*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
-INSERT INTO `reservation` VALUES (956,'1@email.com','202212519','2022-05-26','2022-05-31','en cours','/assets/documents/contracts/779.pdf','2022-05-30','setif');
 /*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -815,7 +796,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('1@email.com','12345678','client'),('d01@email.com','12345678','directeur'),('d02@gmail.com','12345678','directeur'),('d09@email.com','azerty','secretary'),('g01@email.com','test','depot manager'),('g02@email.com','test','depot manager'),('Hamza@gmail.com','test','client'),('hamzaboumakrane@gmail.com','12345678','client'),('O01@email.com','test','owner'),('s01@email.com','12345678','secretary'),('s02@email.com','12345678','secretary'),('s03@email.com','test','secretary'),('Secretary@email.com','Hamza','secretary'),('serviceClient@email.com','test','service_client');
+INSERT INTO `users` VALUES ('02@email.com','1234','client'),('1@email.com','12345678','client'),('d01@email.com','12345678','directeur'),('d02@gmail.com','12345678','directeur'),('d09@email.com','azerty','secretary'),('g01@email.com','test','depot manager'),('g02@email.com','test','depot manager'),('Hamza@gmail.com','test','client'),('O01@email.com','test','owner'),('s01@email.com','12345678','secretary'),('s02@email.com','12345678','secretary'),('s03@email.com','test','secretary'),('Secretary@email.com','Hamza','secretary'),('serviceClient@email.com','test','service_client');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -929,4 +910,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-02 23:54:50
+-- Dump completed on 2022-06-12 13:24:46

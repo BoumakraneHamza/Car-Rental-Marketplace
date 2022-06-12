@@ -102,6 +102,8 @@ public class ViewAgencyDepots extends HttpServlet {
 					String DataResponse = gson.toJson(vehicule);
 					out.write(DataResponse);
 					response.setStatus(200);
+				}else if(request.getParameter("required_action").equals("get_available_depots")) {
+					
 				}
 			}
 		} else {

@@ -1,0 +1,69 @@
+.logo{
+	padding:10px;
+}
+.logo img{
+	width:35px;
+}
+.videoPlayer {
+    position: absolute;
+    width: fit-content;
+    border-radius: 10Px;
+    overflow: hidden;
+    height: 58%;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+}
+.videoPlayer .counter {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    font-size: 30px;
+    font-weight: 600;
+    color: #fff;
+}
+.videoPlayer .control_btns {
+    width: fit-content;
+    position: absolute;
+    bottom: 15%;
+    margin-bottom: 10px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.videoPlayer .control_btns #btnStart {
+    width: 50px;
+    height: 50Px;
+    border-radius: 50%;
+    border: none;
+    background: #9dbc8c;
+    position: absolute;
+    cursor: pointer;
+}
+.videoPlayer .control_btns #btnStop {
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 50%;
+    background: #ff5970;
+    position: absolute;
+    display: none;
+    cursor: pointer;
+}
+#Next {
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    background: #0071ff;
+    border: none;
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+#Next button{
+	border:none;
+	background:none;
+}

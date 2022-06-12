@@ -164,7 +164,8 @@ function showDetails(element){
 					sidebar.querySelector("#selected_Employee_email").value = json.employee.email;
 					sidebar.querySelector("#selected_Employee_type").value = json.employee.type;
 				}
-				
+				let add_car= car_list.querySelector("#add_car");
+				add_car.querySelector("#depot_code").value = json.code;
 				let cars_list = car_list.querySelector("#cars_list");
 				if(json.type=="depot"){
 					document.querySelector(".car_list").querySelector("#tab_header").querySelector("#title").innerHTML ="cars / "+json.capacite;
@@ -635,4 +636,51 @@ function HideHoverDetails(){
 		car_hover_popUp.classList.add("hidden");
 		car_hover_popUp.classList.remove("displayed");
 	}
+}
+function readURL(input) {
+ 	if (input.files && input.files[0]) {
+		let selectedImages;
+		if(input.getAttribute("id") == "customMainImage"){
+			selectedImages = document.querySelector("#main_image").querySelectorAll("#car_main_image");
+		}else if(input.getAttribute("id") == "custom_sec_image"){
+			selectedImages = document.querySelector("#sec_images").querySelectorAll("#sec_image");
+		}
+		let p = Promise.resolve();
+		for (let x=0;x<selectedImages.length;x++){
+			p.then(()=>{
+				ReadFile(input.files[x]).then(url =>{
+					selectedImages[x].src=url;
+				})
+			});
+		}
+	}
+};
+function ReadFile(file){
+	return new Promise((resolve , reject)=>{
+		let reader = new FileReader();
+		reader.onload = ()=>{
+			resolve(reader.result)
+		}
+		reader.onerror = reject;
+		reader.readAsDataURL(file);
+	});
+}
+function showAddCar(element){
+	let code= element.querySelector("#depot_code").value;
+	console.log(code);
+	let xhr = new XMLHttpRequest();
+	let params = "required_action=check_available&depot_code="+code;
+	xhr.onload= ()=>{
+		if(xhr.status ==200 && xhr.readyState == 4){
+			console.log("success");
+			document.querySelector(".add_car_wrapper").style.display="flex";
+			document.querySelector(".add_car_wrapper").querySelector("#depot_code").value=code;
+		}
+	}
+	xhr.open("Post","CarManagement");
+	xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	xhr.send(params);
+}
+function hideAddCar(){
+	document.querySelector(".add_car_wrapper").style.display="none";
 }

@@ -1,7 +1,6 @@
 package control;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import model.DAO;
 import model.User;
@@ -29,7 +27,6 @@ public class ServiceClient extends HttpServlet {
      */
     public ServiceClient() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -64,5 +61,4 @@ public class ServiceClient extends HttpServlet {
 			}
 		}
 	}
-
 }
