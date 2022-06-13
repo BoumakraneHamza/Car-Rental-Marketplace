@@ -1853,6 +1853,17 @@ public class DAO {
 				statement.setString(1, building.getCode());
 				statement.setString(2, building.getEmployee_email());
 				statement.executeUpdate();
+			} else {
+				Query = "UPDATE `atelier`.`secretary` SET `working_location` = NULL WHERE (`working_location` = ?)";
+				statement = connection.prepareStatement(Query);
+				statement.setString(1, building.getCode());
+				statement.executeUpdate();
+
+				Query = "UPDATE `atelier`.`secretary` SET `working_location` = ? WHERE (`email` = ?)";
+				statement = connection.prepareStatement(Query);
+				statement.setString(1, building.getCode());
+				statement.setString(2, building.getEmployee_email());
+				statement.executeUpdate();
 			}
 			statement.close();
 		}catch (SQLException | InstantiationException | IllegalAccessException e) {
