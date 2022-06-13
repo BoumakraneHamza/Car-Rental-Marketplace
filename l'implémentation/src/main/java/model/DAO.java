@@ -1667,8 +1667,8 @@ public class DAO {
 			statement.setString(1, depot.getAdress());
 			statement.setInt(2, depot.getCapacite());
 			statement.setString(3, depot.getAgence_nom());
-			statement.setString(5, depot.getLat());
-			statement.setString(6, depot.getLon());
+			statement.setString(4, depot.getLat());
+			statement.setString(5, depot.getLon());
 			
 			result = statement.executeUpdate();
 			
@@ -1836,6 +1836,8 @@ public class DAO {
 				statement.setString(2, email);
 				statement.setString(3, building.getLat());
 				statement.setString(4, building.getLon());
+				statement.setString(5, building.getCode());
+				statement.setString(6, building.getAgence_nom());
 			}
 			
 			result = statement.executeUpdate();
